@@ -5,7 +5,8 @@
   </header>
 
   <main>
-    <div class="verse-container" *ngIf="currentVerse">
+    <div *ngIf="isLoading" class="loading">Loading...</div>
+    <div class="verse-container" *ngIf="currentVerse && !isLoading">
       <p class="verse-text">"{{ verseTextWithContext }}"</p>
       <p class="answer" *ngIf="isRoundOver">
         <em>- {{ answerText }}</em>

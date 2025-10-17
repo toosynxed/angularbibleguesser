@@ -1,6 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { forkJoin, Subject, Subscription } from 'rxjs';
+import { switchMap, takeUntil } from 'rxjs/operators';
 import { BibleService } from '../bible.service';
 import { Verse } from '../bible';
 
@@ -16,20 +18,24 @@ export interface RoundResult {
   templateUrl: './game.component.html',
   styleUrls: ['./game.component.css']
 })
-export class GameComponent implements OnInit {
+export class GameComponent implements OnInit, OnDestroy {
   gameMode: 'normal' | 'marathon' = 'normal';
   totalRounds = 1;
   currentRound = 0;
 
   currentVerse: Verse | null = null;
   verseTextWithContext = '';
-  contextSize = 0;
+  contextSize = 1; // Start with context of 1
 
   guessForm: FormGroup;
   isRoundOver = false;
   feedback: string | null = null;
+  isLoading = true;
 
   results: RoundResult[] = [];
+
+  private destroy$ = new Subject<void>();
+  private roundState$ = new Subject<void>();
 
   constructor(
     private bibleService: BibleService,
@@ -47,19 +53,29 @@ export class GameComponent implements OnInit {
 
   ngOnInit(): void {
     this.totalRounds = this.gameMode === 'normal' ? 1 : 5;
-    this.startNewRound();
+    this.roundState$.pipe(
+      switchMap(() => this.bibleService.getRandomVerse()),
+      takeUntil(this.destroy$)
+    ).subscribe(verse => {
+      this.currentVerse = verse;
+      this.updateVerseContext();
+    });
+
+    this.next(); // Start the first round
+  }
+
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 
   startNewRound(): void {
     this.currentRound++;
     this.isRoundOver = false;
     this.feedback = null;
+    this.isLoading = true;
     this.guessForm.reset();
-
-    this.bibleService.getRandomVerse().subscribe(verse => {
-      this.currentVerse = verse;
-      this.updateVerseContext();
-    });
+    this.roundState$.next();
   }
 
   updateVerseContext(): void {
@@ -67,6 +83,7 @@ export class GameComponent implements OnInit {
     this.bibleService.getVerseWithContext(this.currentVerse, this.contextSize)
       .subscribe(text => {
         this.verseTextWithContext = text;
+        this.isLoading = false;
       });
   }
 
@@ -84,7 +101,7 @@ export class GameComponent implements OnInit {
     const rawGuess: string = this.guessForm.value.guess;
     const parsedGuess = this.bibleService.parseVerseReference(rawGuess);
 
-    if (!parsedGuess) {
+    if (!parsedGuess || !this.currentVerse) {
       this.feedback = "Couldn't understand your guess. Please use a format like 'John 3:16'.";
       this.results.push({ verse: this.currentVerse, guess: null, score: 0, stars: 0 });
       return;
@@ -114,12 +131,13 @@ export class GameComponent implements OnInit {
       this.feedback = `The correct answer was ${answer.book} ${answer.chapter}:${answer.verse}.`;
     }
 
-    this.bibleService.getVerseIndex(answer).subscribe(answerIndex => {
-      this.bibleService.getVerseIndex({ book, chapter, verse, text: '' }).subscribe(guessIndex => {
-        const distance = Math.abs(answerIndex - guessIndex);
-        const score = Math.max(0, 100 - distance);
-        this.results.push({ verse: answer, guess: parsedGuess, score, stars });
-      });
+    const answerIndex$ = this.bibleService.getVerseIndex(answer);
+    const guessIndex$ = this.bibleService.getVerseIndex({ book, chapter, verse, text: '' });
+
+    forkJoin([answerIndex$, guessIndex$]).subscribe(([answerIndex, guessIndex]) => {
+      const distance = (guessIndex === -1) ? 100 : Math.abs(answerIndex - guessIndex);
+      const score = Math.max(0, 100 - distance);
+      this.results.push({ verse: answer, guess: parsedGuess, score, stars });
     });
   }
 

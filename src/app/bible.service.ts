@@ -9,10 +9,13 @@ import { shareReplay, switchMap } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class BibleService {
-  private bibleData$: Observable<{ books: Book[], verses: Verse[] & { index: number }[] }>;
+  private bibleData$: Observable<{ books: Book[], verses: Verse[] }>;
 
   constructor(private http: HttpClient) {
-    this.bibleData$ = this.http.get<{ books: Book[], verses: Verse[] }>('assets/bible.json');
+    // Cache the data so we don't re-fetch the JSON file on every call
+    this.bibleData$ = this.http.get<{ books: Book[], verses: Verse[] }>('assets/bible.json').pipe(
+      shareReplay(1)
+    );
   }
 
   getBooks(): Observable<Book[]> {
@@ -55,9 +58,12 @@ export class BibleService {
 
   getVerseIndex(targetVerse: Verse): Observable<number> {
     return this.getVerses().pipe(
-      map(verses => verses.findIndex(v =>
-        v.book === targetVerse.book && v.chapter === targetVerse.chapter && v.verse === targetVerse.verse
-      ))
+      map(verses => {
+        if (!targetVerse) return -1;
+        return verses.findIndex(v =>
+          v.book === targetVerse.book && v.chapter === targetVerse.chapter && v.verse === targetVerse.verse
+        );
+      })
     );
   }
 

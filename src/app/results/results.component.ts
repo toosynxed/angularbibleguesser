@@ -13,7 +13,7 @@ export class ResultsComponent {
 
   constructor(private router: Router) {
     const navigation = this.router.getCurrentNavigation();
-    const state = navigation?.extras.state as { results: RoundResult[] };
+    const state = navigation?.extras.state as { results: RoundResult[] } | undefined;
     if (state?.results) {
       this.results = state.results;
       this.totalScore = this.results.reduce((acc, r) => acc + r.score, 0);

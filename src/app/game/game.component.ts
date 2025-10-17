@@ -61,7 +61,7 @@ export class GameComponent implements OnInit, OnDestroy {
       this.updateVerseContext();
     });
 
-    this.next(); // Start the first round
+    this.startNewRound(); // Start the first round directly
   }
 
   ngOnDestroy(): void {

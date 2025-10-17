@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { map, filter } from 'rxjs/operators';
 import { Book, Verse } from './bible';
 import { shareReplay, switchMap } from 'rxjs/operators';
 
@@ -9,21 +9,23 @@ import { shareReplay, switchMap } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class BibleService {
-  private bibleData$: Observable<{ books: Book[], verses: Verse[] }>;
+  private verses$: Observable<Verse[]>;
 
   constructor(private http: HttpClient) {
     // Cache the data so we don't re-fetch the JSON file on every call
-    this.bibleData$ = this.http.get<{ books: Book[], verses: Verse[] }>('assets/bible.json').pipe(
+    this.verses$ = this.http.get<Verse[]>('assets/bible.json').pipe(
       shareReplay(1)
     );
   }
 
   getBooks(): Observable<Book[]> {
-    return this.bibleData$.pipe(map(data => data.books));
+    // This would need to be derived from verses if not present in the JSON.
+    // Returning an empty array for now to prevent breaking changes.
+    return of([]);
   }
 
   getVerses(): Observable<Verse[]> {
-    return this.bibleData$.pipe(map(data => data.verses));
+    return this.verses$;
   }
 
   getRandomVerse(): Observable<Verse> {

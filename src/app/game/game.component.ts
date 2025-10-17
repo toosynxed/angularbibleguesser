@@ -1,0 +1,142 @@
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { BibleService } from '../bible.service';
+import { Verse } from '../bible';
+
+export interface RoundResult {
+  verse: Verse;
+  guess: { book: string; chapter: number; verse: number; } | null;
+  score: number;
+  stars: number;
+}
+
+@Component({
+  selector: 'app-game',
+  templateUrl: './game.component.html',
+  styleUrls: ['./game.component.css']
+})
+export class GameComponent implements OnInit {
+  gameMode: 'normal' | 'marathon' = 'normal';
+  totalRounds = 1;
+  currentRound = 0;
+
+  currentVerse: Verse | null = null;
+  verseTextWithContext = '';
+  contextSize = 0;
+
+  guessForm: FormGroup;
+  isRoundOver = false;
+  feedback: string | null = null;
+
+  results: RoundResult[] = [];
+
+  constructor(
+    private bibleService: BibleService,
+    private fb: FormBuilder,
+    private router: Router
+  ) {
+    const navigation = this.router.getCurrentNavigation();
+    const state = navigation?.extras.state as { mode: 'normal' | 'marathon' };
+    this.gameMode = state?.mode || 'normal';
+
+    this.guessForm = this.fb.group({
+      guess: ['', Validators.required]
+    });
+  }
+
+  ngOnInit(): void {
+    this.totalRounds = this.gameMode === 'normal' ? 1 : 5;
+    this.startNewRound();
+  }
+
+  startNewRound(): void {
+    this.currentRound++;
+    this.isRoundOver = false;
+    this.feedback = null;
+    this.guessForm.reset();
+
+    this.bibleService.getRandomVerse().subscribe(verse => {
+      this.currentVerse = verse;
+      this.updateVerseContext();
+    });
+  }
+
+  updateVerseContext(): void {
+    if (!this.currentVerse) return;
+    this.bibleService.getVerseWithContext(this.currentVerse, this.contextSize)
+      .subscribe(text => {
+        this.verseTextWithContext = text;
+      });
+  }
+
+  onSliderChange(event: Event): void {
+    this.contextSize = parseInt((event.target as HTMLInputElement).value, 10);
+    this.updateVerseContext();
+  }
+
+  submitGuess(): void {
+    if (this.guessForm.invalid || !this.currentVerse) {
+      return;
+    }
+
+    this.isRoundOver = true;
+    const rawGuess: string = this.guessForm.value.guess;
+    const parsedGuess = this.bibleService.parseVerseReference(rawGuess);
+
+    if (!parsedGuess) {
+      this.feedback = "Couldn't understand your guess. Please use a format like 'John 3:16'.";
+      this.results.push({ verse: this.currentVerse, guess: null, score: 0, stars: 0 });
+      return;
+    }
+
+    const { book, chapter, verse } = parsedGuess;
+    const answer = this.currentVerse;
+
+    const isBookCorrect = this.bibleService.normalizeBookName(book) === this.bibleService.normalizeBookName(answer.book);
+    const isChapterCorrect = chapter === answer.chapter;
+    const isVerseCorrect = verse === answer.verse;
+
+    let stars = 0;
+    if (isBookCorrect) {
+      stars = 1;
+      if (isChapterCorrect) {
+        stars = 2;
+        if (isVerseCorrect) {
+          stars = 3;
+        }
+      }
+    }
+
+    if (stars === 3) {
+      this.feedback = 'Perfect! You got it exactly right!';
+    } else {
+      this.feedback = `The correct answer was ${answer.book} ${answer.chapter}:${answer.verse}.`;
+    }
+
+    this.bibleService.getVerseIndex(answer).subscribe(answerIndex => {
+      this.bibleService.getVerseIndex({ book, chapter, verse, text: '' }).subscribe(guessIndex => {
+        const distance = Math.abs(answerIndex - guessIndex);
+        const score = Math.max(0, 100 - distance);
+        this.results.push({ verse: answer, guess: parsedGuess, score, stars });
+      });
+    });
+  }
+
+  next(): void {
+    if (this.currentRound < this.totalRounds) {
+      this.startNewRound();
+    } else {
+      this.finishGame();
+    }
+  }
+
+  finishGame(): void {
+    this.router.navigate(['/results'], { state: { results: this.results } });
+  }
+
+  get answerText(): string {
+    if (!this.currentVerse) return '';
+    return `${this.currentVerse.book} ${this.currentVerse.chapter}:${this.currentVerse.verse}`;
+  }
+}

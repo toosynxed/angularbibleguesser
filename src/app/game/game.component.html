@@ -1,0 +1,41 @@
+<div class="container">
+  <header>
+    <h1>Bible Guesser</h1>
+    <p>Round {{ currentRound }} of {{ totalRounds }}</p>
+  </header>
+
+  <main>
+    <div class="verse-container" *ngIf="currentVerse">
+      <p class="verse-text">"{{ verseTextWithContext }}"</p>
+      <p class="answer" *ngIf="isRoundOver">
+        <em>- {{ answerText }}</em>
+      </p>
+    </div>
+
+    <div class="context-slider">
+      <label for="context">Context: {{ contextSize }} verse(s) on each side</label>
+      <input type="range" id="context" min="0" max="5" [value]="contextSize" (input)="onSliderChange($event)">
+    </div>
+
+    <form [formGroup]="guessForm" (ngSubmit)="submitGuess()" *ngIf="!isRoundOver">
+      <div class="form-group">
+        <label for="guess">Your Guess (e.g., John 3:16)</label>
+        <input id="guess" type="text" formControlName="guess" placeholder="Book Chapter:Verse">
+      </div>
+
+      <div class="actions">
+        <button type="submit" [disabled]="guessForm.invalid">Guess</button>
+      </div>
+    </form>
+
+    <div class="feedback" *ngIf="feedback">
+      <p>{{ feedback }}</p>
+    </div>
+
+    <div class="actions" *ngIf="isRoundOver">
+      <button type="button" (click)="next()">
+        {{ currentRound < totalRounds ? 'Next Round' : 'See Results' }}
+      </button>
+    </div>
+  </main>
+</div>

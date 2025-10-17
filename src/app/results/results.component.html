@@ -1,0 +1,32 @@
+<div class="container">
+  <header>
+    <h1>Game Over!</h1>
+    <p>Here's how you did.</p>
+  </header>
+
+  <main>
+    <div class="total-score">
+      <h2>Total Score: {{ totalScore }} / {{ results.length * 100 }}</h2>
+    </div>
+
+    <div class="results-list">
+      <div *ngFor="let result of results; let i = index" class="result-card">
+        <h3>Round {{ i + 1 }}</h3>
+        <p><strong>Verse:</strong> {{ result.verse.book }} {{ result.verse.chapter }}:{{ result.verse.verse }}</p>
+        <p><strong>Your Guess:</strong>
+          <span *ngIf="result.guess">{{ result.guess.book }} {{ result.guess.chapter }}:{{ result.guess.verse }}</span>
+          <span *ngIf="!result.guess">Invalid</span>
+        </p>
+        <p><strong>Score:</strong> {{ result.score }} / 100</p>
+        <div class="stars">
+          <span *ngFor="let _ of getStarArray(result.stars)" class="star filled">★</span>
+          <span *ngFor="let _ of getStarArray(3 - result.stars)" class="star">☆</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="actions">
+      <a routerLink="/">Play Again</a>
+    </div>
+  </main>
+</div>

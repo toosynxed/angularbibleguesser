@@ -1,0 +1,103 @@
+/* Global Styles */
+body {
+  margin: 0;
+  font-family: 'Lato', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  background-color: #f4f4f9;
+  color: #333;
+}
+
+a {
+  text-decoration: none;
+  color: #3498db;
+}
+
+/* Shared Container Styles */
+.container {
+  max-width: 800px;
+  margin: auto;
+  padding: 2rem;
+  text-align: center;
+}
+
+header h1 {
+  font-size: 2.5rem;
+  color: #2c3e50;
+  margin-bottom: 0.5rem;
+}
+
+header p {
+  font-size: 1.1rem;
+  color: #7f8c8d;
+  margin-bottom: 2rem;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.verse-container {
+  margin-bottom: 2rem;
+  background-color: #ecf0f1;
+  padding: 1.5rem;
+  border-radius: 4px;
+  border-left: 5px solid #3498db;
+  text-align: left;
+}
+
+.verse-text {
+  font-size: 1.2rem;
+  line-height: 1.6;
+  font-style: italic;
+}
+
+.answer {
+  text-align: right;
+  font-weight: bold;
+  color: #2980b9;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+label {
+  margin-bottom: 0.5rem;
+  font-weight: bold;
+}
+
+input, select {
+  padding: 0.75rem;
+  border: 1px solid #bdc3c7;
+  border-radius: 4px;
+  font-size: 1rem;
+}
+
+.actions {
+  margin-top: 1.5rem;
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+}
+
+button, .actions a {
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 1rem;
+  background-color: #3498db;
+  color: white;
+  transition: background-color 0.3s;
+}
+
+button:hover, .actions a:hover {
+  background-color: #2980b9;
+}
+
+.feedback {
+  margin-top: 1.5rem;
+  font-weight: bold;
+  font-size: 1.1rem;
+}

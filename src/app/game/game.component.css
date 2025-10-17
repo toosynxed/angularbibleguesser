@@ -1,0 +1,20 @@
+.container {
+  max-width: 800px;
+  margin: auto;
+  padding: 2rem;
+  text-align: center;
+}
+
+.form-group input {
+  width: 100%;
+  max-width: 400px;
+  margin: auto;
+}
+
+.context-slider {
+  margin: 2rem 0;
+}
+.context-slider input {
+  width: 100%;
+  max-width: 400px;
+}

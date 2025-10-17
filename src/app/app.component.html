@@ -1,0 +1,52 @@
+<div class="container">
+  <header>
+    <h1>Bible Guesser</h1>
+    <p>Guess the book, chapter, and verse for the passage below.</p>
+  </header>
+
+  <main>
+    <div class="verse-container" *ngIf="currentVerse">
+      <p class="verse-text">"{{ showAnswer ? fullVerseText : maskedVerseText }}"</p>
+      <p class="answer" *ngIf="showAnswer">
+        <em>- {{ answerText }}</em>
+      </p>
+    </div>
+
+    <form [formGroup]="guessForm" (ngSubmit)="submitGuess()" *ngIf="!gameOver">
+      <div class="form-row">
+        <div class="form-group">
+          <label for="book">Book</label>
+          <select id="book" formControlName="book">
+            <option value="">Select a book</option>
+            <option *ngFor="let book of books$ | async" [value]="book.name">{{ book.name }}</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="chapter">Chapter</label>
+          <input id="chapter" type="number" formControlName="chapter" min="1">
+        </div>
+        <div class="form-group">
+          <label for="verse">Verse</label>
+          <input id="verse" type="number" formControlName="verse" min="1">
+        </div>
+      </div>
+
+      <div class="actions">
+        <button type="submit" [disabled]="guessForm.invalid">Guess</button>
+        <button type="button" (click)="giveUp()">Give Up</button>
+      </div>
+    </form>
+
+    <div class="feedback" *ngIf="guessResult">
+      <p>{{ guessResult }}</p>
+    </div>
+
+    <div class="actions" *ngIf="gameOver">
+      <button type="button" (click)="loadNewVerse()">Next Verse</button>
+    </div>
+  </main>
+
+  <footer>
+    <p>A recreation of bibleguesser.com in Angular.</p>
+  </footer>
+</div>

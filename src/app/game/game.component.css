@@ -24,3 +24,20 @@
   color: #7f8c8d;
   margin: 2rem 0;
 }
+
+.verse-context {
+  margin-bottom: 1.5rem;
+}
+
+.verse-context p {
+  margin: 0.25em 0;
+  padding: 0.5em;
+  border-radius: 4px;
+  transition: background-color 0.3s ease;
+}
+
+.verse-context .highlight {
+  background-color: #e3f2fd; /* A light blue background */
+  border: 1px solid #90caf9;  /* A slightly darker blue border */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}

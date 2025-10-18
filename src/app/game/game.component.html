@@ -10,7 +10,6 @@
       <div class="verse-context" aria-live="polite">
         <p *ngFor="let verse of verseTextWithContext"
            [ngClass]="{'highlight': verse.verseId === currentVerse?.verseId}">
-          <sup *ngIf="verse.verseId !== currentVerse?.verseId">{{ verse.verse }}</sup>
           {{ verse.text }}
         </p>
       </div>

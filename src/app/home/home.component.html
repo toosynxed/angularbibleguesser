@@ -27,4 +27,22 @@
       <p *ngIf="error" class="error-message">{{ error }}</p>
     </div>
   </main>
+
+  <!-- Changelog Button -->
+  <button class="changelog-button" (click)="showChangelog = true">Changelog</button>
+
+  <!-- Changelog Modal -->
+  <div *ngIf="showChangelog" class="modal-backdrop" (click)="showChangelog = false">
+    <div class="modal-content" (click)="$event.stopPropagation()">
+      <div class="modal-header">
+        <h2>Changelog</h2>
+        <button class="close-button" (click)="showChangelog = false">&times;</button>
+      </div>
+      <div class="modal-body">
+        <!-- The content below is rendered from the changelogContent property in your component -->
+        <!-- You can use markdown-like syntax (### for headers, - for lists) -->
+        <pre>{{ changelogContent }}</pre>
+      </div>
+    </div>
+  </div>
 </div>

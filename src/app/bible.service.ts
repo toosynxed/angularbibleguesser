@@ -18,10 +18,10 @@ export class BibleService {
         // Map JSON properties to the Verse interface.
         // Adjust these property names if your bible.json is different.
         return {
-          book: v.book_name || v.book,
-          chapter: v.chapter,
-          verse: v.verse,
-          text: v.text
+          book: v.book_name || v.book, // Handles 'book_name' or 'book'
+          chapter: v.chapter_number || v.chapter, // Handles 'chapter_number' or 'chapter'
+          verse: v.verse_number || v.verse, // Handles 'verse_number' or 'verse'
+          text: v.verse_text || v.text // Handles 'verse_text' or 'text'
         } as Verse;
       })),
       shareReplay(1)

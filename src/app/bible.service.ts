@@ -19,21 +19,29 @@ export class BibleService {
           return [];
         }
 
-        // Dynamically find the correct property keys from the first verse object.
+        // Helper to find the correct key for a primitive value (string or number)
+        const findPrimitiveKey = (obj: any, ...keywords: string[]): string => {
+          for (const key in obj) {
+            if (typeof obj[key] === 'string' || typeof obj[key] === 'number') {
+              const lowerKey = key.toLowerCase();
+              if (keywords.some(kw => lowerKey.includes(kw))) {
+                return key;
+              }
+            }
+          }
+          return keywords[0]; // Fallback
+        };
+
         const firstVerse = verses[0];
-        const bookKey = Object.keys(firstVerse).find(k => k.toLowerCase().includes('book')) || 'book';
-        const chapterKey = Object.keys(firstVerse).find(k => k.toLowerCase().includes('chapter')) || 'chapter';
-        const verseKey = Object.keys(firstVerse).find(k => k.toLowerCase().includes('verse')) || 'verse';
-        const textKey = Object.keys(firstVerse).find(k => k.toLowerCase().includes('text')) || 'text';
+        const bookKey = findPrimitiveKey(firstVerse, 'book');
+        const chapterKey = findPrimitiveKey(firstVerse, 'chapter');
+        const verseKey = findPrimitiveKey(firstVerse, 'verse');
+        const textKey = findPrimitiveKey(firstVerse, 'text');
 
         // Map all verses using the discovered keys.
         return verses.map(v => {
-          return {
-            book: v[bookKey],
-            chapter: v[chapterKey],
-            verse: v[verseKey],
-            text: v[textKey]
-          } as Verse;
+          const verseData = { book: v[bookKey], chapter: +v[chapterKey], verse: +v[verseKey], text: v[textKey] };
+          return verseData as Verse;
         });
       }),
       shareReplay(1)

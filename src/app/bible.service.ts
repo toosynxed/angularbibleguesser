@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, of } from 'rxjs';
+import { Observable, of, throwError } from 'rxjs';
 import { map, filter } from 'rxjs/operators';
 import { Book, Verse } from './bible';
 import { shareReplay, switchMap } from 'rxjs/operators';
@@ -14,16 +14,28 @@ export class BibleService {
   constructor(private http: HttpClient) {
     // Cache the data so we don't re-fetch the JSON file on every call
     this.verses$ = this.http.get<any[]>('assets/bible.json').pipe(
-      map(verses => verses.map(v => {
-        // Map JSON properties to the Verse interface.
-        // Adjust these property names if your bible.json is different.
-        return {
-          book: v.book_name || v.book, // Handles 'book_name' or 'book'
-          chapter: v.chapter_number || v.chapter, // Handles 'chapter_number' or 'chapter'
-          verse: v.verse_number || v.verse, // Handles 'verse_number' or 'verse'
-          text: v.verse_text || v.text // Handles 'verse_text' or 'text'
-        } as Verse;
-      })),
+      map(verses => {
+        if (!verses || verses.length === 0) {
+          return [];
+        }
+
+        // Dynamically find the correct property keys from the first verse object.
+        const firstVerse = verses[0];
+        const bookKey = Object.keys(firstVerse).find(k => k.toLowerCase().includes('book')) || 'book';
+        const chapterKey = Object.keys(firstVerse).find(k => k.toLowerCase().includes('chapter')) || 'chapter';
+        const verseKey = Object.keys(firstVerse).find(k => k.toLowerCase().includes('verse')) || 'verse';
+        const textKey = Object.keys(firstVerse).find(k => k.toLowerCase().includes('text')) || 'text';
+
+        // Map all verses using the discovered keys.
+        return verses.map(v => {
+          return {
+            book: v[bookKey],
+            chapter: v[chapterKey],
+            verse: v[verseKey],
+            text: v[textKey]
+          } as Verse;
+        });
+      }),
       shareReplay(1)
     );
   }

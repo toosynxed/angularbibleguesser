@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, of } from 'rxjs';
+import { Observable, of, throwError } from 'rxjs';
 import { map, filter } from 'rxjs/operators';
 import { Book, Verse } from './bible';
 import { shareReplay, switchMap } from 'rxjs/operators';
@@ -13,7 +13,17 @@ export class BibleService {
 
   constructor(private http: HttpClient) {
     // Cache the data so we don't re-fetch the JSON file on every call
-    this.verses$ = this.http.get<Verse[]>('assets/bible.json').pipe(
+    this.verses$ = this.http.get<any[]>('assets/bible.json').pipe(
+      map(verses => verses.map(v => {
+        // Map JSON properties to the Verse interface.
+        // Adjust these property names if your bible.json is different.
+        return {
+          book: v.book_name || v.book,
+          chapter: v.chapter,
+          verse: v.verse,
+          text: v.text
+        } as Verse;
+      })),
       shareReplay(1)
     );
   }

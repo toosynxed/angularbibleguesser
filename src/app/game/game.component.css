@@ -16,18 +16,18 @@ header {
   left: 0;
 }
 
-.back-button {
+.secondary-button, .back-button {
   background: none;
   border: 1px solid var(--border-color);
   color: var(--text-secondary-color);
   padding: 0.5rem 1rem;
-  border-radius: 20px;
+  border-radius: var(--border-radius, 4px);
   cursor: pointer;
   font-size: 0.9rem;
   transition: background-color 0.2s ease, border-color 0.2s ease;
 }
 
-.back-button:hover {
+.secondary-button:hover, .back-button:hover {
   background-color: var(--verse-context-bg);
   border-color: var(--text-secondary-color);
 }
@@ -52,6 +52,11 @@ header {
   margin: 2rem 0;
 }
 
+.verse-container {
+  position: relative;
+  margin-bottom: 1rem;
+}
+
 .verse-context {
   margin-bottom: 1.5rem;
   max-height: 250px; /* Set a maximum height for the container */
@@ -63,20 +68,36 @@ header {
   background-color: var(--verse-context-bg);
 }
 
-.verse-context p {
-  margin: 0.25em 0;
-  padding: 0.5em;
-  border: 1px solid transparent; /* Add transparent border to maintain layout on highlight */
-  border-radius: 6px;
-  transition: background-color 0.3s ease;
+.verses-paragraph {
+  margin: 0;
+  padding: 0;
+  text-align: left;
+  line-height: 1.6;
 }
 
 .verse-context .highlight {
-  /* A more prominent color for the verse to guess */
-  background-color: var(--highlight-bg);
-  border-color: var(--highlight-border);
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-  font-weight: 500;
+  color: var(--primary-color, #6a0dad); /* A nice purple color */
+  font-weight: bold;
+}
+
+.verse-actions {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  z-index: 10;
+}
+
+.verse-actions button {
+  background-color: rgba(255, 255, 255, 0.8);
+  border: 1px solid var(--border-color, #ccc);
+  padding: 0.25rem 0.5rem;
+  font-size: 0.8rem;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.verse-actions button:hover {
+  background-color: white;
 }
 
 .feedback {

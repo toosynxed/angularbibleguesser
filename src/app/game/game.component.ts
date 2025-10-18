@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { forkJoin, from, of, Subject, Subscription } from 'rxjs';
@@ -23,6 +23,8 @@ export interface RoundResult {
   styleUrls: ['./game.component.css']
 })
 export class GameComponent implements OnInit, OnDestroy {
+  @ViewChild('verseContextContainer') private verseContextContainer: ElementRef<HTMLElement>;
+
   gameMode: 'normal' | 'marathon' = 'normal';
   totalRounds = 1;
   seededVerseIds: number[] | null = null;
@@ -188,6 +190,15 @@ export class GameComponent implements OnInit, OnDestroy {
     const confirmation = window.confirm('Are you sure you want to leave? Your current game progress will be lost.');
     if (confirmation) {
       this.router.navigate(['/']);
+    }
+  }
+
+  scrollToGuessingVerse(): void {
+    if (this.verseContextContainer) {
+      const verseElement = this.verseContextContainer.nativeElement.querySelector('.highlight');
+      if (verseElement) {
+        verseElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
     }
   }
 }

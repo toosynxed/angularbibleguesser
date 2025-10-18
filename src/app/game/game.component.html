@@ -1,7 +1,7 @@
 <div class="container">
   <header>
     <div class="header-controls">
-      <button class="back-button" (click)="confirmGoHome()" title="Back to Home">‹ Home</button>
+      <button class="secondary-button" (click)="confirmGoHome()" title="Back to Home">‹ Home</button>
     </div>
     <h1>Bible Guesser</h1>
     <p>Round {{ currentRound }} of {{ totalRounds }}</p>
@@ -10,10 +10,15 @@
   <main>
     <div *ngIf="isLoading" class="loading">Loading...</div>
     <div class="verse-container" *ngIf="currentVerse && !isLoading">
-      <div class="verse-context" aria-live="polite">
-        <p *ngFor="let verse of verseTextWithContext"
-           [ngClass]="{'highlight': verse.verseId === currentVerse?.verseId}">
-          {{ verse.text }}
+      <div class="verse-actions">
+        <button (click)="scrollToGuessingVerse()" title="Scroll to current verse">Refocus</button>
+      </div>
+      <div class="verse-context" #verseContextContainer aria-live="polite">
+        <p class="verses-paragraph">
+          <span *ngFor="let verse of verseTextWithContext"
+                [class.highlight]="verse.verseId === currentVerse?.verseId">
+            {{ verse.text }}&nbsp;
+          </span>
         </p>
       </div>
 
@@ -23,8 +28,8 @@
     </div>
 
     <div class="context-slider">
-      <label for="context">Context: {{ contextSize }} verse(s) on each side</label>
-      <input type="range" id="context" min="0" max="5" [value]="contextSize" (input)="onSliderChange($event)">
+      <label for="context">Context Verses: {{ contextSize }}</label>
+      <input type="range" id="context" min="0" max="50" [value]="contextSize" (input)="onSliderChange($event)">
     </div>
 
     <form [formGroup]="guessForm" (ngSubmit)="submitGuess()" *ngIf="!isRoundOver">

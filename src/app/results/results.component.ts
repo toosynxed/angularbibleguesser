@@ -2,6 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { RoundResult } from '../game/game.component';
 import { ShareService } from '../share.service';
+import { AuthService } from '../auth.service';
+import { StatsService } from '../stats.service';
+import { first } from 'rxjs/operators';
+import { LeaderboardService } from '../leaderboard.service';
 
 @Component({
   selector: 'app-results',
@@ -15,12 +19,18 @@ export class ResultsComponent implements OnInit {
   copyButtonText = 'Copy Share Code';
   expandedIndex: number | null = null;
 
-  constructor(private router: Router, private shareService: ShareService) {
+  constructor(
+    private router: Router,
+    private shareService: ShareService,
+    private authService: AuthService,
+    private statsService: StatsService,
+    private leaderboardService: LeaderboardService
+  ) {
     const navigation = this.router.getCurrentNavigation();
-    const state = navigation?.extras.state as { results: RoundResult[] } | undefined;
+    const state = navigation?.extras.state as { results: RoundResult[], username?: string } | undefined;
     if (state?.results) {
       this.results = state.results;
-    } else {
+    } else if (!state?.results) {
       // No results, go home
       this.router.navigate(['/']);
     }
@@ -32,6 +42,22 @@ export class ResultsComponent implements OnInit {
     this.totalScore = this.results.reduce((acc, r) => acc + r.score, 0);
     const verseIds = this.results.map(r => r.verse.verseId);
     this.shareCode = this.shareService.encodeGame(verseIds);
+
+    this.saveAllStats();
+  }
+
+  private saveAllStats(): void {
+    this.authService.user$.pipe(first()).subscribe(user => {
+      // Save personal stats for logged-in users
+      if (user && this.results.length > 0) {
+        this.statsService.updateUserStats(user, this.results);
+      }
+
+      // Save to public leaderboard
+      const gameMode = this.results.length > 1 ? 'marathon' : 'normal';
+      const playerName = user?.displayName || (this.router.getCurrentNavigation()?.extras.state as any)?.username || 'Anonymous';
+      this.leaderboardService.addHighScore({ username: playerName, score: this.totalScore, mode: gameMode });
+    });
   }
 
   copyCode(): void {

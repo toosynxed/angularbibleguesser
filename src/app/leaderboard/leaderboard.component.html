@@ -1,0 +1,37 @@
+<div class="container">
+  <header>
+    <h1>Leaderboard</h1>
+    <p>Top 10 High Scores</p>
+    <div class="actions">
+      <a routerLink="/">Back to Home</a>
+    </div>
+  </header>
+
+  <main class="leaderboard-main">
+    <div class="leaderboard-column">
+      <h2>Normal Mode</h2>
+      <ol *ngIf="normalScores$ | async as scores; else loading">
+        <li *ngFor="let score of scores">
+          <span class="name">{{ score.username }}</span>
+          <span class="score">{{ score.score }}</span>
+        </li>
+        <li *ngIf="scores.length === 0">No scores yet!</li>
+      </ol>
+    </div>
+
+    <div class="leaderboard-column">
+      <h2>Marathon Mode</h2>
+      <ol *ngIf="marathonScores$ | async as scores; else loading">
+        <li *ngFor="let score of scores">
+          <span class="name">{{ score.username }}</span>
+          <span class="score">{{ score.score }}</span>
+        </li>
+        <li *ngIf="scores.length === 0">No scores yet!</li>
+      </ol>
+    </div>
+  </main>
+
+  <ng-template #loading>
+    <p>Loading scores...</p>
+  </ng-template>
+</div>

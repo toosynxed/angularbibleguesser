@@ -26,6 +26,7 @@ export class GameComponent implements OnInit, OnDestroy {
   gameMode: 'normal' | 'marathon' = 'normal';
   totalRounds = 1;
   seededVerseIds: number[] | null = null;
+  username: string | null = null;
   currentRound = 0;
 
   currentVerse: Verse | null = null;
@@ -49,8 +50,9 @@ export class GameComponent implements OnInit, OnDestroy {
     private shareService: ShareService
   ) {
     const navigation = this.router.getCurrentNavigation();
-    const state = navigation?.extras.state as { mode: 'normal' | 'marathon', verseIds?: number[] };
+    const state = navigation?.extras.state as { mode: 'normal' | 'marathon', verseIds?: number[], username?: string };
     this.seededVerseIds = state?.verseIds || null;
+    this.username = state?.username || null;
     this.gameMode = state?.mode || 'normal';
 
     this.guessForm = this.fb.group({
@@ -176,7 +178,7 @@ export class GameComponent implements OnInit, OnDestroy {
   }
 
   finishGame(): void {
-    this.router.navigate(['/results'], { state: { results: this.results } });
+    this.router.navigate(['/results'], { state: { results: this.results, username: this.username } });
   }
 
   get answerText(): string {

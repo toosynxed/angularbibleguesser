@@ -1,36 +1,35 @@
-import { Component } from '@angular/core';
-import { Router } from '@angular/router';
-import { ShareService } from '../share.service';
+<div class="container">
+  <header>
+    <h1>Bible Guesser</h1>
+    <p>Test your knowledge of the scriptures. Enter a name below to appear on the leaderboard!</p>
+  </header>
 
-@Component({
-  selector: 'app-home',
-  templateUrl: './home.component.html',
-  styleUrls: ['./home.component.css']
-})
-export class HomeComponent {
-  showCodeInput = false;
-  gameCode = '';
-  error: string | null = null;
+  <main class="home-main">
+    <h2>Choose a Game Mode</h2>
+    <div class="player-input" *ngIf="!(authService.user$ | async)">
+      <input type="text" [(ngModel)]="username" placeholder="Enter your name...">
+    </div>
+    <div *ngIf="!(authService.user$ | async) && !username" class="signin-prompt">
+      <p>Or, sign in to save your stats automatically!</p>
+      <button (click)="authService.googleSignIn()">Sign in with Google</button>
+    </div>
+    <button (click)="startGame('normal')" [disabled]="!(authService.user$ | async) && !username">Normal Mode (1 Round)</button>
+    <button (click)="startGame('marathon')" [disabled]="!(authService.user$ | async) && !username">Marathon Mode (5 Rounds)</button>
+    <button class="secondary" (click)="showCodeInput = !showCodeInput">Play with Code</button>
 
-  constructor(private router: Router, private shareService: ShareService) { }
+    <div class="leaderboard-link">
+      <a routerLink="/leaderboard" title="View Leaderboard">🏆 Leaderboard</a>
+    </div>
 
-  startGame(mode: 'normal' | 'marathon'): void {
-    this.router.navigate(['/game'], { state: { mode: mode } });
-  }
-
-  playFromCode(): void {
-    this.error = null;
-    const seed = this.shareService.decodeGame(this.gameCode);
-
-    if (seed && seed.verseIds.length > 0) {
-      this.router.navigate(['/game'], {
-        state: {
-          mode: seed.mode,
-          verseIds: seed.verseIds
-        }
-      });
-    } else {
-      this.error = 'Invalid game code. Please check and try again.';
-    }
-  }
-}
+    <div *ngIf="showCodeInput" class="code-input-container">
+      <input
+        type="text"
+        [(ngModel)]="gameCode"
+        placeholder="Enter game code..."
+        (keyup.enter)="playFromCode()"
+      >
+      <button (click)="playFromCode()">Start from Code</button>
+      <p *ngIf="error" class="error-message">{{ error }}</p>
+    </div>
+  </main>
+</div>

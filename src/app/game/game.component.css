@@ -73,8 +73,8 @@ header {
 
 .verse-context .highlight {
   /* A more prominent color for the verse to guess */
-  background-color: #fff9c4; /* A light, buttery yellow */
-  border-color: #fbc02d;
+  background-color: var(--highlight-bg);
+  border-color: var(--highlight-border);
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
   font-weight: 500;
 }

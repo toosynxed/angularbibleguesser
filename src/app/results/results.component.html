@@ -34,11 +34,11 @@
               <span>Book</span>
             </div>
             <div class="indicator">
-              <span class="circle" [class.correct]="result.isChapterCorrect" [class.incorrect]="!result.isChapterCorrect"></span>
+              <span class="circle" [class.correct]="result.isBookCorrect && result.isChapterCorrect" [class.incorrect]="!(result.isBookCorrect && result.isChapterCorrect)"></span>
               <span>Chapter</span>
             </div>
             <div class="indicator">
-              <span class="circle" [class.correct]="result.isVerseCorrect" [class.incorrect]="!result.isVerseCorrect"></span>
+              <span class="circle" [class.correct]="result.isBookCorrect && result.isChapterCorrect && result.isVerseCorrect" [class.incorrect]="!(result.isBookCorrect && result.isChapterCorrect && result.isVerseCorrect)"></span>
               <span>Verse</span>
             </div>
           </div>

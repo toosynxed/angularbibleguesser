@@ -16,8 +16,8 @@
 }
 
 .result-card {
-  background: var(--verse-context-bg, #f9f9f9);
-  border: 1px solid #ddd;
+  background: var(--surface-color);
+  border: 1px solid var(--border-color);
   border-radius: 8px;
   padding: 1rem;
   cursor: pointer;
@@ -63,7 +63,7 @@
 .details {
   margin-top: 1rem;
   padding-top: 1rem;
-  border-top: 1px solid #eee;
+  border-top: 1px solid var(--border-color);
   text-align: left;
 }
 
@@ -71,6 +71,7 @@
   font-style: italic;
   color: #555;
   margin-bottom: 1.5rem;
+  color: var(--text-secondary-color);
 }
 
 .indicators {
@@ -94,18 +95,18 @@
 }
 
 .circle.correct {
-  background-color: #2ecc71; /* Green */
+  background-color: var(--success-color);
 }
 
 .circle.incorrect {
-  background-color: #e74c3c; /* Red */
+  background-color: var(--failure-color);
 }
 
 .share-container {
   margin-top: 2rem;
   padding: 1.5rem;
-  background-color: var(--highlight-bg, #e3f2fd);
-  border: 1px solid var(--highlight-border, #90caf9);
+  background-color: var(--surface-color);
+  border: 1px solid var(--border-color);
   border-radius: 8px;
 }
 
@@ -117,7 +118,7 @@
 
 .code-actions input {
   flex-grow: 1;
-  background-color: var(--background-color, #fff);
-  color: var(--text-color, #333);
+  background-color: var(--background-color);
+  color: var(--text-color);
   font-family: monospace;
 }

@@ -12,7 +12,7 @@
     <div class="results-list">
       <div *ngFor="let result of results; let i = index" class="result-card">
         <h3>Round {{ i + 1 }}</h3>
-        <p><strong>Verse:</strong> {{ result.verse.book }} {{ result.verse.chapter }}:{{ result.verse.verse }}</p>
+        <p><strong>Verse:</strong> {{ result.verse.bookName }} {{ result.verse.chapter }}:{{ result.verse.verse }}</p>
         <p><strong>Your Guess:</strong>
           <span *ngIf="result.guess">{{ result.guess.book }} {{ result.guess.chapter }}:{{ result.guess.verse }}</span>
           <span *ngIf="!result.guess">Invalid</span>
@@ -22,6 +22,15 @@
           <span *ngFor="let _ of getStarArray(result.stars)" class="star filled">★</span>
           <span *ngFor="let _ of getStarArray(3 - result.stars)" class="star">☆</span>
         </div>
+      </div>
+    </div>
+
+    <div class="share-container">
+      <h3>Share this Game</h3>
+      <p>Send this code to a friend to let them play the same verses!</p>
+      <div class="code-actions">
+        <input type="text" [value]="shareCode" readonly>
+        <button (click)="copyCode()">{{ copyButtonText }}</button>
       </div>
     </div>
 

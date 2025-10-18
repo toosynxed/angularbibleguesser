@@ -16,7 +16,7 @@
 }
 
 .result-card {
-  background: #f9f9f9;
+  background: var(--verse-context-bg, #f9f9f9);
   border: 1px solid #ddd;
   border-radius: 8px;
   padding: 1rem;
@@ -29,4 +29,25 @@
 
 .star.filled {
   color: #f1c40f;
+}
+
+.share-container {
+  margin-top: 2rem;
+  padding: 1.5rem;
+  background-color: var(--highlight-bg, #e3f2fd);
+  border: 1px solid var(--highlight-border, #90caf9);
+  border-radius: 8px;
+}
+
+.code-actions {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 1rem;
+}
+
+.code-actions input {
+  flex-grow: 1;
+  background-color: var(--background-color, #fff);
+  color: var(--text-color, #333);
+  font-family: monospace;
 }

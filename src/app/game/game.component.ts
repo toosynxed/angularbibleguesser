@@ -97,16 +97,17 @@ export class GameComponent implements OnInit, OnDestroy {
       return;
     }
 
-    this.isRoundOver = true;
     const rawGuess: string = this.guessForm.value.guess;
     const parsedGuess = this.bibleService.parseVerseReference(rawGuess);
 
-    if (!parsedGuess || !this.currentVerse) {
-      this.feedback = "Couldn't understand your guess. Please use a format like 'John 3:16'.";
-      this.results.push({ verse: this.currentVerse, guess: null, score: 0, stars: 0 });
+    // If the guess is not in a valid format, show feedback and let the user try again.
+    if (!parsedGuess) {
+      this.feedback = "Invalid format or spelling. Please use a format like 'John 3:16'.";
       return;
     }
 
+    // A valid guess was made, so end the round.
+    this.isRoundOver = true;
     const { book, chapter, verse } = parsedGuess;
     const answer = this.currentVerse;
 

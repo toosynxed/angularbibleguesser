@@ -41,3 +41,16 @@
   border: 1px solid #90caf9;  /* A slightly darker blue border */
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
 }
+
+.feedback {
+  margin-top: 1.5rem;
+  padding: 1rem;
+  border-radius: 8px;
+  background-color: #fff59d; /* A noticeable yellow for alerts */
+  color: #333;
+  border: 1px solid #fbc02d;
+  max-width: 400px;
+  margin-left: auto;
+  margin-right: auto;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}

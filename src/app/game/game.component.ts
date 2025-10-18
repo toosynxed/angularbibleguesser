@@ -1,10 +1,11 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { forkJoin, Subject, Subscription } from 'rxjs';
-import { switchMap, takeUntil } from 'rxjs/operators';
+import { forkJoin, from, of, Subject, Subscription } from 'rxjs';
+import { concatMap, switchMap, takeUntil, tap } from 'rxjs/operators';
 import { BibleService } from '../bible.service'; // Correct
 import { Verse } from '../verse.model'; // Corrected import path
+import { ShareService } from '../share.service';
 
 export interface RoundResult {
   verse: Verse;
@@ -21,6 +22,7 @@ export interface RoundResult {
 export class GameComponent implements OnInit, OnDestroy {
   gameMode: 'normal' | 'marathon' = 'normal';
   totalRounds = 1;
+  seededVerseIds: number[] | null = null;
   currentRound = 0;
 
   currentVerse: Verse | null = null;
@@ -40,10 +42,12 @@ export class GameComponent implements OnInit, OnDestroy {
   constructor(
     private bibleService: BibleService,
     private fb: FormBuilder,
-    private router: Router
+    private router: Router,
+    private shareService: ShareService
   ) {
     const navigation = this.router.getCurrentNavigation();
-    const state = navigation?.extras.state as { mode: 'normal' | 'marathon' };
+    const state = navigation?.extras.state as { mode: 'normal' | 'marathon', verseIds?: number[] };
+    this.seededVerseIds = state?.verseIds || null;
     this.gameMode = state?.mode || 'normal';
 
     this.guessForm = this.fb.group({
@@ -52,13 +56,23 @@ export class GameComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.totalRounds = this.gameMode === 'normal' ? 1 : 5;
+    this.totalRounds = this.seededVerseIds?.length || (this.gameMode === 'normal' ? 1 : 5);
+
     this.roundState$.pipe(
-      switchMap(() => this.bibleService.getRandomVerse()),
+      concatMap(() => {
+        if (this.seededVerseIds && this.seededVerseIds.length > 0) {
+          // If playing a seeded game, get the specific verse for the current round
+          const verseId = this.seededVerseIds[this.currentRound - 1];
+          return this.bibleService.getVerseById(verseId);
+        } else {
+          // Otherwise, get a random verse
+          return this.bibleService.getRandomVerse();
+        }
+      }),
       takeUntil(this.destroy$)
     ).subscribe(verse => {
       this.currentVerse = verse;
-      this.updateVerseContext();
+      if (verse) this.updateVerseContext();
     });
 
     this.startNewRound(); // Start the first round directly
@@ -157,5 +171,12 @@ export class GameComponent implements OnInit, OnDestroy {
   get answerText(): string {
     if (!this.currentVerse) return '';
     return `${this.currentVerse.bookName} ${this.currentVerse.chapter}:${this.currentVerse.verse}`;
+  }
+
+  confirmGoHome(): void {
+    const confirmation = window.confirm('Are you sure you want to leave? Your current game progress will be lost.');
+    if (confirmation) {
+      this.router.navigate(['/']);
+    }
   }
 }

@@ -63,6 +63,17 @@ export class BibleService {
     );
   }
 
+  /**
+   * Gets a single verse by its ID.
+   * @param id The verseId to find.
+   * @returns An observable that emits the found Verse object or null.
+   */
+  getVerseById(id: number): Observable<Verse | null> {
+    return this.getVerses().pipe(
+      map(verses => verses.find(v => v.verseId === id) || null)
+    );
+  }
+
   private initializeBookMap(verses: Verse[]): Verse[] {
     const bookSet = new Set<string>();
     verses.forEach(verse => {

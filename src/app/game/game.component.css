@@ -1,8 +1,35 @@
 .container {
   max-width: 800px;
-  margin: auto;
+  margin: 0 auto;
   padding: 2rem;
   text-align: center;
+}
+
+header {
+  position: relative;
+  margin-bottom: 1rem;
+}
+
+.header-controls {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.back-button {
+  background: none;
+  border: 1px solid var(--border-color);
+  color: var(--text-secondary-color);
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+
+.back-button:hover {
+  background-color: var(--verse-context-bg);
+  border-color: var(--text-secondary-color);
 }
 
 .form-group input {
@@ -21,7 +48,7 @@
 
 .loading {
   font-size: 1.2rem;
-  color: #7f8c8d;
+  color: var(--text-secondary-color);
   margin: 2rem 0;
 }
 
@@ -29,11 +56,11 @@
   margin-bottom: 1.5rem;
   max-height: 250px; /* Set a maximum height for the container */
   overflow-y: auto;  /* Enable vertical scrolling when content exceeds the height */
-  border: 1px solid #e0e0e0; /* Add a subtle border to define the scrollable area */
+  border: 1px solid var(--verse-context-border); /* Add a subtle border to define the scrollable area */
   padding: 1rem;
   border-radius: 4px;
   text-align: left;
-  background-color: #fafafa;
+  background-color: var(--verse-context-bg);
 }
 
 .verse-context p {
@@ -44,8 +71,8 @@
 }
 
 .verse-context .highlight {
-  background-color: #e3f2fd; /* A light blue background */
-  border: 1px solid #90caf9;  /* A slightly darker blue border */
+  background-color: var(--highlight-bg);
+  border: 1px solid var(--highlight-border);
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
 }
 
@@ -53,9 +80,9 @@
   margin-top: 1.5rem;
   padding: 1rem;
   border-radius: 8px;
-  background-color: #fff59d; /* A noticeable yellow for alerts */
-  color: #333;
-  border: 1px solid #fbc02d;
+  background-color: var(--feedback-bg);
+  color: var(--feedback-text);
+  border: 1px solid var(--feedback-border);
   max-width: 400px;
   margin-left: auto;
   margin-right: auto;

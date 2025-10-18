@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { ShareService } from '../share.service';
 
 @Component({
   selector: 'app-home',
@@ -7,11 +8,29 @@ import { Router } from '@angular/router';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent {
+  showCodeInput = false;
+  gameCode = '';
+  error: string | null = null;
 
-  constructor(private router: Router) { }
+  constructor(private router: Router, private shareService: ShareService) { }
 
   startGame(mode: 'normal' | 'marathon'): void {
     this.router.navigate(['/game'], { state: { mode: mode } });
   }
 
+  playFromCode(): void {
+    this.error = null;
+    const seed = this.shareService.decodeGame(this.gameCode);
+
+    if (seed && seed.verseIds.length > 0) {
+      this.router.navigate(['/game'], {
+        state: {
+          mode: seed.mode,
+          verseIds: seed.verseIds
+        }
+      });
+    } else {
+      this.error = 'Invalid game code. Please check and try again.';
+    }
+  }
 }

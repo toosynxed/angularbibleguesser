@@ -13,3 +13,26 @@
   gap: 1rem;
   margin-top: 2rem;
 }
+
+.home-main button.secondary {
+  background-color: #6c757d;
+}
+
+.home-main button.secondary:hover {
+  background-color: #5a6268;
+}
+
+.code-input-container {
+  margin-top: 1.5rem;
+  padding: 1.5rem;
+  border: 1px solid #dee2e6;
+  border-radius: 8px;
+  background-color: #fff;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.error-message {
+  color: #dc3545;
+}

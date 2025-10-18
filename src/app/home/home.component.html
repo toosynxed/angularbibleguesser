@@ -8,5 +8,17 @@
     <h2>Choose a Game Mode</h2>
     <button (click)="startGame('normal')">Normal Mode (1 Round)</button>
     <button (click)="startGame('marathon')">Marathon Mode (5 Rounds)</button>
+    <button class="secondary" (click)="showCodeInput = !showCodeInput">Play with Code</button>
+
+    <div *ngIf="showCodeInput" class="code-input-container">
+      <input
+        type="text"
+        [(ngModel)]="gameCode"
+        placeholder="Enter game code..."
+        (keyup.enter)="playFromCode()"
+      >
+      <button (click)="playFromCode()">Start from Code</button>
+      <p *ngIf="error" class="error-message">{{ error }}</p>
+    </div>
   </main>
 </div>

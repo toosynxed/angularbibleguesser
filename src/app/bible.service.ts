@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, of, throwError } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { map, filter } from 'rxjs/operators';
 import { Book, Verse } from './bible';
 import { shareReplay, switchMap } from 'rxjs/operators';
@@ -29,9 +29,16 @@ export class BibleService {
   }
 
   getBooks(): Observable<Book[]> {
-    // This would need to be derived from verses if not present in the JSON.
-    // Returning an empty array for now to prevent breaking changes.
-    return of([]);
+    return this.getVerses().pipe(
+      map(verses => {
+        const bookNames = [...new Set(verses.map(v => v.book))];
+        return bookNames.map(name => ({
+          name: name,
+          chapters: [], // This would require more processing to populate accurately
+          abbrev: ''    // This would also require a mapping or more data
+        }));
+      })
+    );
   }
 
   getVerses(): Observable<Verse[]> {

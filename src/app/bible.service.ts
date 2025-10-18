@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, map, shareReplay, of, switchMap, first } from 'rxjs';
+import { Observable, of } from 'rxjs';
+import { map, shareReplay, first } from 'rxjs/operators';
 import * as Papa from 'papaparse';
 import { Verse } from './verse.model';
 
@@ -35,6 +36,16 @@ export class BibleService {
    */
   getVerses(): Observable<Verse[]> {
     return this.verses$;
+  }
+
+  /**
+   * Gets a single random verse from the collection.
+   * @returns An observable that emits a single random Verse object.
+   */
+  getRandomVerse(): Observable<Verse> {
+    return this.getVerses().pipe(
+      map(verses => verses[Math.floor(Math.random() * verses.length)])
+    );
   }
 
   private initializeBookMap(verses: Verse[]): Verse[] {

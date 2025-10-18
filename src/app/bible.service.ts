@@ -17,6 +17,21 @@ export class BibleService {
   private books: string[] = [];
   private allVerses: Verse[] = [];
 
+  // Area for custom book name aliases.
+  // Add any variations you want to accept here.
+  // The key is the user's input (normalized), and the value is the canonical book name from net.csv.
+  private bookAliases: { [alias: string]: string } = {
+    'psalm': 'Psalms',
+    'songofsongs': 'Song of Solomon',
+    'phile': 'Philemon',
+    'revelation': 'Revelation',
+    'matt': 'Matthew',
+    'jn': 'John',
+    'rom': 'Romans',
+    '1cor': '1 Corinthians',
+    '2cor': '2 Corinthians',
+    'phil': 'Philippians'
+  };
 
   constructor(private http: HttpClient) {
     // Fetch and parse the CSV data once, then cache it for all subscribers.
@@ -73,6 +88,12 @@ export class BibleService {
         }
       }
     });
+
+    // Add custom aliases to the map
+    for (const alias in this.bookAliases) {
+      const normalizedAlias = this.normalizeBookNameInternal(alias);
+      this.bookNameMap.set(normalizedAlias, this.bookAliases[alias]);
+    }
     return verses;
   }
 

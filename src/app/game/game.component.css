@@ -27,6 +27,13 @@
 
 .verse-context {
   margin-bottom: 1.5rem;
+  max-height: 250px; /* Set a maximum height for the container */
+  overflow-y: auto;  /* Enable vertical scrolling when content exceeds the height */
+  border: 1px solid #e0e0e0; /* Add a subtle border to define the scrollable area */
+  padding: 1rem;
+  border-radius: 4px;
+  text-align: left;
+  background-color: #fafafa;
 }
 
 .verse-context p {

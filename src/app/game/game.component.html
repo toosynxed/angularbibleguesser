@@ -7,9 +7,11 @@
   <main>
     <div *ngIf="isLoading" class="loading">Loading...</div>
     <div class="verse-container" *ngIf="currentVerse && !isLoading">
-      <div class="verse-context">
-        <p *ngFor="let verse of verseTextWithContext">
-          <sup>{{ verse.verse }}</sup> {{ verse.text }}
+      <div class="verse-context" aria-live="polite">
+        <p *ngFor="let verse of verseTextWithContext"
+           [ngClass]="{'highlight': verse.verseId === currentVerse?.verseId}">
+          <sup *ngIf="verse.verseId !== currentVerse?.verseId">{{ verse.verse }}</sup>
+          {{ verse.text }}
         </p>
       </div>
 

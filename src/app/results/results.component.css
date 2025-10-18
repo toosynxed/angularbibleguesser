@@ -20,6 +20,8 @@
   border: 1px solid #ddd;
   border-radius: 8px;
   padding: 1rem;
+  cursor: pointer;
+  transition: box-shadow 0.2s ease-in-out;
 }
 
 .stars {
@@ -29,6 +31,51 @@
 
 .star.filled {
   color: #f1c40f;
+}
+
+.result-card:hover {
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.details {
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid #eee;
+  text-align: left;
+}
+
+.verse-text {
+  font-style: italic;
+  color: #555;
+  margin-bottom: 1.5rem;
+}
+
+.indicators {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.indicator {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.circle {
+  display: inline-block;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  position: relative;
+}
+
+.circle.correct {
+  background-color: #2ecc71; /* Green */
+}
+
+.circle.incorrect {
+  background-color: #e74c3c; /* Red */
 }
 
 .share-container {

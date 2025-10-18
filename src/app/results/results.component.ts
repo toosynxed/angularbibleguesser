@@ -13,6 +13,7 @@ export class ResultsComponent implements OnInit {
   totalScore = 0;
   shareCode = '';
   copyButtonText = 'Copy Share Code';
+  expandedIndex: number | null = null;
 
   constructor(private router: Router, private shareService: ShareService) {
     const navigation = this.router.getCurrentNavigation();
@@ -42,5 +43,9 @@ export class ResultsComponent implements OnInit {
 
   getStarArray(starCount: number): any[] {
     return new Array(starCount);
+  }
+
+  toggleExpand(index: number): void {
+    this.expandedIndex = this.expandedIndex === index ? null : index;
   }
 }

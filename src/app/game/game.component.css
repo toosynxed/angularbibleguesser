@@ -66,14 +66,17 @@ header {
 .verse-context p {
   margin: 0.25em 0;
   padding: 0.5em;
-  border-radius: 4px;
+  border: 1px solid transparent; /* Add transparent border to maintain layout on highlight */
+  border-radius: 6px;
   transition: background-color 0.3s ease;
 }
 
 .verse-context .highlight {
-  background-color: var(--highlight-bg);
-  border: 1px solid var(--highlight-border);
+  /* A more prominent color for the verse to guess */
+  background-color: #fff9c4; /* A light, buttery yellow */
+  border-color: #fbc02d;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  font-weight: 500;
 }
 
 .feedback {

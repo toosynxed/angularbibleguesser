@@ -11,6 +11,9 @@ export interface RoundResult {
   verse: Verse;
   guess: { book: string; chapter: number; verse: number; } | null;
   score: number;
+  isBookCorrect: boolean;
+  isChapterCorrect: boolean;
+  isVerseCorrect: boolean;
   stars: number;
 }
 
@@ -152,7 +155,15 @@ export class GameComponent implements OnInit, OnDestroy {
     forkJoin([answerIndex$, guessIndex$]).subscribe(([answerIndex, guessIndex]) => {
       const distance = (guessIndex === -1) ? 100 : Math.abs(answerIndex - guessIndex);
       const score = Math.max(0, 100 - distance);
-      this.results.push({ verse: answer, guess: parsedGuess, score, stars });
+      this.results.push({
+        verse: answer,
+        guess: parsedGuess,
+        score,
+        stars,
+        isBookCorrect,
+        isChapterCorrect,
+        isVerseCorrect
+      });
     });
   }
 

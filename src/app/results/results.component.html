@@ -10,7 +10,7 @@
     </div>
 
     <div class="results-list">
-      <div *ngFor="let result of results; let i = index" class="result-card">
+      <div *ngFor="let result of results; let i = index" class="result-card" (click)="toggleExpand(i)">
         <h3>Round {{ i + 1 }}</h3>
         <p><strong>Verse:</strong> {{ result.verse.bookName }} {{ result.verse.chapter }}:{{ result.verse.verse }}</p>
         <p><strong>Your Guess:</strong>
@@ -21,6 +21,24 @@
         <div class="stars">
           <span *ngFor="let _ of getStarArray(result.stars)" class="star filled">★</span>
           <span *ngFor="let _ of getStarArray(3 - result.stars)" class="star">☆</span>
+        </div>
+
+        <div class="details" *ngIf="expandedIndex === i">
+          <p class="verse-text">"{{ result.verse.text }}"</p>
+          <div class="indicators">
+            <div class="indicator">
+              <span class="circle" [class.correct]="result.isBookCorrect" [class.incorrect]="!result.isBookCorrect"></span>
+              <span>Book</span>
+            </div>
+            <div class="indicator">
+              <span class="circle" [class.correct]="result.isChapterCorrect" [class.incorrect]="!result.isChapterCorrect"></span>
+              <span>Chapter</span>
+            </div>
+            <div class="indicator">
+              <span class="circle" [class.correct]="result.isVerseCorrect" [class.incorrect]="!result.isVerseCorrect"></span>
+              <span>Verse</span>
+            </div>
+          </div>
         </div>
       </div>
     </div>

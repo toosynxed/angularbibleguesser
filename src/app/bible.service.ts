@@ -19,29 +19,36 @@ export class BibleService {
           return [];
         }
 
-        // Helper to find the correct key for a primitive value (string or number)
-        const findPrimitiveKey = (obj: any, ...keywords: string[]): string => {
+        // Helper to find the correct key for a primitive value (string or number).
+        // It prioritizes keys that exactly match or are variations of the keyword.
+        const findPrimitiveKey = (obj: any, ...keywords: string[]): string | undefined => {
+          const objKeys = Object.keys(obj);
+          for (const kw of keywords) {
+            // Exact match first
+            if (objKeys.includes(kw) && ['string', 'number'].includes(typeof obj[kw])) return kw;
+            // Then look for variations
+            const foundKey = objKeys.find(k => k.toLowerCase().replace(/_/g, '') === kw && ['string', 'number'].includes(typeof obj[k]));
+            if (foundKey) return foundKey;
+          }
+          // Fallback to first key that includes the keyword
           for (const key in obj) {
             if (typeof obj[key] === 'string' || typeof obj[key] === 'number') {
               const lowerKey = key.toLowerCase();
-              if (keywords.some(kw => lowerKey.includes(kw))) {
-                return key;
-              }
+              if (keywords.some(kw => lowerKey.includes(kw))) return key;
             }
           }
-          return keywords[0]; // Fallback
+          return undefined;
         };
 
         const firstVerse = verses[0];
-        const bookKey = findPrimitiveKey(firstVerse, 'book');
-        const chapterKey = findPrimitiveKey(firstVerse, 'chapter');
-        const verseKey = findPrimitiveKey(firstVerse, 'verse');
-        const textKey = findPrimitiveKey(firstVerse, 'text');
+        const bookKey = findPrimitiveKey(firstVerse, 'book', 'bookname') || 'book';
+        const chapterKey = findPrimitiveKey(firstVerse, 'chapter', 'chapternumber') || 'chapter';
+        const verseKey = findPrimitiveKey(firstVerse, 'verse', 'versenumber') || 'verse';
+        const textKey = findPrimitiveKey(firstVerse, 'text', 'versetext') || 'text';
 
         // Map all verses using the discovered keys.
         return verses.map(v => {
-          const verseData = { book: v[bookKey], chapter: +v[chapterKey], verse: +v[verseKey], text: v[textKey] };
-          return verseData as Verse;
+          return { book: v[bookKey], chapter: +v[chapterKey], verse: +v[verseKey], text: v[textKey] } as Verse;
         });
       }),
       shareReplay(1)

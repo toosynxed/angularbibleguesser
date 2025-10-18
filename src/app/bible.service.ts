@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, map, shareReplay } from 'rxjs';
+import { Observable, map, shareReplay, of, switchMap } from 'rxjs';
 import * as Papa from 'papaparse';
 import { Verse } from './verse.model';
 
@@ -11,10 +11,15 @@ export class BibleService {
   private csvUrl = 'assets/net.csv';
   private verses$: Observable<Verse[]>;
 
+  // For book name normalization
+  private bookNameMap: Map<string, string> = new Map();
+  private books: string[] = [];
+
   constructor(private http: HttpClient) {
     // Fetch and parse the CSV data once, then cache it for all subscribers.
     this.verses$ = this.http.get(this.csvUrl, { responseType: 'text' }).pipe(
       map(csvData => this.parseCsv(csvData)),
+      map(verses => this.initializeBookMap(verses)),
       shareReplay(1) // Cache the result to avoid re-fetching and re-parsing
     );
   }

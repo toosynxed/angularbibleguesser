@@ -7,7 +7,12 @@
   <main>
     <div *ngIf="isLoading" class="loading">Loading...</div>
     <div class="verse-container" *ngIf="currentVerse && !isLoading">
-      <p class="verse-text">"{{ verseTextWithContext }}"</p>
+      <div class="verse-context">
+        <p *ngFor="let verse of verseTextWithContext">
+          <sup>{{ verse.verse }}</sup> {{ verse.text }}
+        </p>
+      </div>
+
       <p class="answer" *ngIf="isRoundOver">
         <em>- {{ answerText }}</em>
       </p>

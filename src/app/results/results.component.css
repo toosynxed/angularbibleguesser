@@ -24,6 +24,24 @@
   transition: box-shadow 0.2s ease-in-out;
 }
 
+.result-summary {
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.result-summary h3 {
+  margin: 0;
+  flex-grow: 1;
+  text-align: left;
+}
+
+.result-summary .score {
+  margin: 0 1rem;
+  min-width: 120px; /* Give score some space */
+  text-align: center;
+}
+
 .stars {
   font-size: 1.5rem;
   color: #f39c12;
@@ -35,6 +53,11 @@
 
 .result-card:hover {
   box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.expand-icon {
+  margin-left: 1rem;
+  color: #bdc3c7;
 }
 
 .details {

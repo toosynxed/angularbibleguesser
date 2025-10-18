@@ -11,19 +11,22 @@
 
     <div class="results-list">
       <div *ngFor="let result of results; let i = index" class="result-card" (click)="toggleExpand(i)">
-        <h3>Round {{ i + 1 }}</h3>
-        <p><strong>Verse:</strong> {{ result.verse.bookName }} {{ result.verse.chapter }}:{{ result.verse.verse }}</p>
-        <p><strong>Your Guess:</strong>
-          <span *ngIf="result.guess">{{ result.guess.book }} {{ result.guess.chapter }}:{{ result.guess.verse }}</span>
-          <span *ngIf="!result.guess">Invalid</span>
-        </p>
-        <p><strong>Score:</strong> {{ result.score }} / 100</p>
-        <div class="stars">
-          <span *ngFor="let _ of getStarArray(result.stars)" class="star filled">★</span>
-          <span *ngFor="let _ of getStarArray(3 - result.stars)" class="star">☆</span>
+        <div class="result-summary">
+          <h3>Round {{ i + 1 }}</h3>
+          <p class="score"><strong>Score:</strong> {{ result.score }} / 100</p>
+          <div class="stars">
+            <span *ngFor="let _ of getStarArray(result.stars)" class="star filled">★</span>
+            <span *ngFor="let _ of getStarArray(3 - result.stars)" class="star">☆</span>
+          </div>
+          <span class="expand-icon">{{ expandedIndex === i ? '▲' : '▼' }}</span>
         </div>
 
         <div class="details" *ngIf="expandedIndex === i">
+          <p><strong>Correct Verse:</strong> {{ result.verse.bookName }} {{ result.verse.chapter }}:{{ result.verse.verse }}</p>
+          <p><strong>Your Guess:</strong>
+            <span *ngIf="result.guess">{{ result.guess.book }} {{ result.guess.chapter }}:{{ result.guess.verse }}</span>
+            <span *ngIf="!result.guess">Invalid</span>
+          </p>
           <p class="verse-text">"{{ result.verse.text }}"</p>
           <div class="indicators">
             <div class="indicator">

@@ -3,8 +3,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { forkJoin, Subject, Subscription } from 'rxjs';
 import { switchMap, takeUntil } from 'rxjs/operators';
-import { BibleService } from '../bible.service';
-import { Verse } from '../bible';
+import { BibleService } from '../bible.service'; // Correct
+import { Verse } from '../verse.model'; // Corrected import path
 
 export interface RoundResult {
   verse: Verse;
@@ -24,7 +24,7 @@ export class GameComponent implements OnInit, OnDestroy {
   currentRound = 0;
 
   currentVerse: Verse | null = null;
-  verseTextWithContext = '';
+  verseTextWithContext: Verse[] = []; // Changed type from string to Verse[]
   contextSize = 1; // Start with context of 1
 
   guessForm: FormGroup;
@@ -81,8 +81,8 @@ export class GameComponent implements OnInit, OnDestroy {
   updateVerseContext(): void {
     if (!this.currentVerse) return;
     this.bibleService.getVerseWithContext(this.currentVerse, this.contextSize)
-      .subscribe(text => {
-        this.verseTextWithContext = text;
+      .subscribe(verses => {
+        this.verseTextWithContext = verses;
         this.isLoading = false;
       });
   }
@@ -110,7 +110,7 @@ export class GameComponent implements OnInit, OnDestroy {
     const { book, chapter, verse } = parsedGuess;
     const answer = this.currentVerse;
 
-    const isBookCorrect = this.bibleService.normalizeBookName(book) === this.bibleService.normalizeBookName(answer.book);
+    const isBookCorrect = this.bibleService.normalizeBookName(book) === this.bibleService.normalizeBookName(answer.bookName);
     const isChapterCorrect = chapter === answer.chapter;
     const isVerseCorrect = verse === answer.verse;
 
@@ -128,11 +128,11 @@ export class GameComponent implements OnInit, OnDestroy {
     if (stars === 3) {
       this.feedback = 'Perfect! You got it exactly right!';
     } else {
-      this.feedback = `The correct answer was ${answer.book} ${answer.chapter}:${answer.verse}.`;
+      this.feedback = `The correct answer was ${answer.bookName} ${answer.chapter}:${answer.verse}.`;
     }
 
     const answerIndex$ = this.bibleService.getVerseIndex(answer);
-    const guessIndex$ = this.bibleService.getVerseIndex({ book, chapter, verse, text: '' });
+    const guessIndex$ = this.bibleService.getVerseIndex({ book, chapter, verse });
 
     forkJoin([answerIndex$, guessIndex$]).subscribe(([answerIndex, guessIndex]) => {
       const distance = (guessIndex === -1) ? 100 : Math.abs(answerIndex - guessIndex);
@@ -155,6 +155,6 @@ export class GameComponent implements OnInit, OnDestroy {
 
   get answerText(): string {
     if (!this.currentVerse) return '';
-    return `${this.currentVerse.book} ${this.currentVerse.chapter}:${this.currentVerse.verse}`;
+    return `${this.currentVerse.bookName} ${this.currentVerse.chapter}:${this.currentVerse.verse}`;
   }
 }

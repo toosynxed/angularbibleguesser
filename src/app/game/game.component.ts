@@ -131,8 +131,8 @@ export class GameComponent implements OnInit, OnDestroy {
       this.feedback = `The correct answer was ${answer.bookName} ${answer.chapter}:${answer.verse}.`;
     }
 
-    const answerIndex$ = this.bibleService.getVerseIndex(answer);
-    const guessIndex$ = this.bibleService.getVerseIndex({ book, chapter, verse });
+    const answerIndex$ = this.bibleService.getVerseIndex({ bookName: answer.bookName, chapter: answer.chapter, verse: answer.verse });
+    const guessIndex$ = this.bibleService.getVerseIndex({ bookName: book, chapter, verse });
 
     forkJoin([answerIndex$, guessIndex$]).subscribe(([answerIndex, guessIndex]) => {
       const distance = (guessIndex === -1) ? 100 : Math.abs(answerIndex - guessIndex);

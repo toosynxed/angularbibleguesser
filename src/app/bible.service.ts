@@ -107,13 +107,13 @@ export class BibleService {
     return { book, chapter, verse };
   }
 
-  getVerseIndex(verseRef: { book: string, chapter: number, verse: number }): Observable<number> {
+  getVerseIndex(verseRef: { bookName: string, chapter: number, verse: number }): Observable<number> {
     return this.getVerses().pipe(
       // Use `first()` to ensure the observable completes after emitting the verses array once.
       first(),
       map(verses =>
         verses.findIndex(v =>
-          v.bookName === verseRef.book &&
+          v.bookName === verseRef.bookName &&
           v.chapter === verseRef.chapter &&
           v.verse === verseRef.verse
         )
@@ -122,7 +122,7 @@ export class BibleService {
   }
 
   getVerseWithContext(verse: Verse, contextSize: number): Observable<Verse[]> {
-    return this.getVerseIndex({ book: verse.bookName, chapter: verse.chapter, verse: verse.verse }).pipe(
+    return this.getVerseIndex({ bookName: verse.bookName, chapter: verse.chapter, verse: verse.verse }).pipe(
       map(verseIndex => {
         if (verseIndex === -1) {
           return [verse]; // Return just the single verse if not found in the main list

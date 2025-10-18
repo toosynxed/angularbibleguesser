@@ -29,7 +29,7 @@
 
     <div class="context-slider">
       <label for="context">Context Verses: {{ contextSize }}</label>
-      <input type="range" id="context" min="0" max="50" [value]="contextSize" (input)="onSliderChange($event)">
+      <input type="range" id="context" min="0" max="250" [value]="contextSize" (input)="onSliderChange($event)">
     </div>
 
     <form [formGroup]="guessForm" (ngSubmit)="submitGuess()" *ngIf="!isRoundOver">

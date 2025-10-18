@@ -6,6 +6,10 @@
 
   <main class="home-main">
     <h2>Choose a Game Mode</h2>
+    <div *ngIf="!(authService.user$ | async)">
+      <p>Sign in to save your stats!</p>
+      <button (click)="authService.googleSignIn()">Sign in with Google</button>
+    </div>
     <button (click)="startGame('normal')">Normal Mode (1 Round)</button>
     <button (click)="startGame('marathon')">Marathon Mode (5 Rounds)</button>
     <button class="secondary" (click)="showCodeInput = !showCodeInput">Play with Code</button>

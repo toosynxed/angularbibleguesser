@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { RoundResult } from '../game/game.component';
 import { ShareService } from '../share.service';
+import { AuthService } from '../auth.service';
+import { StatsService } from '../stats.service';
+import { first } from 'rxjs/operators';
 
 @Component({
   selector: 'app-results',
@@ -15,7 +18,12 @@ export class ResultsComponent implements OnInit {
   copyButtonText = 'Copy Share Code';
   expandedIndex: number | null = null;
 
-  constructor(private router: Router, private shareService: ShareService) {
+  constructor(
+    private router: Router,
+    private shareService: ShareService,
+    private authService: AuthService,
+    private statsService: StatsService
+  ) {
     const navigation = this.router.getCurrentNavigation();
     const state = navigation?.extras.state as { results: RoundResult[] } | undefined;
     if (state?.results) {
@@ -32,6 +40,16 @@ export class ResultsComponent implements OnInit {
     this.totalScore = this.results.reduce((acc, r) => acc + r.score, 0);
     const verseIds = this.results.map(r => r.verse.verseId);
     this.shareCode = this.shareService.encodeGame(verseIds);
+
+    this.saveStats();
+  }
+
+  private saveStats(): void {
+    this.authService.user$.pipe(first()).subscribe(user => {
+      if (user && this.results.length > 0) {
+        this.statsService.updateUserStats(user, this.results);
+      }
+    });
   }
 
   copyCode(): void {

@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { ShareService } from '../share.service';
+import { AuthService } from '../auth.service';
 
 @Component({
   selector: 'app-home',
@@ -12,7 +13,11 @@ export class HomeComponent {
   gameCode = '';
   error: string | null = null;
 
-  constructor(private router: Router, private shareService: ShareService) { }
+  constructor(
+    private router: Router,
+    private shareService: ShareService,
+    public authService: AuthService
+  ) { }
 
   startGame(mode: 'normal' | 'marathon'): void {
     this.router.navigate(['/game'], { state: { mode: mode } });

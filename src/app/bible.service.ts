@@ -1,133 +1,56 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, of, throwError } from 'rxjs';
-import { map, filter } from 'rxjs/operators';
-import { Book, Verse } from './bible';
-import { shareReplay, switchMap } from 'rxjs/operators';
+import { Observable, map, shareReplay } from 'rxjs';
+import * as Papa from 'papaparse';
+import { Verse } from './verse.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class BibleService {
+  private csvUrl = 'assets/net.csv';
   private verses$: Observable<Verse[]>;
 
   constructor(private http: HttpClient) {
-    // Cache the data so we don't re-fetch the JSON file on every call
-    this.verses$ = this.http.get<any[]>('assets/bible.json').pipe(
-      map(verses => {
-        if (!verses || verses.length === 0) {
-          return [];
-        }
-
-        // Helper to find the correct key for a primitive value (string or number).
-        // It prioritizes keys that exactly match or are variations of the keyword.
-        const findPrimitiveKey = (obj: any, ...keywords: string[]): string | undefined => {
-          const objKeys = Object.keys(obj);
-          for (const kw of keywords) {
-            // Exact match first
-            if (objKeys.includes(kw) && ['string', 'number'].includes(typeof obj[kw])) return kw;
-            // Then look for variations
-            const foundKey = objKeys.find(k => k.toLowerCase().replace(/_/g, '') === kw && ['string', 'number'].includes(typeof obj[k]));
-            if (foundKey) return foundKey;
-          }
-          // Fallback to first key that includes the keyword
-          for (const key in obj) {
-            if (typeof obj[key] === 'string' || typeof obj[key] === 'number') {
-              const lowerKey = key.toLowerCase();
-              if (keywords.some(kw => lowerKey.includes(kw))) return key;
-            }
-          }
-          return undefined;
-        };
-
-        const firstVerse = verses[0];
-        const bookKey = findPrimitiveKey(firstVerse, 'book', 'bookname') || 'book';
-        const chapterKey = findPrimitiveKey(firstVerse, 'chapter', 'chapternumber') || 'chapter';
-        const verseKey = findPrimitiveKey(firstVerse, 'verse', 'versenumber') || 'verse';
-        const textKey = findPrimitiveKey(firstVerse, 'text', 'versetext') || 'text';
-
-        // Map all verses using the discovered keys.
-        return verses.map(v => {
-          return { book: v[bookKey], chapter: +v[chapterKey], verse: +v[verseKey], text: v[textKey] } as Verse;
-        });
-      }),
-      shareReplay(1)
+    // Fetch and parse the CSV data once, then cache it for all subscribers.
+    this.verses$ = this.http.get(this.csvUrl, { responseType: 'text' }).pipe(
+      map(csvData => this.parseCsv(csvData)),
+      shareReplay(1) // Cache the result to avoid re-fetching and re-parsing
     );
   }
 
-  getBooks(): Observable<Book[]> {
-    return this.getVerses().pipe(
-      map(verses => {
-        const bookNames = [...new Set(verses.map(v => v.book))];
-        return bookNames.map(name => ({
-          name: name,
-          chapters: [], // This would require more processing to populate accurately
-          abbrev: ''    // This would also require a mapping or more data
-        }));
-      })
-    );
-  }
-
+  /**
+   * Fetches and parses the Bible verses from the CSV file.
+   * @returns An observable array of Verse objects.
+   */
   getVerses(): Observable<Verse[]> {
     return this.verses$;
   }
 
-  getRandomVerse(): Observable<Verse> {
-    return this.getVerses().pipe(
-      map(verses => {
-        const randomIndex = Math.floor(Math.random() * verses.length);
-        return verses[randomIndex];
-      })
-    );
-  }
+  private parseCsv(csvData: string): Verse[] {
+    const parsedData = Papa.parse<any>(csvData, {
+      header: true,
+      skipEmptyLines: true,
+      // The CSV has 5 metadata lines before the header row.
+      // PapaParse's `header: true` will correctly use the 6th line as the header.
+      // We just need to tell it to skip the first 5.
+      preview: 0, // This is a bit of a hack to read all lines
+      beforeFirstChunk: chunk => chunk.split('\n').slice(5).join('\n'),
+      transformHeader: header => header.trim(),
+    });
 
-  getVerseWithContext(targetVerse: Verse, contextSize: number): Observable<string> {
-    return this.getVerses().pipe(
-      map(verses => {
-        const targetIndex = verses.findIndex(v =>
-          v.book === targetVerse.book && v.chapter === targetVerse.chapter && v.verse === targetVerse.verse
-        );
+    if (parsedData.errors.length > 0) {
+      console.error('CSV parsing errors:', parsedData.errors);
+    }
 
-        if (targetIndex === -1) return targetVerse.text;
-
-        const startIndex = Math.max(0, targetIndex - contextSize);
-        const endIndex = Math.min(verses.length - 1, targetIndex + contextSize);
-
-        let fullText = '';
-        for (let i = startIndex; i <= endIndex; i++) {
-          fullText += verses[i].text + ' ';
-        }
-        return fullText.trim();
-      })
-    );
-  }
-
-  getVerseIndex(targetVerse: Verse): Observable<number> {
-    return this.getVerses().pipe(
-      map(verses => {
-        if (!targetVerse) return -1;
-        return verses.findIndex(v =>
-          v.book === targetVerse.book && v.chapter === targetVerse.chapter && v.verse === targetVerse.verse
-        );
-      })
-    );
-  }
-
-  normalizeBookName(name: string): string {
-    return name.toLowerCase().replace(/ /g, '');
-  }
-
-  parseVerseReference(ref: string): { book: string, chapter: number, verse: number } | null {
-    // Regex to capture book name, chapter, and verse. Handles book names with spaces and numbers.
-    const regex = /^(\d?\s?[a-zA-Z\s]+)\s(\d+):(\d+)$/;
-    const match = ref.trim().match(regex);
-
-    if (!match) return null;
-
-    const bookName = match[1].trim();
-    const chapter = parseInt(match[2], 10);
-    const verse = parseInt(match[3], 10);
-
-    return { book: bookName, chapter, verse };
+    // Map the parsed data to our strongly-typed Verse interface
+    return parsedData.data.map(row => ({
+      verseId: Number(row['Verse ID']),
+      bookName: row['Book Name'],
+      bookNumber: Number(row['Book Number']),
+      chapter: Number(row['Chapter']),
+      verse: Number(row['Verse']),
+      text: row['Text']
+    }));
   }
 }

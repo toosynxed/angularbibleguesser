@@ -10,7 +10,6 @@ import { GameComponent } from './game/game.component';
 import { ResultsComponent } from './results/results.component';
 import { CustomSettingsComponent } from './custom-settings/custom-settings.component';
 import { CreateGameComponent } from './create-game/create-game.component';
-import { MarathonSettingsComponent } from './marathon-settings/marathon-settings.component';
 
 @NgModule({
   declarations: [
@@ -19,8 +18,7 @@ import { MarathonSettingsComponent } from './marathon-settings/marathon-settings
     GameComponent,
     ResultsComponent,
     CustomSettingsComponent,
-    CreateGameComponent,
-    MarathonSettingsComponent
+    CreateGameComponent
   ],
   imports: [
     BrowserModule,

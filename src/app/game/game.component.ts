@@ -62,9 +62,11 @@ export class GameComponent implements OnInit, OnDestroy {
     };
     this.seededVerseIds = state?.verseIds || null;
     this.gameMode = state?.mode || 'normal';
-    if (this.gameMode === 'custom' && state?.settings) {
+    // If settings are passed in the state (from custom mode or a share code), use them.
+    if (state?.settings) {
       this.gameSettings = state.settings;
     }
+
 
     this.guessForm = this.fb.group({
       guess: ['', Validators.required]
@@ -73,12 +75,13 @@ export class GameComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     if (this.seededVerseIds && this.seededVerseIds.length > 0) {
-      // For seeded games, the number of rounds is determined by the number of verse IDs
+      // For seeded games, the number of rounds is determined by the number of verse IDs.
       this.totalRounds = this.seededVerseIds.length;
     } else if (this.gameSettings) {
       this.totalRounds = this.gameSettings.rounds;
     }
-    if (this.gameSettings) { // Apply context size if settings are present
+    // Apply context size if settings are present (from custom mode or a created game code).
+    if (this.gameSettings) {
       this.contextSize = this.gameSettings.contextSize;
     }
 

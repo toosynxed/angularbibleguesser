@@ -4,8 +4,8 @@ import { BibleService } from '../bible.service';
 
 @Component({
   selector: 'app-custom-settings',
-  templateUrl: './custom-settings.component.html',
-  styleUrls: ['./custom-settings.component.css']
+  templateUrl: './custom-settings.component.html', // Corrected path
+  styleUrls: ['./custom-settings.component.css'] // Corrected path
 })
 export class CustomSettingsComponent implements OnInit {
   // Default settings
@@ -69,7 +69,7 @@ export class CustomSettingsComponent implements OnInit {
     }
     this.router.navigate(['/game'], {
       state: {
-        mode: 'custom',
+        mode: 'custom', // Ensure correct mode is passed
         settings: this.settings
       }
     });

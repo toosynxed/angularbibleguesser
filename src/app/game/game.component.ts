@@ -92,7 +92,7 @@ export class GameComponent implements OnInit, OnDestroy {
           return this.bibleService.getVerseById(verseId);
         } else {
           // For marathon, use the book selection
-          if (this.gameMode === 'custom' && this.gameSettings?.books) {
+          if (this.gameMode === 'custom' && this.gameSettings?.books && this.gameSettings.books.length > 0) {
             return this.bibleService.getRandomVerse(this.gameSettings.books);
           }
           // Otherwise, get a random verse

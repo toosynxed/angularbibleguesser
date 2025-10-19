@@ -88,7 +88,7 @@ export class HomeComponent {
 
   constructor(private router: Router, private shareService: ShareService) { }
 
-  startGame(mode: 'normal' | 'marathon'): void {
+  startGame(mode: 'normal' | 'custom'): void {
     if (mode === 'custom') {
       this.router.navigate(['/custom-settings']);
     } else {

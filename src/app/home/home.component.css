@@ -85,7 +85,7 @@
   margin-top: 1rem;
 }
 
-.modal-body pre {
+.changelog-content {
   white-space: pre-wrap; /* Allows text to wrap */
   word-wrap: break-word;
   font-family: inherit; /* Use the same font as the rest of the app */

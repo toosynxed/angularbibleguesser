@@ -41,7 +41,7 @@
       <div class="modal-body">
         <!-- The content below is rendered from the changelogContent property in your component -->
         <!-- You can use markdown-like syntax (### for headers, - for lists) -->
-        <pre>{{ changelogContent }}</pre>
+        <div class="changelog-content" [innerHTML]="changelogContent"></div>
       </div>
     </div>
   </div>

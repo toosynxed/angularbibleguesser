@@ -8,15 +8,13 @@ import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
 import { GameComponent } from './game/game.component';
 import { ResultsComponent } from './results/results.component';
-import { CustomSettingsComponent } from './custom-settings/custom-settings.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
     GameComponent,
-    ResultsComponent,
-    CustomSettingsComponent
+    ResultsComponent
   ],
   imports: [
     BrowserModule,

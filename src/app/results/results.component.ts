@@ -31,7 +31,10 @@ export class ResultsComponent implements OnInit {
 
     this.totalScore = this.results.reduce((acc, r) => acc + r.score, 0);
     const verseIds = this.results.map(r => r.verse.verseId);
-    this.shareCode = this.shareService.encodeGame(verseIds);
+    this.shareCode = this.shareService.encodeGame({
+      mode: 'created', // The results page always shares a 'created' game type
+      verseIds: verseIds
+    });
   }
 
   copyCode(): void {

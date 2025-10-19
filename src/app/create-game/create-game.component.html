@@ -1,0 +1,54 @@
+<div class="container">
+  <header>
+    <button class="back-button" routerLink="/">< Home</button>
+    <h1>Create a Game</h1>
+    <p>Design a custom game for others to play.</p>
+  </header>
+
+  <main [formGroup]="createForm" class="settings-form">
+    <div class="form-group">
+      <label for="rounds">Number of Rounds (1-50)</label>
+      <input id="rounds" type="number" formControlName="rounds" min="1" max="50">
+    </div>
+
+    <div class="form-group">
+      <label for="contextSize">Context Verses (0-250)</label>
+      <input id="contextSize" type="range" formControlName="contextSize" min="0" max="250">
+      <span>{{ createForm.get('contextSize')?.value }}</span>
+    </div>
+
+    <div class="form-group">
+      <label for="timeLimit">Time Limit Per Round</label>
+      <select id="timeLimit" formControlName="timeLimit">
+        <option *ngFor="let option of timeOptions" [value]="option.value">{{ option.label }}</option>
+      </select>
+    </div>
+
+    <div class="form-group" formArrayName="verses">
+      <label>Verses to Guess</label>
+      <div *ngFor="let verse of verses.controls; let i = index" class="verse-input-group">
+        <span>{{ i + 1 }}.</span>
+        <input [formControlName]="i" placeholder="e.g., John 3:16">
+      </div>
+    </div>
+
+    <div class="actions">
+      <button class="start-button" (click)="generateCode()" [disabled]="isGenerating">
+        {{ isGenerating ? 'Generating...' : 'Generate Share Code' }}
+      </button>
+    </div>
+
+    <div *ngIf="errorMessage" class="error-message">
+      {{ errorMessage }}
+    </div>
+
+    <div *ngIf="generatedCode" class="generated-code-container">
+      <h3>Your Game Code is Ready!</h3>
+      <p>Share this code with your friends.</p>
+      <div class="code-display">
+        <input type="text" [value]="generatedCode" readonly>
+        <button (click)="copyCode()">Copy</button>
+      </div>
+    </div>
+  </main>
+</div>

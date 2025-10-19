@@ -95,6 +95,10 @@ export class HomeComponent {
       this.router.navigate(['/game'], { state: { mode: 'normal' } });
     }
   }
+
+  navigateTo(path: string): void {
+    this.router.navigate([`/${path}`]);
+  }
   playFromCode(): void {
     this.error = null;
     const seed = this.shareService.decodeGame(this.gameCode);
@@ -103,7 +107,8 @@ export class HomeComponent {
       this.router.navigate(['/game'], {
         state: {
           mode: seed.mode,
-          verseIds: seed.verseIds
+          verseIds: seed.verseIds,
+          settings: seed.settings // Pass the settings from the decoded seed
         }
       });
     } else {

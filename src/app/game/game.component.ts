@@ -28,7 +28,7 @@ export class GameComponent implements OnInit, OnDestroy {
   gameMode: 'normal' | 'custom' = 'normal';
   totalRounds = 1;
   seededVerseIds: number[] | null = null;
-  gameSettings: any = null; // To hold marathon settings
+  gameSettings: any = null; // To hold custom game settings
   timeLeft: number | null = null;
   private timerSubscription: Subscription;
 
@@ -72,15 +72,14 @@ export class GameComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    if (this.gameSettings) {
+    if (this.seededVerseIds && this.seededVerseIds.length > 0) {
+      // For seeded games, the number of rounds is determined by the number of verse IDs
+      this.totalRounds = this.seededVerseIds.length;
+    } else if (this.gameSettings) {
       this.totalRounds = this.gameSettings.rounds;
+    }
+    if (this.gameSettings) { // Apply context size if settings are present
       this.contextSize = this.gameSettings.contextSize;
-      if (this.gameSettings.timeLimit > 0) {
-        this.timeLeft = this.gameSettings.timeLimit;
-        this.startTimer();
-      }
-    } else {
-      this.totalRounds = this.seededVerseIds?.length || (this.gameMode === 'normal' ? 1 : 1);
     }
 
     this.roundState$.pipe(
@@ -92,7 +91,7 @@ export class GameComponent implements OnInit, OnDestroy {
           return this.bibleService.getVerseById(verseId);
         } else {
           // For marathon, use the book selection
-          if (this.gameMode === 'custom' && this.gameSettings?.books && this.gameSettings.books.length > 0) {
+          if (this.gameMode === 'custom' && this.gameSettings?.books?.length > 0) {
             return this.bibleService.getRandomVerse(this.gameSettings.books);
           }
           // Otherwise, get a random verse
@@ -117,6 +116,9 @@ export class GameComponent implements OnInit, OnDestroy {
   }
 
   startNewRound(): void {
+    if (this.timerSubscription) {
+      this.timerSubscription.unsubscribe();
+    }
     this.currentRound++;
     this.isRoundOver = false;
     this.feedback = null;
@@ -126,14 +128,33 @@ export class GameComponent implements OnInit, OnDestroy {
   }
 
   startTimer(): void {
+    if (!this.gameSettings || this.gameSettings.timeLimit === 0) {
+      return; // Don't start a timer if it's not a timed game
+    }
+    this.timeLeft = this.gameSettings.timeLimit;
     this.timerSubscription = timer(1000, 1000).pipe(takeUntil(this.destroy$)).subscribe(() => {
       if (this.timeLeft !== null && this.timeLeft > 0) {
         this.timeLeft--;
       } else if (this.timeLeft === 0) {
         this.timerSubscription.unsubscribe();
-        alert("Time's up!");
-        this.finishGame();
+        this.handleTimeUp();
       }
+    });
+  }
+
+  handleTimeUp(): void {
+    if (this.isRoundOver || !this.currentVerse) return;
+
+    this.isRoundOver = true;
+    this.feedback = `Time's up! The correct answer was ${this.answerText}.`;
+    this.results.push({
+      verse: this.currentVerse,
+      guess: null, // No guess was made
+      score: 0,
+      stars: 0,
+      isBookCorrect: false,
+      isChapterCorrect: false,
+      isVerseCorrect: false
     });
   }
 
@@ -143,6 +164,7 @@ export class GameComponent implements OnInit, OnDestroy {
       .subscribe(verses => {
         this.verseTextWithContext = verses;
         this.isLoading = false;
+        this.startTimer(); // Start the timer once the verse is displayed
       });
   }
 
@@ -154,6 +176,11 @@ export class GameComponent implements OnInit, OnDestroy {
   submitGuess(): void {
     if (this.guessForm.invalid || !this.currentVerse) {
       return;
+    }
+
+    // Stop the timer for this round since a guess was submitted
+    if (this.timerSubscription) {
+      this.timerSubscription.unsubscribe();
     }
 
     const rawGuess: string = this.guessForm.value.guess;

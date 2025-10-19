@@ -16,6 +16,14 @@ header {
   left: 0;
 }
 
+.timer-display {
+  position: absolute;
+  top: 0;
+  right: 0;
+  font-size: 1.1rem;
+  font-weight: bold;
+}
+
 .secondary-button, .back-button {
   background: none;
   border: 1px solid var(--border-color);

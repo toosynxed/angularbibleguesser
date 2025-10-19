@@ -3,6 +3,9 @@
     <div class="header-controls">
       <button class="secondary-button" (click)="confirmGoHome()" title="Back to Home">‹ Home</button>
     </div>
+    <div class="timer-display" *ngIf="gameMode === 'custom' && gameSettings?.timeLimit > 0 && timeLeft !== null">
+      Time: {{ timeLeft }}s
+    </div>
     <h1>Bible Guesser</h1>
     <p>Round {{ currentRound }} of {{ totalRounds }}</p>
   </header>

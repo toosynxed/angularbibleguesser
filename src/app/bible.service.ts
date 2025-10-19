@@ -201,6 +201,18 @@ export class BibleService {
     );
   }
 
+  getVerseIdFromIndex(index: number): Observable<number | null> {
+    return this.getVerses().pipe(
+      first(),
+      map(verses => {
+        if (index >= 0 && index < verses.length) {
+          return verses[index].verseId;
+        }
+        return null;
+      })
+    );
+  }
+
   getVerseWithContext(verse: Verse, contextSize: number): Observable<Verse[]> {
     return this.getVerseIndex({ bookName: verse.bookName, chapter: verse.chapter, verse: verse.verse }).pipe(
       map(verseIndex => {

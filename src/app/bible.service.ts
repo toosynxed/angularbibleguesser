@@ -201,6 +201,19 @@ export class BibleService {
     );
   }
 
+  /**
+   * Gets a verse ID from its index in the allVerses array.
+   * @param index The index of the verse.
+   * @returns An observable that emits the verseId or null if the index is out of bounds.
+   */
+  getVerseIdFromIndex(index: number): Observable<number | null> {
+    return this.getVerses().pipe(
+      map(verses => {
+        return (index >= 0 && index < verses.length) ? verses[index].verseId : null;
+      })
+    );
+  }
+
   getVerseWithContext(verse: Verse, contextSize: number): Observable<Verse[]> {
     return this.getVerseIndex({ bookName: verse.bookName, chapter: verse.chapter, verse: verse.verse }).pipe(
       map(verseIndex => {

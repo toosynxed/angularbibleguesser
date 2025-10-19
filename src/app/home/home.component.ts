@@ -95,6 +95,10 @@ export class HomeComponent {
       this.router.navigate(['/game'], { state: { mode: 'normal' } });
     }
   }
+
+  createGame(): void {
+    this.router.navigate(['/create-game']);
+  }
   playFromCode(): void {
     this.error = null;
     const seed = this.shareService.decodeGame(this.gameCode);

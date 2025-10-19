@@ -13,8 +13,8 @@
   <main class="home-main">
     <h2>Choose a Game Mode</h2>
     <button class="primary" (click)="startGame('normal')">Normal Mode</button>
-    <button class="primary" (click)="startGame('custom')">Custom Random Game</button>
-    <button class="primary" (click)="createGame()">Create Specific Game</button>
+    <button class="primary" (click)="startGame('custom')">Custom Mode</button>
+    <button class="primary" (click)="createGame()">Create Mode</button>
     <button class="secondary" (click)="showCodeInput = !showCodeInput">Play with Code</button>
 
     <div *ngIf="showCodeInput" class="code-input-container">
@@ -69,4 +69,9 @@
       </div>
     </div>
   </div>
+
+  <!-- Version and Contact Footer -->
+  <footer class="version-footer">
+    Version 1.4.0 open-beta - For any issues/bugs/suggestions, please email bconomy.wiki@gmail.com, thank you for all your help!
+  </footer>
 </div>

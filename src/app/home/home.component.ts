@@ -37,14 +37,14 @@ export class HomeComponent {
   // You can update the changelog text here.
   // Using backticks (`) allows for multi-line strings.
   changelogContent = `
-<h3>Version 1.4.0</h3>
+<h3>Version 1.4.0 open-beta</h3>
 <ul>
   <li>Implemented Create Mode</li>
   <li>Players can now copy their game codes for all modes, including Create Mode</li>
-  <li>Join the *new* Discord to see more updates and view other player's games!</li>
+  <li>Join the NEW Discord to see more updates and view other player's games!</li>
 </ul>
 
-<h3><s>Version 1.3.0 (Recalled - In Progress)</s></h3>
+<h3><s>Version 1.3.0 alpha (Recalled - In Progress)</s></h3>
 <ul>
   <li><s>Implemented custom gamemodes.</s></li>
   <li><s>Added user profiles and statistics tracking.</s></li>
@@ -73,7 +73,7 @@ export class HomeComponent {
   <li>Added a "Refocus" button to scroll back to the verse being guessed.</li>
 </ul>
 
-<h3>Version 1.2.0-beta</h3>
+<h3>Version 1.2.0 pre-alpha</h3>
 <ul>
   <li>Implemented Marathon mode for extended gameplay.</li>
   <li>Added game code sharing functionality.</li>

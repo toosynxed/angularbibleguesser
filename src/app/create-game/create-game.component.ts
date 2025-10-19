@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormArray, Validators, AbstractControl, ValidationErrors, AsyncValidatorFn } from '@angular/forms';
 import { Router } from '@angular/router';
-import { forkJoin, of, timer } from 'rxjs';
+import { forkJoin, of, timer, Observable } from 'rxjs';
 import { map, switchMap, debounceTime, first, filter } from 'rxjs/operators';
 import { BibleService } from '../bible.service';
 import { ShareService } from '../share.service';
@@ -80,8 +80,11 @@ export class CreateGameComponent implements OnInit {
       if (!parsed) {
         return of(null); // Should not happen due to validation, but a good safeguard.
       }
-      return this.bibleService.getVerseIndex(parsed)
-        .pipe(switchMap(index => this.bibleService.getVerseIdFromIndex(index)));
+      return this.bibleService.getVerseIndex({
+        bookName: parsed.book,
+        chapter: parsed.chapter,
+        verse: parsed.verse
+      }).pipe(switchMap(index => this.bibleService.getVerseIdFromIndex(index)));
     }
     );
 
@@ -100,7 +103,7 @@ export class CreateGameComponent implements OnInit {
         rounds: this.createForm.value.rounds,
         contextSize: this.createForm.value.contextSize,
         timeLimit: this.createForm.value.timeLimit,
-        books: [] // Not needed for created games
+        books: [] // The 'books' property is not needed here because verses are explicitly defined.
       };
 
       this.generatedCode = this.shareService.encodeGame({

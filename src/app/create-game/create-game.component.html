@@ -1,0 +1,82 @@
+<div class="container mt-4">
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <div class="card">
+        <div class="card-body">
+          <h2 class="card-title text-center mb-4">Create a Custom Game</h2>
+          <p class="text-center text-muted">Define your own game by specifying the verses for each round, then share the code with a friend!</p>
+
+          <form [formGroup]="createForm" (ngSubmit)="generateCode()">
+            <!-- Game Settings -->
+            <div class="row">
+              <div class="col-md-4">
+                <div class="form-group mb-3">
+                  <label for="rounds" class="form-label">Number of Rounds</label>
+                  <input type="number" id="rounds" class="form-control" formControlName="rounds" min="1" max="50">
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="form-group mb-3">
+                  <label for="contextSize" class="form-label">Context Size: {{ createForm.get('contextSize')?.value }}</label>
+                  <input type="range" id="contextSize" class="form-range" formControlName="contextSize" min="0" max="250">
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="form-group mb-3">
+                  <label for="timeLimit" class="form-label">Time Limit</label>
+                  <select id="timeLimit" class="form-select" formControlName="timeLimit">
+                    <option *ngFor="let option of timeOptions" [value]="option.value">{{ option.label }}</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            <hr class="my-4">
+
+            <!-- Verse Inputs -->
+            <h4 class="mb-3">Verses</h4>
+            <div formArrayName="verses">
+              <div *ngFor="let verse of verses.controls; let i = index" class="form-group mb-2">
+                <label for="verse-{{i}}" class="form-label">Round {{ i + 1 }}</label>
+                <input
+                  type="text"
+                  id="verse-{{i}}"
+                  class="form-control"
+                  [formControlName]="i"
+                  placeholder="e.g., John 3:16">
+              </div>
+            </div>
+
+            <!-- Error Message -->
+            <div *ngIf="errorMessage" class="alert alert-danger mt-3">
+              {{ errorMessage }}
+            </div>
+
+            <!-- Generate Button -->
+            <div class="d-grid gap-2 mt-4">
+              <button type="submit" class="btn btn-primary" [disabled]="createForm.invalid || isGenerating">
+                <span *ngIf="isGenerating" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                {{ isGenerating ? 'Generating...' : 'Generate Game Code' }}
+              </button>
+            </div>
+          </form>
+
+          <!-- Generated Code Display -->
+          <div *ngIf="generatedCode" class="mt-4">
+            <h4 class="text-center">Your Game Code is Ready!</h4>
+            <div class="input-group">
+              <input type="text" class="form-control" [value]="generatedCode" readonly>
+              <button class="btn btn-outline-secondary" type="button" (click)="copyCode()">Copy</button>
+            </div>
+            <p class="text-center text-muted mt-2">Share this code with your friends to challenge them.</p>
+          </div>
+
+          <!-- Back Button -->
+          <div class="text-center mt-4">
+            <a routerLink="/" class="btn btn-link">Back to Home</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

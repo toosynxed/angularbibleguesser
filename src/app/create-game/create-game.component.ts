@@ -136,14 +136,22 @@ export class CreateGameComponent implements OnInit {
     }
     return timer(300).pipe( // Debounce input
       switchMap(() => {
-        const parsed = this.bibleService.parseVerseReference(control.value);
-        if (!parsed) {
+        // A more robust regex that handles book names with numbers (e.g., "1 John")
+        // and allows for flexible spacing.
+        const verseRegex = /^\s*([1-3]?\s*[a-zA-Z]+)\s+(\d+):(\d+)\s*$/;
+        const match = control.value.trim().match(verseRegex);
+
+        if (!match) {
           return of({ invalidFormat: true });
         }
+
+        const [, book, chapter, verse] = match;
+
         return this.bibleService.getVerseIndex({
-          bookName: parsed.book,
-          chapter: parsed.chapter,
-          verse: parsed.verse
+          // We pass the parsed components to the service
+          bookName: book.trim(),
+          chapter: parseInt(chapter, 10),
+          verse: parseInt(verse, 10)
         }).pipe(
           map(index => (index === -1 ? { verseNotFound: true } : null))
         );

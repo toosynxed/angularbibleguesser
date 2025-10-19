@@ -5,7 +5,7 @@
   display: flex;
   align-items: center;
   opacity: 0.5; /* Greys out the element */
-  font-size: 0.9rem;
+  font-size: 1rem;
   color: var(--text-color, #333);
   cursor: default; /* Indicates it's not clickable */
 }
@@ -28,6 +28,12 @@
   max-width: 300px; /* Optional: constrain button width on larger screens */
 }
 
+/* New color for primary action buttons */
+.home-main button.primary {
+  background-color: #008B8B; /* A nice dark cyan / aqua color */
+  color: white;
+}
+
 /* Changelog Button */
 .changelog-button {
   position: fixed;
@@ -45,6 +51,26 @@
 
 .changelog-button:hover {
   opacity: 1;
+}
+
+/* Help Button */
+.help-button {
+  position: fixed;
+  bottom: 1rem;
+  right: 1rem;
+  background-color: var(--secondary-color, #6c757d);
+  color: white;
+  border: none;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 1.5rem;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
 }
 
 /* Modal styles */
@@ -80,6 +106,32 @@
   padding-bottom: 1rem;
 }
 
+.modal-tabs {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.tab-button {
+  background: none;
+  border: none;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  font-size: 1.1rem;
+  color: var(--text-secondary-color, #666);
+  border-bottom: 2px solid transparent;
+  transition: color 0.2s ease, border-color 0.2s ease;
+}
+
+.tab-button:hover {
+  color: var(--text-color, #333);
+}
+
+.tab-button.active {
+  color: var(--primary-color, #008B8B);
+  font-weight: bold;
+  border-bottom-color: var(--primary-color, #008B8B);
+}
+
 .modal-body {
   overflow-y: auto;
   margin-top: 1rem;
@@ -90,6 +142,17 @@
   word-wrap: break-word;
   font-family: inherit; /* Use the same font as the rest of the app */
   font-size: 0.9rem;
+}
+
+.help-content {
+  white-space: pre-wrap; /* Allows text to wrap */
+  word-wrap: break-word;
+  font-family: inherit;
+  font-size: 0.9rem;
+}
+
+.help-content a {
+  color: var(--primary-color, #008B8B);
 }
 
 .close-button {

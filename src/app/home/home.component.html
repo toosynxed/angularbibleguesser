@@ -12,8 +12,8 @@
 
   <main class="home-main">
     <h2>Choose a Game Mode</h2>
-    <button (click)="startGame('normal')">Normal Mode (1 Round)</button>
-    <button (click)="startGame('marathon')">Marathon Mode (5 Rounds)</button>
+    <button class="primary" (click)="startGame('normal')">Normal Mode (1 Round)</button>
+    <button class="primary" (click)="startGame('marathon')">Marathon Mode (5 Rounds)</button>
     <button class="secondary" (click)="showCodeInput = !showCodeInput">Play with Code</button>
 
     <div *ngIf="showCodeInput" class="code-input-container">
@@ -31,6 +31,9 @@
   <!-- Changelog Button -->
   <button class="changelog-button" (click)="showChangelog = true">Changelog</button>
 
+  <!-- Help Button -->
+  <button class="help-button" (click)="showHelp = true">?</button>
+
   <!-- Changelog Modal -->
   <div *ngIf="showChangelog" class="modal-backdrop" (click)="showChangelog = false">
     <div class="modal-content" (click)="$event.stopPropagation()">
@@ -40,8 +43,28 @@
       </div>
       <div class="modal-body">
         <!-- The content below is rendered from the changelogContent property in your component -->
-        <!-- You can use markdown-like syntax (### for headers, - for lists) -->
         <div class="changelog-content" [innerHTML]="changelogContent"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Help Modal -->
+  <div *ngIf="showHelp" class="modal-backdrop" (click)="showHelp = false">
+    <div class="modal-content" (click)="$event.stopPropagation()">
+      <div class="modal-header">
+        <div class="modal-tabs">
+          <button class="tab-button" [class.active]="activeHelpTab === 'rules'" (click)="activeHelpTab = 'rules'">Rules</button>
+          <button class="tab-button" [class.active]="activeHelpTab === 'about'" (click)="activeHelpTab = 'about'">About</button>
+        </div>
+        <button class="close-button" (click)="showHelp = false">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div *ngIf="activeHelpTab === 'rules'" class="help-content" [innerHTML]="rulesContent">
+          <!-- Rules content is displayed here -->
+        </div>
+        <div *ngIf="activeHelpTab === 'about'" class="help-content" [innerHTML]="aboutContent">
+          <!-- About content is displayed here -->
+        </div>
       </div>
     </div>
   </div>

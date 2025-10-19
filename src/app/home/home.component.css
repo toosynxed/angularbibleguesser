@@ -138,15 +138,13 @@
 }
 
 .changelog-content {
-  white-space: pre-wrap; /* Allows text to wrap */
-  word-wrap: break-word;
+  white-space: normal; /* Collapse whitespace and wrap text */
   font-family: inherit; /* Use the same font as the rest of the app */
   font-size: 0.9rem;
 }
 
 .help-content {
-  white-space: pre-wrap; /* Allows text to wrap */
-  word-wrap: break-word;
+  white-space: normal; /* Collapse whitespace and wrap text */
   font-family: inherit;
   font-size: 0.9rem;
 }

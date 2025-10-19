@@ -25,7 +25,7 @@ export interface RoundResult {
 export class GameComponent implements OnInit, OnDestroy {
   @ViewChild('verseContextContainer') private verseContextContainer: ElementRef<HTMLElement>;
 
-  gameMode: 'normal' | 'custom' = 'normal';
+  gameMode: 'normal' | 'marathon' = 'normal';
   totalRounds = 1;
   seededVerseIds: number[] | null = null;
   gameSettings: any = null; // To hold custom game settings
@@ -56,7 +56,7 @@ export class GameComponent implements OnInit, OnDestroy {
   ) {
     const navigation = this.router.getCurrentNavigation();
     const state = navigation?.extras.state as {
-      mode: 'normal' | 'custom',
+      mode: 'normal' | 'marathon',
       verseIds?: number[],
       settings?: any
     };
@@ -94,7 +94,7 @@ export class GameComponent implements OnInit, OnDestroy {
           return this.bibleService.getVerseById(verseId);
         } else {
           // For marathon, use the book selection
-          if (this.gameMode === 'custom' && this.gameSettings?.books?.length > 0) {
+          if (this.gameMode === 'marathon' && this.gameSettings?.books?.length > 0) {
             return this.bibleService.getRandomVerse(this.gameSettings.books);
           }
           // Otherwise, get a random verse

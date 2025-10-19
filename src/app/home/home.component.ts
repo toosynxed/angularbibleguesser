@@ -19,7 +19,7 @@ export class HomeComponent {
   rulesContent = `
 <h3>How to Play</h3>
 <ul>
-  <li>Select a game mode: Normal (1 round) or Custom Mode.</li>
+  <li>Select a game mode: Normal (1 round) or Marathon Mode.</li>
   <li>A passage from the Bible will be displayed with one verse highlighted in purple.</li>
   <li>Your goal is to guess the book, chapter, and verse number of the highlighted verse.</li>
   <li>Use the context slider to show more or fewer surrounding verses to help you guess.</li>
@@ -88,9 +88,9 @@ export class HomeComponent {
 
   constructor(private router: Router, private shareService: ShareService) { }
 
-  startGame(mode: 'normal' | 'custom'): void {
-    if (mode === 'custom') {
-      this.router.navigate(['/custom-settings']);
+  startGame(mode: 'normal' | 'marathon'): void {
+    if (mode === 'marathon') {
+      this.router.navigate(['/marathon-settings']);
     } else {
       this.router.navigate(['/game'], { state: { mode: 'normal' } });
     }

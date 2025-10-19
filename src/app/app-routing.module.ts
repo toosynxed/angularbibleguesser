@@ -3,11 +3,13 @@ import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './home/home.component';
 import { GameComponent } from './game/game.component';
 import { ResultsComponent } from './results/results.component';
+import { CustomSettingsComponent } from './custom-settings/custom-settings.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'game', component: GameComponent },
   { path: 'results', component: ResultsComponent },
+  { path: 'custom-settings', component: CustomSettingsComponent },
   { path: '**', redirectTo: '', pathMatch: 'full' }
 ];
 

@@ -1,7 +1,7 @@
 import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { forkJoin, from, of, Subject, Subscription } from 'rxjs';
+import { forkJoin, from, of, Subject, Subscription, timer } from 'rxjs';
 import { concatMap, switchMap, takeUntil, tap } from 'rxjs/operators';
 import { BibleService } from '../bible.service'; // Correct
 import { Verse } from '../verse.model'; // Corrected import path
@@ -25,9 +25,13 @@ export interface RoundResult {
 export class GameComponent implements OnInit, OnDestroy {
   @ViewChild('verseContextContainer') private verseContextContainer: ElementRef<HTMLElement>;
 
-  gameMode: 'normal' | 'marathon' = 'normal';
+  gameMode: 'normal' | 'custom' = 'normal';
   totalRounds = 1;
   seededVerseIds: number[] | null = null;
+  gameSettings: any = null; // To hold marathon settings
+  timeLeft: number | null = null;
+  private timerSubscription: Subscription;
+
   currentRound = 0;
 
   currentVerse: Verse | null = null;
@@ -51,9 +55,16 @@ export class GameComponent implements OnInit, OnDestroy {
     private shareService: ShareService
   ) {
     const navigation = this.router.getCurrentNavigation();
-    const state = navigation?.extras.state as { mode: 'normal' | 'marathon', verseIds?: number[] };
+    const state = navigation?.extras.state as {
+      mode: 'normal' | 'custom',
+      verseIds?: number[],
+      settings?: any
+    };
     this.seededVerseIds = state?.verseIds || null;
     this.gameMode = state?.mode || 'normal';
+    if (this.gameMode === 'custom' && state?.settings) {
+      this.gameSettings = state.settings;
+    }
 
     this.guessForm = this.fb.group({
       guess: ['', Validators.required]
@@ -61,15 +72,29 @@ export class GameComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.totalRounds = this.seededVerseIds?.length || (this.gameMode === 'normal' ? 1 : 5);
+    if (this.gameSettings) {
+      this.totalRounds = this.gameSettings.rounds;
+      this.contextSize = this.gameSettings.contextSize;
+      if (this.gameSettings.timeLimit > 0) {
+        this.timeLeft = this.gameSettings.timeLimit;
+        this.startTimer();
+      }
+    } else {
+      this.totalRounds = this.seededVerseIds?.length || (this.gameMode === 'normal' ? 1 : 1);
+    }
 
     this.roundState$.pipe(
       concatMap(() => {
+        this.isLoading = true;
         if (this.seededVerseIds && this.seededVerseIds.length > 0) {
           // If playing a seeded game, get the specific verse for the current round
           const verseId = this.seededVerseIds[this.currentRound - 1];
           return this.bibleService.getVerseById(verseId);
         } else {
+          // For marathon, use the book selection
+          if (this.gameMode === 'custom' && this.gameSettings?.books) {
+            return this.bibleService.getRandomVerse(this.gameSettings.books);
+          }
           // Otherwise, get a random verse
           return this.bibleService.getRandomVerse();
         }
@@ -86,6 +111,9 @@ export class GameComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.destroy$.next();
     this.destroy$.complete();
+    if (this.timerSubscription) {
+      this.timerSubscription.unsubscribe();
+    }
   }
 
   startNewRound(): void {
@@ -95,6 +123,18 @@ export class GameComponent implements OnInit, OnDestroy {
     this.isLoading = true;
     this.guessForm.reset();
     this.roundState$.next();
+  }
+
+  startTimer(): void {
+    this.timerSubscription = timer(1000, 1000).pipe(takeUntil(this.destroy$)).subscribe(() => {
+      if (this.timeLeft !== null && this.timeLeft > 0) {
+        this.timeLeft--;
+      } else if (this.timeLeft === 0) {
+        this.timerSubscription.unsubscribe();
+        alert("Time's up!");
+        this.finishGame();
+      }
+    });
   }
 
   updateVerseContext(): void {

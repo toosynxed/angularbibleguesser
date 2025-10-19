@@ -6,6 +6,7 @@ import { concatMap, switchMap, takeUntil, tap } from 'rxjs/operators';
 import { BibleService } from '../bible.service'; // Correct
 import { Verse } from '../verse.model'; // Corrected import path
 import { ShareService } from '../share.service';
+import { GameSettings } from '../game-settings.model';
 
 export interface RoundResult {
   verse: Verse;
@@ -25,10 +26,10 @@ export interface RoundResult {
 export class GameComponent implements OnInit, OnDestroy {
   @ViewChild('verseContextContainer') private verseContextContainer: ElementRef<HTMLElement>;
 
-  gameMode: 'normal' | 'custom' = 'normal';
+  gameMode: 'normal' | 'custom' | 'created' = 'normal';
   totalRounds = 1;
   seededVerseIds: number[] | null = null;
-  gameSettings: any = null; // To hold marathon settings
+  gameSettings: GameSettings | null = null; // To hold marathon settings
   timeLeft: number | null = null;
   private timerSubscription: Subscription;
 
@@ -56,13 +57,13 @@ export class GameComponent implements OnInit, OnDestroy {
   ) {
     const navigation = this.router.getCurrentNavigation();
     const state = navigation?.extras.state as {
-      mode: 'normal' | 'custom',
+      mode: 'normal' | 'custom' | 'created',
       verseIds?: number[],
-      settings?: any
+      settings?: GameSettings
     };
     this.seededVerseIds = state?.verseIds || null;
-    this.gameMode = state?.mode || 'normal';
-    if (this.gameMode === 'custom' && state?.settings) {
+    this.gameMode = state?.mode || (this.seededVerseIds ? 'created' : 'normal');
+    if ((this.gameMode === 'custom' || this.gameMode === 'created') && state?.settings) {
       this.gameSettings = state.settings;
     }
 
@@ -72,15 +73,14 @@ export class GameComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    this.totalRounds = this.seededVerseIds?.length || this.gameSettings?.rounds || 1;
+
     if (this.gameSettings) {
-      this.totalRounds = this.gameSettings.rounds;
       this.contextSize = this.gameSettings.contextSize;
       if (this.gameSettings.timeLimit > 0) {
         this.timeLeft = this.gameSettings.timeLimit;
         this.startTimer();
       }
-    } else {
-      this.totalRounds = this.seededVerseIds?.length || (this.gameMode === 'normal' ? 1 : 1);
     }
 
     this.roundState$.pipe(

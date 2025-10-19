@@ -107,7 +107,8 @@ export class HomeComponent {
       this.router.navigate(['/game'], {
         state: {
           mode: seed.mode,
-          verseIds: seed.verseIds
+          verseIds: seed.verseIds,
+          settings: seed.settings // Pass the full settings object
         }
       });
     } else {

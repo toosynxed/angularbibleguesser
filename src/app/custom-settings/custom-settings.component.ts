@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { BibleService } from '../bible.service';
+import { GameSettings } from '../game-settings.model';
 
 @Component({
   selector: 'app-custom-settings',
@@ -9,7 +10,7 @@ import { BibleService } from '../bible.service';
 })
 export class CustomSettingsComponent implements OnInit {
   // Default settings
-  settings = {
+  settings: GameSettings = {
     rounds: 5,
     contextSize: 250,
     timeLimit: 0, // 0 for no limit

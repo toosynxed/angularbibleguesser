@@ -1,8 +1,10 @@
 import { Injectable } from '@angular/core';
+import { GameSettings } from './game-settings.model';
 
 export interface GameSeed {
-  mode: 'normal' | 'marathon';
-  verseIds: number[];
+  mode: 'normal' | 'custom' | 'created';
+  verseIds?: number[];
+  settings?: GameSettings;
 }
 
 @Injectable({
@@ -14,14 +16,13 @@ export class ShareService {
 
   /**
    * Encodes a game session into a shareable Base64 string.
-   * @param verseIds An array of verse IDs from the game.
+   * @param seed The GameSeed object to encode.
    * @returns A shareable code string.
    */
-  encodeGame(verseIds: number[]): string {
-    const mode = verseIds.length > 1 ? 'marathon' : 'normal';
-    const dataString = `${mode}:${verseIds.join(',')}`;
-    // btoa provides simple obfuscation to make the code not human-readable.
-    return btoa(dataString);
+  encodeGame(seed: GameSeed): string {
+    const dataString = JSON.stringify(seed);
+    // btoa provides simple obfuscation to make the URL less messy.
+    return btoa(encodeURIComponent(dataString));
   }
 
   /**
@@ -31,15 +32,16 @@ export class ShareService {
    */
   decodeGame(code: string): GameSeed | null {
     try {
-      const decodedString = atob(code);
-      const [mode, idsString] = decodedString.split(':');
+      const decodedString = decodeURIComponent(atob(code));
+      const seed: GameSeed = JSON.parse(decodedString);
 
-      if ((mode !== 'normal' && mode !== 'marathon') || !idsString) {
+      // Basic validation to ensure the decoded object has the expected shape.
+      if (!seed.mode || (seed.mode === 'created' && !seed.verseIds)) {
         return null;
       }
 
-      const verseIds = idsString.split(',').map(id => parseInt(id, 10));
-      return { mode: mode as 'normal' | 'marathon', verseIds };
+      return seed;
+
     } catch (e) {
       // This will catch errors from invalid Base64 strings or other parsing issues.
       return null;

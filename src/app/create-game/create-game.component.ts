@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, FormArray, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, FormArray, Validators, AbstractControl, ValidationErrors, AsyncValidatorFn } from '@angular/forms';
 import { Router } from '@angular/router';
-import { forkJoin, of } from 'rxjs';
-import { map, switchMap } from 'rxjs/operators';
+import { forkJoin, of, timer } from 'rxjs';
+import { map, switchMap, debounceTime, first, filter } from 'rxjs/operators';
 import { BibleService } from '../bible.service';
 import { ShareService } from '../share.service';
+import { GameSettings } from '../game-settings.model';
 
 @Component({
   selector: 'app-create-game',
@@ -16,6 +17,7 @@ export class CreateGameComponent implements OnInit {
   generatedCode: string | null = null;
   isGenerating = false;
   errorMessage: string | null = null;
+  copyButtonText = 'Copy';
 
   timeOptions = [
     { value: 0, label: 'No Time Limit' },
@@ -56,7 +58,7 @@ export class CreateGameComponent implements OnInit {
     const numberOfRounds = this.createForm.get('rounds')?.value || 0;
     while (this.verses.length !== numberOfRounds) {
       if (this.verses.length < numberOfRounds) {
-        this.verses.push(this.fb.control('', Validators.required));
+        this.verses.push(this.fb.control('', { validators: [Validators.required], asyncValidators: [this.verseValidator], updateOn: 'blur' }));
       } else {
         this.verses.removeAt(this.verses.length - 1);
       }
@@ -65,7 +67,7 @@ export class CreateGameComponent implements OnInit {
 
   generateCode(): void {
     if (this.createForm.invalid) {
-      this.errorMessage = 'Please fill out all verse fields.';
+      this.errorMessage = 'Please fix the errors in the form before generating a code.';
       return;
     }
     this.isGenerating = true;
@@ -75,22 +77,26 @@ export class CreateGameComponent implements OnInit {
     const verseRefs: string[] = this.verses.value;
     const verseLookups$ = verseRefs.map(ref => {
       const parsed = this.bibleService.parseVerseReference(ref);
-      if (!parsed) return of(null);
-      return this.bibleService.getVerseIndex(parsed).pipe(
-        switchMap(index => this.bibleService.getVerseIdFromIndex(index))
-      );
-    });
+      if (!parsed) {
+        return of(null); // Should not happen due to validation, but a good safeguard.
+      }
+      return this.bibleService.getVerseIndex(parsed)
+        .pipe(switchMap(index => this.bibleService.getVerseIdFromIndex(index)));
+    }
+    );
 
-    forkJoin(verseLookups$).subscribe(verseIds => {
+    forkJoin(verseLookups$).subscribe(results => {
       this.isGenerating = false;
-      const validVerseIds = verseIds.filter(id => id !== null) as number[];
+      // Filter out any nulls that might have slipped through, just in case.
+      const validVerseIds = results.filter((id): id is number => id !== null);
 
-      if (validVerseIds.length !== verseRefs.length) {
-        this.errorMessage = 'One or more verses could not be found. Please check your spelling and format (e.g., "John 3:16").';
+      // Final check to ensure the number of valid verses matches the number of rounds.
+      if (validVerseIds.length !== this.createForm.value.rounds) {
+        this.errorMessage = 'Could not generate code. One or more verses failed to be validated. Please review your entries.';
         return;
       }
 
-      const gameSettings = {
+      const gameSettings: GameSettings = {
         rounds: this.createForm.value.rounds,
         contextSize: this.createForm.value.contextSize,
         timeLimit: this.createForm.value.timeLimit,
@@ -98,7 +104,7 @@ export class CreateGameComponent implements OnInit {
       };
 
       this.generatedCode = this.shareService.encodeGame({
-        mode: 'custom',
+        mode: 'created',
         verseIds: validVerseIds,
         settings: gameSettings
       });
@@ -108,8 +114,31 @@ export class CreateGameComponent implements OnInit {
   copyCode(): void {
     if (this.generatedCode) {
       navigator.clipboard.writeText(this.generatedCode).then(() => {
-        // Optional: show a "Copied!" message
+        this.copyButtonText = 'Copied!';
+        setTimeout(() => this.copyButtonText = 'Copy', 2000);
       });
     }
   }
+
+  verseValidator: AsyncValidatorFn = (control: AbstractControl): Observable<ValidationErrors | null> => {
+    if (!control.value) {
+      return of(null); // Don't validate empty values, let `Validators.required` handle it.
+    }
+    return timer(300).pipe( // Debounce input
+      switchMap(() => {
+        const parsed = this.bibleService.parseVerseReference(control.value);
+        if (!parsed) {
+          return of({ invalidFormat: true });
+        }
+        return this.bibleService.getVerseIndex({
+          bookName: parsed.book,
+          chapter: parsed.chapter,
+          verse: parsed.verse
+        }).pipe(
+          map(index => (index === -1 ? { verseNotFound: true } : null))
+        );
+      }),
+      first() // Ensure the observable completes
+    );
+  };
 }

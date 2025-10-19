@@ -37,6 +37,13 @@ export class HomeComponent {
   // You can update the changelog text here.
   // Using backticks (`) allows for multi-line strings.
   changelogContent = `
+<h3>Version 1.4.0</h3>
+<ul>
+  <li>Implemented Create Mode</li>
+  <li>Players can now copy their game codes for all modes, including Create Mode</li>
+  <li>Join the *new* Discord to see more updates and view other player's games!</li>
+</ul>
+
 <h3><s>Version 1.3.0 (Recalled - In Progress)</s></h3>
 <ul>
   <li><s>Implemented custom gamemodes.</s></li>

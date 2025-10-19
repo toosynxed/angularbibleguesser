@@ -58,7 +58,7 @@ export class CreateGameComponent implements OnInit {
     const numberOfRounds = this.createForm.get('rounds')?.value || 0;
     while (this.verses.length !== numberOfRounds) {
       if (this.verses.length < numberOfRounds) {
-        this.verses.push(this.fb.control('', { validators: [Validators.required], asyncValidators: [this.verseValidator], updateOn: 'blur' }));
+        this.verses.push(this.fb.control('', { validators: [Validators.required], asyncValidators: [this.verseValidator], updateOn: 'submit' }));
       } else {
         this.verses.removeAt(this.verses.length - 1);
       }
@@ -67,6 +67,7 @@ export class CreateGameComponent implements OnInit {
 
   generateCode(): void {
     if (this.createForm.invalid) {
+      this.createForm.markAllAsTouched(); // Manually trigger validation display on all fields
       this.errorMessage = 'Please fix the errors in the form before generating a code.';
       return;
     }

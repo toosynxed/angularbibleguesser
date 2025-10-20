@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { combineLatest, Observable } from 'rxjs';
-import { map, switchMap, tap } from 'rxjs/operators';
+import { map, switchMap, tap, filter } from 'rxjs/operators';
 import { AuthService } from '../auth.service';
 import { Lobby, LobbyService, Player } from '../lobby.service';
 
@@ -13,7 +13,7 @@ interface LeaderboardPlayer extends Player {
 @Component({
   selector: 'app-leaderboard',
   template: `
-    <div class="container" *ngIf="lobby">
+    <div class="container" *ngIf="lobby$ | async as lobby">
       <h1>Round {{ lobby.currentRound + 1 }} Results</h1>
       <div class="leaderboard-list">
         <table>
@@ -35,8 +35,8 @@ interface LeaderboardPlayer extends Player {
       </div>
 
       <div class="actions" *ngIf="isHost$ | async">
-        <button *ngIf="!isFinalRound" (click)="startNextRound()">Start Next Round</button>
-        <button *ngIf="isFinalRound" (click)="seeFinalResults()">See Final Results</button>
+        <button *ngIf="!(isFinalRound$ | async)" (click)="startNextRound(lobby)">Start Next Round</button>
+        <button *ngIf="isFinalRound$ | async" (click)="seeFinalResults()">See Final Results</button>
       </div>
       <p *ngIf="!(isHost$ | async)">Waiting for host to continue...</p>
     </div>
@@ -45,10 +45,10 @@ interface LeaderboardPlayer extends Player {
 })
 export class LeaderboardComponent implements OnInit {
   lobbyId: string;
-  lobby: Lobby;
+  lobby$: Observable<Lobby>;
   leaderboard$: Observable<LeaderboardPlayer[]>;
   isHost$: Observable<boolean>;
-  isFinalRound = false;
+  isFinalRound$: Observable<boolean>;
 
   constructor(
     private route: ActivatedRoute,
@@ -60,7 +60,7 @@ export class LeaderboardComponent implements OnInit {
   ngOnInit(): void {
     this.lobbyId = this.route.snapshot.paramMap.get('id');
 
-    const lobby$ = this.lobbyService.getLobby(this.lobbyId).valueChanges().pipe(
+    this.lobby$ = this.lobbyService.getLobby(this.lobbyId).valueChanges().pipe(
       tap(lobby => {
         // When the host starts the next round, navigate everyone back to the game.
         if (lobby?.gameState === 'in-progress') {
@@ -69,15 +69,17 @@ export class LeaderboardComponent implements OnInit {
           // When the host ends the game, navigate to the final results page.
           this.router.navigate(['/results'], { state: { lobby: lobby, mode: 'multiplayer' } });
         }
-      })
+      }),
+      filter(lobby => !!lobby) // Ensure we don't process null/undefined lobbies
     );
     const players$ = this.lobbyService.getLobbyPlayers(this.lobbyId);
 
-    this.leaderboard$ = combineLatest([lobby$, players$]).pipe(
-      map(([lobby, players]) => {
-        this.lobby = lobby;
-        this.isFinalRound = lobby.currentRound >= lobby.gameSettings.rounds - 1;
+    this.isFinalRound$ = this.lobby$.pipe(
+      map(lobby => lobby.currentRound >= lobby.gameSettings.rounds - 1)
+    );
 
+    this.leaderboard$ = combineLatest([this.lobby$, players$]).pipe(
+      map(([lobby, players]) => {
         const rankedPlayers = players.map(player => {
           let totalScore = 0;
           if (lobby['guesses']) {
@@ -97,12 +99,12 @@ export class LeaderboardComponent implements OnInit {
     );
 
     this.isHost$ = this.authService.user$.pipe(
-      switchMap(user => lobby$.pipe(map(lobby => user?.uid === lobby?.hostId)))
+      switchMap(user => this.lobby$.pipe(map(lobby => user?.uid === lobby?.hostId)))
     );
   }
 
-  startNextRound(): void {
-    this.lobbyService.nextRound(this.lobbyId, this.lobby.currentRound + 1);
+  startNextRound(lobby: Lobby): void {
+    this.lobbyService.nextRound(this.lobbyId, lobby.currentRound + 1);
   }
 
   seeFinalResults(): void {

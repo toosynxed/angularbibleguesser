@@ -266,12 +266,12 @@ export class GameComponent implements OnInit, OnDestroy {
       if (this.gameMode === 'multiplayer') {
         this.lobbyService.submitGuess(this.lobbyId, this.currentRound - 1, this.userId, rawGuess, score);
         this.isRoundOver = true; // Mark as submitted for this player
-        this.feedback = 'Your guess has been submitted! Waiting for other players...';
         if (stars === 3) {
           this.feedback = 'Perfect! You got it exactly right!';
         } else {
-          this.feedback = `The correct answer was ${answer.bookName} ${answer.chapter}:${answer.verse}.`;
+          this.feedback = 'Your guess has been submitted! Waiting for other players...';
         }
+      } else {
         this.results.push({
           verse: answer,
           guess: parsedGuess,

@@ -132,4 +132,8 @@ export class HomeComponent {
       this.error = 'Invalid game code. Please check and try again.';
     }
   }
+
+  goToMultiplayer(): void {
+    this.router.navigate(['/multiplayer']);
+  }
 }

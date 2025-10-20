@@ -1,0 +1,9 @@
+<div class="container">
+  <h1>Multiplayer</h1>
+  <p>Create a lobby or join one with a code.</p>
+  <div class="actions">
+    <button class="primary" (click)="createLobby()">Create Lobby</button>
+    <input [(ngModel)]="lobbyCode" placeholder="Enter Lobby Code" (keyup.enter)="joinLobby()" />
+    <button class="secondary" (click)="joinLobby()">Join Lobby</button>
+  </div>
+</div>

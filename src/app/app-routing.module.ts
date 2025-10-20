@@ -5,8 +5,6 @@ import { GameComponent } from './game/game.component';
 import { ResultsComponent } from './results/results.component';
 import { CustomSettingsComponent } from './custom-settings/custom-settings.component';
 import { CreateGameComponent } from './create-game/create-game.component';
-import { MultiplayerHomeComponent } from './multiplayer-home/multiplayer-home.component';
-import { LobbyComponent } from './lobby/lobby.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -14,8 +12,8 @@ const routes: Routes = [
   { path: 'results', component: ResultsComponent },
   { path: 'custom-settings', component: CustomSettingsComponent },
   { path: 'create-game', component: CreateGameComponent },
-  { path: 'multiplayer', component: MultiplayerHomeComponent },
-  { path: 'lobby/:id', component: LobbyComponent },
+  // Lazy-load the multiplayer module
+  { path: 'multiplayer', loadChildren: () => import('./multiplayer/multiplayer.module').then(m => m.MultiplayerModule) },
   { path: '**', redirectTo: '', pathMatch: 'full' }
 ];
 

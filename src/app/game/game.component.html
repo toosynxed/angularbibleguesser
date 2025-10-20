@@ -22,7 +22,7 @@
         </p>
       </div>
 
-      <p class="answer" *ngIf="isRoundOver">
+      <p class="answer" *ngIf="isRoundOver && gameMode !== 'multiplayer'">
         <em>- {{ answerText }}</em>
       </p>
     </div>
@@ -47,7 +47,7 @@
       <p>{{ feedback }}</p>
     </div>
 
-    <div class="actions" *ngIf="isRoundOver">
+    <div class="actions" *ngIf="isRoundOver && gameMode !== 'multiplayer'">
       <button type="button" (click)="next()">
         {{ currentRound < totalRounds ? 'Next Round' : 'See Results' }}
       </button>

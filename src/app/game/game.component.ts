@@ -272,6 +272,13 @@ export class GameComponent implements OnInit, OnDestroy {
           this.feedback = 'Your guess has been submitted! Waiting for other players...';
         }
       } else {
+        this.isRoundOver = true;
+        if (stars === 3) {
+          this.feedback = 'Perfect! You got it exactly right!';
+        } else {
+          this.feedback = `The correct answer was ${answer.bookName} ${answer.chapter}:${answer.verse}.`;
+        }
+
         this.results.push({
           verse: answer,
           guess: parsedGuess,

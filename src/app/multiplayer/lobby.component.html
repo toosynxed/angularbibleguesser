@@ -1,5 +1,4 @@
-<div *ngIf="isLoading" class="loading-container">Loading Lobby...</div>
-<div class="lobby-container" [hidden]="isLoading" *ngIf="lobby$ | async as lobby">
+<div class="lobby-container" *ngIf="lobby$ | async as lobby">
   <div class="lobby-sidebar">
     <div class="lobby-info">
       <h2>Lobby Code</h2>
@@ -19,6 +18,9 @@
 
     <button class="start-game-button" *ngIf="isHost$ | async" (click)="startGame()">Start Game</button>
     <p *ngIf="!(isHost$ | async)">Waiting for host to start the game...</p>
+
+    <!-- Back Button -->
+    <button class="back-button secondary" (click)="goBack()">Back to Home</button>
   </div>
 
   <div class="settings-main">

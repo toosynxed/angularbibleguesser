@@ -1,12 +1,14 @@
 import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { forkJoin, from, of, Subject, Subscription, timer } from 'rxjs';
-import { concatMap, switchMap, takeUntil, tap } from 'rxjs/operators';
+import { forkJoin, from, of, Subject, Subscription, timer, Observable, combineLatest } from 'rxjs';
+import { concatMap, switchMap, takeUntil, tap, map, first } from 'rxjs/operators';
 import { BibleService } from '../bible.service'; // Correct
 import { Verse } from '../verse.model'; // Corrected import path
 import { ShareService } from '../share.service';
 import { GameSettings } from '../game-settings.model';
+import { Lobby, LobbyService, Player } from '../lobby.service';
+import { AuthService } from '../auth.service';
 
 export interface RoundResult {
   verse: Verse;
@@ -26,12 +28,19 @@ export interface RoundResult {
 export class GameComponent implements OnInit, OnDestroy {
   @ViewChild('verseContextContainer') private verseContextContainer: ElementRef<HTMLElement>;
 
-  gameMode: 'normal' | 'custom' | 'created' = 'normal';
+  // Game State
+  gameMode: 'normal' | 'custom' | 'created' | 'multiplayer' = 'normal';
   totalRounds = 1;
   seededVerseIds: number[] | null = null;
   gameSettings: GameSettings | null = null; // To hold marathon settings
   timeLeft: number | null = null;
   private timerSubscription: Subscription;
+
+  // Multiplayer State
+  lobbyId: string | null = null;
+  lobby$: Observable<Lobby>;
+  players$: Observable<Player[]>;
+  userId: string;
 
   currentRound = 0;
 
@@ -53,14 +62,18 @@ export class GameComponent implements OnInit, OnDestroy {
     private bibleService: BibleService,
     private fb: FormBuilder,
     private router: Router,
-    private shareService: ShareService
+    private shareService: ShareService,
+    private lobbyService: LobbyService,
+    private authService: AuthService
   ) {
     const navigation = this.router.getCurrentNavigation();
     const state = navigation?.extras.state as {
-      mode: 'normal' | 'custom' | 'created',
+      mode: 'normal' | 'custom' | 'created' | 'multiplayer',
       verseIds?: number[],
-      settings?: GameSettings
+      settings?: GameSettings,
+      lobbyId?: string
     };
+    this.lobbyId = state?.lobbyId || null;
     this.seededVerseIds = state?.verseIds || null;
     this.gameMode = state?.mode || (this.seededVerseIds ? 'created' : 'normal');
     if ((this.gameMode === 'custom' || this.gameMode === 'created') && state?.settings) {
@@ -73,39 +86,76 @@ export class GameComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.totalRounds = this.seededVerseIds?.length || this.gameSettings?.rounds || 1;
-
-    if (this.gameSettings) {
-      this.contextSize = this.gameSettings.contextSize;
-      if (this.gameSettings.timeLimit > 0) {
-        this.timeLeft = this.gameSettings.timeLimit;
-        this.startTimer();
-      }
+    if (this.gameMode === 'multiplayer' && this.lobbyId) {
+      this.setupMultiplayerGame();
+    } else {
+      this.setupSinglePlayerGame();
     }
+  }
 
-    this.roundState$.pipe(
-      concatMap(() => {
-        this.isLoading = true;
-        if (this.seededVerseIds && this.seededVerseIds.length > 0) {
-          // If playing a seeded game, get the specific verse for the current round
-          const verseId = this.seededVerseIds[this.currentRound - 1];
-          return this.bibleService.getVerseById(verseId);
-        } else {
-          // For marathon, use the book selection
-          if (this.gameMode === 'custom' && this.gameSettings?.books && this.gameSettings.books.length > 0) {
-            return this.bibleService.getRandomVerse(this.gameSettings.books);
-          }
-          // Otherwise, get a random verse
-          return this.bibleService.getRandomVerse();
+  setupSinglePlayerGame(): void {
+      this.totalRounds = this.seededVerseIds?.length || this.gameSettings?.rounds || 1;
+
+      if (this.gameSettings) {
+        this.contextSize = this.gameSettings.contextSize;
+        if (this.gameSettings.timeLimit > 0) {
+          this.timeLeft = this.gameSettings.timeLimit;
+          this.startTimer();
         }
-      }),
-      takeUntil(this.destroy$)
-    ).subscribe(verse => {
-      this.currentVerse = verse;
-      if (verse) this.updateVerseContext();
-    });
+      }
 
-    this.startNewRound(); // Start the first round directly
+      this.roundState$.pipe(
+        concatMap(() => {
+          this.isLoading = true;
+          if (this.seededVerseIds && this.seededVerseIds.length > 0) {
+            const verseId = this.seededVerseIds[this.currentRound - 1];
+            return this.bibleService.getVerseById(verseId);
+          } else {
+            if (this.gameMode === 'custom' && this.gameSettings?.books && this.gameSettings.books.length > 0) {
+              return this.bibleService.getRandomVerse(this.gameSettings.books);
+            }
+            return this.bibleService.getRandomVerse();
+          }
+        }),
+        takeUntil(this.destroy$)
+      ).subscribe(verse => {
+        this.currentVerse = verse;
+        if (verse) this.updateVerseContext();
+      });
+
+      this.startNewRound();
+  }
+
+  setupMultiplayerGame(): void {
+    this.lobby$ = this.lobbyService.getLobby(this.lobbyId).valueChanges();
+    this.players$ = this.lobbyService.getLobbyPlayers(this.lobbyId);
+    this.authService.user$.pipe(first(user => !!user)).subscribe(user => this.userId = user.uid);
+
+    this.lobby$.pipe(takeUntil(this.destroy$)).subscribe(lobby => {
+      if (!lobby) {
+        this.router.navigate(['/']); // Lobby was deleted
+        return;
+      }
+
+      if (lobby.gameState === 'leaderboard') {
+        this.router.navigate(['/multiplayer/leaderboard', this.lobbyId]);
+        return;
+      }
+
+      // If the round has changed, reset the view
+      if (this.currentRound !== lobby.currentRound + 1) {
+        this.currentRound = lobby.currentRound + 1;
+        this.isRoundOver = false;
+        this.feedback = null;
+        this.isLoading = true;
+        this.guessForm.reset();
+        const verseId = lobby.verseIds[lobby.currentRound];
+        this.bibleService.getVerseById(verseId).subscribe(verse => {
+          this.currentVerse = verse;
+          if (verse) this.updateVerseContext();
+        });
+      }
+    });
   }
 
   ngOnDestroy(): void {
@@ -117,12 +167,14 @@ export class GameComponent implements OnInit, OnDestroy {
   }
 
   startNewRound(): void {
-    this.currentRound++;
-    this.isRoundOver = false;
-    this.feedback = null;
-    this.isLoading = true;
-    this.guessForm.reset();
-    this.roundState$.next();
+    if (this.gameMode !== 'multiplayer') {
+      this.currentRound++;
+      this.isRoundOver = false;
+      this.feedback = null;
+      this.isLoading = true;
+      this.guessForm.reset();
+      this.roundState$.next();
+    }
   }
 
   startTimer(): void {
@@ -152,6 +204,10 @@ export class GameComponent implements OnInit, OnDestroy {
   }
 
   submitGuess(): void {
+    if (this.gameMode === 'multiplayer' && this.isRoundOver) {
+      return; // Already submitted for this round
+    }
+
     if (this.guessForm.invalid || !this.currentVerse) {
       return;
     }
@@ -165,8 +221,6 @@ export class GameComponent implements OnInit, OnDestroy {
       return;
     }
 
-    // A valid guess was made, so end the round.
-    this.isRoundOver = true;
     const { book, chapter, verse } = parsedGuess;
     const answer = this.currentVerse;
 
@@ -185,27 +239,49 @@ export class GameComponent implements OnInit, OnDestroy {
       }
     }
 
-    if (stars === 3) {
-      this.feedback = 'Perfect! You got it exactly right!';
-    } else {
-      this.feedback = `The correct answer was ${answer.bookName} ${answer.chapter}:${answer.verse}.`;
-    }
-
     const answerIndex$ = this.bibleService.getVerseIndex({ bookName: answer.bookName, chapter: answer.chapter, verse: answer.verse });
     const guessIndex$ = this.bibleService.getVerseIndex({ bookName: book, chapter, verse });
 
     forkJoin([answerIndex$, guessIndex$]).subscribe(([answerIndex, guessIndex]) => {
       const distance = (guessIndex === -1) ? 100 : Math.abs(answerIndex - guessIndex);
       const score = Math.max(0, 100 - distance);
-      this.results.push({
-        verse: answer,
-        guess: parsedGuess,
-        score,
-        stars,
-        isBookCorrect,
-        isChapterCorrect,
-        isVerseCorrect
-      });
+
+      if (this.gameMode === 'multiplayer') {
+        this.lobbyService.submitGuess(this.lobbyId, this.currentRound - 1, this.userId, rawGuess, score);
+        this.isRoundOver = true; // Mark as submitted for this player
+        this.feedback = 'Your guess has been submitted! Waiting for other players...';
+        // Logic to check if all players have guessed
+        this.checkIfAllPlayersGuessed();
+      } else {
+        this.isRoundOver = true;
+        if (stars === 3) {
+          this.feedback = 'Perfect! You got it exactly right!';
+        } else {
+          this.feedback = `The correct answer was ${answer.bookName} ${answer.chapter}:${answer.verse}.`;
+        }
+        this.results.push({
+          verse: answer,
+          guess: parsedGuess,
+          score,
+          stars,
+          isBookCorrect,
+          isChapterCorrect,
+          isVerseCorrect
+        });
+      }
+    });
+  }
+
+  checkIfAllPlayersGuessed(): void {
+    combineLatest([this.lobby$, this.players$]).pipe(first()).subscribe(([lobby, players]) => {
+      const currentRoundGuesses = lobby['guesses']?.[`round_${this.currentRound - 1}`];
+      if (currentRoundGuesses && Object.keys(currentRoundGuesses).length === players.length) {
+        // All players have guessed for this round
+        // Only the host should trigger the next state
+        if (this.userId === lobby.hostId) {
+          this.lobbyService.showLeaderboard(this.lobbyId);
+        }
+      }
     });
   }
 

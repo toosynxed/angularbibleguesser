@@ -1,49 +1,45 @@
 import { Injectable } from '@angular/core';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { GameSettings } from './game-settings.model';
 
-export interface GameSeed {
-  mode: 'normal' | 'custom' | 'created';
-  verseIds?: number[];
-  settings?: GameSettings;
+export interface GameData {
+  mode: 'normal' | 'custom' | 'marathon' | 'created';
+  verseIds: number[];
+  settings: GameSettings;
 }
 
 @Injectable({
   providedIn: 'root'
 })
 export class ShareService {
+  private errorMessageSubject = new BehaviorSubject<string | null>(null);
+  public errorMessage$: Observable<string | null> = this.errorMessageSubject.asObservable();
 
   constructor() { }
 
-  /**
-   * Encodes a game session into a shareable Base64 string.
-   * @param seed The GameSeed object to encode.
-   * @returns A shareable code string.
-   */
-  encodeGame(seed: GameSeed): string {
-    const dataString = JSON.stringify(seed);
-    // btoa provides simple obfuscation to make the URL less messy.
-    return btoa(encodeURIComponent(dataString));
+  setErrorMessage(message: string | null): void {
+    this.errorMessageSubject.next(message);
   }
 
-  /**
-   * Decodes a shareable code back into a game session object.
-   * @param code The shareable code string.
-   * @returns A GameSeed object or null if the code is invalid.
-   */
-  decodeGame(code: string): GameSeed | null {
+  clearErrorMessage(): void {
+    this.errorMessageSubject.next(null);
+  }
+
+  encodeGame(data: GameData): string {
+    const jsonString = JSON.stringify(data);
+    return btoa(jsonString); // Base64 encode
+  }
+
+  decodeGame(code: string): GameData | null {
     try {
-      const decodedString = decodeURIComponent(atob(code));
-      const seed: GameSeed = JSON.parse(decodedString);
-
-      // Basic validation to ensure the decoded object has the expected shape.
-      if (!seed.mode || (seed.mode === 'created' && !seed.verseIds)) {
-        return null;
+      const jsonString = atob(code); // Base64 decode
+      const data = JSON.parse(jsonString);
+      // Basic validation
+      if (data && data.verseIds && data.settings) {
+        return data as GameData;
       }
-
-      return seed;
-
+      return null;
     } catch (e) {
-      // This will catch errors from invalid Base64 strings or other parsing issues.
       return null;
     }
   }

@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable, Subscription } from 'rxjs';
-import { first, map, switchMap, tap, filter } from 'rxjs/operators';
+import { filter, first, map, switchMap, tap } from 'rxjs/operators';
 import { AuthService } from '../auth.service';
 import { BibleService } from '../bible.service';
 import { GameSettings } from '../game-settings.model';
@@ -17,7 +17,6 @@ export class LobbyComponent implements OnInit, OnDestroy {
   lobby$: Observable<Lobby>;
   players$: Observable<Player[]>;
   isHost$: Observable<boolean>;
-  isLoading = true; // Add a loading state
 
   settings: GameSettings;
   allBooks: string[] = [];
@@ -45,23 +44,15 @@ export class LobbyComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.lobbyId = this.route.snapshot.paramMap.get('id');
 
-    const lobbyData$ = this.lobbyService.getLobby(this.lobbyId).valueChanges();
-
-    // This subscription handles the redirect if the lobby doesn't exist.
-    // It waits for the first emission from the database.
-    lobbyData$.pipe(first()).subscribe(lobby => {
-      if (!lobby) {
-        // If the very first response is empty, the lobby doesn't exist.
-        this.router.navigate(['/']);
-      }
-    });
-
-    // This observable is for the template. It filters out the initial undefined
-    // value to prevent the template from trying to render with no data.
-    this.lobby$ = lobbyData$.pipe(filter(lobby => !!lobby), tap(lobby => {
-      this.isLoading = false;
-      this.settings = lobby.gameSettings;
-    }));
+    // The loading component guarantees the lobby exists, so we can load it directly.
+    this.lobby$ = this.lobbyService.getLobby(this.lobbyId).valueChanges().pipe(
+      tap(lobby => {
+        if (lobby) this.settings = lobby.gameSettings;
+        if (lobby?.gameState === 'in-progress') {
+          this.router.navigate(['/game'], { state: { lobbyId: this.lobbyId, mode: 'multiplayer' } });
+        }
+      })
+    );
 
     this.players$ = this.lobbyService.getLobbyPlayers(this.lobbyId);
 
@@ -118,10 +109,26 @@ export class LobbyComponent implements OnInit, OnDestroy {
     });
   }
 
-  startGame(): void {
-    // TODO: Implement game start logic
-    // 1. Generate verse IDs based on settings
-    // 2. Update lobby with verseIds and set gameState to 'in-progress'
-    console.log('Starting game with settings:', this.settings);
+  async startGame(): Promise<void> {
+    // Generate random verses based on the current lobby settings
+    const verseIds = await this.bibleService.getRandomVerseIds(this.settings.rounds, this.settings.books).pipe(first()).toPromise();
+    if (verseIds && verseIds.length > 0) {
+      // This will update the document and trigger the navigation for all players
+      await this.lobbyService.startGame(this.lobbyId, verseIds);
+    } else {
+      alert('Could not generate verses. Please check the book selection and try again.');
+    }
+  }
+
+  goBack(): void {
+    this.isHost$.pipe(first()).subscribe(isHost => {
+      if (isHost) {
+        if (confirm('Are you sure you want to leave? As the host, you will be unable to rejoin this lobby.')) {
+          this.router.navigate(['/']);
+        }
+      } else {
+        this.router.navigate(['/']);
+      }
+    });
   }
 }

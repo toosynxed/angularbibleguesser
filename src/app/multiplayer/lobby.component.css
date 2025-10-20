@@ -64,6 +64,11 @@
   margin-top: 2rem;
 }
 
+.back-button {
+  width: 100%;
+  margin-top: 0.5rem;
+}
+
 /* Re-using styles from custom-settings.css */
 .settings-form {
   display: flex;

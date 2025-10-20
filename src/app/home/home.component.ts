@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 import { ShareService } from '../share.service';
 
 @Component({
@@ -7,7 +8,7 @@ import { ShareService } from '../share.service';
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css']
 })
-export class HomeComponent {
+export class HomeComponent implements OnInit, OnDestroy {
   showCodeInput = false;
   gameCode = '';
   error: string | null = null;
@@ -103,7 +104,23 @@ export class HomeComponent {
 </ul>
   `;
 
+  private errorSubscription: Subscription;
+
   constructor(private router: Router, private shareService: ShareService) { }
+
+  ngOnInit(): void {
+    this.errorSubscription = this.shareService.errorMessage$.subscribe(message => {
+      this.error = message;
+      // Clear the error from the service so it doesn't reappear on navigation
+      if (message) {
+        this.shareService.clearErrorMessage();
+      }
+    });
+  }
+
+  ngOnDestroy(): void {
+    this.errorSubscription.unsubscribe();
+  }
 
   startGame(mode: 'normal' | 'custom'): void {
     if (mode === 'custom') {

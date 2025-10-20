@@ -10,11 +10,16 @@ export interface Player {
   isHost: boolean;
 }
 
+export interface PlayerGuess {
+  [playerId: string]: { guess: string, score: number };
+}
+
 export interface Lobby {
   id?: string;
   hostId: string;
   gameCode: string; // A short, user-friendly code
   gameState: 'waiting' | 'in-progress' | 'finished';
+  currentRound: number; // 0-indexed
   gameSettings: GameSettings;
   verseIds?: number[];
   createdAt: any;
@@ -38,6 +43,7 @@ export class LobbyService {
       hostId: host.uid,
       gameCode: this.generateGameCode(),
       gameState: 'waiting',
+      currentRound: 0,
       gameSettings: settings,
       createdAt: firebase.firestore.FieldValue.serverTimestamp()
     };
@@ -68,5 +74,25 @@ export class LobbyService {
   async updateLobbySettings(lobbyId: string, settings: GameSettings): Promise<void> {
     // Update the gameSettings field on the lobby document
     await this.afs.collection('lobbies').doc(lobbyId).update({ gameSettings: settings });
+  }
+
+  async startGame(lobbyId: string, verseIds: number[]): Promise<void> {
+    // Set the verse IDs for the game and change the state to start the game for all players
+    await this.afs.collection('lobbies').doc(lobbyId).update({ verseIds: verseIds, gameState: 'in-progress' });
+  }
+
+  async submitGuess(lobbyId: string, round: number, playerId: string, guess: string, score: number): Promise<void> {
+    const guessPath = `guesses.round_${round}.${playerId}`;
+    await this.afs.collection('lobbies').doc(lobbyId).update({
+      [guessPath]: { guess, score }
+    });
+  }
+
+  async showLeaderboard(lobbyId: string): Promise<void> {
+    await this.afs.collection('lobbies').doc(lobbyId).update({ gameState: 'leaderboard' });
+  }
+
+  async nextRound(lobbyId: string, nextRound: number): Promise<void> {
+    await this.afs.collection('lobbies').doc(lobbyId).update({ gameState: 'in-progress', currentRound: nextRound });
   }
 }

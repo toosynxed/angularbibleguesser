@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { RoundResult } from '../game/game.component';
+import { GameSettings } from '../game-settings.model';
 import { ShareService } from '../share.service';
 
 @Component({
@@ -10,6 +11,7 @@ import { ShareService } from '../share.service';
 })
 export class ResultsComponent implements OnInit {
   results: RoundResult[] = [];
+  settings: GameSettings;
   totalScore = 0;
   shareCode = '';
   copyButtonText = 'Copy Share Code';
@@ -17,9 +19,10 @@ export class ResultsComponent implements OnInit {
 
   constructor(private router: Router, private shareService: ShareService) {
     const navigation = this.router.getCurrentNavigation();
-    const state = navigation?.extras.state as { results: RoundResult[] } | undefined;
-    if (state?.results) {
+    const state = navigation?.extras.state as { results: RoundResult[], settings: GameSettings } | undefined;
+    if (state?.results && state.settings) {
       this.results = state.results;
+      this.settings = state.settings;
     } else {
       // No results, go home
       this.router.navigate(['/']);
@@ -33,7 +36,8 @@ export class ResultsComponent implements OnInit {
     const verseIds = this.results.map(r => r.verse.verseId);
     this.shareCode = this.shareService.encodeGame({
       mode: 'created', // The results page always shares a 'created' game type
-      verseIds: verseIds
+      verseIds: verseIds,
+      settings: this.settings // Include the game settings
     });
   }
 

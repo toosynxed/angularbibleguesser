@@ -5,17 +5,23 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { MultiplayerHomeComponent } from './multiplayer-home.component';
 import { LobbyComponent } from './lobby.component';
+import { LobbyLoadingComponent } from './lobby-loading.component';
+import { LeaderboardComponent } from './leaderboard.component';
 
 // Define the routes specific to the multiplayer feature
 const multiplayerRoutes: Routes = [
   { path: '', component: MultiplayerHomeComponent },
-  { path: 'lobby/:id', component: LobbyComponent }
+  { path: 'loading', component: LobbyLoadingComponent },
+  { path: 'lobby/:id', component: LobbyComponent },
+  { path: 'leaderboard/:id', component: LeaderboardComponent }
 ];
 
 @NgModule({
   declarations: [
     MultiplayerHomeComponent,
-    LobbyComponent
+    LobbyComponent,
+    LobbyLoadingComponent,
+    LeaderboardComponent
   ],
   imports: [
     CommonModule,

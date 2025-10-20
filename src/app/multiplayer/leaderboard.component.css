@@ -1,0 +1,50 @@
+.container {
+  max-width: 800px;
+  margin: auto;
+  padding: 2rem;
+  text-align: center;
+}
+
+.leaderboard-list {
+  margin: 2rem 0;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: var(--surface-color);
+}
+
+th, td {
+  padding: 1rem;
+  border-bottom: 1px solid var(--border-color);
+}
+
+thead {
+  background-color: var(--background-alt-color);
+}
+
+th {
+  text-align: left;
+}
+
+td:first-child, th:first-child {
+  text-align: center;
+  font-weight: bold;
+  width: 10%;
+}
+
+td:last-child, th:last-child {
+  text-align: right;
+  font-weight: bold;
+  width: 20%;
+}
+
+.actions {
+  margin-top: 2rem;
+}
+
+.actions button {
+  padding: 0.75rem 1.5rem;
+  font-size: 1.1rem;
+}

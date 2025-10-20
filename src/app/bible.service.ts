@@ -77,6 +77,33 @@ export class BibleService {
   }
 
   /**
+   * Gets a specified number of random verse IDs.
+   * @param count The number of verse IDs to get.
+   * @param includedBooks An optional array of book names to filter by.
+   * @returns An observable that emits an array of random verse IDs.
+   */
+  getRandomVerseIds(count: number, includedBooks?: string[]): Observable<number[]> {
+    return this.getVerses().pipe(
+      map(verses => {
+        let filteredVerses = verses;
+        if (includedBooks && includedBooks.length > 0) {
+          const bookSet = new Set(includedBooks);
+          filteredVerses = verses.filter(v => bookSet.has(v.bookName));
+        }
+
+        if (filteredVerses.length < count) {
+          // Not enough verses to meet the round count from the selected books.
+          // You might want to handle this more gracefully, but for now, we'll return what we have.
+          console.warn(`Requested ${count} verses, but only ${filteredVerses.length} were available in the selected books.`);
+        }
+
+        const shuffled = filteredVerses.sort(() => 0.5 - Math.random());
+        return shuffled.slice(0, count).map(v => v.verseId);
+      })
+    );
+  }
+
+  /**
    * Gets a single verse by its ID.
    * @param id The verseId to find.
    * @returns An observable that emits the found Verse object or null.

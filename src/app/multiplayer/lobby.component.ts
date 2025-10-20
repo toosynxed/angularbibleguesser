@@ -82,27 +82,33 @@ export class LobbyComponent implements OnInit, OnDestroy {
   }
 
   toggleBook(book: string): void {
-    const index = this.settings.books.indexOf(book);
-    if (index > -1) {
-      this.settings.books.splice(index, 1);
-    } else {
-      this.settings.books.push(book);
-    }
-    this.onSettingsChange();
+    this.isHost$.pipe(first()).subscribe(isHost => {
+      if (!isHost) return;
+      const index = this.settings.books.indexOf(book);
+      if (index > -1) {
+        this.settings.books.splice(index, 1);
+      } else {
+        this.settings.books.push(book);
+      }
+      this.onSettingsChange();
+    });
   }
 
   toggleBookGroup(group: { groupName: string, books: string[] }): void {
-    const allBooksInGroupSelected = group.books.every(b => this.settings.books.includes(b));
-    if (allBooksInGroupSelected) {
-      this.settings.books = this.settings.books.filter(b => !group.books.includes(b));
-    } else {
-      group.books.forEach(b => {
-        if (!this.settings.books.includes(b)) {
-          this.settings.books.push(b);
-        }
-      });
-    }
-    this.onSettingsChange();
+    this.isHost$.pipe(first()).subscribe(isHost => {
+      if (!isHost) return;
+      const allBooksInGroupSelected = group.books.every(b => this.settings.books.includes(b));
+      if (allBooksInGroupSelected) {
+        this.settings.books = this.settings.books.filter(b => !group.books.includes(b));
+      } else {
+        group.books.forEach(b => {
+          if (!this.settings.books.includes(b)) {
+            this.settings.books.push(b);
+          }
+        });
+      }
+      this.onSettingsChange();
+    });
   }
 
   startGame(): void {

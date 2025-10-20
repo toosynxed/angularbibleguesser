@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { RoundResult } from '../game/game.component';
+import { RoundResult,  } from '../game/game.component';
 import { GameSettings } from '../game-settings.model';
 import { Lobby, LobbyService, Player } from '../lobby.service';
 import { ShareService } from '../share.service';
 import { AuthService } from '../auth.service';
 import { BibleService } from '../bible.service';
-import { combineLatest, forkJoin } from 'rxjs';
+import { combineLatest, forkJoin, from } from 'rxjs';
 import { first, map } from 'rxjs/operators';
 import { Verse } from '../verse.model';
 
@@ -18,7 +18,7 @@ import { Verse } from '../verse.model';
 export class ResultsComponent implements OnInit {
   // Multiplayer state
   leaderboard: { player: Player, totalScore: number, rank: number }[] = [];
-  playerResults: { round: number, verse: Verse, guess: string, score: number }[] = [];
+  playerResults: RoundResult[] = [];
 
   // Single-player state
   results: RoundResult[] = [];
@@ -101,13 +101,31 @@ export class ResultsComponent implements OnInit {
         forkJoin(verseLookups).subscribe(verses => {
           this.playerResults = verses.map((verse, i) => {
             const roundKey = `round_${i}`;
-            const playerGuessData = this.lobby!.guesses![roundKey]?.[user!.uid];
-            return {
-              round: i + 1,
-              verse: verse!,
-              guess: playerGuessData?.guess || 'No Guess',
-              score: playerGuessData?.score || 0
-            };
+            const playerGuessData = this.lobby!.guesses![roundKey]?.[user!.uid] ?? { guess: 'No Guess', score: 0 };
+            const parsedGuess = this.bibleService.parseVerseReference(playerGuessData.guess);
+
+            let stars = 0;
+            let isBookCorrect = false;
+            let isChapterCorrect = false;
+            let isVerseCorrect = false;
+
+            if (parsedGuess && verse) {
+              isBookCorrect = this.bibleService.normalizeBookName(parsedGuess.book) === this.bibleService.normalizeBookName(verse.bookName);
+              isChapterCorrect = parsedGuess.chapter === verse.chapter;
+              isVerseCorrect = parsedGuess.verse === verse.verse;
+
+              if (isBookCorrect) {
+                stars = 1;
+                if (isChapterCorrect) {
+                  stars = 2;
+                  if (isVerseCorrect) {
+                    stars = 3;
+                  }
+                }
+              }
+            }
+
+            return { verse: verse!, guess: parsedGuess, score: playerGuessData.score, stars, isBookCorrect, isChapterCorrect, isVerseCorrect };
           });
 
           // Calculate the current user's total score

@@ -31,12 +31,39 @@
       <div class="total-score">
         <h3>Total Score: {{ totalScore }} / {{ lobby.gameSettings.rounds * 100 }}</h3>
       </div>
-      <div class="results-list">
-        <div *ngFor="let result of playerResults" class="result-card">
-          <h3>Round {{ result.round }}</h3>
-          <p><strong>Your Guess:</strong> {{ result.guess }}</p>
-          <p><strong>Correct Verse:</strong> {{ result.verse.bookName }} {{ result.verse.chapter }}:{{ result.verse.verse }}</p>
+      <!-- Re-use the same result card template as single-player -->
+      <div *ngFor="let result of playerResults; let i = index" class="result-card" (click)="toggleExpand(i)">
+        <div class="result-summary">
+          <h3>Round {{ i + 1 }}</h3>
           <p class="score"><strong>Score:</strong> {{ result.score }} / 100</p>
+          <div class="stars">
+            <span *ngFor="let _ of getStarArray(result.stars)" class="star filled">★</span>
+            <span *ngFor="let _ of getStarArray(3 - result.stars)" class="star">☆</span>
+          </div>
+          <span class="expand-icon">{{ expandedIndex === i ? '▲' : '▼' }}</span>
+        </div>
+
+        <div class="details" *ngIf="expandedIndex === i">
+          <p><strong>Correct Verse:</strong> {{ result.verse.bookName }} {{ result.verse.chapter }}:{{ result.verse.verse }}</p>
+          <p><strong>Your Guess:</strong>
+            <span *ngIf="result.guess">{{ result.guess.book }} {{ result.guess.chapter }}:{{ result.guess.verse }}</span>
+            <span *ngIf="!result.guess">No Guess</span>
+          </p>
+          <p class="verse-text">"{{ result.verse.text }}"</p>
+          <div class="indicators">
+            <div class="indicator">
+              <span class="circle" [class.correct]="result.isBookCorrect" [class.incorrect]="!result.isBookCorrect"></span>
+              <span>Book</span>
+            </div>
+            <div class="indicator">
+              <span class="circle" [class.correct]="result.isBookCorrect && result.isChapterCorrect" [class.incorrect]="!(result.isBookCorrect && result.isChapterCorrect)"></span>
+              <span>Chapter</span>
+            </div>
+            <div class="indicator">
+              <span class="circle" [class.correct]="result.isBookCorrect && result.isChapterCorrect && result.isVerseCorrect" [class.incorrect]="!(result.isBookCorrect && result.isChapterCorrect && result.isVerseCorrect)"></span>
+              <span>Verse</span>
+            </div>
+          </div>
         </div>
       </div>
     </div>

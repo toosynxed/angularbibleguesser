@@ -64,4 +64,9 @@ export class LobbyService {
     // Add the new player to the 'players' subcollection of the lobby
     await this.afs.collection('lobbies').doc(lobbyId).collection('players').doc(player.uid).set(player);
   }
+
+  async updateLobbySettings(lobbyId: string, settings: GameSettings): Promise<void> {
+    // Update the gameSettings field on the lobby document
+    await this.afs.collection('lobbies').doc(lobbyId).update({ gameSettings: settings });
+  }
 }

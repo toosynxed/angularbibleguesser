@@ -53,4 +53,15 @@ export class LobbyService {
   getLobbyPlayers(lobbyId: string): Observable<Player[]> {
     return this.afs.collection('lobbies').doc(lobbyId).collection<Player>('players').valueChanges();
   }
+
+  findLobbyByCode(code: string): Observable<Lobby[]> {
+    return this.afs.collection<Lobby>('lobbies', ref =>
+      ref.where('gameCode', '==', code).limit(1)
+    ).valueChanges({ idField: 'id' }); // Use idField to get the document ID
+  }
+
+  async joinLobby(lobbyId: string, player: Player): Promise<void> {
+    // Add the new player to the 'players' subcollection of the lobby
+    await this.afs.collection('lobbies').doc(lobbyId).collection('players').doc(player.uid).set(player);
+  }
 }

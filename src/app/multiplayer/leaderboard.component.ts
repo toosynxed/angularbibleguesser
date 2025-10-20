@@ -65,6 +65,9 @@ export class LeaderboardComponent implements OnInit {
         // When the host starts the next round, navigate everyone back to the game.
         if (lobby?.gameState === 'in-progress') {
           this.router.navigate(['/game'], { state: { lobbyId: this.lobbyId, mode: 'multiplayer' } });
+        } else if (lobby?.gameState === 'finished') {
+          // When the host ends the game, navigate to the final results page.
+          this.router.navigate(['/results'], { state: { lobby: lobby, mode: 'multiplayer' } });
         }
       })
     );
@@ -103,7 +106,6 @@ export class LeaderboardComponent implements OnInit {
   }
 
   seeFinalResults(): void {
-    // TODO: Implement navigation to final results page
-    alert('Final results page not yet implemented!');
+    this.lobbyService.finishGame(this.lobbyId);
   }
 }

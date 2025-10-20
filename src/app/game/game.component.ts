@@ -142,6 +142,9 @@ export class GameComponent implements OnInit, OnDestroy {
         return;
       }
 
+      // Set game settings from the lobby
+      this.totalRounds = lobby.gameSettings.rounds;
+
       // If the round has changed, reset the view
       if (this.currentRound !== lobby.currentRound + 1) {
         this.currentRound = lobby.currentRound + 1;
@@ -294,7 +297,10 @@ export class GameComponent implements OnInit, OnDestroy {
   }
 
   finishGame(): void {
-    this.router.navigate(['/results'], { state: { results: this.results } });
+    // In single-player, we pass the results. Multiplayer is handled by the LeaderboardComponent.
+    if (this.gameMode !== 'multiplayer') {
+      this.router.navigate(['/results'], { state: { results: this.results, settings: this.gameSettings } });
+    }
   }
 
   get answerText(): string {

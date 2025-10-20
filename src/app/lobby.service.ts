@@ -95,4 +95,8 @@ export class LobbyService {
   async nextRound(lobbyId: string, nextRound: number): Promise<void> {
     await this.afs.collection('lobbies').doc(lobbyId).update({ gameState: 'in-progress', currentRound: nextRound });
   }
+
+  async finishGame(lobbyId: string): Promise<void> {
+    await this.afs.collection('lobbies').doc(lobbyId).update({ gameState: 'finished' });
+  }
 }

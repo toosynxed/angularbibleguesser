@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Observable, Subscription, timer } from 'rxjs';
-import { first, map, switchMap, tap } from 'rxjs/operators';
+import { Observable, Subscription } from 'rxjs';
+import { first, map, switchMap, tap, filter } from 'rxjs/operators';
 import { AuthService } from '../auth.service';
 import { BibleService } from '../bible.service';
 import { GameSettings } from '../game-settings.model';
@@ -45,24 +45,23 @@ export class LobbyComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.lobbyId = this.route.snapshot.paramMap.get('id');
 
-    // This subscription will handle redirecting if the lobby truly doesn't exist.
-    timer(2000).pipe(first()).subscribe(() => {
-      if (this.isLoading) {
-        // If we are still loading after 2 seconds, the lobby likely doesn't exist.
+    const lobbyData$ = this.lobbyService.getLobby(this.lobbyId).valueChanges();
+
+    // This subscription handles the redirect if the lobby doesn't exist.
+    // It waits for the first emission from the database.
+    lobbyData$.pipe(first()).subscribe(lobby => {
+      if (!lobby) {
+        // If the very first response is empty, the lobby doesn't exist.
         this.router.navigate(['/']);
       }
     });
 
-    this.lobby$ = this.lobbyService.getLobby(this.lobbyId).valueChanges().pipe(
-      tap(lobby => {
-        if (lobby) {
-          // As soon as we get lobby data, we know we are not loading anymore.
-          this.isLoading = false;
-          // Keep local settings in sync with Firestore
-          this.settings = lobby.gameSettings;
-        }
-      })
-    );
+    // This observable is for the template. It filters out the initial undefined
+    // value to prevent the template from trying to render with no data.
+    this.lobby$ = lobbyData$.pipe(filter(lobby => !!lobby), tap(lobby => {
+      this.isLoading = false;
+      this.settings = lobby.gameSettings;
+    }));
 
     this.players$ = this.lobbyService.getLobbyPlayers(this.lobbyId);
 

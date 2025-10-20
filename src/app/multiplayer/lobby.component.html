@@ -1,5 +1,5 @@
 <div *ngIf="isLoading" class="loading-container">Loading Lobby...</div>
-<div class="lobby-container" *ngIf="!isLoading && (lobby$ | async) as lobby">
+<div class="lobby-container" [hidden]="isLoading" *ngIf="lobby$ | async as lobby">
   <div class="lobby-sidebar">
     <div class="lobby-info">
       <h2>Lobby Code</h2>

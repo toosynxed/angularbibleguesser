@@ -22,6 +22,7 @@ export interface Lobby {
   currentRound: number; // 0-indexed
   gameSettings: GameSettings;
   verseIds?: number[];
+  guesses?: { [roundKey: string]: PlayerGuess }; // To store all guesses
   createdAt: any;
 }
 
@@ -45,6 +46,7 @@ export class LobbyService {
       gameState: 'waiting',
       currentRound: 0,
       gameSettings: settings,
+      guesses: {}, // Initialize the guesses map
       createdAt: firebase.firestore.FieldValue.serverTimestamp()
     };
     await this.afs.collection('lobbies').doc(id).set(lobbyData);

@@ -158,6 +158,20 @@ export class GameComponent implements OnInit, OnDestroy {
           if (verse) this.updateVerseContext();
         });
       }
+
+      // This subscription now correctly combines the lobby and players observables
+      // to persistently check if the round is over.
+      combineLatest([this.lobby$, this.players$]).pipe(
+        takeUntil(this.destroy$)
+      ).subscribe(([lobby, players]) => {
+        if (lobby && players.length > 0) {
+          const currentRoundGuesses = lobby.guesses?.[`round_${lobby.currentRound}`];
+          if (currentRoundGuesses && Object.keys(currentRoundGuesses).length === players.length) {
+            // Once all players have guessed, the host will advance the game state.
+            this.checkIfAllPlayersGuessed(lobby);
+          }
+        }
+      });
     });
   }
 
@@ -253,10 +267,6 @@ export class GameComponent implements OnInit, OnDestroy {
         this.lobbyService.submitGuess(this.lobbyId, this.currentRound - 1, this.userId, rawGuess, score);
         this.isRoundOver = true; // Mark as submitted for this player
         this.feedback = 'Your guess has been submitted! Waiting for other players...';
-        // Logic to check if all players have guessed
-        this.checkIfAllPlayersGuessed();
-      } else {
-        this.isRoundOver = true;
         if (stars === 3) {
           this.feedback = 'Perfect! You got it exactly right!';
         } else {
@@ -275,17 +285,11 @@ export class GameComponent implements OnInit, OnDestroy {
     });
   }
 
-  checkIfAllPlayersGuessed(): void {
-    combineLatest([this.lobby$, this.players$]).pipe(first()).subscribe(([lobby, players]) => {
-      const currentRoundGuesses = lobby['guesses']?.[`round_${this.currentRound - 1}`];
-      if (currentRoundGuesses && Object.keys(currentRoundGuesses).length === players.length) {
-        // All players have guessed for this round
-        // Only the host should trigger the next state
-        if (this.userId === lobby.hostId) {
-          this.lobbyService.showLeaderboard(this.lobbyId);
-        }
-      }
-    });
+  checkIfAllPlayersGuessed(lobby: Lobby): void {
+    // Only the host should trigger the next state.
+    if (this.userId === lobby.hostId) {
+      this.lobbyService.showLeaderboard(this.lobbyId);
+    }
   }
 
   next(): void {

@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { MultiplayerHomeComponent } from './multiplayer-home.component';
 import { LobbyComponent } from './lobby.component';
@@ -20,6 +20,7 @@ const multiplayerRoutes: Routes = [
   imports: [
     CommonModule,
     FormsModule,
+    ReactiveFormsModule,
     // Use forChild() for routes in feature modules
     RouterModule.forChild(multiplayerRoutes)
   ]

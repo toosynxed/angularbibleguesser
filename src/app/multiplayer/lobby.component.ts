@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Observable, Subscription } from 'rxjs';
-import { first, map, switchMap, tap, debounceTime } from 'rxjs/operators';
+import { Observable, Subscription, timer } from 'rxjs';
+import { first, map, switchMap, tap } from 'rxjs/operators';
 import { AuthService } from '../auth.service';
 import { BibleService } from '../bible.service';
 import { GameSettings } from '../game-settings.model';
@@ -17,6 +17,7 @@ export class LobbyComponent implements OnInit, OnDestroy {
   lobby$: Observable<Lobby>;
   players$: Observable<Player[]>;
   isHost$: Observable<boolean>;
+  isLoading = true; // Add a loading state
 
   settings: GameSettings;
   allBooks: string[] = [];
@@ -44,17 +45,22 @@ export class LobbyComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.lobbyId = this.route.snapshot.paramMap.get('id');
 
+    // This subscription will handle redirecting if the lobby truly doesn't exist.
+    timer(2000).pipe(first()).subscribe(() => {
+      if (this.isLoading) {
+        // If we are still loading after 2 seconds, the lobby likely doesn't exist.
+        this.router.navigate(['/']);
+      }
+    });
+
     this.lobby$ = this.lobbyService.getLobby(this.lobbyId).valueChanges().pipe(
-      // Add a small debounce time to wait for the lobby data to be available after creation.
-      debounceTime(50),
       tap(lobby => {
-        if (!lobby) {
-          // If lobby is deleted or doesn't exist, go back home
-          this.router.navigate(['/']);
-          return;
+        if (lobby) {
+          // As soon as we get lobby data, we know we are not loading anymore.
+          this.isLoading = false;
+          // Keep local settings in sync with Firestore
+          this.settings = lobby.gameSettings;
         }
-        // Keep local settings in sync with Firestore
-        this.settings = lobby.gameSettings;
       })
     );
 

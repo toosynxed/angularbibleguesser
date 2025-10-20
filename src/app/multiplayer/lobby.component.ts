@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable, Subscription } from 'rxjs';
-import { first, map, switchMap, tap } from 'rxjs/operators';
+import { first, map, switchMap, tap, debounceTime } from 'rxjs/operators';
 import { AuthService } from '../auth.service';
 import { BibleService } from '../bible.service';
 import { GameSettings } from '../game-settings.model';
@@ -45,6 +45,8 @@ export class LobbyComponent implements OnInit, OnDestroy {
     this.lobbyId = this.route.snapshot.paramMap.get('id');
 
     this.lobby$ = this.lobbyService.getLobby(this.lobbyId).valueChanges().pipe(
+      // Add a small debounce time to wait for the lobby data to be available after creation.
+      debounceTime(50),
       tap(lobby => {
         if (!lobby) {
           // If lobby is deleted or doesn't exist, go back home

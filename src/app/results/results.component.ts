@@ -2,8 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { RoundResult } from '../game/game.component';
 import { GameSettings } from '../game-settings.model';
-import { Lobby } from '../lobby.service';
+import { Lobby, LobbyService, Player } from '../lobby.service';
 import { ShareService } from '../share.service';
+import { AuthService } from '../auth.service';
+import { BibleService } from '../bible.service';
+import { combineLatest, forkJoin } from 'rxjs';
+import { first, map } from 'rxjs/operators';
+import { Verse } from '../verse.model';
 
 @Component({
   selector: 'app-results',
@@ -11,6 +16,11 @@ import { ShareService } from '../share.service';
   styleUrls: ['./results.component.css']
 })
 export class ResultsComponent implements OnInit {
+  // Multiplayer state
+  leaderboard: { player: Player, totalScore: number, rank: number }[] = [];
+  playerResults: { round: number, verse: Verse, guess: string, score: number }[] = [];
+
+  // Single-player state
   results: RoundResult[] = [];
   lobby: Lobby | null = null;
   settings: GameSettings;
@@ -19,14 +29,21 @@ export class ResultsComponent implements OnInit {
   copyButtonText = 'Copy Share Code';
   expandedIndex: number | null = null;
 
-  constructor(private router: Router, private shareService: ShareService) {
+  constructor(
+    private router: Router,
+    private shareService: ShareService,
+    private lobbyService: LobbyService,
+    private authService: AuthService,
+    private bibleService: BibleService
+  ) {
     const navigation = this.router.getCurrentNavigation();
     const state = navigation?.extras.state as { results?: RoundResult[], settings?: GameSettings, lobby?: Lobby, mode?: string } | undefined;
 
     if (state?.mode === 'multiplayer' && state.lobby) {
       this.lobby = state.lobby;
       this.settings = state.lobby.gameSettings;
-      // In multiplayer, we don't have individual round results yet, just the final lobby state.
+      this.totalScore = 0; // This will be calculated per player
+      this.processMultiplayerResults();
     } else if (state?.results && state.settings) {
       this.results = state.results;
       this.settings = state.settings;
@@ -38,8 +55,13 @@ export class ResultsComponent implements OnInit {
 
   ngOnInit(): void {
     if (this.lobby) {
-      // Logic for multiplayer results can be added here.
-    } else if (this.results.length > 0) {
+      // Generate share code for multiplayer game
+      this.shareCode = this.shareService.encodeGame({
+        mode: 'created',
+        verseIds: this.lobby.verseIds!,
+        settings: this.settings
+      });
+    } else if (this.results.length > 0) { // For single player
       this.totalScore = this.results.reduce((acc, r) => acc + r.score, 0);
       const verseIds = this.results.map(r => r.verse.verseId);
       this.shareCode = this.shareService.encodeGame({
@@ -48,6 +70,51 @@ export class ResultsComponent implements OnInit {
         settings: this.settings // Include the game settings
       });
     }
+  }
+
+  processMultiplayerResults(): void {
+    if (!this.lobby) return;
+
+    const players$ = this.lobbyService.getLobbyPlayers(this.lobby.id!);
+    const user$ = this.authService.user$.pipe(first(user => !!user));
+
+    combineLatest([players$, user$]).pipe(first()).subscribe(([players, user]) => {
+      // Calculate total scores for the leaderboard
+      const rankedPlayers = players.map(player => {
+        let totalScore = 0;
+        if (this.lobby?.guesses) {
+          Object.values(this.lobby.guesses).forEach(roundGuesses => {
+            if (roundGuesses[player.uid]) {
+              totalScore += roundGuesses[player.uid].score;
+            }
+          });
+        }
+        return { player, totalScore };
+      }).sort((a, b) => b.totalScore - a.totalScore);
+
+      // Assign ranks
+      this.leaderboard = rankedPlayers.map((p, index) => ({ ...p, rank: index + 1 }));
+
+      // Prepare individual results for the current user
+      if (this.lobby?.guesses && this.lobby.verseIds) {
+        const verseLookups = this.lobby.verseIds.map(id => this.bibleService.getVerseById(id));
+        forkJoin(verseLookups).subscribe(verses => {
+          this.playerResults = verses.map((verse, i) => {
+            const roundKey = `round_${i}`;
+            const playerGuessData = this.lobby!.guesses![roundKey]?.[user!.uid];
+            return {
+              round: i + 1,
+              verse: verse!,
+              guess: playerGuessData?.guess || 'No Guess',
+              score: playerGuessData?.score || 0
+            };
+          });
+
+          // Calculate the current user's total score
+          this.totalScore = this.playerResults.reduce((acc, r) => acc + r.score, 0);
+        });
+      }
+    });
   }
 
   copyCode(): void {

@@ -5,11 +5,47 @@
   </header>
 
   <main>
-    <div class="total-score">
-      <h2>Total Score: {{ totalScore }} / {{ results.length * 100 }}</h2>
+    <!-- MULTIPLAYER RESULTS -->
+    <div *ngIf="lobby">
+      <h2>Final Leaderboard</h2>
+      <div class="leaderboard-list">
+        <table>
+          <thead>
+            <tr>
+              <th>Rank</th>
+              <th>Player</th>
+              <th>Score</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of leaderboard">
+              <td>{{ item.rank }}</td>
+              <td>{{ item.player.displayName }} <span *ngIf="item.player.isHost">(Host)</span></td>
+              <td>{{ item.totalScore }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h2 class="your-results-title">Your Results</h2>
+      <div class="total-score">
+        <h3>Total Score: {{ totalScore }} / {{ lobby.gameSettings.rounds * 100 }}</h3>
+      </div>
+      <div class="results-list">
+        <div *ngFor="let result of playerResults" class="result-card">
+          <h3>Round {{ result.round }}</h3>
+          <p><strong>Your Guess:</strong> {{ result.guess }}</p>
+          <p><strong>Correct Verse:</strong> {{ result.verse.bookName }} {{ result.verse.chapter }}:{{ result.verse.verse }}</p>
+          <p class="score"><strong>Score:</strong> {{ result.score }} / 100</p>
+        </div>
+      </div>
     </div>
 
-    <div class="results-list">
+    <!-- SINGLE PLAYER RESULTS -->
+    <div *ngIf="!lobby && results.length > 0" class="results-list">
+      <div class="total-score">
+        <h2>Total Score: {{ totalScore }} / {{ results.length * 100 }}</h2>
+      </div>
       <div *ngFor="let result of results; let i = index" class="result-card" (click)="toggleExpand(i)">
         <div class="result-summary">
           <h3>Round {{ i + 1 }}</h3>

@@ -27,7 +27,7 @@
       </p>
     </div>
 
-    <div class="context-slider" *ngIf="gameMode === 'normal'">
+    <div class="context-slider" *ngIf="gameMode === 'normal' && !isRoundOver">
       <label for="context">Context Verses: {{ contextSize }}</label>
       <input type="range" id="context" min="0" max="250" [(ngModel)]="contextSize" (input)="onSliderChange($event)">
     </div>

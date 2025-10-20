@@ -310,7 +310,13 @@ export class GameComponent implements OnInit, OnDestroy {
   finishGame(): void {
     // In single-player, we pass the results. Multiplayer is handled by the LeaderboardComponent.
     if (this.gameMode !== 'multiplayer') {
-      this.router.navigate(['/results'], { state: { results: this.results, settings: this.gameSettings } });
+      // For normal mode, gameSettings might be null. Create a default one.
+      const settings = this.gameSettings ?? {
+        rounds: this.totalRounds,
+        contextSize: this.contextSize,
+        timeLimit: 0, books: []
+      };
+      this.router.navigate(['/results'], { state: { results: this.results, settings: settings } });
     }
   }
 

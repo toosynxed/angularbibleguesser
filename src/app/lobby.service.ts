@@ -18,7 +18,7 @@ export interface Lobby {
   id?: string;
   hostId: string;
   gameCode: string; // A short, user-friendly code
-  gameState: 'waiting' | 'in-progress' | 'finished';
+  gameState: 'waiting' | 'in-progress' | 'leaderboard' | 'finished';
   currentRound: number; // 0-indexed
   gameSettings: GameSettings;
   verseIds?: number[];

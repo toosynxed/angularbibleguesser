@@ -18,13 +18,15 @@ export class HomeComponent {
   // Content for the "Rules" tab
   rulesContent = `
 <h3>How to Play</h3>
+<p>Your goal is to guess the book, chapter, and verse number of the highlighted verse. A passage from the Bible will be displayed with one verse highlighted in purple. Use the context slider to show more or fewer surrounding verses to help you guess.</p>
+<h4>Game Modes</h4>
 <ul>
-  <li>Select a game mode: Normal (1 round) or Custom Mode.</li>
-  <li>A passage from the Bible will be displayed with one verse highlighted in purple.</li>
-  <li>Your goal is to guess the book, chapter, and verse number of the highlighted verse.</li>
-  <li>Use the context slider to show more or fewer surrounding verses to help you guess.</li>
-  <li>After finishing a game, you can share a code with friends so they can play the exact same rounds you did.</li>
+  <li><b>Normal Mode:</b> A quick game with a single random verse.</li>
+  <li><b>Custom Mode:</b> Customize your game by setting the number of rounds, time limit, and which books of the Bible to draw verses from.</li>
+  <li><b>Create Mode:</b> Hand-pick specific verses to create a custom challenge for yourself or to share with friends.</li>
+  <li><b>Play with Code:</b> Enter a game code you've received to play a specific set of verses created by another player.</li>
 </ul>
+<p>After finishing any game, you can get a share code so friends can play the exact same rounds you did.</p>
   `;
 
   // Content for the "About" tab
@@ -37,10 +39,18 @@ export class HomeComponent {
   // You can update the changelog text here.
   // Using backticks (`) allows for multi-line strings.
   changelogContent = `
+<h3>Version 1.4.1 "Online" - Coming Soon!</h3>
+<ul>
+  <li>Sign-in to save progress and scores!</li>
+  <li>Google Account sign-in options.</li>
+  <li>Tracking statistics.</li>
+  <li>Online Multiplayer Mode.</li>
+</ul>
 <h3>Version 1.4.0 open-beta</h3>
 <ul>
-  <li>Implemented Create Mode</li>
-  <li>Players can now copy their game codes for all modes, including Create Mode</li>
+  <li>Released onto the web using IONIS Hosting!</li>
+  <li>Implemented Create Mode.</li>
+  <li>Players can now copy their game codes for all modes, including Create Mode.</li>
   <li>Join the NEW Discord to see more updates and view other player's games!</li>
 </ul>
 

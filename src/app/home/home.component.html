@@ -15,6 +15,7 @@
     <button class="primary" (click)="startGame('normal')">Normal Mode</button>
     <button class="primary" (click)="startGame('custom')">Custom Mode</button>
     <button class="primary" (click)="createGame()">Create Mode</button>
+    <button class="primary" disabled>Online Multiplayer Mode</button>
     <button class="secondary" (click)="showCodeInput = !showCodeInput">Play with Code</button>
 
     <div *ngIf="showCodeInput" class="code-input-container">

@@ -34,6 +34,13 @@
   color: white;
 }
 
+.home-main button.primary:disabled {
+  background-color: #cccccc;
+  color: #666666;
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
 /* Changelog Button */
 .changelog-button {
   position: fixed;

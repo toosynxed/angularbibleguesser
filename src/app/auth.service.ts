@@ -62,4 +62,14 @@ export class AuthService {
       return user.delete();
     }
   }
+
+  async reauthenticate(password: string): Promise<void> {
+    const user = await this.user$.pipe(first()).toPromise();
+    if (user && user.email) {
+      const credential = firebase.auth.EmailAuthProvider.credential(user.email, password);
+      await user.reauthenticateWithCredential(credential);
+    } else {
+      throw new Error('Cannot reauthenticate. User or email not found.');
+    }
+  }
 }

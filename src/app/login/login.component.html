@@ -40,8 +40,13 @@
         <div *ngIf="showDeleteConfirm" class="delete-confirm-box">
           <h4>Are you sure?</h4>
           <p>This action is irreversible and will permanently delete your account and any associated data.</p>
+          <!-- Password field only for email users -->
+          <div *ngIf="user.providerData[0]?.providerId === 'password'" class="form-group">
+            <label for="deletePassword">Enter your password to confirm</label>
+            <input id="deletePassword" type="password" [(ngModel)]="deletePassword">
+          </div>
           <label><input type="checkbox" [(ngModel)]="deleteConfirmChecked"> I understand and wish to proceed.</label>
-          <button (click)="onDeleteAccount()" class="danger" [disabled]="!deleteConfirmChecked">Delete My Account</button>
+          <button (click)="onDeleteAccount()" class="danger" [disabled]="!deleteConfirmChecked || (user.providerData[0]?.providerId === 'password' && !deletePassword)">Delete My Account</button>
           <button (click)="showDeleteConfirm = false" class="secondary">Cancel</button>
         </div>
 

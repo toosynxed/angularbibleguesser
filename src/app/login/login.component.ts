@@ -23,6 +23,7 @@ export class LoginComponent implements OnInit {
   showUsernameForm = false;
   showDeleteConfirm = false;
   deleteConfirmChecked = false;
+  deletePassword = '';
   successMessage: string | null = null;
 
   constructor(
@@ -35,8 +36,9 @@ export class LoginComponent implements OnInit {
     this.user$ = this.authService.user$;
     this.isNewUser$ = this.user$.pipe(
       map(user => {
+        // A user is "new" if they have a real account and it's their very first sign-in.
         const metadata = user?.metadata;
-        return !!user && !user.isAnonymous && (!user.displayName || (metadata.creationTime === metadata.lastSignInTime));
+        return !!user && !user.isAnonymous && (metadata.creationTime === metadata.lastSignInTime);
       })
     );
 
@@ -110,11 +112,25 @@ export class LoginComponent implements OnInit {
 
   async onDeleteAccount() {
     if (!this.deleteConfirmChecked) return;
+    this.error = null;
+
     try {
+      const user = await this.authService.user$.pipe(first()).toPromise();
+      // Re-authenticate if the user signed up with email/password
+      if (user?.providerData[0]?.providerId === 'password') {
+        if (!this.deletePassword) {
+          this.error = 'Password is required to delete your account.';
+          return;
+        }
+        await this.authService.reauthenticate(this.deletePassword);
+      }
+
+      // If re-authentication is successful (or not needed for Google), delete the account.
       await this.authService.deleteAccount();
+      alert('Account deleted successfully.');
       this.router.navigate(['/']);
     } catch (err) {
-      this.error = 'Failed to delete account. You may need to sign out and sign back in again before deleting.';
+      this.error = err.code === 'auth/wrong-password' ? 'Incorrect password.' : 'Failed to delete account. Please try again.';
     }
   }
 

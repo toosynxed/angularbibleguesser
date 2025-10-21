@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 import { AuthService } from '../auth.service';
-import { StatsService } from '../core/stats.service';
-import { UserStats } from '../core/stats.model';
+import { StatsService } from '../stats.service';
+import { UserStats } from '../stats.model';
 import firebase from 'firebase/compat/app';
 
 @Component({

@@ -140,8 +140,4 @@ export class LoginComponent implements OnInit {
     // After signing out, we sign them back in anonymously to maintain a UID
     this.authService.ensureAuthenticated();
   }
-
-  goToProfile(): void {
-    this.router.navigate(['/profile']);
-  }
 }

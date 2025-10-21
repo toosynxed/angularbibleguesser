@@ -1,8 +1,11 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Observable, Subscription } from 'rxjs';
+import { Observable, of, Subscription } from 'rxjs';
+import { switchMap } from 'rxjs/operators';
 import { ShareService } from '../share.service';
 import { AuthService } from '../auth.service';
+import { StatsService } from '../stats.service';
+import { UserStats } from '../stats.model';
 import firebase from 'firebase/compat/app';
 
 @Component({
@@ -17,7 +20,9 @@ export class HomeComponent implements OnInit, OnDestroy {
   showChangelog = false;
   showHelp = false;
   activeHelpTab: 'rules' | 'about' = 'rules';
+  showStats = false;
   user$: Observable<firebase.User | null>;
+  stats$: Observable<UserStats | undefined>;
 
   // Content for the "Rules" tab
   rulesContent = `
@@ -124,10 +129,25 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   private errorSubscription: Subscription;
 
-  constructor(private router: Router, private shareService: ShareService, private authService: AuthService) { }
+  constructor(
+    private router: Router,
+    private shareService: ShareService,
+    private authService: AuthService,
+    private statsService: StatsService
+  ) { }
 
   ngOnInit(): void {
     this.user$ = this.authService.user$;
+
+    this.stats$ = this.user$.pipe(
+      switchMap(user => {
+        if (user && !user.isAnonymous) {
+          return this.statsService.getUserStats(user.uid);
+        }
+        return of(undefined); // No stats for guests or if not logged in
+      })
+    );
+
     this.errorSubscription = this.shareService.errorMessage$.subscribe(message => {
       this.error = message;
       // Clear the error from the service so it doesn't reappear on navigation
@@ -181,5 +201,12 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   goToMultiplayer(): void {
     this.router.navigate(['/multiplayer']);
+  }
+
+  getAverage(total: number, count: number): string {
+    if (!count || count === 0) {
+      return '0.00';
+    }
+    return (total / count).toFixed(2);
   }
 }

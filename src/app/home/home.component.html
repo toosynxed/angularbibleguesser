@@ -2,8 +2,8 @@
   <div class="header-actions">
     <div class="stats-area" *ngIf="user$ | async as user">
       <button class="stats-button"
-              [routerLink]="user.isAnonymous ? null : '/profile'"
               [class.disabled]="user.isAnonymous"
+              (click)="!user.isAnonymous && (showStats = true)"
               [title]="user.isAnonymous ? 'Login to view stats' : 'View your stats'">
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg>
         <span>Stats</span>
@@ -84,6 +84,48 @@
         <div *ngIf="activeHelpTab === 'about'" class="help-content" [innerHTML]="aboutContent">
           <!-- About content is displayed here -->
         </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Stats Modal -->
+  <div *ngIf="showStats" class="modal-backdrop" (click)="showStats = false">
+    <div class="modal-content" (click)="$event.stopPropagation()">
+      <div class="modal-header">
+        <h2>Your Stats</h2>
+        <button class="close-button" (click)="showStats = false">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div *ngIf="stats$ | async as stats; else loadingOrNoStats">
+          <div class="stats-container">
+
+            <!-- Normal Mode Stats -->
+            <div class="stat-card" *ngIf="stats.normal as normalStats">
+              <h3>Normal Mode</h3>
+              <p><strong>Games Played:</strong> {{ normalStats.gamesPlayed || 0 }}</p>
+              <p><strong>Average Score:</strong> {{ getAverage(normalStats.totalScore, normalStats.gamesPlayed) }} / 100</p>
+              <p><strong>Average Stars:</strong> {{ getAverage(normalStats.totalStars, normalStats.gamesPlayed) }} / 3</p>
+            </div>
+
+            <!-- Custom Mode Stats -->
+            <div class="stat-card" *ngIf="stats.custom as customStats">
+              <h3>Custom Mode</h3>
+              <p><strong>Games Played:</strong> {{ customStats.gamesPlayed || 0 }}</p>
+              <p><strong>Average Rounds:</strong> {{ getAverage(customStats.totalRounds, customStats.gamesPlayed) }}</p>
+              <p><strong>Average Score/Round:</strong> {{ getAverage(customStats.totalScore, customStats.totalRounds) }}</p>
+            </div>
+
+            <!-- Multiplayer Mode Stats -->
+            <div class="stat-card" *ngIf="stats.multiplayer as multiStats">
+              <h3>Multiplayer Mode</h3>
+              <p><strong>Games Played:</strong> {{ multiStats.gamesPlayed || 0 }}</p>
+              <p><strong>Average Score/Round:</strong> {{ getAverage(multiStats.totalScore, multiStats.totalRounds) }}</p>
+            </div>
+          </div>
+        </div>
+        <ng-template #loadingOrNoStats>
+          <p>Loading stats or no stats recorded yet. Go play some games!</p>
+        </ng-template>
       </div>
     </div>
   </div>

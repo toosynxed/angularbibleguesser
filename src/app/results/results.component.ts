@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { GameResult, GameState, Lobby, PlayerResult } from '../game.model';
 import { ShareService } from '../share.service';
 import { AuthService } from '../auth.service';
-import { StatsService } from '../core/stats.service';
+import { StatsService } from '../stats.service';
 import { first } from 'rxjs/operators';
 import firebase from 'firebase/compat/app';
 

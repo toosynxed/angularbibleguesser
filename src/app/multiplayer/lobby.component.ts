@@ -21,6 +21,7 @@ export class LobbyComponent implements OnInit, OnDestroy {
   settings: GameSettings;
   allBooks: string[] = [];
   bookGroups: { groupName: string, books: string[] }[] = [];
+  copyButtonText = 'Click code to copy!';
 
   timeOptions = [
     { value: 0, label: 'No Time Limit' },
@@ -130,5 +131,12 @@ export class LobbyComponent implements OnInit, OnDestroy {
         this.router.navigate(['/']);
       }
     });
+  }
+
+  copyGameCode(code: string): void {
+    navigator.clipboard.writeText(code).then(() => {
+      this.copyButtonText = 'Copied!';
+      setTimeout(() => this.copyButtonText = 'Click code to copy!', 2000);
+    }).catch(err => console.error('Failed to copy game code: ', err));
   }
 }

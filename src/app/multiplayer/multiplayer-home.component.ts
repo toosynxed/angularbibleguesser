@@ -40,4 +40,8 @@ export class MultiplayerHomeComponent implements OnInit {
       }
     });
   }
+
+  goBack(): void {
+    this.router.navigate(['/']);
+  }
 }

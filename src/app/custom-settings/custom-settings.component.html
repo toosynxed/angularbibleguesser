@@ -1,8 +1,10 @@
 <div class="container">
   <header>
-    <button class="back-button" routerLink="/">< Home</button>
-    <h1>Custom Game Settings</h1>
-    <p>Customize your game.</p>
+    <div class="header-controls">
+      <button class="secondary-button" (click)="goBack()" title="Back to Home">‹ Home</button>
+    </div>
+    <h1>Custom Game</h1>
+    <p>Set up your game, then start playing!</p>
   </header>
 
   <main class="settings-form">

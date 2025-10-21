@@ -75,4 +75,11 @@ export class CustomSettingsComponent implements OnInit {
       }
     });
   }
+
+  goBack(): void {
+    const confirmation = window.confirm('Are you sure you want to leave? Your custom settings will be lost.');
+    if (confirmation) {
+      this.router.navigate(['/']);
+    }
+  }
 }

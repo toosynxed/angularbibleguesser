@@ -1,6 +1,29 @@
 .container {
   text-align: center;
   padding: 2rem;
+  position: relative;
+}
+
+.header-controls {
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+}
+
+.secondary-button {
+  background: none;
+  border: 1px solid var(--border-color);
+  color: var(--text-secondary-color);
+  padding: 0.5rem 1rem;
+  border-radius: var(--border-radius, 4px);
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+
+.secondary-button:hover {
+  background-color: var(--verse-context-bg);
+  border-color: var(--text-secondary-color);
 }
 
 .actions {

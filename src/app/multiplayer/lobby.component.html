@@ -51,9 +51,12 @@
         <div class="book-selection">
           <h3>Select Books</h3>
           <div *ngFor="let group of bookGroups" class="book-group">
-            <h4 (click)="toggleBookGroup(group)" [class.clickable]="isHost$ | async">
-              {{ group.groupName }}
-            </h4>
+            <div class="book-group-header">
+              <h4 (click)="toggleBookGroup(group)" [class.clickable]="isHost$ | async">
+                {{ group.groupName }}
+              </h4>
+              <span class="toggle-all-hint" *ngIf="isHost$ | async">(Click to select/unselect all)</span>
+            </div>
             <div class="book-grid">
               <button
                 *ngFor="let book of group.books"

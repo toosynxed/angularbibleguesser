@@ -59,6 +59,17 @@
   font-weight: bold;
   margin-left: 0.5rem;
 }
+.book-group-header {
+  display: flex;
+  align-items: baseline;
+  gap: 0.5rem;
+}
+
+.toggle-all-hint {
+  font-size: 0.8rem;
+  color: var(--text-secondary-color);
+  font-weight: normal;
+}
 
 .start-game-button {
   width: 100%;

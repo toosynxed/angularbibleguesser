@@ -144,6 +144,11 @@ export class GameComponent implements OnInit, OnDestroy {
 
       // Set game settings from the lobby
       this.totalRounds = lobby.gameSettings.rounds;
+      this.contextSize = lobby.gameSettings.contextSize;
+      if (lobby.gameSettings.timeLimit > 0) {
+        this.timeLeft = lobby.gameSettings.timeLimit;
+        this.startTimer();
+      }
 
       // If the round has changed, reset the view
       if (this.currentRound !== lobby.currentRound + 1) {
@@ -153,6 +158,11 @@ export class GameComponent implements OnInit, OnDestroy {
         this.isLoading = true;
         this.guessForm.reset();
         const verseId = lobby.verseIds[lobby.currentRound];
+        // Reset and restart timer for the new round
+        if (lobby.gameSettings.timeLimit > 0) {
+          this.timeLeft = lobby.gameSettings.timeLimit;
+          this.startTimer();
+        }
         this.bibleService.getVerseById(verseId).subscribe(verse => {
           this.currentVerse = verse;
           if (verse) this.updateVerseContext();
@@ -191,6 +201,11 @@ export class GameComponent implements OnInit, OnDestroy {
       this.isLoading = true;
       this.guessForm.reset();
       this.roundState$.next();
+          // Reset and restart timer for the new round
+      if (this.gameSettings && this.gameSettings.timeLimit > 0) {
+        this.timeLeft = this.gameSettings.timeLimit;
+        this.startTimer();
+      }
     }
   }
 
@@ -199,11 +214,33 @@ export class GameComponent implements OnInit, OnDestroy {
       if (this.timeLeft !== null && this.timeLeft > 0) {
         this.timeLeft--;
       } else if (this.timeLeft === 0) {
-        this.timerSubscription.unsubscribe();
-        alert("Time's up!");
-        this.finishGame();
+        this.handleTimeUp();
       }
     });
+  }
+
+  handleTimeUp(): void {
+    if (this.isRoundOver) return; // Don't do anything if round is already over
+
+    if (this.gameMode === 'multiplayer') {
+      // In multiplayer, just submit a score of 0. The game flow is controlled by the host.
+      this.lobbyService.submitGuess(this.lobbyId, this.currentRound - 1, this.userId, 'No Guess', 0);
+      this.isRoundOver = true;
+      this.feedback = "Time's up! Your score for this round is 0.";
+    } else {
+      // In single-player, end the round and record a zero-score result.
+      this.isRoundOver = true;
+      this.feedback = `Time's up! The correct answer was ${this.answerText}.`;
+      this.results.push({
+        verse: this.currentVerse!,
+        guess: null, // No guess
+        score: 0,
+        stars: 0,
+        isBookCorrect: false,
+        isChapterCorrect: false,
+        isVerseCorrect: false
+      });
+    };
   }
 
   updateVerseContext(): void {
@@ -235,7 +272,7 @@ export class GameComponent implements OnInit, OnDestroy {
     // If the guess is not in a valid format, show feedback and let the user try again.
     if (!parsedGuess) {
       this.feedback = "Invalid format or spelling. Please use a format like 'John 3:16'.";
-      return;
+      return; // Stop execution if the format is invalid
     }
 
     const { book, chapter, verse } = parsedGuess;

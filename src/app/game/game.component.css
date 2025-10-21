@@ -16,6 +16,11 @@ header {
   left: 0;
 }
 
+.clickable-header {
+  cursor: pointer;
+  display: inline-block; /* Ensures the clickable area is tight around the text */
+}
+
 .secondary-button, .back-button {
   background: none;
   border: 1px solid var(--border-color);

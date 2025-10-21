@@ -88,7 +88,7 @@
           <p><strong>Correct Verse:</strong> {{ result.verse.bookName }} {{ result.verse.chapter }}:{{ result.verse.verse }}</p>
           <p><strong>Your Guess:</strong>
             <span *ngIf="result.guess">{{ result.guess.book }} {{ result.guess.chapter }}:{{ result.guess.verse }}</span>
-            <span *ngIf="!result.guess">Invalid</span>
+            <span *ngIf="!result.guess">No Guess</span>
           </p>
           <p class="verse-text">"{{ result.verse.text }}"</p>
           <div class="indicators">

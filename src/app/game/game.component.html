@@ -3,7 +3,9 @@
     <div class="header-controls">
       <button class="secondary-button" (click)="confirmGoHome()" title="Back to Home">‹ Home</button>
     </div>
-    <h1>Bible Guesser</h1>
+    <div class="clickable-header" (click)="confirmGoHome()" title="Back to Home">
+      <h1>Bible Guesser</h1>
+    </div>
     <p>Round {{ currentRound }} of {{ totalRounds }}</p>
   </header>
 

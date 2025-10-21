@@ -40,12 +40,19 @@ export class HomeComponent implements OnInit, OnDestroy {
   // You can update the changelog text here.
   // Using backticks (`) allows for multi-line strings.
   changelogContent = `
+<h3>Version 1.4.2</h3>
+<ul>
+  <li>Fixed bugs in Online Multiplayer Mode.</li>
+
+</ul>
 <h3>Version 1.4.1 "Online"</h3>
 <ul>
-  <li>Sign-in to save progress and scores!</li>
-  <li>Google Account sign-in options. - Coming Soon!</li>
-  <li>Tracking statistics.</li> </ul>
-  <li>Online Multiplayer Mode.</li>
+  <s><li>Sign-in to save progress and scores!</li></s>
+  <s><li>Google Account sign-in options. - Coming Soon!</li></s>
+  <s><li>Tracking statistics.</li></s>
+  <li>New Online Multiplayer Mode allows you to create
+  lobbies and play with other players!</li>
+</ul>
 
 <h3>Version 1.4.0 open-beta</h3>
 <ul>

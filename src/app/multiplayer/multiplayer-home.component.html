@@ -4,9 +4,15 @@
   </div>
   <h1>Multiplayer</h1>
   <p>Create a lobby or join one with a code.</p>
+
+  <div class="display-name-group">
+    <label for="displayName">Your Display Name</label>
+    <input id="displayName" type="text" [(ngModel)]="displayName" placeholder="Enter your name..." maxlength="15" />
+  </div>
+
   <div class="actions">
-    <button class="primary" (click)="createLobby()">Create Lobby</button>
+    <button class="primary" (click)="createLobby()" [disabled]="!displayName.trim()">Create Lobby</button>
     <input [(ngModel)]="lobbyCode" placeholder="Enter Lobby Code" (keyup.enter)="joinLobby()" />
-    <button class="secondary" (click)="joinLobby()">Join Lobby</button>
+    <button class="secondary" (click)="joinLobby()" [disabled]="!displayName.trim()">Join Lobby</button>
   </div>
 </div>

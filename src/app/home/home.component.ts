@@ -48,6 +48,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   <li>Players can now create accounts and log in using Google Sign-In or Email.</li>
   <li><s>New profile system to track user statistics and game history.</s> - Coming Soon!</li>
 </ul>
+
 <h3>Version 1.4.2</h3>
 <ul>
   <li>Fixed bugs in Online Multiplayer Mode.</li>
@@ -77,7 +78,6 @@ export class HomeComponent implements OnInit, OnDestroy {
 <ul>
   <li><s>Implemented custom gamemodes.</s></li>
   <li><s>Added user profiles and statistics tracking.</s></li>
-  <li><s>Added accounts and login functionality (Email, Google).</s></li>
 </ul>
 
 <h3>Version 1.2.3</h3>

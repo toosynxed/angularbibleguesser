@@ -24,6 +24,7 @@ export interface Lobby {
   verseIds?: number[];
   guesses?: { [roundKey: string]: PlayerGuess }; // To store all guesses
   createdAt: any;
+  lastUpdatedAt?: any;
 }
 
 @Injectable({
@@ -47,7 +48,8 @@ export class LobbyService {
       currentRound: 0,
       gameSettings: settings,
       guesses: {}, // Initialize the guesses map
-      createdAt: firebase.firestore.FieldValue.serverTimestamp()
+      createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+      lastUpdatedAt: firebase.firestore.FieldValue.serverTimestamp()
     };
     await this.afs.collection('lobbies').doc(id).set(lobbyData);
     await this.afs.collection('lobbies').doc(id).collection('players').doc(host.uid).set(host);
@@ -75,30 +77,48 @@ export class LobbyService {
 
   async updateLobbySettings(lobbyId: string, settings: GameSettings): Promise<void> {
     // Update the gameSettings field on the lobby document
-    await this.afs.collection('lobbies').doc(lobbyId).update({ gameSettings: settings });
+    await this.afs.collection('lobbies').doc(lobbyId).update({
+      gameSettings: settings,
+      lastUpdatedAt: firebase.firestore.FieldValue.serverTimestamp()
+    });
   }
 
   async startGame(lobbyId: string, verseIds: number[]): Promise<void> {
     // Set the verse IDs for the game and change the state to start the game for all players
-    await this.afs.collection('lobbies').doc(lobbyId).update({ verseIds: verseIds, gameState: 'in-progress' });
+    await this.afs.collection('lobbies').doc(lobbyId).update({
+      verseIds: verseIds,
+      gameState: 'in-progress',
+      lastUpdatedAt: firebase.firestore.FieldValue.serverTimestamp()
+    });
   }
 
   async submitGuess(lobbyId: string, round: number, playerId: string, guess: string, score: number): Promise<void> {
     const guessPath = `guesses.round_${round}.${playerId}`;
     await this.afs.collection('lobbies').doc(lobbyId).update({
-      [guessPath]: { guess, score }
+      [guessPath]: { guess, score },
+      lastUpdatedAt: firebase.firestore.FieldValue.serverTimestamp()
     });
   }
 
   async showLeaderboard(lobbyId: string): Promise<void> {
-    await this.afs.collection('lobbies').doc(lobbyId).update({ gameState: 'leaderboard' });
+    await this.afs.collection('lobbies').doc(lobbyId).update({
+      gameState: 'leaderboard',
+      lastUpdatedAt: firebase.firestore.FieldValue.serverTimestamp()
+    });
   }
 
   async nextRound(lobbyId: string, nextRound: number): Promise<void> {
-    await this.afs.collection('lobbies').doc(lobbyId).update({ gameState: 'in-progress', currentRound: nextRound });
+    await this.afs.collection('lobbies').doc(lobbyId).update({
+      gameState: 'in-progress',
+      currentRound: nextRound,
+      lastUpdatedAt: firebase.firestore.FieldValue.serverTimestamp()
+    });
   }
 
   async finishGame(lobbyId: string): Promise<void> {
-    await this.afs.collection('lobbies').doc(lobbyId).update({ gameState: 'finished' });
+    await this.afs.collection('lobbies').doc(lobbyId).update({
+      gameState: 'finished',
+      lastUpdatedAt: firebase.firestore.FieldValue.serverTimestamp()
+    });
   }
 }

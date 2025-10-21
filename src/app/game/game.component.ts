@@ -210,6 +210,11 @@ export class GameComponent implements OnInit, OnDestroy {
   }
 
   startTimer(): void {
+    // Unsubscribe from any existing timer to prevent multiple timers running at once.
+    if (this.timerSubscription) {
+      this.timerSubscription.unsubscribe();
+    }
+
     this.timerSubscription = timer(1000, 1000).pipe(takeUntil(this.destroy$)).subscribe(() => {
       if (this.timeLeft !== null && this.timeLeft > 0) {
         this.timeLeft--;

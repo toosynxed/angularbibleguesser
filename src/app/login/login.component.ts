@@ -37,8 +37,9 @@ export class LoginComponent implements OnInit {
     this.isNewUser$ = this.user$.pipe(
       map(user => {
         // A user is "new" if they have a real account and it's their very first sign-in.
+        // We also check if they don't have a display name yet, in case the first check is insufficient.
         const metadata = user?.metadata;
-        return !!user && !user.isAnonymous && (metadata.creationTime === metadata.lastSignInTime);
+        return !!user && !user.isAnonymous && !user.displayName && (metadata.creationTime === metadata.lastSignInTime);
       })
     );
 

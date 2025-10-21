@@ -37,7 +37,7 @@ export interface GameSettings {
   rounds: number;
   timeLimit: number;
   contextSize: number;
-  books: string[];
+  books?: string[];
 }
 
 export interface PlayerResult {

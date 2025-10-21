@@ -157,7 +157,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     const decoded = this.shareService.decodeGame(this.gameCode);
 
     if (!decoded) {
-      this.error = 'Invalid game code. Please check and try again.';
+      this.error = 'Invalid game code. Please check and try again.'; // Error is already set by service, but this is a good fallback.
       return;
     }
 
@@ -166,12 +166,12 @@ export class HomeComponent implements OnInit, OnDestroy {
       this.router.navigate(['/game'], { state: { mode: 'shared', seed: decoded.seed } });
     }
     // Handle old verseId-based codes
-    else if ('verseIds' in decoded && decoded.verseIds.length > 0) {
+    else if ('v' in decoded && decoded.v.length > 0) {
       this.router.navigate(['/game'], {
         state: {
-          mode: decoded.mode,
-          verseIds: decoded.verseIds,
-          settings: decoded.settings // Pass the full settings object
+          mode: 'shared', // All shared codes are 'shared' mode
+          verseIds: decoded.v,
+          settings: decoded.s
         }
       });
     } else {

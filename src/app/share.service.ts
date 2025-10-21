@@ -37,17 +37,24 @@ export class ShareService {
     return btoa(jsonString);
   }
 
-  // decodeGame needs to be updated to handle both formats
-  decodeGame(code: string): GameData | { seed: string } | null {
+  decodeGame(code: string): (GameData & { mode: 'shared' }) | { seed: string } | null {
     try {
       const jsonString = atob(code);
       const data = JSON.parse(jsonString);
-      // Check if it's the new seed format
+
       if (data.seed) {
         return { seed: data.seed };
       }
-      // Assume old format if not
-      return data;
+
+      if (data.v) {
+        return {
+          mode: 'shared',
+          verseIds: data.v,
+          settings: data.s,
+        };
+      }
+
+      throw new Error('Invalid code format');
     } catch (e) {
       this.errorMessageSubject.next('Invalid game code.');
       return null;

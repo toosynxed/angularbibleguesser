@@ -114,7 +114,7 @@ export class CreateGameComponent implements OnInit {
       };
 
       this.generatedCode = this.shareService.encodeGame({
-        mode: 'created',
+        mode: 'create',
         verseIds: validVerseIds,
         settings: gameSettings
       });

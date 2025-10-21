@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from '../auth.service';
-import { StatsService } from '../core/stats.service';
-import { UserStats, NormalModeStats, CustomModeStats, MultiplayerModeStats } from '../core/stats.model';
 import { Observable, of } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
+import { AuthService } from '../auth.service';
+import { StatsService } from '../core/stats.service';
+import { UserStats } from '../core/stats.model';
 import firebase from 'firebase/compat/app';
 
 @Component({
@@ -15,7 +15,10 @@ export class ProfileComponent implements OnInit {
   user$: Observable<firebase.User | null>;
   stats$: Observable<UserStats | undefined>;
 
-  constructor(private authService: AuthService, private statsService: StatsService) { }
+  constructor(
+    private authService: AuthService,
+    private statsService: StatsService
+  ) {}
 
   ngOnInit(): void {
     this.user$ = this.authService.user$;
@@ -24,14 +27,15 @@ export class ProfileComponent implements OnInit {
         if (user && !user.isAnonymous) {
           return this.statsService.getUserStats(user.uid);
         }
-        return of(undefined); // Return empty observable if no user or anonymous
+        return of(undefined); // No stats for guests or if not logged in
       })
     );
   }
 
-  // Helper methods to calculate and format averages
   getAverage(total: number, count: number): string {
-    if (!count) return '0';
+    if (!count || count === 0) {
+      return '0.00';
+    }
     return (total / count).toFixed(2);
   }
 }

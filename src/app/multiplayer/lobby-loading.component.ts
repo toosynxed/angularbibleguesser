@@ -24,7 +24,7 @@ export class LobbyLoadingComponent implements OnInit {
 
   ngOnInit(): void {
     if (!this.lobbyId) {
-      this.shareService.setErrorMessage('Lobby ID was not provided.');
+      this.router.navigate(['/']);
       this.router.navigate(['/']);
       return;
     }

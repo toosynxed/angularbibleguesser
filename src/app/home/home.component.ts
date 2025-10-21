@@ -166,12 +166,12 @@ export class HomeComponent implements OnInit, OnDestroy {
       this.router.navigate(['/game'], { state: { mode: 'shared', seed: decoded.seed } });
     }
     // Handle old verseId-based codes
-    else if ('v' in decoded && decoded.v.length > 0) {
+    else if ('verseIds' in decoded && decoded.verseIds.length > 0) {
       this.router.navigate(['/game'], {
         state: {
           mode: 'shared', // All shared codes are 'shared' mode
-          verseIds: decoded.v,
-          settings: decoded.s
+          verseIds: decoded.verseIds,
+          settings: decoded.settings
         }
       });
     } else {

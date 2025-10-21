@@ -1,11 +1,15 @@
 <div class="container">
   <div class="header-actions">
-    <div class="coming-soon-stats">
-      <!-- Statistics Icon -->
-      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg>
-      <span>coming soon!</span>
+    <div class="stats-area" *ngIf="user$ | async as user">
+      <button class="stats-button"
+              [routerLink]="user.isAnonymous ? null : '/profile'"
+              [class.disabled]="user.isAnonymous"
+              [title]="user.isAnonymous ? 'Login to view stats' : 'View your stats'">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg>
+        <span>Stats</span>
+      </button>
     </div>
-    <div class="login-area">
+    <div class="login-area" *ngIf="user$ | async as user">
       <button class="login-button secondary-action" routerLink="/login" *ngIf="user$ | async as user">
         {{ user.isAnonymous ? 'Profile / Login' : 'Profile' }}
       </button>

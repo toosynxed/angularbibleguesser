@@ -22,6 +22,39 @@
   height: auto;
   margin-bottom: 1rem;
 }
+/* Add these styles to src/app/home/home.component.css */
+
+.stats-area {
+  /* This area is now positioned by the parent flex container */
+}
+
+.stats-button {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: none;
+  border: 1px solid var(--border-color);
+  color: var(--text-secondary-color);
+  padding: 0.5rem 1rem;
+  border-radius: var(--border-radius);
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+
+.stats-button:not(.disabled):hover {
+  background-color: var(--background-alt-color);
+  border-color: var(--text-secondary-color);
+}
+
+.stats-button.disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.stats-button svg {
+  stroke: currentColor;
+}
 
 .login-area {
   position: relative;

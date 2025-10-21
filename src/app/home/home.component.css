@@ -1,13 +1,24 @@
-.coming-soon-stats {
+.header-actions {
   position: absolute;
   top: 1rem;
   left: 1rem;
+  right: 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.coming-soon-stats {
   display: flex;
   align-items: center;
   opacity: 0.5; /* Greys out the element */
   font-size: 1rem;
   color: var(--text-color, #333);
   cursor: default; /* Indicates it's not clickable */
+}
+
+.login-button {
+  /* Add styles for your login button */
 }
 
 .coming-soon-stats svg {

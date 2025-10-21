@@ -10,5 +10,7 @@ export class AppComponent {
   title = 'Better Bible Guesser';
 
   // Inject AuthService to initialize it on app start
-  constructor(private authService: AuthService) {}
+  constructor(private authService: AuthService) {
+    this.authService.ensureAuthenticated();
+  }
 }

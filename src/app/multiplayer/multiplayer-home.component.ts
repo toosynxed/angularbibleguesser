@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 import { first } from 'rxjs/operators';
 import { AuthService } from '../auth.service';
 import { LobbyService } from '../lobby.service';
@@ -9,14 +10,25 @@ import { LobbyService } from '../lobby.service';
   templateUrl: './multiplayer-home.component.html',
   styleUrls: ['./multiplayer-home.component.css']
 })
-export class MultiplayerHomeComponent implements OnInit {
+export class MultiplayerHomeComponent implements OnInit, OnDestroy {
 
   lobbyCode = '';
   displayName = '';
+  private userSubscription: Subscription;
 
   constructor(private lobbyService: LobbyService, private authService: AuthService, private router: Router) { }
 
-  ngOnInit(): void { }
+  ngOnInit(): void {
+    this.userSubscription = this.authService.user$.subscribe(user => {
+      if (user && !user.isAnonymous && user.displayName) {
+        this.displayName = user.displayName;
+      }
+    });
+  }
+
+  ngOnDestroy(): void {
+    this.userSubscription.unsubscribe();
+  }
 
   async createLobby() {
     if (!this.displayName.trim()) {

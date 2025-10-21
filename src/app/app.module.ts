@@ -15,6 +15,7 @@ import { ResultsComponent } from './results/results.component';
 import { RouterModule } from '@angular/router'; // Corrected: No change needed here, but keeping for context.
 import { CreateGameComponent } from './create-game/create-game.component';
 import { CustomSettingsComponent } from './custom-settings/custom-settings.component';
+import { LoginComponent } from './login/login.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -22,7 +23,8 @@ import { CustomSettingsComponent } from './custom-settings/custom-settings.compo
     GameComponent,
     ResultsComponent,
     CustomSettingsComponent,
-    CreateGameComponent
+    CreateGameComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,48 @@
+<div class="container">
+  <div *ngIf="user$ | async as user">
+    <h2>{{ user.displayName }}'s Profile</h2>
+
+    <div *ngIf="stats$ | async as stats; else loadingOrNoStats">
+      <div class="stats-container">
+
+        <!-- Normal Mode Stats -->
+        <div class="stat-card" *ngIf="stats.normal as normalStats">
+          <h3>Normal Mode</h3>
+          <p><strong>Games Played:</strong> {{ normalStats.gamesPlayed || 0 }}</p>
+          <p><strong>Average Score:</strong> {{ getAverage(normalStats.totalScore, normalStats.gamesPlayed) }} / 100</p>
+          <p><strong>Average Stars:</strong> {{ getAverage(normalStats.totalStars, normalStats.gamesPlayed) }} / 3</p>
+        </div>
+
+        <!-- Custom Mode Stats -->
+        <div class="stat-card" *ngIf="stats.custom as customStats">
+          <h3>Custom Mode</h3>
+          <p><strong>Games Played:</strong> {{ customStats.gamesPlayed || 0 }}</p>
+          <p><strong>Average Rounds:</strong> {{ getAverage(customStats.totalRounds, customStats.gamesPlayed) }}</p>
+          <p><strong>Average Score/Round:</strong> {{ getAverage(customStats.totalScore, customStats.totalRounds) }}</p>
+        </div>
+
+        <!-- Multiplayer Mode Stats -->
+        <div class="stat-card" *ngIf="stats.multiplayer as multiStats">
+          <h3>Multiplayer Mode</h3>
+          <p><strong>Games Played:</strong> {{ multiStats.gamesPlayed || 0 }}</p>
+          <p><strong>Average Score/Round:</strong> {{ getAverage(multiStats.totalScore, multiStats.totalRounds) }}</p>
+        </div>
+
+      </div>
+    </div>
+
+    <ng-template #loadingOrNoStats>
+      <div *ngIf="stats$ | async as stats">
+        <p>No stats recorded yet. Go play some games!</p>
+      </div>
+      <div *ngIf="(stats$ | async) === undefined">
+        <p>Loading stats...</p>
+      </div>
+    </ng-template>
+
+  </div>
+
+  <div class="actions">
+    <a routerLink="/login" class="secondary-action">‹ Account Settings</a>
+  </div>
+</div>

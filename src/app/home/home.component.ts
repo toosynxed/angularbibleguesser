@@ -154,14 +154,24 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
   playFromCode(): void {
     this.error = null;
-    const seed = this.shareService.decodeGame(this.gameCode);
+    const decoded = this.shareService.decodeGame(this.gameCode);
 
-    if (seed && seed.verseIds.length > 0) {
+    if (!decoded) {
+      this.error = 'Invalid game code. Please check and try again.';
+      return;
+    }
+
+    // Handle new seed-based codes
+    if ('seed' in decoded) {
+      this.router.navigate(['/game'], { state: { mode: 'shared', seed: decoded.seed } });
+    }
+    // Handle old verseId-based codes
+    else if ('verseIds' in decoded && decoded.verseIds.length > 0) {
       this.router.navigate(['/game'], {
         state: {
-          mode: seed.mode,
-          verseIds: seed.verseIds,
-          settings: seed.settings // Pass the full settings object
+          mode: decoded.mode,
+          verseIds: decoded.verseIds,
+          settings: decoded.settings // Pass the full settings object
         }
       });
     } else {

@@ -17,9 +17,39 @@
 
     <!-- Existing Logged-in User -->
     <div *ngIf="!(isNewUser$ | async)">
-      <div *ngIf="!user.isAnonymous; else anonymousUser">
+      <div *ngIf="!user.isAnonymous; else anonymousUser" class="profile-view">
         <h2>Profile</h2>
-        <p>You are logged in as <strong>{{ user.displayName || user.email }}</strong>.</p>
+        <p>You are logged in as <strong>{{ user.displayName }}</strong>.</p>
+        <div class="profile-details">
+          <p><strong>Login Method:</strong> {{ user.providerData[0]?.providerId === 'google.com' ? 'Google' : 'Email' }}</p>
+          <p><strong>Email:</strong> {{ maskEmail(user.email) }}</p>
+        </div>
+
+        <!-- Change Username Form -->
+        <div *ngIf="showUsernameForm" class="auth-form">
+          <form [formGroup]="profileForm" (ngSubmit)="onSetProfile()">
+            <div class="form-group">
+              <label for="updateDisplayName">New Display Name</label>
+              <input id="updateDisplayName" type="text" formControlName="displayName" placeholder="Your Name" maxlength="15">
+            </div>
+            <button type="submit" class="primary" [disabled]="profileForm.invalid">Save Name</button>
+          </form>
+        </div>
+
+        <!-- Delete Account Confirmation -->
+        <div *ngIf="showDeleteConfirm" class="delete-confirm-box">
+          <h4>Are you sure?</h4>
+          <p>This action is irreversible and will permanently delete your account and any associated data.</p>
+          <label><input type="checkbox" [(ngModel)]="deleteConfirmChecked"> I understand and wish to proceed.</label>
+          <button (click)="onDeleteAccount()" class="danger" [disabled]="!deleteConfirmChecked">Delete My Account</button>
+          <button (click)="showDeleteConfirm = false" class="secondary">Cancel</button>
+        </div>
+
+        <div class="profile-actions" *ngIf="!showUsernameForm && !showDeleteConfirm">
+          <button (click)="showUsernameForm = true" class="primary">Change Username</button>
+          <button (click)="showDeleteConfirm = true" class="danger">Delete Account</button>
+        </div>
+
         <button (click)="signOut()" class="secondary">Sign Out</button>
       </div>
       <ng-template #anonymousUser>
@@ -28,6 +58,7 @@
       </ng-template>
     </div>
 
+    <p *ngIf="successMessage" class="success-message">{{ successMessage }}</p>
     <!-- Login/Sign Up Forms (only show if not a new user setting profile) -->
     <div *ngIf="user.isAnonymous && !(isNewUser$ | async)" class="auth-container">
       <hr>

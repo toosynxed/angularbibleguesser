@@ -7,7 +7,7 @@
 
   <div class="display-name-group">
     <label for="displayName">Your Display Name</label>
-    <input id="displayName" type="text" [(ngModel)]="displayName" placeholder="Enter your name..." maxlength="15" />
+    <input id="displayName" type="text" [(ngModel)]="displayName" placeholder="Enter your name..." maxlength="15" [disabled]="isLoggedIn" />
   </div>
 
   <div class="actions">

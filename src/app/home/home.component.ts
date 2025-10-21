@@ -1,7 +1,9 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Subscription } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { ShareService } from '../share.service';
+import { AuthService } from '../auth.service';
+import firebase from 'firebase/compat/app';
 
 @Component({
   selector: 'app-home',
@@ -15,6 +17,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   showChangelog = false;
   showHelp = false;
   activeHelpTab: 'rules' | 'about' = 'rules';
+  user$: Observable<firebase.User | null>;
 
   // Content for the "Rules" tab
   rulesContent = `
@@ -40,7 +43,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   // You can update the changelog text here.
   // Using backticks (`) allows for multi-line strings.
   changelogContent = `
-<h3>Version 1.5.0 "Login"/h3>
+<h3>Version 1.5.0 "Login"</h3>
 <ul>
   <li>Players can now create accounts and log in using Google Sign-In or Email.</li>
   <li><s>New profile system to track user statistics and game history.</s> - Coming Soon!</li>
@@ -121,9 +124,10 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   private errorSubscription: Subscription;
 
-  constructor(private router: Router, private shareService: ShareService) { }
+  constructor(private router: Router, private shareService: ShareService, private authService: AuthService) { }
 
   ngOnInit(): void {
+    this.user$ = this.authService.user$;
     this.errorSubscription = this.shareService.errorMessage$.subscribe(message => {
       this.error = message;
       // Clear the error from the service so it doesn't reappear on navigation

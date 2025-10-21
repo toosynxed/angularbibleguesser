@@ -20,6 +20,10 @@ export class LoginComponent implements OnInit {
   profileForm: FormGroup;
 
   error: string | null = null;
+  showUsernameForm = false;
+  showDeleteConfirm = false;
+  deleteConfirmChecked = false;
+  successMessage: string | null = null;
 
   constructor(
     public authService: AuthService,
@@ -85,11 +89,32 @@ export class LoginComponent implements OnInit {
   async onSetProfile() {
     if (this.profileForm.invalid) return;
     try {
+      this.error = null;
       const { displayName } = this.profileForm.value;
       await this.authService.updateProfile(displayName);
-      this.router.navigate(['/']);
+      this.showUsernameForm = false;
+      this.successMessage = 'Username updated successfully!';
+      setTimeout(() => this.successMessage = null, 3000);
     } catch (err) {
       this.error = err.message;
+    }
+  }
+
+  maskEmail(email: string): string {
+    if (!email) return '';
+    const atIndex = email.indexOf('@');
+    if (atIndex <= 3) return email; // Not enough characters to mask
+    const prefix = email.substring(0, 3);
+    return `${prefix}*******${email.substring(atIndex)}`;
+  }
+
+  async onDeleteAccount() {
+    if (!this.deleteConfirmChecked) return;
+    try {
+      await this.authService.deleteAccount();
+      this.router.navigate(['/']);
+    } catch (err) {
+      this.error = 'Failed to delete account. You may need to sign out and sign back in again before deleting.';
     }
   }
 

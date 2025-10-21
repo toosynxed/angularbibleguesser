@@ -14,14 +14,18 @@ export class MultiplayerHomeComponent implements OnInit, OnDestroy {
 
   lobbyCode = '';
   displayName = '';
+  isLoggedIn = false;
   private userSubscription: Subscription;
 
   constructor(private lobbyService: LobbyService, private authService: AuthService, private router: Router) { }
 
   ngOnInit(): void {
     this.userSubscription = this.authService.user$.subscribe(user => {
-      if (user && !user.isAnonymous && user.displayName) {
+      if (user && !user.isAnonymous) {
+        this.isLoggedIn = true;
         this.displayName = user.displayName;
+      } else {
+        this.isLoggedIn = false;
       }
     });
   }

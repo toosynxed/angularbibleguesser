@@ -55,4 +55,11 @@ export class AuthService {
       return user.updateProfile({ displayName: displayName });
     }
   }
+
+  async deleteAccount(): Promise<void> {
+    const user = await this.user$.pipe(first()).toPromise();
+    if (user) {
+      return user.delete();
+    }
+  }
 }

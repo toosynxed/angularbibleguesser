@@ -44,6 +44,7 @@ export class HomeComponent implements OnInit, OnDestroy {
 <ul>
   <li>Fixed bugs in Online Multiplayer Mode.</li>
   <li>Innactive Multiplayer lobbies now expire after 30 minutes.</li>
+  <li>You can now enter your own name in Multiplayer Lobbies.</li>
 </ul>
 
 <h3>Version 1.4.1 "Online"</h3>

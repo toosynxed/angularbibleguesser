@@ -122,3 +122,12 @@
   max-width: 400px;
   margin: 1rem auto;
 }
+
+.username-change-form {
+  align-items: center; /* Center items horizontally in a flex column */
+}
+
+.username-change-form .form-group {
+  text-align: center; /* Center the label text */
+  width: 100%;
+}

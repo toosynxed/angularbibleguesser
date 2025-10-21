@@ -21,6 +21,12 @@ header {
   display: inline-block; /* Ensures the clickable area is tight around the text */
 }
 
+.logo {
+  max-width: 200px; /* A smaller logo for the game screen */
+  height: auto;
+  vertical-align: middle; /* Helps with alignment */
+}
+
 .secondary-button, .back-button {
   background: none;
   border: 1px solid var(--border-color);

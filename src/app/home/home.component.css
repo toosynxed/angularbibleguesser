@@ -17,6 +17,12 @@
   cursor: default; /* Indicates it's not clickable */
 }
 
+.logo {
+  max-width: 300px; /* Adjust this value to your preference */
+  height: auto;
+  margin-bottom: 1rem;
+}
+
 .login-button {
   /* Add styles for your login button */
 }

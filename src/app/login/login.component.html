@@ -26,7 +26,7 @@
         </div>
 
         <!-- Change Username Form -->
-        <div *ngIf="showUsernameForm" class="auth-form">
+        <div *ngIf="showUsernameForm" class="auth-form username-change-form">
           <form [formGroup]="profileForm" (ngSubmit)="onSetProfile()">
             <div class="form-group">
               <label for="updateDisplayName">New Display Name</label>

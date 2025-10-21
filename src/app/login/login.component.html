@@ -10,7 +10,7 @@
           <label for="displayName">Display Name</label>
           <input id="displayName" type="text" formControlName="displayName" placeholder="Your Name" maxlength="15">
         </div>
-        <button type="submit" class="primary" [disabled]="profileForm.invalid">Save Name</button>
+        <button type="submit" class="secondary-action" [disabled]="profileForm.invalid">Save Name</button>
         <p *ngIf="error" class="error-message">{{ error }}</p>
       </form>
     </div>
@@ -32,7 +32,7 @@
               <label for="updateDisplayName">New Display Name</label>
               <input id="updateDisplayName" type="text" formControlName="displayName" placeholder="Your Name" maxlength="15">
             </div>
-            <button type="submit" class="primary" [disabled]="profileForm.invalid">Save Name</button>
+            <button type="submit" class="secondary-action" [disabled]="profileForm.invalid">Save Name</button>
           </form>
         </div>
 
@@ -46,16 +46,16 @@
             <input id="deletePassword" type="password" [(ngModel)]="deletePassword">
           </div>
           <label><input type="checkbox" [(ngModel)]="deleteConfirmChecked"> I understand and wish to proceed.</label>
-          <button (click)="onDeleteAccount()" class="danger" [disabled]="!deleteConfirmChecked || (user.providerData[0]?.providerId === 'password' && !deletePassword)">Delete My Account</button>
+          <button (click)="onDeleteAccount()" class="secondary-action" [disabled]="!deleteConfirmChecked || (user.providerData[0]?.providerId === 'password' && !deletePassword)">Delete My Account</button>
           <button (click)="showDeleteConfirm = false" class="secondary">Cancel</button>
         </div>
 
         <div class="profile-actions" *ngIf="!showUsernameForm && !showDeleteConfirm">
-          <button (click)="showUsernameForm = true" class="primary">Change Username</button>
-          <button (click)="showDeleteConfirm = true" class="danger">Delete Account</button>
+          <button (click)="showUsernameForm = true" class="secondary-action">Change Username</button>
+          <button (click)="showDeleteConfirm = true" class="secondary-action">Delete Account</button>
         </div>
 
-        <button (click)="signOut()" class="secondary">Sign Out</button>
+        <button (click)="signOut()" class="secondary-action">Sign Out</button>
       </div>
       <ng-template #anonymousUser>
         <h2>You are playing as a guest.</h2>
@@ -84,7 +84,7 @@
             <label for="loginPassword">Password</label>
             <input id="loginPassword" type="password" formControlName="password">
           </div>
-          <button type="submit" class="primary" [disabled]="loginForm.invalid">Sign In</button>
+          <button type="submit" class="secondary-action" [disabled]="loginForm.invalid">Sign In</button>
         </form>
 
         <!-- Sign Up -->
@@ -98,7 +98,7 @@
             <label for="signUpPassword">Password</label>
             <input id="signUpPassword" type="password" formControlName="password" placeholder="6+ characters">
           </div>
-          <button type="submit" class="primary" [disabled]="signUpForm.invalid">Sign Up</button>
+          <button type="submit" class="secondary-action" [disabled]="signUpForm.invalid">Sign Up</button>
         </form>
       </div>
 
@@ -108,6 +108,6 @@
   </div>
 
   <div class="actions">
-    <a routerLink="/">‹ Back to Home</a>
+    <a routerLink="/" class="secondary-action">‹ Back to Home</a>
   </div>
 </div>

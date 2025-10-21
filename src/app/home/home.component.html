@@ -5,9 +5,15 @@
       <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg>
       <span>coming soon!</span>
     </div>
-    <button class="login-button" routerLink="/login" *ngIf="user$ | async as user">
-      {{ user.isAnonymous ? 'Profile / Login' : 'Profile' }}
-    </button>
+    <div class="login-area">
+      <button class="login-button secondary-action" routerLink="/login" *ngIf="user$ | async as user">
+        {{ user.isAnonymous ? 'Profile / Login' : 'Profile' }}
+      </button>
+      <div class="login-prompt" *ngIf="(user$ | async)?.isAnonymous">
+        <span class="prompt-text">Login or create an account to save your name and progress (In development)!</span>
+        <span class="arrow">⤴</span>
+      </div>
+    </div>
   </div>
 
   <header>
@@ -24,7 +30,7 @@
     <button class="primary" (click)="startGame('custom')">Custom Mode</button>
     <button class="primary" (click)="createGame()">Create Mode</button>
     <button class="primary" (click)="goToMultiplayer()">Online Multiplayer Mode</button>
-    <button class="secondary" (click)="showCodeInput = !showCodeInput">Play with Code</button>
+    <button class="secondary-action" (click)="showCodeInput = !showCodeInput">Play with Code</button>
 
     <div *ngIf="showCodeInput" class="code-input-container">
       <input
@@ -33,7 +39,7 @@
         placeholder="Enter game code..."
         (keyup.enter)="playFromCode()"
       >
-      <button (click)="playFromCode()">Start from Code</button>
+      <button class="secondary-action" (click)="playFromCode()">Start from Code</button>
     </div>
   </main>
 

@@ -96,6 +96,16 @@ button:hover, .actions a:hover {
   background-color: var(--button-hover-bg);
 }
 
+/* New style for purple secondary buttons */
+button.secondary-action {
+  background-color: #bb86fc; /* Original purple color */
+  color: #000;
+}
+
+button.secondary-action:hover {
+  background-color: #a16ae8; /* Darker purple on hover */
+}
+
 .feedback {
   margin-top: 1.5rem;
   font-weight: bold;

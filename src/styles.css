@@ -1,13 +1,14 @@
-/* Global Styles - Dark Theme */
+/* You can add global styles to this file, and also import other style files */
 
 :root {
-  --background-color: #121212;
-  --surface-color: #1e1e1e;
-  --primary-color: #bb86fc;
+  --background-color: #282b2e; /* The logo's background color */
+  --background-alt-color: #3c4043; /* A slightly lighter shade for contrast */
+  --surface-color: #282b2e; /* Matching the background for a flat design */
+  --primary-color: #008B8B; /* Your existing primary button color */
   --secondary-color: #03dac6;
   --text-color: #e0e0e0;
   --text-secondary-color: #a0a0a0;
-  --border-color: #333;
+  --border-color: #4a4e52; /* A border color that works with the new background */
   --error-color: #cf6679;
 
   --button-bg: var(--primary-color);

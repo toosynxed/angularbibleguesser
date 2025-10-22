@@ -24,12 +24,12 @@
             "assets": ["src/favicon.ico", "src/assets"],
             "styles": ["src/styles.css"],
             "scripts": [],
-            "vendorChunk": true,
-            "extractLicenses": false,
-            "buildOptimizer": false,
-            "sourceMap": true,
-            "optimization": false,
-            "namedChunks": true
+            "vendorChunk": false,
+            "extractLicenses": true,
+            "buildOptimizer": true,
+            "sourceMap": false,
+            "optimization": true,
+            "namedChunks": false
           },
           "configurations": {
             "production": {
@@ -39,13 +39,6 @@
                   "with": "src/environments/environment.prod.ts"
                 }
               ],
-              "optimization": true,
-              "outputHashing": "all",
-              "sourceMap": false,
-              "namedChunks": false,
-              "extractLicenses": true,
-              "vendorChunk": false,
-              "buildOptimizer": true,
               "budgets": [
                 {
                   "type": "initial",
@@ -57,21 +50,31 @@
                   "maximumWarning": "6kb",
                   "maximumError": "10kb"
                 }
-              ]
+              ],
+              "outputHashing": "all"
+            },
+            "development": {
+              "buildOptimizer": false,
+              "optimization": false,
+              "vendorChunk": true,
+              "extractLicenses": false,
+              "sourceMap": true,
+              "namedChunks": true
             }
           },
-          "defaultConfiguration": ""
+          "defaultConfiguration": "production"
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
-          "options": {
-            "browserTarget": "angular-basic:build"
-          },
           "configurations": {
             "production": {
               "browserTarget": "angular-basic:build:production"
+            },
+            "development": {
+              "browserTarget": "angular-basic:build:development"
             }
-          }
+          },
+          "defaultConfiguration": "development"
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",

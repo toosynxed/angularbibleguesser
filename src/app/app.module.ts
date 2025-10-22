@@ -1,21 +1,27 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { environment } from '../environments/environment'; // We'll use this for Firebase config
-import { AngularFireModule } from '@angular/fire/compat';
-import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
-import { AngularFireAuthModule } from '@angular/fire/compat/auth';
-import { HttpClientModule } from '@angular/common/http'; // Corrected: No change needed here, but keeping for context.
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-
+import { HttpClientModule } from '@angular/common/http';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
 import { GameComponent } from './game/game.component';
 import { ResultsComponent } from './results/results.component';
-import { RouterModule } from '@angular/router'; // Corrected: No change needed here, but keeping for context.
-import { CreateGameComponent } from './create-game/create-game.component';
 import { CustomSettingsComponent } from './custom-settings/custom-settings.component';
+import { CreateGameComponent } from './create-game/create-game.component';
 import { LoginComponent } from './login/login.component';
+import { ProfileComponent } from './profile/profile.component';
+
+import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
+import { environment } from '../environments/environment';
+import { provideAuth, getAuth } from '@angular/fire/auth';
+import { provideFirestore, getFirestore } from '@angular/fire/firestore';
+
+import { AuthService } from './auth.service';
+import { BibleService } from './bible.service';
+import { ShareService } from './share.service';
+import { StatsService } from './stats.service'; // Import the service
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -24,19 +30,25 @@ import { LoginComponent } from './login/login.component';
     ResultsComponent,
     CustomSettingsComponent,
     CreateGameComponent,
-    LoginComponent
+    LoginComponent,
+    ProfileComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule, // Corrected: No change needed here, but keeping for context.
-    ReactiveFormsModule, // Corrected: No change needed here, but keeping for context.
-    FormsModule, // Corrected: No change needed here, but keeping for context.
-    AngularFireModule.initializeApp(environment.firebase), // Initialize Firebase
-    AngularFirestoreModule, // For Firestore database
-    AngularFireAuthModule // For authentication
+    HttpClientModule,
+    ReactiveFormsModule,
+    FormsModule,
+    provideFirebaseApp(() => initializeApp(environment.firebase)),
+    provideAuth(() => getAuth()),
+    provideFirestore(() => getFirestore())
   ],
-  providers: [],
+  providers: [
+    AuthService,
+    BibleService,
+    ShareService,
+    StatsService // Explicitly provide StatsService here
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

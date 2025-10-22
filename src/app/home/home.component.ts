@@ -48,6 +48,13 @@ export class HomeComponent implements OnInit, OnDestroy {
   // You can update the changelog text here.
   // Using backticks (`) allows for multi-line strings.
   changelogContent = `
+<h3>Version 2.0.0 "MultiStat"</h3>
+<ul>
+  <li>Added statistics tracking for all game modes.</li>
+  <li>View your accuracy and average scores on the home page.</li>
+  <li>Improved multiplayer lobby experience with real-time updates.</li>
+  <li>Fixed various bugs and improved overall performance.</li>
+</ul>
 <h3>Version 1.5.0 "Login"</h3>
 <ul>
   <li>Players can now create accounts and log in using Google Sign-In or Email.</li>

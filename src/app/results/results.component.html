@@ -32,7 +32,7 @@
         <h3>Total Score: {{ totalScore }} / {{ lobby.gameSettings.rounds * 100 }}</h3>
       </div>
       <!-- Re-use the same result card template as single-player -->
-      <div *ngFor="let userResult of (multiplayerUserResults$ | async); let i = index" class="result-card" (click)="toggleExpand(i)">
+      <div *ngFor="let userResult of (multiplayerUserResults$ | async); let i = index" class="result-card">
         <div class="result-summary">
           <h3>Round {{ userResult.roundNumber }}</h3>
           <p class="score"><strong>Score:</strong> {{ userResult.score }} / 100</p>
@@ -40,10 +40,10 @@
             <span *ngFor="let _ of getStarArray(userResult.stars)" class="star filled">★</span>
             <span *ngFor="let _ of getStarArray(3 - userResult.stars)" class="star">☆</span>
           </div>
-          <span class="expand-icon">{{ expandedIndex === i ? '▲' : '▼' }}</span>
+          <span class="expand-icon" (click)="toggleExpand(i)">{{ expandedIndex === i ? '▲' : '▼' }}</span>
         </div>
 
-        <div class="details" *ngIf="expandedIndex === i">
+        <div class="details" *ngIf="expandedIndex === i" (click)="toggleExpand(i)">
           <p><strong>Correct Verse:</strong> {{ userResult.verse.bookName }} {{ userResult.verse.chapter }}:{{ userResult.verse.verse }}</p>
           <p><strong>Your Guess:</strong>
             <span *ngIf="userResult.guess">{{ userResult.guess.book }} {{ userResult.guess.chapter }}:{{ userResult.guess.verse }}</span>

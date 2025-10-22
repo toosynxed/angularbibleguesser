@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable, of, Subscription } from 'rxjs';
-import { switchMap } from 'rxjs/operators';
+import { first, switchMap } from 'rxjs/operators';
 import { ShareService } from '../share.service';
 import { AuthService } from '../auth.service';
 import { StatsService } from '../stats.service';
@@ -181,29 +181,31 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
   playFromCode(): void {
     this.error = null;
-    const decoded = this.shareService.decodeGame(this.gameCode);
-
-    if (!decoded) {
-      this.error = 'Invalid game code. Please check and try again.'; // Error is already set by service, but this is a good fallback.
+    const code = this.gameCode.trim().toUpperCase();
+    if (!code) {
       return;
     }
 
-    // Handle new seed-based codes
-    if ('seed' in decoded) {
-      this.router.navigate(['/game'], { state: { mode: 'shared', seed: decoded.seed } });
-    }
-    // Handle old verseId-based codes
-    else if ('verseIds' in decoded && decoded.verseIds.length > 0) {
-      this.router.navigate(['/game'], {
-        state: {
-          mode: 'shared', // All shared codes are 'shared' mode
-          verseIds: decoded.verseIds,
-          settings: decoded.settings
+    // It's a short code, fetch from Firestore
+    this.shareService.getSharedGame(code).pipe(first()).subscribe((gameData: any) => {
+      if (gameData) {
+        this.router.navigate(['/game'], {
+          state: {
+            mode: 'shared',
+            verseIds: gameData.verseIds,
+            settings: gameData.gameSettings
+          }
+        });
+      } else {
+        // Fallback for old codes or if not found
+        const decoded = this.shareService.decodeGameData(this.gameCode);
+        if (decoded) {
+          this.router.navigate(['/game'], { state: { ...decoded } });
+        } else {
+          this.error = 'Invalid game code. Please check and try again.';
         }
-      });
-    } else {
-      this.error = 'Invalid game code. Please check and try again.';
-    }
+      }
+    });
   }
 
   goToMultiplayer(): void {

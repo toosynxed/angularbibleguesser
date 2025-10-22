@@ -113,7 +113,7 @@ export class CreateGameComponent implements OnInit {
         books: [] // The 'books' property is not needed here because verses are explicitly defined.
       };
 
-      this.generatedCode = this.shareService.encodeGame({
+      this.generatedCode = this.shareService.encodeGameData({
         mode: 'create',
         verseIds: validVerseIds,
         settings: gameSettings

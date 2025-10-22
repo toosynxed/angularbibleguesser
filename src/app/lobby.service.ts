@@ -34,6 +34,13 @@ export interface Lobby {
   lastUpdatedAt?: any;
 }
 
+export interface SharedGame {
+  id?: string; // The short code
+  verseIds: number[];
+  gameSettings: GameSettings;
+  createdAt: any;
+}
+
 @Injectable({
   providedIn: 'root'
 })

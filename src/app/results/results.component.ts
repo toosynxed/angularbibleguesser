@@ -33,6 +33,7 @@ export class ResultsComponent implements OnInit {
   // Single Player
   results: RoundResult[] = [];
   gameState: GameState;
+  gameDataForSharing: any;
 
   // Multiplayer
   lobby: Lobby | null = null;
@@ -43,8 +44,11 @@ export class ResultsComponent implements OnInit {
   // Common
   totalScore = 0;
   totalStars = 0;
-  shareCode = '';
-  copyButtonText = 'Copy Code';
+  shortShareCode = '';
+  longShareUrl = '';
+  shortCodeCopyButtonText = 'Create and Copy';
+  isShortCodeGenerating = false;
+  longCodeCopyButtonText = 'Copy Link';
   expandedIndex: number | null = null;
 
   constructor(
@@ -82,8 +86,9 @@ export class ResultsComponent implements OnInit {
             .sort((a, b) => b.score - a.score)
             .map((player, index) => ({ ...player, rank: index + 1 }));
           });
+        this.gameDataForSharing = { mode: 'shared', verseIds: this.lobby.verseIds, settings: this.lobby.gameSettings };
+        this.generatePermanentUrl(this.gameDataForSharing);
       }
-      this.shareCode = this.shareService.encodeGame({ mode: 'shared', verseIds: this.lobby.verseIds, settings: this.lobby.gameSettings });
 
       this.multiplayerUserResults$ = this.authService.user$.pipe(
         first(user => !!user),
@@ -142,7 +147,8 @@ export class ResultsComponent implements OnInit {
         this.results = this.gameState.results;
         this.totalScore = this.results.reduce((acc, r) => acc + r.score, 0);
         this.totalStars = this.results.reduce((acc, r) => acc + r.stars, 0);
-        this.shareCode = this.shareService.encodeGame({ mode: 'shared', verseIds: this.results.map(r => r.verse.verseId), settings: this.gameState.settings });
+        this.gameDataForSharing = { mode: 'shared', verseIds: this.results.map(r => r.verse.verseId), settings: this.gameState.settings };
+        this.generatePermanentUrl(this.gameDataForSharing);
       }
     } else {
       // If there's no state, redirect home
@@ -154,6 +160,27 @@ export class ResultsComponent implements OnInit {
     // The constructor now handles initialization based on state.
     // We'll call the stat update logic here, after everything is initialized.
     await this.updateStats();
+  }
+
+  private generatePermanentUrl(gameData: any) {
+    const longCode = this.shareService.encodeGameData(gameData);
+    this.longShareUrl = `${window.location.origin}/game/${longCode}`;
+  }
+
+  async createAndCopyShortCode(): Promise<void> {
+    if (this.isShortCodeGenerating) return;
+
+    if (!this.shortShareCode) {
+      this.isShortCodeGenerating = true;
+      this.shortCodeCopyButtonText = 'Creating...';
+      this.shortShareCode = await this.shareService.createShortCodeGame(this.gameDataForSharing);
+      this.isShortCodeGenerating = false;
+    }
+
+    navigator.clipboard.writeText(this.shortShareCode).then(() => {
+      this.shortCodeCopyButtonText = 'Copied!';
+      setTimeout(() => this.shortCodeCopyButtonText = 'Copy Code', 2000);
+    });
   }
 
   private async updateStats(): Promise<void> {
@@ -183,10 +210,10 @@ export class ResultsComponent implements OnInit {
     }
   }
 
-  copyCode(): void {
-    navigator.clipboard.writeText(this.shareCode).then(() => {
-      this.copyButtonText = 'Copied!';
-      setTimeout(() => this.copyButtonText = 'Copy Code', 2000);
+  copyLongUrl(): void {
+    navigator.clipboard.writeText(this.longShareUrl).then(() => {
+      this.longCodeCopyButtonText = 'Copied!';
+      setTimeout(() => this.longCodeCopyButtonText = 'Copy Link', 2000);
     });
   }
 

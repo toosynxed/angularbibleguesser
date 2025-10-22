@@ -110,11 +110,20 @@
     </div>
 
     <div class="share-container">
-      <h3>Share this Game</h3>
-      <p>Send this code to a friend to let them play the same verses!</p>
+      <h3>Share This Game Challenge</h3>
+
+      <h4>Quick Share (Expires in 30 mins)</h4>
+      <p>Give this short code to a friend to play the same game. It's easy to remember but expires in 30 minutes.</p>
       <div class="code-actions">
-        <input type="text" [value]="shareCode" readonly>
-        <button (click)="copyCode()">{{ copyButtonText }}</button>
+        <input type="text" [value]="shortShareCode" placeholder="Click 'Create and Copy' to generate" readonly>
+        <button (click)="createAndCopyShortCode()" [disabled]="isShortCodeGenerating">{{ shortCodeCopyButtonText }}</button>
+      </div>
+
+      <h4 class="permanent-link-title">Permanent Link</h4>
+      <p>Use this link to share the game permanently. It won't expire.</p>
+      <div class="code-actions">
+        <input type="text" [value]="longShareUrl" readonly>
+        <button (click)="copyLongUrl()">{{ longCodeCopyButtonText }}</button>
       </div>
     </div>
 

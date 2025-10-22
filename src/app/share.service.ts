@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
+import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { BehaviorSubject } from 'rxjs';
-import { GameSettings } from './game.model';
+import { GameSettings } from './game-settings.model';
+import firebase from 'firebase/compat/app';
 
 export interface GameData {
   mode: 'custom' | 'create' | 'shared';
@@ -15,10 +17,26 @@ export class ShareService {
   private errorMessageSubject = new BehaviorSubject<string | null>(null);
   errorMessage$ = this.errorMessageSubject.asObservable();
 
-  constructor() { }
+  constructor(private afs: AngularFirestore) { }
 
-  // Encodes a full game definition (used by create-game)
-  encodeGame(data: GameData): string {
+  private generateShortCode(): string {
+    return Math.random().toString(36).substring(2, 8).toUpperCase();
+  }
+
+  // Creates a temporary game in Firestore and returns a short code
+  async createShortCodeGame(data: GameData): Promise<string> {
+    const shortCode = this.generateShortCode();
+    const gameDoc = {
+      verseIds: data.verseIds,
+      gameSettings: data.settings,
+      createdAt: firebase.firestore.FieldValue.serverTimestamp()
+    };
+    await this.afs.collection('sharedGames').doc(shortCode).set(gameDoc);
+    return shortCode;
+  }
+
+  // Encodes a full game definition into a long, permanent string (for URLs)
+  encodeGameData(data: GameData): string {
     const jsonString = JSON.stringify({
       m: data.mode.charAt(0), // c for custom/create
       v: data.verseIds,
@@ -26,31 +44,27 @@ export class ShareService {
         r: data.settings.rounds,
         t: data.settings.timeLimit,
         b: data.settings.books,
+        cs: data.settings.contextSize
       }
     });
     return btoa(jsonString);
   }
 
-  // NEW METHOD: Encodes just a seed string (used by results page)
-  encodeSeed(seed: string): string {
-    const jsonString = JSON.stringify({ seed: seed });
-    return btoa(jsonString);
-  }
-
-  decodeGame(code: string): (GameData & { mode: 'shared' }) | { seed: string } | null {
+  decodeGameData(code: string): GameData | null {
     try {
       const jsonString = atob(code);
       const data = JSON.parse(jsonString);
-
-      if (data.seed) {
-        return { seed: data.seed };
-      }
 
       if (data.v) {
         return {
           mode: 'shared',
           verseIds: data.v,
-          settings: data.s,
+          settings: {
+            rounds: data.s.r,
+            timeLimit: data.s.t,
+            books: data.s.b,
+            contextSize: data.s.cs
+          },
         };
       }
 
@@ -59,6 +73,10 @@ export class ShareService {
       this.errorMessageSubject.next('Invalid game code.');
       return null;
     }
+  }
+
+  getSharedGame(shortCode: string) {
+    return this.afs.collection('sharedGames').doc(shortCode).valueChanges();
   }
 
   clearErrorMessage(): void {

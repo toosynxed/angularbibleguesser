@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Lobby } from '../lobby.service';
+import { Lobby, LobbyService, Player } from '../lobby.service';
 import { RoundResult } from '../game/game.component';
 import { ShareService } from '../share.service';
 import { AuthService } from '../auth.service';
 import { StatsService } from '../stats.service';
 import { BibleService, } from '../bible.service';
-import { first, map, switchMap, tap } from 'rxjs/operators';
+import { first, map, switchMap, tap, take } from 'rxjs/operators';
 import { combineLatest, from, of, Observable } from 'rxjs';
 import firebase from 'firebase/compat/app';
 import { GameSettings } from '../game-settings.model';
@@ -20,6 +20,7 @@ export interface GameState {
 interface LeaderboardPlayer {
   uid: string;
   displayName: string;
+  rank?: number;
   score: number;
 }
 
@@ -51,7 +52,8 @@ export class ResultsComponent implements OnInit {
     private shareService: ShareService,
     private authService: AuthService,
     private statsService: StatsService,
-    private bibleService: BibleService
+    private bibleService: BibleService,
+    private lobbyService: LobbyService
   ) {
     const navigation = this.router.getCurrentNavigation();
     const state = navigation?.extras.state;
@@ -59,21 +61,27 @@ export class ResultsComponent implements OnInit {
     if (state?.lobby) { // Multiplayer results
       this.lobby = state.lobby;
       // Calculate leaderboard from lobby data
-      if (this.lobby && this.lobby.guesses) {
-        const playerScores: { [uid: string]: { displayName: string, score: number } } = {};
+      if (this.lobby) {
+        this.lobbyService.getLobbyPlayers(this.lobby.id).pipe(take(1)).subscribe(players => {
+          const playerMap = new Map<string, Player>(players.map(p => [p.uid, p]));
+          const playerScores: { [uid: string]: { displayName: string, score: number } } = {};
 
-        // Aggregate scores
-        Object.values(this.lobby.guesses).forEach(roundGuesses => {
-          Object.entries(roundGuesses).forEach(([uid, guessData]) => {
-            if (!playerScores[uid]) {
-              // This is a bit of a hack; we don't have the player list directly here.
-              // We'll fill in the displayName later if we can.
-              playerScores[uid] = { displayName: 'Player', score: 0 };
-            }
-            playerScores[uid].score += guessData.score;
+          // Aggregate scores
+          if (this.lobby.guesses) {
+            Object.values(this.lobby.guesses).forEach(roundGuesses => {
+              Object.entries(roundGuesses).forEach(([uid, guessData]) => {
+                if (!playerScores[uid]) {
+                  playerScores[uid] = { displayName: playerMap.get(uid)?.displayName || 'Player', score: 0 };
+                }
+                playerScores[uid].score += guessData.score;
+              });
+            });
+          }
+
+          this.leaderboard = Object.entries(playerScores).map(([uid, data]) => ({ uid, ...data }))
+            .sort((a, b) => b.score - a.score)
+            .map((player, index) => ({ ...player, rank: index + 1 }));
           });
-        });
-        this.leaderboard = Object.entries(playerScores).map(([uid, data]) => ({ uid, ...data })).sort((a, b) => b.score - a.score);
       }
       this.shareCode = this.shareService.encodeGame({ mode: 'shared', verseIds: this.lobby.verseIds, settings: this.lobby.gameSettings });
 
@@ -122,7 +130,7 @@ export class ResultsComponent implements OnInit {
           return combineLatest(userResultsObservables).pipe(
             map(results => results.filter(r => r !== null)),
             tap(results => {
-              this.totalScore = results.reduce((acc, r) => acc + r.score, 0);
+              this.totalScore = results.reduce((acc, r) => acc + (r?.score || 0), 0);
             })
           );
         })

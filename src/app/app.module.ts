@@ -12,15 +12,10 @@ import { CreateGameComponent } from './create-game/create-game.component';
 import { LoginComponent } from './login/login.component';
 import { ProfileComponent } from './profile/profile.component';
 
-import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
+import { AngularFireModule } from '@angular/fire/compat';
+import { AngularFireAuthModule } from '@angular/fire/compat/auth';
+import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
 import { environment } from '../environments/environment';
-import { provideAuth, getAuth } from '@angular/fire/auth';
-import { provideFirestore, getFirestore } from '@angular/fire/firestore';
-
-import { AuthService } from './auth.service';
-import { BibleService } from './bible.service';
-import { ShareService } from './share.service';
-import { StatsService } from './stats.service'; // Import the service
 
 @NgModule({
   declarations: [
@@ -39,16 +34,11 @@ import { StatsService } from './stats.service'; // Import the service
     HttpClientModule,
     ReactiveFormsModule,
     FormsModule,
-    provideFirebaseApp(() => initializeApp(environment.firebase)),
-    provideAuth(() => getAuth()),
-    provideFirestore(() => getFirestore())
+    AngularFireModule.initializeApp(environment.firebase),
+    AngularFireAuthModule,
+    AngularFirestoreModule
   ],
-  providers: [
-    AuthService,
-    BibleService,
-    ShareService,
-    StatsService // Explicitly provide StatsService here
-  ],
+  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,7 +1,8 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Observable, Subscription } from 'rxjs';
-import { filter, first, map, switchMap, tap } from 'rxjs/operators';
+import { AngularFireDatabase } from '@angular/fire/compat/database';
+import { combineLatest, Observable, Subscription } from 'rxjs';
+import { filter, first, map, switchMap, tap, distinctUntilChanged } from 'rxjs/operators';
 import { AuthService } from '../auth.service';
 import { BibleService } from '../bible.service';
 import { GameSettings } from '../game-settings.model';
@@ -33,6 +34,7 @@ export class LobbyComponent implements OnInit, OnDestroy {
   ];
 
   private settingsSubscription: Subscription;
+  private presenceSubscription: Subscription;
 
   constructor(
     private route: ActivatedRoute,
@@ -40,7 +42,7 @@ export class LobbyComponent implements OnInit, OnDestroy {
     private authService: AuthService,
     private bibleService: BibleService,
     private router: Router
-  ) { }
+  ) {}
 
   ngOnInit(): void {
     this.lobbyId = this.route.snapshot.paramMap.get('id');
@@ -65,11 +67,50 @@ export class LobbyComponent implements OnInit, OnDestroy {
       this.allBooks = books;
       this.bookGroups = this.bibleService.getGroupedBooks();
     });
+
+    // --- Host Migration Logic ---
+    this.presenceSubscription = combineLatest([
+      this.lobbyService.getLobby(this.lobbyId).valueChanges(),
+      this.lobbyService.getLobbyPlayers(this.lobbyId),
+      this.authService.user$.pipe(filter(u => !!u))
+    ]).pipe(
+      // Only the first non-host player should handle migration to prevent race conditions
+      filter(([lobby, players, user]) => {
+        const sortedPlayers = players.sort((a, b) => a.joinedAt?.toMillis() - b.joinedAt?.toMillis());
+        const nonHostPlayers = sortedPlayers.filter(p => p.uid !== lobby.hostId);
+        return nonHostPlayers.length > 0 && nonHostPlayers[0].uid === user.uid;
+      }),
+      switchMap(([lobby, players, user]) => {
+        // Watch the host's presence status in RTDB
+        return this.lobbyService.db.object(`/lobbies/${this.lobbyId}/presence/${lobby.hostId}`).valueChanges().pipe(
+          map(hostStatus => ({ lobby, players, hostStatus, user }))
+        );
+      }),
+      distinctUntilChanged((prev, curr) => prev.hostStatus?.['online'] === curr.hostStatus?.['online'])
+    ).subscribe(({ lobby, players, hostStatus }) => {
+      const hostIsOnline = hostStatus?.['online'] === true;
+      if (!hostIsOnline && players.length > 1) {
+        console.log('Host disconnected. Attempting to migrate host.');
+        const sortedPlayers = players.sort((a, b) => a.joinedAt?.toMillis() - b.joinedAt?.toMillis());
+        const newHost = sortedPlayers.find(p => p.uid !== lobby.hostId);
+        if (newHost) {
+          console.log(`Assigning ${newHost.displayName} as the new host.`);
+          this.lobbyService.assignNewHost(this.lobbyId, newHost.uid);
+        }
+      }
+    });
+
+    this.authService.user$.pipe(first(user => !!user)).subscribe(user => {
+      this.lobbyService.handlePlayerPresence(this.lobbyId, user.uid);
+    });
   }
 
   ngOnDestroy(): void {
     if (this.settingsSubscription) {
       this.settingsSubscription.unsubscribe();
+    }
+    if (this.presenceSubscription) {
+      this.presenceSubscription.unsubscribe();
     }
   }
 

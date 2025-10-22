@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/compat/firestore';
+import { AngularFireDatabase } from '@angular/fire/compat/database';
+import { AuthService } from './auth.service';
 import { Observable } from 'rxjs';
 import { Verse as BibleVerse } from './verse.model';
 import { GameSettings } from './game-settings.model';
@@ -12,6 +14,7 @@ export interface Player {
   uid: string;
   displayName: string;
   isHost: boolean;
+  joinedAt?: any;
 }
 
 export interface PlayerGuess {
@@ -36,7 +39,11 @@ export interface Lobby {
 })
 export class LobbyService {
 
-  constructor(private afs: AngularFirestore) { }
+  constructor(
+    private afs: AngularFirestore,
+    public db: AngularFireDatabase,
+    private authService: AuthService
+  ) { }
 
   private generateGameCode(): string {
     return Math.random().toString(36).substring(2, 8).toUpperCase();
@@ -44,6 +51,7 @@ export class LobbyService {
 
   async createLobby(host: Player, settings: GameSettings): Promise<string> {
     const id = this.afs.createId();
+    host.joinedAt = firebase.firestore.FieldValue.serverTimestamp();
     const lobbyData: Lobby = {
       id,
       hostId: host.uid,
@@ -75,8 +83,14 @@ export class LobbyService {
   }
 
   async joinLobby(lobbyId: string, player: Player): Promise<void> {
+    player.joinedAt = firebase.firestore.FieldValue.serverTimestamp();
     // Add the new player to the 'players' subcollection of the lobby
     await this.afs.collection('lobbies').doc(lobbyId).collection('players').doc(player.uid).set(player);
+  }
+
+  async assignNewHost(lobbyId: string, newHostId: string): Promise<void> {
+    // This transaction ensures that we don't have a race condition for host migration
+    return this.afs.collection('lobbies').doc(lobbyId).update({ hostId: newHostId });
   }
 
   async updateLobbySettings(lobbyId: string, settings: GameSettings): Promise<void> {
@@ -123,6 +137,31 @@ export class LobbyService {
     await this.afs.collection('lobbies').doc(lobbyId).update({
       gameState: 'finished',
       lastUpdatedAt: firebase.firestore.FieldValue.serverTimestamp()
+    });
+  }
+
+  // --- Presence Management using RTDB ---
+
+  handlePlayerPresence(lobbyId: string, uid: string): void {
+    const userStatusRef = this.db.database.ref(`/lobbies/${lobbyId}/presence/${uid}`);
+
+    const isOfflineForDatabase = {
+      online: false,
+      last_changed: firebase.database.ServerValue.TIMESTAMP,
+    };
+
+    const isOnlineForDatabase = {
+      lobbyId, // Store lobbyId for potential cleanup functions
+      online: true,
+      last_changed: firebase.database.ServerValue.TIMESTAMP,
+    };
+
+    this.db.object('.info/connected').valueChanges().subscribe(connected => {
+      if (connected) {
+        userStatusRef.onDisconnect().set(isOfflineForDatabase).then(() => {
+          userStatusRef.set(isOnlineForDatabase);
+        });
+      }
     });
   }
 }

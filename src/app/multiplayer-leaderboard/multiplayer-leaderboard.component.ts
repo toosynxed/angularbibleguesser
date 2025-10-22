@@ -16,7 +16,7 @@ import { switchMap, map, first } from 'rxjs/operators';
 export class MultiplayerLeaderboardComponent implements OnInit, OnDestroy {
   lobbyId: string;
   lobby$: Observable<Lobby>;
-  players$: Observable<Player[]>;
+  players$: Observable<(Player & { score: number })[]>;
   userId: string;
   isHost = false;
   isGameOver = false;
@@ -37,8 +37,24 @@ export class MultiplayerLeaderboardComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.lobbyId = this.route.snapshot.paramMap.get('id');
     this.lobby$ = this.lobbyService.getLobby(this.lobbyId).valueChanges();
-    this.players$ = this.lobbyService.getLobbyPlayers(this.lobbyId).pipe(
-      map(players => players.sort((a, b) => b.score - a.score))
+
+    this.players$ = combineLatest([
+      this.lobbyService.getLobbyPlayers(this.lobbyId),
+      this.lobby$
+    ]).pipe(
+      map(([players, lobby]) => {
+        if (!lobby || !lobby.guesses) {
+          return players.map(p => ({ ...p, score: 0 }));
+        }
+        return players
+          .map(p => {
+            const totalScore = Object.values(lobby.guesses).reduce((acc, roundGuesses) => {
+              return acc + (roundGuesses[p.uid]?.score || 0);
+            }, 0);
+            return { ...p, score: totalScore };
+          })
+          .sort((a, b) => b.score - a.score);
+      })
     );
 
     this.lobbySub = combineLatest([
@@ -111,11 +127,20 @@ export class MultiplayerLeaderboardComponent implements OnInit, OnDestroy {
     }
   }
 
-  nextRound(): void {
-    this.lobbyService.startNextRound(this.lobbyId);
+  async nextRound(): Promise<void> {
+    const lobby = await this.lobby$.pipe(first()).toPromise();
+    if (!lobby) return;
+
+    // We re-use startGame and it will internally handle advancing the round.
+    this.lobbyService.startGame(this.lobbyId, lobby.verseIds);
   }
 
   finishGame(): void {
-    this.lobbyService.endGame(this.lobbyId);
+    // This method will now navigate to the final results page.
+    // We'll implement the full logic for this in the next step.
+    // For now, let's just fix the immediate error by calling the correct service method.
+    this.lobbyService.finishGame(this.lobbyId);
+    // In the next step, we will add navigation logic here to go to the results page
+    // with all the round data.
   }
 }

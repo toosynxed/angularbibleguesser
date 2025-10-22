@@ -3,6 +3,9 @@
     <div class="header-controls">
       <button class="secondary-button" (click)="confirmGoHome()" title="Back to Home">‹ Home</button>
     </div>
+    <div class="header-timer" *ngIf="timeLeft !== null">
+      <span>{{ timeLeft }}s</span>
+    </div>
     <div class="clickable-header" (click)="confirmGoHome()" title="Back to Home">
       <img src="assets/logo.png" alt="Bible Guesser Logo" class="logo">
     </div>

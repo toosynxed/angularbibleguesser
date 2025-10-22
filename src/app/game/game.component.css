@@ -16,6 +16,19 @@ header {
   left: 0;
 }
 
+.header-timer {
+  position: absolute;
+  top: 0;
+  right: 0;
+  background-color: var(--background-alt-color);
+  color: var(--text-color);
+  padding: 0.5rem 1rem;
+  border-radius: var(--border-radius, 4px);
+  font-weight: bold;
+  font-size: 1.1rem;
+  border: 1px solid var(--border-color);
+}
+
 .clickable-header {
   cursor: pointer;
   display: inline-block; /* Ensures the clickable area is tight around the text */

@@ -1,0 +1,37 @@
+<div class="container" *ngIf="lobby$ | async as lobby">
+  <header>
+    <h1>{{ isGameOver ? 'Final Results' : 'Round ' + (lobby.currentRound + 1) + ' Leaderboard' }}</h1>
+  </header>
+
+  <main>
+    <!-- Current User's Round Result -->
+    <div class="my-result-container" *ngIf="lastRoundResult$ | async as lastRoundResult">
+      <app-result-card [result]="lastRoundResult" [roundNumber]="lastRoundNumber"></app-result-card>
+    </div>
+
+    <!-- Overall Leaderboard -->
+    <div class="leaderboard">
+      <h2>Overall Scores</h2>
+      <ol>
+        <li *ngFor="let player of players$ | async">
+          <span class="player-name">
+            {{ player.name }}
+            <span *ngIf="player.uid === userId" class="you-indicator">(You)</span>
+            <span *ngIf="player.uid === lobby.hostId" class="host-indicator">👑</span>
+          </span>
+          <span class="player-score">{{ player.score }}</span>
+        </li>
+      </ol>
+    </div>
+
+    <!-- Host Controls -->
+    <div class="actions" *ngIf="isHost">
+      <button *ngIf="!isGameOver" (click)="nextRound()">
+        Start Next Round
+      </button>
+      <button *ngIf="isGameOver" (click)="finishGame()">
+        View Final Results
+      </button>
+    </div>
+  </main>
+</div>

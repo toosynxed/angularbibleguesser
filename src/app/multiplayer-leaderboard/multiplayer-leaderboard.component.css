@@ -1,0 +1,65 @@
+.container {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+}
+
+header h1 {
+  color: var(--primary-color);
+}
+
+.my-result-container {
+  margin-bottom: 2rem;
+  border-bottom: 2px solid var(--border-color);
+  padding-bottom: 1.5rem;
+}
+
+.leaderboard {
+  text-align: left;
+}
+
+.leaderboard h2 {
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.leaderboard ol {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.leaderboard li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.75rem 1rem;
+  background-color: var(--background-alt-color);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
+  margin-bottom: 0.5rem;
+}
+
+.player-name {
+  font-weight: 500;
+}
+
+.you-indicator {
+  font-style: italic;
+  color: var(--text-secondary-color);
+  margin-left: 0.5rem;
+}
+
+.host-indicator {
+  margin-left: 0.25rem;
+}
+
+.player-score {
+  font-weight: bold;
+  font-size: 1.1rem;
+}
+
+.actions {
+  margin-top: 2rem;
+}

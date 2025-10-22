@@ -5,7 +5,7 @@ import { RoundResult } from '../game/game.component';
 import { ShareService } from '../share.service';
 import { AuthService } from '../auth.service';
 import { StatsService } from '../stats.service';
-import { BibleService } from '../bible.service';
+import { BibleService, } from '../bible.service';
 import { first, map, switchMap, tap } from 'rxjs/operators';
 import { combineLatest, from, of, Observable } from 'rxjs';
 import firebase from 'firebase/compat/app';
@@ -15,6 +15,12 @@ export interface GameState {
   results: RoundResult[];
   settings: GameSettings;
   mode: 'normal' | 'custom' | 'created' | 'shared';
+}
+
+interface LeaderboardPlayer {
+  uid: string;
+  displayName: string;
+  score: number;
 }
 
 @Component({
@@ -29,7 +35,7 @@ export class ResultsComponent implements OnInit {
 
   // Multiplayer
   lobby: Lobby | null = null;
-  leaderboard: (any)[] = []; // Simplified for this context
+  leaderboard: LeaderboardPlayer[] = [];
   multiplayerUserResults$: Observable<(RoundResult & { roundNumber: number })[]>;
   currentUser: firebase.User | null = null;
 
@@ -52,7 +58,23 @@ export class ResultsComponent implements OnInit {
 
     if (state?.lobby) { // Multiplayer results
       this.lobby = state.lobby;
-      this.leaderboard = state.leaderboard;
+      // Calculate leaderboard from lobby data
+      if (this.lobby && this.lobby.guesses) {
+        const playerScores: { [uid: string]: { displayName: string, score: number } } = {};
+
+        // Aggregate scores
+        Object.values(this.lobby.guesses).forEach(roundGuesses => {
+          Object.entries(roundGuesses).forEach(([uid, guessData]) => {
+            if (!playerScores[uid]) {
+              // This is a bit of a hack; we don't have the player list directly here.
+              // We'll fill in the displayName later if we can.
+              playerScores[uid] = { displayName: 'Player', score: 0 };
+            }
+            playerScores[uid].score += guessData.score;
+          });
+        });
+        this.leaderboard = Object.entries(playerScores).map(([uid, data]) => ({ uid, ...data })).sort((a, b) => b.score - a.score);
+      }
       this.shareCode = this.shareService.encodeGame({ mode: 'shared', verseIds: this.lobby.verseIds, settings: this.lobby.gameSettings });
 
       this.multiplayerUserResults$ = this.authService.user$.pipe(

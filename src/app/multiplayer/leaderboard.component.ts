@@ -2,8 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { combineLatest, Observable } from 'rxjs';
 import { map, switchMap, tap, filter } from 'rxjs/operators';
+import { BibleService } from '../bible.service';
 import { AuthService } from '../auth.service';
-import { Lobby, LobbyService, Player } from '../lobby.service';
+import { Lobby, LobbyService, Player, Verse } from '../lobby.service';
 
 interface LeaderboardPlayer extends Player {
   totalScore: number;
@@ -15,6 +16,12 @@ interface LeaderboardPlayer extends Player {
   template: `
     <div class="container" *ngIf="lobby$ | async as lobby">
       <h1>Round {{ lobby.currentRound + 1 }} Results</h1>
+
+      <div class="correct-answer" *ngIf="correctVerse$ | async as verse">
+        <p>The correct answer was:</p>
+        <h3>{{ verse.bookName }} {{ verse.chapter }}:{{ verse.verse }}</h3>
+      </div>
+
       <div class="leaderboard-list">
         <table>
           <thead>
@@ -49,12 +56,14 @@ export class LeaderboardComponent implements OnInit {
   leaderboard$: Observable<LeaderboardPlayer[]>;
   isHost$: Observable<boolean>;
   isFinalRound$: Observable<boolean>;
+  correctVerse$: Observable<Verse>;
 
   constructor(
     private route: ActivatedRoute,
     private router: Router,
     private lobbyService: LobbyService,
-    private authService: AuthService
+    private authService: AuthService,
+    private bibleService: BibleService
   ) {}
 
   ngOnInit(): void {
@@ -76,6 +85,13 @@ export class LeaderboardComponent implements OnInit {
 
     this.isFinalRound$ = this.lobby$.pipe(
       map(lobby => lobby.currentRound >= lobby.gameSettings.rounds - 1)
+    );
+
+    this.correctVerse$ = this.lobby$.pipe(
+      switchMap(lobby => {
+        const verseId = lobby.verseIds[lobby.currentRound];
+        return this.bibleService.getVerseById(verseId);
+      })
     );
 
     this.leaderboard$ = combineLatest([this.lobby$, players$]).pipe(

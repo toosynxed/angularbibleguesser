@@ -1,8 +1,12 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/compat/firestore';
 import { Observable } from 'rxjs';
+import { Verse as BibleVerse } from './verse.model';
 import { GameSettings } from './game-settings.model';
 import firebase from 'firebase/compat/app';
+
+// Re-exporting or defining Verse here to avoid circular dependency issues if imported from game.component
+export interface Verse extends BibleVerse {}
 
 export interface Player {
   uid: string;

@@ -41,6 +41,8 @@ export class GameComponent implements OnInit, OnDestroy {
   lobby$: Observable<Lobby>;
   players$: Observable<Player[]>;
   userId: string;
+  isMultiplayerRoundOver = false;
+  correctAnswer: string | null = null;
 
   currentRound = 0;
 

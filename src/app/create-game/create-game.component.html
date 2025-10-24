@@ -73,13 +73,23 @@
           </form>
 
           <!-- Generated Code Display -->
-          <div *ngIf="generatedCode" class="mt-4">
-            <h4 class="text-center">Your Game Code is Ready!</h4>
-            <div class="input-group">
-              <input type="text" class="form-control" [value]="generatedCode" readonly>
-              <button class="btn btn-outline-secondary" type="button" (click)="copyCode()">{{ copyButtonText }}</button>
+          <div *ngIf="gameDataForSharing" class="mt-4">
+            <h4 class="text-center">Your Game is Ready!</h4>
+            <p class="text-center text-muted">Use one of the options below to share your custom game with friends.</p>
+
+            <div class="share-container">
+              <h5>Quick Share (Expires in 30 mins)</h5>
+              <div class="input-group mb-3">
+                <input type="text" class="form-control" [value]="shortShareCode" placeholder="Click 'Create and Copy' to generate" readonly>
+                <button class="btn btn-outline-secondary" (click)="createAndCopyShortCode()" [disabled]="isShortCodeGenerating">{{ shortCodeCopyButtonText }}</button>
+              </div>
+
+              <h5>Permanent Link</h5>
+              <div class="input-group">
+                <input type="text" class="form-control" [value]="longShareUrl" readonly>
+                <button class="btn btn-outline-secondary" (click)="copyLongUrl()">{{ longCodeCopyButtonText }}</button>
+              </div>
             </div>
-            <p class="text-center text-muted mt-2">Share this code with your friends to challenge them.</p>
           </div>
 
           <!-- Back Button -->

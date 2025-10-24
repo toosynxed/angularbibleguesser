@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { forkJoin, of, timer, Observable } from 'rxjs';
 import { map, switchMap, debounceTime, first, filter } from 'rxjs/operators';
 import { BibleService } from '../bible.service';
-import { ShareService } from '../share.service';
+import { GameData, ShareService, } from '../share.service';
 import { GameSettings } from '../game-settings.model';
 
 @Component({
@@ -14,10 +14,11 @@ import { GameSettings } from '../game-settings.model';
 })
 export class CreateGameComponent implements OnInit {
   createForm: FormGroup;
-  generatedCode: string | null = null;
   isGenerating = false;
   errorMessage: string | null = null;
-  copyButtonText = 'Copy';
+  longShareUrl: string | null = null;
+  shortShareCode: string | null = null;
+  gameDataForSharing: GameData | null = null;
 
   timeOptions = [
     { value: 0, label: 'No Time Limit' },
@@ -28,12 +29,20 @@ export class CreateGameComponent implements OnInit {
     { value: 600, label: '10 Minutes' }
   ];
 
+  shortCodeCopyButtonText = 'Create and Copy';
+  isShortCodeGenerating = false;
+  longCodeCopyButtonText = 'Copy Link';
+
   constructor(
     private fb: FormBuilder,
     private bibleService: BibleService,
     private shareService: ShareService,
     private router: Router
   ) {}
+
+
+
+
 
   ngOnInit(): void {
     this.createForm = this.fb.group({
@@ -79,7 +88,11 @@ export class CreateGameComponent implements OnInit {
 
     this.isGenerating = true;
     this.errorMessage = null;
-    this.generatedCode = null;
+    this.longShareUrl = null;
+    this.shortShareCode = null;
+    this.gameDataForSharing = null;
+    this.shortCodeCopyButtonText = 'Create and Copy';
+    this.longCodeCopyButtonText = 'Copy Link';
 
     const verseRefs: string[] = this.verses.value;
     const verseLookups$ = verseRefs.map(ref => {
@@ -113,19 +126,38 @@ export class CreateGameComponent implements OnInit {
         books: [] // The 'books' property is not needed here because verses are explicitly defined.
       };
 
-      this.generatedCode = this.shareService.encodeGameData({
+      this.gameDataForSharing = {
         mode: 'create',
         verseIds: validVerseIds,
         settings: gameSettings
-      });
+      };
+
+      const longCode = this.shareService.encodeGameData(this.gameDataForSharing);
+      this.longShareUrl = `${window.location.origin}/game/${longCode}`;
     });
   }
 
-  copyCode(): void {
-    if (this.generatedCode) {
-      navigator.clipboard.writeText(this.generatedCode).then(() => {
-        this.copyButtonText = 'Copied!';
-        setTimeout(() => this.copyButtonText = 'Copy', 2000);
+  async createAndCopyShortCode(): Promise<void> {
+    if (this.isShortCodeGenerating || !this.gameDataForSharing) return;
+
+    if (!this.shortShareCode) {
+      this.isShortCodeGenerating = true;
+      this.shortCodeCopyButtonText = 'Creating...';
+      this.shortShareCode = await this.shareService.createShortCodeGame(this.gameDataForSharing);
+      this.isShortCodeGenerating = false;
+    }
+
+    navigator.clipboard.writeText(this.shortShareCode).then(() => {
+      this.shortCodeCopyButtonText = 'Copied!';
+      setTimeout(() => this.shortCodeCopyButtonText = 'Copy Code', 2000);
+    });
+  }
+
+  copyLongUrl(): void {
+    if (this.longShareUrl) {
+      navigator.clipboard.writeText(this.longShareUrl).then(() => {
+        this.longCodeCopyButtonText = 'Copied!';
+        setTimeout(() => this.longCodeCopyButtonText = 'Copy Link', 2000);
       });
     }
   }

@@ -1,13 +1,17 @@
 .container {
-  max-width: 800px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1rem;
+  height: 100vh;
+  box-sizing: border-box;
 }
 
 header {
-  position: relative;
+  width: 100%;
+  text-align: center;
   margin-bottom: 1rem;
+  position: relative;
 }
 
 .header-controls {
@@ -20,119 +24,77 @@ header {
   position: absolute;
   top: 0;
   right: 0;
-  background-color: var(--background-alt-color);
-  color: var(--text-color);
-  padding: 0.5rem 1rem;
-  border-radius: var(--border-radius, 4px);
+  font-size: 1.5rem;
   font-weight: bold;
-  font-size: 1.1rem;
-  border: 1px solid var(--border-color);
-}
-
-.clickable-header {
-  cursor: pointer;
-  display: inline-block; /* Ensures the clickable area is tight around the text */
+  color: #FFD700;
 }
 
 .logo {
-  max-width: 200px; /* A smaller logo for the game screen */
-  height: auto;
-  vertical-align: middle; /* Helps with alignment */
-}
-
-.secondary-button, .back-button {
-  background: none;
-  border: 1px solid var(--border-color);
-  color: var(--text-secondary-color);
-  padding: 0.5rem 1rem;
-  border-radius: var(--border-radius, 4px);
+  width: 80px;
   cursor: pointer;
-  font-size: 0.9rem;
-  transition: background-color 0.2s ease, border-color 0.2s ease;
 }
 
-.secondary-button:hover, .back-button:hover {
-  background-color: var(--verse-context-bg);
-  border-color: var(--text-secondary-color);
-}
-
-.form-group input {
+main {
   width: 100%;
-  max-width: 400px;
-  margin: auto;
-}
-
-.context-slider {
-  margin: 2rem 0;
-}
-.context-slider input {
-  width: 100%;
-  max-width: 400px;
-}
-
-.loading {
-  font-size: 1.2rem;
-  color: var(--text-secondary-color);
-  margin: 2rem 0;
+  max-width: 800px;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .verse-container {
-  position: relative;
+  width: 100%;
   margin-bottom: 1rem;
+  position: relative;
 }
 
 .verse-context {
-  margin-bottom: 1.5rem;
-  max-height: 250px; /* Set a maximum height for the container */
-  overflow-y: auto;  /* Enable vertical scrolling when content exceeds the height */
-  border: 1px solid var(--verse-context-border); /* Add a subtle border to define the scrollable area */
+  max-height: 30vh;
+  overflow-y: auto;
+  border: 1px solid #444;
   padding: 1rem;
-  border-radius: 4px;
-  text-align: left;
-  background-color: var(--verse-context-bg);
+  border-radius: 8px;
+  background-color: #2a2a2a;
+  text-align: justify;
 }
 
-.verses-paragraph {
-  margin: 0;
-  padding: 0;
-  text-align: left;
-  line-height: 1.6;
-}
-
-.verse-context .highlight {
-  color: var(--primary-color, #6a0dad); /* A nice purple color */
+.verses-paragraph .highlight {
+  color: #a985f6;
   font-weight: bold;
 }
 
 .verse-actions {
   position: absolute;
-  top: 0.5rem;
-  right: 0.5rem;
+  top: 5px;
+  right: 5px;
   z-index: 10;
 }
 
-.verse-actions button {
-  background-color: rgba(255, 255, 255, 0.8);
-  border: 1px solid var(--border-color, #ccc);
-  padding: 0.25rem 0.5rem;
-  font-size: 0.8rem;
-  border-radius: 4px;
-  cursor: pointer;
+.context-slider {
+  width: 100%;
+  margin-bottom: 1rem;
 }
 
-.verse-actions button:hover {
-  background-color: white;
+.guess-container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
-.feedback {
-  margin-top: 1.5rem;
-  padding: 1rem;
-  border-radius: 8px;
-  background-color: var(--feedback-bg);
-  color: var(--feedback-text);
-  border: 1px solid var(--feedback-border);
-  max-width: 400px;
-  margin-left: auto;
-  margin-right: auto;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+.scroll-picker-group {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  gap: 10px;
+  margin-bottom: 1rem;
+}
+
+.book-picker { flex: 3; } /* Give more space to the book name */
+.chapter-picker { flex: 1; }
+.verse-picker { flex: 1; }
+
+.feedback, .actions {
+  margin-top: 1rem;
 }

@@ -37,16 +37,25 @@
       <input type="range" id="context" min="0" max="250" [(ngModel)]="contextSize" (input)="onSliderChange($event)">
     </div>
 
-    <form [formGroup]="guessForm" (ngSubmit)="submitGuess()" *ngIf="!isRoundOver">
-      <div class="form-group">
-        <label for="guess">Your Guess (e.g., John 3:16)</label>
-        <input id="guess" type="text" formControlName="guess" placeholder="Book Chapter:Verse">
+    <div class="guess-container" *ngIf="!isRoundOver">
+      <div class="scroll-picker-group">
+        <app-scroll-picker class="book-picker"
+                           [items]="bookOptions"
+                           (selectedChange)="onBookSelected($event)"></app-scroll-picker>
+        <app-scroll-picker class="chapter-picker"
+                           [items]="chapterOptions"
+                           (selectedChange)="onChapterSelected($event)"></app-scroll-picker>
+        <app-scroll-picker class="verse-picker"
+                           [items]="verseOptions"
+                           (selectedChange)="onVerseSelected($event)"></app-scroll-picker>
       </div>
 
       <div class="actions">
-        <button type="submit" [disabled]="guessForm.invalid">Guess</button>
+        <button type="button" (click)="submitGuess()" [disabled]="!selectedBook || !selectedChapter || !selectedVerse">
+          Guess
+        </button>
       </div>
-    </form>
+    </div>
 
     <div class="feedback" *ngIf="feedback">
       <p>{{ feedback }}</p>

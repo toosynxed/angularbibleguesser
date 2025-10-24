@@ -1,0 +1,45 @@
+.scroll-picker {
+  height: 200px; /* 5 items visible at 40px each */
+  overflow: hidden;
+  position: relative;
+  -webkit-mask-image: linear-gradient(to bottom, transparent, black 25%, black 75%, transparent);
+  mask-image: linear-gradient(to bottom, transparent, black 25%, black 75%, transparent);
+  touch-action: none; /* Important for HammerJS to capture pan events */
+}
+
+.scroll-picker-list {
+  position: relative;
+  transition: top 0.15s ease-out;
+}
+
+.scroll-picker-item {
+  height: 40px;
+  line-height: 40px;
+  text-align: center;
+  font-size: 1.2rem;
+  color: #888;
+  transition: all 0.2s ease-in-out;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding: 0 10px;
+}
+
+.scroll-picker-item.selected {
+  color: #FFD700; /* Gold color for selected item */
+  font-weight: bold;
+  transform: scale(1.1);
+}
+
+.selection-indicator {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  height: 40px;
+  transform: translateY(-50%);
+  border-top: 2px solid #444;
+  border-bottom: 2px solid #444;
+  pointer-events: none; /* Allows clicks/drags to pass through */
+  box-sizing: border-box;
+}

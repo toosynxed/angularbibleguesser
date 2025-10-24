@@ -241,6 +241,28 @@ export class BibleService {
     );
   }
 
+  getChaptersForBook(bookName: string): Observable<number> {
+    return this.getVerses().pipe(
+      map(verses => {
+        const bookVerses = verses.filter(v => v.bookName === bookName);
+        if (bookVerses.length === 0) return 0;
+        // Find the max chapter number for the given book
+        return Math.max(...bookVerses.map(v => v.chapter));
+      })
+    );
+  }
+
+  getVersesForChapter(bookName: string, chapter: number): Observable<number> {
+    return this.getVerses().pipe(
+      map(verses => {
+        const chapterVerses = verses.filter(v => v.bookName === bookName && v.chapter === chapter);
+        if (chapterVerses.length === 0) return 0;
+        // Find the max verse number for the given chapter
+        return Math.max(...chapterVerses.map(v => v.verse));
+      })
+    );
+  }
+
   getVerseWithContext(verse: Verse, contextSize: number): Observable<Verse[]> {
     return this.getVerseIndex({ bookName: verse.bookName, chapter: verse.chapter, verse: verse.verse }).pipe(
       map(verseIndex => {

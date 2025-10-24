@@ -1,8 +1,7 @@
 import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { forkJoin, from, of, Subject, Subscription, timer, Observable, combineLatest } from 'rxjs';
-import { concatMap, switchMap, takeUntil, tap, map, first } from 'rxjs/operators';
+import { forkJoin, from, of, Subject, Subscription, timer, Observable, combineLatest, } from 'rxjs';
+import { concatMap, switchMap, takeUntil, tap, map, first, } from 'rxjs/operators';
 import { BibleService } from '../bible.service'; // Correct
 import { Verse } from '../verse.model'; // Corrected import path
 import { ShareService } from '../share.service';
@@ -50,10 +49,18 @@ export class GameComponent implements OnInit, OnDestroy {
   verseTextWithContext: Verse[] = []; // Changed type from string to Verse[]
   contextSize = 1; // Start with context of 1
 
-  guessForm: FormGroup;
   isRoundOver = false;
   feedback: string | null = null;
   isLoading = true;
+
+  // --- Scroll Picker State ---
+  bookOptions: string[] = [];
+  chapterOptions: number[] = [];
+  verseOptions: number[] = [];
+
+  selectedBook: string | null = null;
+  selectedChapter: number | null = null;
+  selectedVerse: number | null = null;
 
   results: RoundResult[] = [];
 
@@ -62,7 +69,6 @@ export class GameComponent implements OnInit, OnDestroy {
 
   constructor(
     private bibleService: BibleService,
-    private fb: FormBuilder,
     private router: Router,
     private shareService: ShareService,
     private lobbyService: LobbyService,
@@ -81,10 +87,6 @@ export class GameComponent implements OnInit, OnDestroy {
     if ((this.gameMode === 'custom' || this.gameMode === 'created' || this.gameMode === 'shared') && state?.settings) {
       this.gameSettings = state.settings;
     }
-
-    this.guessForm = this.fb.group({
-      guess: ['', Validators.required]
-    });
   }
 
   ngOnInit(): void {
@@ -93,6 +95,10 @@ export class GameComponent implements OnInit, OnDestroy {
     } else {
       this.setupSinglePlayerGame();
     }
+    // Load book options for the picker
+    this.bibleService.getBooks().subscribe(books => {
+      this.bookOptions = books;
+    });
   }
 
   setupSinglePlayerGame(): void {
@@ -158,7 +164,6 @@ export class GameComponent implements OnInit, OnDestroy {
         this.isRoundOver = false;
         this.feedback = null;
         this.isLoading = true;
-        this.guessForm.reset();
         const verseId = lobby.verseIds[lobby.currentRound];
         // Reset and restart timer for the new round
         if (lobby.gameSettings.timeLimit > 0) {
@@ -201,7 +206,6 @@ export class GameComponent implements OnInit, OnDestroy {
       this.isRoundOver = false;
       this.feedback = null;
       this.isLoading = true;
-      this.guessForm.reset();
       this.roundState$.next();
           // Reset and restart timer for the new round
       if (this.gameSettings && this.gameSettings.timeLimit > 0) {
@@ -264,30 +268,48 @@ export class GameComponent implements OnInit, OnDestroy {
     this.updateVerseContext();
   }
 
+  // --- Scroll Picker Handlers ---
+  onBookSelected(book: string | number): void {
+    this.selectedBook = book as string;
+    this.bibleService.getChaptersForBook(this.selectedBook).subscribe(chapters => {
+      this.chapterOptions = Array.from({ length: chapters }, (_, i) => i + 1);
+    });
+  }
+
+  onChapterSelected(chapter: string | number): void {
+    this.selectedChapter = chapter as number;
+    if (this.selectedBook) {
+      this.bibleService.getVersesForChapter(this.selectedBook, this.selectedChapter).subscribe(verses => {
+        this.verseOptions = Array.from({ length: verses }, (_, i) => i + 1);
+      });
+    }
+  }
+
+  onVerseSelected(verse: string | number): void {
+    this.selectedVerse = verse as number;
+  }
+
   submitGuess(): void {
     if (this.gameMode === 'multiplayer' && this.isRoundOver) {
       return; // Already submitted for this round
     }
 
-    if (this.guessForm.invalid || !this.currentVerse) {
+    if (!this.currentVerse || !this.selectedBook || !this.selectedChapter || !this.selectedVerse) {
+      this.feedback = "Please select a book, chapter, and verse.";
       return;
     }
 
-    const rawGuess: string = this.guessForm.value.guess;
-    const parsedGuess = this.bibleService.parseVerseReference(rawGuess);
-
-    // If the guess is not in a valid format, show feedback and let the user try again.
-    if (!parsedGuess) {
-      this.feedback = "Invalid format or spelling. Please use a format like 'John 3:16'.";
-      return; // Stop execution if the format is invalid
-    }
-
-    const { book, chapter, verse } = parsedGuess;
+    const parsedGuess = {
+      book: this.selectedBook,
+      chapter: this.selectedChapter,
+      verse: this.selectedVerse
+    };
+    const rawGuess = `${this.selectedBook} ${this.selectedChapter}:${this.selectedVerse}`;
     const answer = this.currentVerse;
 
-    const isBookCorrect = this.bibleService.normalizeBookName(book) === this.bibleService.normalizeBookName(answer.bookName);
-    const isChapterCorrect = chapter === answer.chapter;
-    const isVerseCorrect = verse === answer.verse;
+    const isBookCorrect = this.bibleService.normalizeBookName(parsedGuess.book) === this.bibleService.normalizeBookName(answer.bookName);
+    const isChapterCorrect = parsedGuess.chapter === answer.chapter;
+    const isVerseCorrect = parsedGuess.verse === answer.verse;
 
     let stars = 0;
     if (isBookCorrect) {
@@ -300,8 +322,12 @@ export class GameComponent implements OnInit, OnDestroy {
       }
     }
 
-    const answerIndex$ = this.bibleService.getVerseIndex({ bookName: answer.bookName, chapter: answer.chapter, verse: answer.verse });
-    const guessIndex$ = this.bibleService.getVerseIndex({ bookName: book, chapter, verse });
+    const answerIndex$ = this.bibleService.getVerseIndex(answer);
+    const guessIndex$ = this.bibleService.getVerseIndex({
+      bookName: parsedGuess.book,
+      chapter: parsedGuess.chapter,
+      verse: parsedGuess.verse
+    });
 
     forkJoin([answerIndex$, guessIndex$]).subscribe(([answerIndex, guessIndex]) => {
       const distance = (guessIndex === -1) ? 100 : Math.abs(answerIndex - guessIndex);

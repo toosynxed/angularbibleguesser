@@ -28,8 +28,8 @@ export interface RoundResult {
 export class GameComponent implements OnInit, OnDestroy {
   @ViewChild('verseContextContainer') private verseContextContainer: ElementRef<HTMLElement>;
 
-  // Game State
-  gameMode: 'normal' | 'custom' | 'created' | 'multiplayer' = 'normal';
+  // Game State - Added 'shared' to the possible game modes
+  gameMode: 'normal' | 'custom' | 'created' | 'shared' | 'multiplayer' = 'normal';
   totalRounds = 1;
   seededVerseIds: number[] | null = null;
   gameSettings: GameSettings | null = null; // To hold marathon settings
@@ -70,7 +70,7 @@ export class GameComponent implements OnInit, OnDestroy {
   ) {
     const navigation = this.router.getCurrentNavigation();
     const state = navigation?.extras.state as {
-      mode: 'normal' | 'custom' | 'created' | 'multiplayer',
+      mode: 'normal' | 'custom' | 'created' | 'shared' | 'multiplayer', // Added 'shared' here as well
       verseIds?: number[],
       settings?: GameSettings,
       lobbyId?: string
@@ -78,7 +78,7 @@ export class GameComponent implements OnInit, OnDestroy {
     this.lobbyId = state?.lobbyId || null;
     this.seededVerseIds = state?.verseIds || null;
     this.gameMode = state?.mode || (this.seededVerseIds ? 'created' : 'normal');
-    if ((this.gameMode === 'custom' || this.gameMode === 'created') && state?.settings) {
+    if ((this.gameMode === 'custom' || this.gameMode === 'created' || this.gameMode === 'shared') && state?.settings) {
       this.gameSettings = state.settings;
     }
 

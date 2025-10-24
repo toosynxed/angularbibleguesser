@@ -74,6 +74,7 @@
         <div class="modal-tabs">
           <button class="tab-button" [class.active]="activeHelpTab === 'rules'" (click)="activeHelpTab = 'rules'">Rules</button>
           <button class="tab-button" [class.active]="activeHelpTab === 'about'" (click)="activeHelpTab = 'about'">About</button>
+          <button class="tab-button" [class.active]="activeHelpTab === 'learn'" (click)="activeHelpTab = 'learn'">Learn</button>
         </div>
         <button class="close-button" (click)="showHelp = false">&times;</button>
       </div>
@@ -83,6 +84,9 @@
         </div>
         <div *ngIf="activeHelpTab === 'about'" class="help-content" [innerHTML]="aboutContent">
           <!-- About content is displayed here -->
+        </div>
+        <div *ngIf="activeHelpTab === 'learn'" class="help-content" [innerHTML]="learnMoreContent">
+          <!-- Learn More content is displayed here -->
         </div>
       </div>
     </div>

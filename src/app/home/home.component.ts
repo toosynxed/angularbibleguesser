@@ -19,7 +19,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   error: string | null = null;
   showChangelog = false;
   showHelp = false;
-  activeHelpTab: 'rules' | 'about' = 'rules';
+  activeHelpTab: 'rules' | 'about' | 'learn' = 'rules';
   showStats = false;
   user$: Observable<firebase.User | null>;
   stats$: Observable<UserStats | undefined>;
@@ -43,6 +43,59 @@ export class HomeComponent implements OnInit, OnDestroy {
 <h3>About Better Bible Guesser</h3>
 <p>This project was inspired by the original <a href="https://bibleguesser.com/" target="_blank" rel="noopener noreferrer">bibleguesser.com</a> by Alain R.</p>
 <p>The goal is to provide a fun and engaging way to test and improve your knowledge of the Holy Scripture. Whether you're a seasoned scholar or just beginning your journey, we hope this game is a blessing to you.</p>
+  `;
+
+  // Content for the "Learn" tab (SEO Content)
+  learnMoreContent = `
+<h2>🎯 Guess the Bible Verse Game – Interactive Scripture Challenges</h2>
+<p>Engaging with Scripture can be meaningful—and enjoyable. The <b>Guess the Bible Verse Game</b> is a creative and interactive way to study God’s Word through clues, hints, and fun challenges. These games help increase familiarity with Scripture, encourage verse memorization, and promote meaningful discussion in group or ministry settings. Whether for youth ministry, Bible study groups, Christian classrooms, or personal devotion, Bible guessing games offer a fresh way to interact with the Bible.</p>
+
+<h3>What is the Guess the Bible Verse Game?</h3>
+<p>The <b>Guess the Bible Verse Game</b> challenges players to identify Bible verses using clues such as partial text, keywords, themes, or even emojis. A moderator or game host provides hints, and participants try to recognize the correct verse and sometimes its book and chapter. For example, "For God so loved the world…" would be identified as John 3:16. Variations of this game encourage different learning styles—visual, auditory, and competitive.</p>
+<p>This type of Bible activity is ideal for <b>Sunday school sessions, church events, retreats, and family devotion nights.</b> It helps participants grow in biblical literacy and encourages engagement with Scripture beyond reading by rote. As <b>Psalm 119:11</b> says, “I have hidden your word in my heart that I might not sin against you.” Games like this make Scripture memorable in a joyful way.</p>
+
+<h3>How do you play Guess the Bible Verse Emoji?</h3>
+<p><b>Guess the Bible Verse Emoji</b> is a visual version of Scripture guessing. Players are shown a series of emojis that represent key words or themes from a Bible verse. Their goal is to decode the emoji sentence and identify the verse. For example: 📖❤️🌎✝️✨ This might represent <b>John 3:16</b> (“For God so loved the world…”).</p>
+<p>This format is especially effective for younger players and youth ministries because emojis bring verses to life in a modern, visual context. To play:</p>
+<ul>
+  <li>Display or share emoji clues.</li>
+  <li>Give players 30–60 seconds to guess.</li>
+  <li>Allow hints if needed.</li>
+  <li>Reveal the verse and discuss its meaning.</li>
+</ul>
+<p>This game works well on PowerPoint, printable worksheets, or social media ministry pages. Try a round to see how your group connects biblical truth with creative thinking.</p>
+
+<h3>Is there a Bible Verse Wordle?</h3>
+<p>Yes. <b>Bible Verse Wordle</b> is a Scripture-based word puzzle inspired by the popular Wordle game. Instead of guessing random five-letter words, players guess <b>Bible-related words or terms</b> within six tries. Common game words include grace, faith, cross, light, and sheep.</p>
+<p>In faith-based versions, players receive hints connected to Bible themes. For example, a hint might be “This is a fruit of the Spirit” (Galatians 5:22–23), helping players solve the puzzle. Bible Wordle promotes vocabulary growth and increases familiarity with key biblical terms.</p>
+
+<h3>What is a good Bible verse game for adults?</h3>
+<p>Adults often enjoy Bible games that are <b>thought-provoking, competitive, and connected to Scripture study</b>. Good options include:</p>
+<ul>
+  <li><b>Verse Completion</b> – Players fill in missing words from memory (Psalm 23:1).</li>
+  <li><b>Context Challenge</b> – Identify the book and chapter from a verse excerpt.</li>
+  <li><b>Guess the Speaker</b> – Determine who said the verse (e.g. Paul, David, Jesus).</li>
+  <li><b>Scripture Matching</b> – Match a Bible verse to its theme or teaching.</li>
+</ul>
+<p>Any of these games can be used in adult small groups, men’s and women’s Bible studies, or church fellowship nights. Working with Scripture context promotes deeper understanding, as encouraged in <b>2 Timothy 2:15</b>: “Do your best to present yourself to God as one approved… who correctly handles the word of truth.”</p>
+
+<h3>How do you play Guess the Book of the Bible?</h3>
+<p>In <b>Guess the Book of the Bible</b>, players hear or read a Bible verse and identify which book it comes from. For example, “The Lord is my shepherd; I shall not want” is recognized from <b>Psalm 23:1</b>. To play:</p>
+<ul>
+  <li>Select 10–20 verses of varying difficulty.</li>
+  <li>Read each verse aloud or display it.</li>
+  <li>Players write down or call out the book name.</li>
+  <li>Award bonus points for naming the chapter.</li>
+</ul>
+
+<h3>What is the Guess Bible: Who Am I Game?</h3>
+<p><b>Guess Bible: Who Am I?</b> is a character-based guessing game that provides clues about a person in Scripture, and players must identify who it is. For example: “I was swallowed by a great fish” – <b>Jonah</b>. “I led Israel out of Egypt” – <b>Moses</b>. “I denied Jesus three times” – <b>Peter</b>. This game reinforces Bible story awareness and character study.</p>
+
+<h3>Can Bible guessing games help with Scripture memory?</h3>
+<p>Absolutely. <b>Bible guessing games</b> improve recall, repetition, and contextual understanding, which are essential for long-term <b>Scripture</b> memory. Combining memory with interaction makes Scripture easier to retain. This matches the teaching in <b>Deuteronomy 6:6–7</b>, which instructs believers to repeat and discuss God’s Word regularly.</p>
+
+<h3>Play Free Online Bible Verse Guessing Games</h3>
+<p>Ready to start? Explore <b>free</b>, <b>interactive Bible games</b> on this site to grow your <b>Scripture familiarity</b> in a fun and engaging way!</p>
   `;
 
   // You can update the changelog text here.

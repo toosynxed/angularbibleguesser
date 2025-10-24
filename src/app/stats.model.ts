@@ -1,16 +1,19 @@
-export interface NormalModeStats {
+export interface GameModeStats {
   gamesPlayed: number;
   totalScore: number;
+}
+
+export interface NormalModeStats extends GameModeStats {
   totalStars: number;
 }
 
-export interface CustomModeStats {
-  gamesPlayed: number;
+export interface CustomModeStats extends GameModeStats {
   totalRounds: number;
-  totalScore: number;
 }
 
-export interface MultiplayerModeStats extends CustomModeStats {}
+export interface MultiplayerModeStats extends GameModeStats {
+  totalRounds: number;
+}
 
 export interface UserStats {
   normal?: NormalModeStats;

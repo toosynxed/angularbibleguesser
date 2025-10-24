@@ -360,7 +360,7 @@ export class GameComponent implements OnInit, OnDestroy {
         contextSize: this.contextSize,
         timeLimit: 0, books: []
       };
-      this.router.navigate(['/results'], { state: { results: this.results, settings: settings } });
+      this.router.navigate(['/results'], { state: { results: this.results, settings: settings, mode: this.gameMode } });
     }
   }
 

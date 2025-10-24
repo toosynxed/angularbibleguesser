@@ -4,7 +4,7 @@ import { Observable, of, Subscription } from 'rxjs';
 import { first, switchMap } from 'rxjs/operators';
 import { ShareService } from '../share.service';
 import { AuthService } from '../auth.service';
-import { StatsService } from '../stats.service';
+import { StatsService, } from '../stats.service';
 import { UserStats } from '../stats.model';
 import firebase from 'firebase/compat/app';
 
@@ -54,6 +54,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   <li>View your accuracy and average scores on the home page.</li>
   <li>Improved multiplayer lobby experience with real-time updates.</li>
   <li>Fixed various bugs and improved overall performance.</li>
+  <li>Reworked/Added Short-Lived game codes to share with friends!</li>
 </ul>
 <h3>Version 1.5.0 "Login"</h3>
 <ul>

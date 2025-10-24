@@ -184,29 +184,45 @@ export class ResultsComponent implements OnInit {
   }
 
   private async updateStats(): Promise<void> {
+    console.log('updateStats called.');
     const user = await this.authService.user$.pipe(first()).toPromise();
 
-    // Don't save stats for guests or if there's no game state
     if (!user || user.isAnonymous) {
-      return; // Don't save stats for guests or if there's no game state
+      console.log('Stats not saved: User is anonymous or null.');
+      return;
     }
+    console.log('User is logged in:', user.uid);
 
     if (this.lobby) { // Multiplayer
+      console.log('Branch: Multiplayer');
       const userRounds = Object.values(this.lobby.guesses || {}).filter(round => round[user.uid]);
       const totalScore = userRounds.reduce((sum, round) => sum + round[user.uid].score, 0);
       if (userRounds.length > 0) {
+        console.log(`Multiplayer: uid=${user.uid}, rounds=${userRounds.length}, score=${totalScore}`);
         await this.statsService.updateMultiplayerModeStats(user.uid, userRounds.length, totalScore);
+        console.log('Multiplayer stats update initiated.');
+      } else {
+        console.log('Multiplayer: No rounds played by user, skipping stats update.');
       }
-    } else if (this.gameState && this.gameState.results) { // Single Player
+    } else if (this.gameState && this.gameState.results && this.gameState.mode && this.gameState.settings) { // Single Player
+      console.log('Branch: Single Player');
       const { mode, results } = this.gameState;
       const totalScore = this.totalScore;
+      console.log('Single Player GameState:', this.gameState);
 
       if (mode === 'normal') {
         const totalStars = results.reduce((sum, r) => sum + r.stars, 0);
         await this.statsService.updateNormalModeStats(user.uid, totalScore, totalStars);
+        console.log('Normal stats update initiated.');
       } else if (mode === 'custom' || mode === 'created' || mode === 'shared') {
         await this.statsService.updateCustomModeStats(user.uid, results.length, totalScore);
+        console.log('Custom/Create/Shared stats update initiated.');
+      } else {
+        console.log('Single Player: Unknown mode, skipping stats update.');
       }
+    }
+    else {
+      console.log('Branch: No lobby, or missing gameState.results/mode/settings. Skipping stats update.');
     }
   }
 

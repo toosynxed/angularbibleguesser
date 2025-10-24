@@ -13,6 +13,7 @@ import { LoginComponent } from './login/login.component';
 import { ProfileComponent } from './profile/profile.component';
 import { MultiplayerLeaderboardComponent } from './multiplayer-leaderboard/multiplayer-leaderboard.component';
 import { ResultCardComponent } from './result-card/result-card.component';
+import { SharedGameComponent } from './shared-game/shared-game.component';
 
 import { AngularFireModule } from '@angular/fire/compat';
 import { AngularFireAuthModule } from '@angular/fire/compat/auth';
@@ -31,7 +32,8 @@ import { environment } from '../environments/environment';
     LoginComponent,
     ProfileComponent,
     MultiplayerLeaderboardComponent,
-    ResultCardComponent
+    ResultCardComponent,
+    SharedGameComponent
   ],
   imports: [
     BrowserModule,

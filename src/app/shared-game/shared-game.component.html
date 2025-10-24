@@ -1,0 +1,29 @@
+<div class="container">
+  <header>
+    <img src="assets/logo.png" alt="Better Bible Guesser Logo" class="logo">
+    <h1>You've Been Challenged!</h1>
+  </header>
+
+  <main *ngIf="gameData && !error">
+    <p>You're about to play a custom game created by another player.</p>
+    <div class="game-details">
+      <h3>Game Settings:</h3>
+      <ul>
+        <li><strong>Rounds:</strong> {{ gameData.settings.rounds }}</li>
+        <li><strong>Time Limit:</strong> {{ gameData.settings.timeLimit > 0 ? (gameData.settings.timeLimit + ' seconds') : 'None' }}</li>
+        <li><strong>Context Size:</strong> {{ gameData.settings.contextSize }} verses</li>
+      </ul>
+    </div>
+    <div class="actions">
+      <button class="start-button" (click)="startGame()">Start Game</button>
+      <button class="back-button" (click)="goBack()">Back to Home</button>
+    </div>
+  </main>
+
+  <main *ngIf="error">
+    <p class="error-message">{{ error }}</p>
+    <div class="actions">
+      <button class="back-button" (click)="goBack()">Back to Home</button>
+    </div>
+  </main>
+</div>

@@ -1,87 +1,84 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/compat/firestore';
+import { Observable } from 'rxjs';
+import { UserStats } from './stats.model';
 import firebase from 'firebase/compat/app';
-import { Observable, of } from 'rxjs';
-import { UserStats, NormalModeStats, CustomModeStats, MultiplayerModeStats } from './stats.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class StatsService {
+
   constructor(private afs: AngularFirestore) { }
 
   getUserStats(uid: string): Observable<UserStats | undefined> {
-    if (!uid) {
-      return of(undefined);
+    return this.afs.collection('stats').doc<UserStats>(uid).valueChanges();
+  }
+
+  private getStatsDoc(uid: string): AngularFirestoreDocument<UserStats> {
+    return this.afs.collection('stats').doc<UserStats>(uid);
+  }
+
+  async updateNormalModeStats(uid: string, score: number, stars: number): Promise<void> {
+    const statsRef = this.getStatsDoc(uid).ref;
+    try {
+      return await this.afs.firestore.runTransaction(async (transaction) => {
+        const doc = await transaction.get(statsRef);
+        const stats = doc.data() || {};
+
+        const newNormalStats = {
+          gamesPlayed: (stats.normal?.gamesPlayed || 0) + 1,
+          totalScore: (stats.normal?.totalScore || 0) + score,
+          totalStars: (stats.normal?.totalStars || 0) + stars,
+        };
+
+        transaction.set(statsRef, { ...stats, normal: newNormalStats }, { merge: true });
+      });
+    } catch (error) {
+      console.error(`Error updating normal mode stats for user ${uid}:`, error);
+      throw error; // Re-throw to propagate the error if necessary
     }
-    return this.afs.doc<UserStats>(`userStats/${uid}`).valueChanges();
   }
 
-  private async initializeStats(uid: string, gameMode: keyof UserStats) {
-    const statsDocRef: AngularFirestoreDocument<UserStats> = this.afs.doc(`userStats/${uid}`);
-    let initialModeStats: NormalModeStats | CustomModeStats | MultiplayerModeStats;
+  async updateCustomModeStats(uid:string, rounds: number, score: number): Promise<void> {
+    const statsRef = this.getStatsDoc(uid).ref;
+    try {
+      return await this.afs.firestore.runTransaction(async (transaction) => {
+        const doc = await transaction.get(statsRef);
+        const stats = doc.data() || {};
 
-    switch (gameMode) {
-      case 'normal':
-        initialModeStats = { gamesPlayed: 0, totalScore: 0, totalStars: 0 };
-        break;
-      case 'custom':
-        initialModeStats = { gamesPlayed: 0, totalScore: 0, totalRounds: 0 };
-        break;
-      case 'multiplayer':
-        initialModeStats = { gamesPlayed: 0, totalScore: 0, totalRounds: 0 };
-        break;
+        const newCustomStats = {
+          gamesPlayed: (stats.custom?.gamesPlayed || 0) + 1,
+          totalRounds: (stats.custom?.totalRounds || 0) + rounds,
+          totalScore: (stats.custom?.totalScore || 0) + score,
+        };
+
+        transaction.set(statsRef, { ...stats, custom: newCustomStats }, { merge: true });
+      });
+    } catch (error) {
+      console.error(`Error updating custom mode stats for user ${uid}:`, error);
+      throw error;
     }
-
-    const initialData: Partial<UserStats> = { [gameMode]: initialModeStats };
-
-    // Use setDoc with merge to avoid overwriting other game mode stats
-    await statsDocRef.set(initialData, { merge: true });
   }
 
-  updateNormalModeStats(uid: string, score: number, stars: number): Promise<void> {
-    const statsDocRef: AngularFirestoreDocument<UserStats> = this.afs.doc(`userStats/${uid}`);
-    const increment = firebase.firestore.FieldValue.increment;
-    return statsDocRef.update({
-      'normal.gamesPlayed': increment(1),
-      'normal.totalScore': increment(score),
-      'normal.totalStars': increment(stars)
-    } as any).catch(err => {
-      // If the document or 'normal' field doesn't exist, initialize it and then update.
-      if (err.code === 'not-found' || err.message.includes('No document to update') || err.message.includes('does not exist')) {
-        return this.initializeStats(uid, 'normal').then(() => this.updateNormalModeStats(uid, score, stars));
-      }
-      throw err;
-    });
-  }
+  async updateMultiplayerModeStats(uid: string, rounds: number, score: number): Promise<void> {
+    const statsRef = this.getStatsDoc(uid).ref;
+    try {
+      return await this.afs.firestore.runTransaction(async (transaction) => {
+        const doc = await transaction.get(statsRef);
+        const stats = doc.data() || {};
 
-  updateCustomModeStats(uid: string, rounds: number, totalScore: number): Promise<void> {
-    const statsDocRef: AngularFirestoreDocument<UserStats> = this.afs.doc(`userStats/${uid}`);
-    const increment = firebase.firestore.FieldValue.increment;
-    return statsDocRef.update({
-      'custom.gamesPlayed': increment(1),
-      'custom.totalRounds': increment(rounds),
-      'custom.totalScore': increment(totalScore)
-    } as any).catch(err => {
-      if (err.code === 'not-found' || err.message.includes('No document to update') || err.message.includes('does not exist')) {
-        return this.initializeStats(uid, 'custom').then(() => this.updateCustomModeStats(uid, rounds, totalScore));
-      }
-      throw err;
-    });
-  }
+        const newMultiplayerStats = {
+          gamesPlayed: (stats.multiplayer?.gamesPlayed || 0) + 1,
+          totalRounds: (stats.multiplayer?.totalRounds || 0) + rounds,
+          totalScore: (stats.multiplayer?.totalScore || 0) + score,
+        };
 
-  updateMultiplayerModeStats(uid: string, rounds: number, totalScore: number): Promise<void> {
-    const statsDocRef: AngularFirestoreDocument<UserStats> = this.afs.doc(`userStats/${uid}`);
-    const increment = firebase.firestore.FieldValue.increment;
-    return statsDocRef.update({
-      'multiplayer.gamesPlayed': increment(1),
-      'multiplayer.totalRounds': increment(rounds),
-      'multiplayer.totalScore': increment(totalScore)
-    } as any).catch(err => {
-      if (err.code === 'not-found' || err.message.includes('No document to update') || err.message.includes('does not exist')) {
-        return this.initializeStats(uid, 'multiplayer').then(() => this.updateMultiplayerModeStats(uid, rounds, totalScore));
-      }
-      throw err;
-    });
+        transaction.set(statsRef, { ...stats, multiplayer: newMultiplayerStats }, { merge: true });
+      });
+    } catch (error) {
+      console.error(`Error updating multiplayer mode stats for user ${uid}:`, error);
+      throw error;
+    }
   }
 }

@@ -7,9 +7,11 @@ import { CustomSettingsComponent } from './custom-settings/custom-settings.compo
 import { CreateGameComponent } from './create-game/create-game.component';
 import { LoginComponent } from './login/login.component';
 import { ProfileComponent } from './profile/profile.component';
+import { SharedGameComponent } from './shared-game/shared-game.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
+  { path: 'game/:code', component: SharedGameComponent }, // <-- Add this line
   { path: 'game', component: GameComponent },
   { path: 'results', component: ResultsComponent },
   { path: 'custom-settings', component: CustomSettingsComponent },

@@ -111,7 +111,7 @@
             <div class="stat-card" *ngIf="stats.custom as customStats">
               <h3>Custom Mode</h3>
               <p><strong>Games Played:</strong> {{ customStats.gamesPlayed || 0 }}</p>
-              <p><strong>Average Rounds:</strong> {{ getAverage(customStats.totalRounds, customStats.gamesPlayed) }}</p>
+              <p><strong>Total Rounds Played:</strong> {{ customStats.totalRounds || 0 }}</p>
               <p><strong>Average Score/Round:</strong> {{ getAverage(customStats.totalScore, customStats.totalRounds) }}</p>
             </div>
 

@@ -14,7 +14,7 @@
         {{ user.isAnonymous ? 'Profile / Login' : 'Profile' }}
       </button>
       <div class="login-prompt" *ngIf="(user$ | async)?.isAnonymous">
-        <span class="prompt-text">Login or create an account to save your name and progress (In development)!</span>
+        <span class="prompt-text">Login or create an account to save your name and progress!</span>
         <span class="arrow">⤴</span>
       </div>
     </div>
@@ -136,6 +136,6 @@
 
   <!-- Version and Contact Footer -->
   <footer class="version-footer">
-    Version 2.0.0 "MultiStats" - For any issues/bugs/suggestions, please email bconomy.wiki@gmail.com or join the Discord at <a href="https://discord.gg/XtTbvV2p" target="_blank" rel="noopener noreferrer">https://discord.gg/XtTbvV2p</a>
+    Version 2.1.0 "Scroll" - For any issues/bugs/suggestions, please email bconomy.wiki@gmail.com or join the Discord at <a href="https://discord.gg/XtTbvV2p" target="_blank" rel="noopener noreferrer">https://discord.gg/XtTbvV2p</a>
   </footer>
 </div>

@@ -41,7 +41,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   // Content for the "About" tab
   aboutContent = `
 <h3>About Better Bible Guesser</h3>
-<p>This project was inspired by the original <a href="https://bibleguesser.com/" target="_blank" rel="noopener noreferrer">bibleguesser.com</a> by Alain R.</p>
+<p>This project was inspired by the original <a href="https://bibleguesser.com/" target="_blank" rel="noopener noreferrer">Bible Guesser</a> by Alain R.</p>
 <p>The goal is to provide a fun and engaging way to test and improve your knowledge of the Holy Scripture. Whether you're a seasoned scholar or just beginning your journey, we hope this game is a blessing to you.</p>
   `;
 
@@ -101,6 +101,13 @@ export class HomeComponent implements OnInit, OnDestroy {
   // You can update the changelog text here.
   // Using backticks (`) allows for multi-line strings.
   changelogContent = `
+<h3>Version 2.1.0 "Scroll"</h3>
+<ul>
+  <li>Added detailed breakdown of stats by game mode.</li>
+  <li>Implemented NEW scroll-bar picker for guess input!</li>
+  <li>Improved mobile responsiveness and layout.</li>
+  <li>Enhanced performance for loading verses and game start times.</li>
+</ul>
 <h3>Version 2.0.0 "MultiStats"</h3>
 <ul>
   <li>Added statistics tracking for all game modes.</li>

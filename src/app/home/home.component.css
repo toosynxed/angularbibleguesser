@@ -1,11 +1,22 @@
 .header-actions {
-  position: absolute;
-  top: 1rem;
-  left: 1rem;
-  right: 1rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  width: 100%;
+  margin-bottom: 1rem; /* Add space between buttons and logo */
+}
+
+/* On smaller screens, stack the header buttons for better spacing */
+@media (max-width: 480px) {
+  .header-actions {
+    /* flex-direction: column;
+    align-items: stretch; /* Make buttons full width */
+    gap: 0.5rem;
+  }
+
+  .logo {
+    max-width: 70%; /* Make logo smaller on mobile */
+  }
 }
 
 .coming-soon-stats {
@@ -16,12 +27,12 @@
   color: var(--text-color, #333);
   cursor: default; /* Indicates it's not clickable */
 }
-
 .logo {
-  max-width: 300px; /* Adjust this value to your preference */
+  max-height: 300px; /* Adjust this value to your preference */
   height: auto;
   margin-bottom: 1rem;
 }
+
 /* Add these styles to src/app/home/home.component.css */
 
 .stats-area {

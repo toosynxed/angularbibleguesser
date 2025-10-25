@@ -131,6 +131,36 @@ export class ScrollPickerComponent implements OnChanges, AfterViewInit {
     this.el.nativeElement.querySelector('.scroll-picker-list').style.transition = 'none';
   }
 
+  // --- Touch Handlers ---
+
+  onTouchStart(event: TouchEvent) {
+    cancelAnimationFrame(this.animationFrameId);
+    event.preventDefault();
+    this.isDragging = true;
+    this.dragStartTop = this.listTop;
+    this.dragStartY = this.lastDragY = event.touches[0].clientY;
+    this.panVelocity = 0;
+    this.el.nativeElement.querySelector('.scroll-picker-list').style.transition = 'none';
+  }
+
+  onTouchMove(event: TouchEvent) {
+    if (!this.isDragging) return;
+    event.preventDefault();
+
+    const delta = event.touches[0].clientY - this.lastDragY;
+    this.panVelocity = delta;
+    this.lastDragY = event.touches[0].clientY;
+
+    const newTop = this.dragStartTop + (event.touches[0].clientY - this.dragStartY);
+    this.listTop = this.clampTop(newTop);
+    this.updateSelectedIndexFromTop();
+  }
+
+  onMouseUp(event: MouseEvent | TouchEvent) {
+    // This method is called by touchend and simply delegates to the mouseup handler
+    this.onWindowMouseUp(event as MouseEvent);
+  }
+
   private momentumScroll(): void {
     this.listTop = this.clampTop(this.listTop + this.panVelocity);
     this.panVelocity *= 0.95; // Friction

@@ -1,9 +1,9 @@
 <div class="scroll-picker"
      (wheel)="onWheel($event)"
      (mousedown)="onMouseDown($event)"
-     (panstart)="onPanStart($event)"
-     (panmove)="onPanMove($event)"
-     (panend)="onPanEnd($event)">
+     (touchstart)="onTouchStart($event)"
+     (touchmove)="onTouchMove($event)"
+     (touchend)="onMouseUp($event)">
   <div class="scroll-picker-list" [style.top.px]="listTop">
     <div *ngFor="let item of items" class="scroll-picker-item" [class.selected]="items[selectedIndex] === item">
       {{ item }}

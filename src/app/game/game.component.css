@@ -96,5 +96,5 @@ main {
 .verse-picker { flex: 1; }
 
 .feedback, .actions {
-  margin-top: 1rem;
+  margin-top: 0rem;
 }

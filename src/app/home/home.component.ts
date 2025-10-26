@@ -101,7 +101,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   // You can update the changelog text here.
   // Using backticks (`) allows for multi-line strings.
   changelogContent = `
-<h3>Version 2.1.1</h3>
+<h3>Version 2.1.1 - beta</h3>
 <ul>
   <li>Changed Normal Mode to 5 rounds by default.</li>
   <li>Mobile layout rework</li>
@@ -143,7 +143,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   lobbies and play with other players!</li>
 </ul>
 
-<h3>Version 1.4.0 open-beta</h3>
+<h3>Version 1.4.0 pre-alpha</h3>
 <ul>
   <li>Released onto the web using IONIS Hosting!</li>
   <li>Implemented Create Mode.</li>

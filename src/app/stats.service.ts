@@ -27,7 +27,7 @@ export class StatsService {
         const stats = doc.data() || {};
 
         const newNormalStats = {
-          gamesPlayed: (stats.normal?.gamesPlayed || 0) + 1,
+          ...stats.normal,
           totalScore: (stats.normal?.totalScore || 0) + score,
           totalStars: (stats.normal?.totalStars || 0) + stars,
         };
@@ -37,6 +37,26 @@ export class StatsService {
     } catch (error) {
       console.error(`Error updating normal mode stats for user ${uid}:`, error);
       throw error; // Re-throw to propagate the error if necessary
+    }
+  }
+
+  async incrementNormalGamesPlayed(uid: string): Promise<void> {
+    const statsRef = this.getStatsDoc(uid).ref;
+    try {
+      return await this.afs.firestore.runTransaction(async (transaction) => {
+        const doc = await transaction.get(statsRef);
+        const stats = doc.data() || {};
+
+        const newNormalStats = {
+          ...stats.normal,
+          gamesPlayed: (stats.normal?.gamesPlayed || 0) + 1,
+        };
+
+        transaction.set(statsRef, { ...stats, normal: newNormalStats }, { merge: true });
+      });
+    } catch (error) {
+      console.error(`Error incrementing normal games played for user ${uid}:`, error);
+      throw error;
     }
   }
 

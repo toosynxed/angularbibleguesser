@@ -30,7 +30,7 @@ export class HomeComponent implements OnInit, OnDestroy {
 <p>Your goal is to guess the book, chapter, and verse number of the highlighted verse. A passage from the Bible will be displayed with one verse highlighted in purple. Use the context slider to show more or fewer surrounding verses to help you guess.</p>
 <h4>Game Modes</h4>
 <ul>
-  <li><b>Normal Mode:</b> A quick game with a single random verse.</li>
+  <li><b>Normal Mode:</b> A standard 5-round game with random verses. See your results after each round!</li>
   <li><b>Custom Mode:</b> Customize your game by setting the number of rounds, time limit, and which books of the Bible to draw verses from.</li>
   <li><b>Create Mode:</b> Hand-pick specific verses to create a custom challenge for yourself or to share with friends.</li>
   <li><b>Play with Code:</b> Enter a game code you've received to play a specific set of verses created by another player.</li>
@@ -101,6 +101,11 @@ export class HomeComponent implements OnInit, OnDestroy {
   // You can update the changelog text here.
   // Using backticks (`) allows for multi-line strings.
   changelogContent = `
+<h3>Version 2.1.1</h3>
+<ul>
+  <li>Changed Normal Mode to 5 rounds by default.</li>
+  <li>Mobile layout rework</li>
+</ul>
 <h3>Version 2.1.0 "Scroll"</h3>
 <ul>
   <li>Added detailed breakdown of stats by game mode.</li>

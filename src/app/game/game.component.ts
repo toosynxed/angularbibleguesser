@@ -79,8 +79,10 @@ export class GameComponent implements OnInit, OnDestroy {
       mode: 'normal' | 'custom' | 'created' | 'shared' | 'multiplayer', // Added 'shared' here as well
       verseIds?: number[],
       settings?: GameSettings,
-      lobbyId?: string
+      lobbyId?: string,
+      results?: RoundResult[]
     };
+    this.results = state?.results || []; // Restore results if coming back from inter-round results page
     this.lobbyId = state?.lobbyId || null;
     this.seededVerseIds = state?.verseIds || null;
     this.gameMode = state?.mode || (this.seededVerseIds ? 'created' : 'normal');
@@ -90,19 +92,23 @@ export class GameComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    if (this.gameMode === 'multiplayer' && this.lobbyId) {
-      this.setupMultiplayerGame();
-    } else {
-      this.setupSinglePlayerGame();
-    }
     // Load book options for the picker
     this.bibleService.getBooks().subscribe(books => {
       this.bookOptions = books;
     });
+
+    if (this.gameMode === 'multiplayer' && this.lobbyId) {
+      this.setupMultiplayerGame();
+    } else if (this.results.length > 0) {
+      this.continueSinglePlayerGame();
+    } else {
+      this.setupSinglePlayerGame();
+    }
   }
 
   setupSinglePlayerGame(): void {
-      this.totalRounds = this.seededVerseIds?.length || this.gameSettings?.rounds || 1;
+      this.totalRounds = (this.gameMode === 'normal') ? 5 : (this.seededVerseIds?.length || this.gameSettings?.rounds || 1);
+      this.currentRound = 0; // Start at 0 for a new game
 
       if (this.gameSettings) {
         this.contextSize = this.gameSettings.contextSize;
@@ -112,26 +118,39 @@ export class GameComponent implements OnInit, OnDestroy {
         }
       }
 
-      this.roundState$.pipe(
-        concatMap(() => {
-          this.isLoading = true;
-          if (this.seededVerseIds && this.seededVerseIds.length > 0) {
-            const verseId = this.seededVerseIds[this.currentRound - 1];
-            return this.bibleService.getVerseById(verseId);
-          } else {
-            if (this.gameMode === 'custom' && this.gameSettings?.books && this.gameSettings.books.length > 0) {
-              return this.bibleService.getRandomVerse(this.gameSettings.books);
-            }
-            return this.bibleService.getRandomVerse();
-          }
-        }),
-        takeUntil(this.destroy$)
-      ).subscribe(verse => {
-        this.currentVerse = verse;
-        if (verse) this.updateVerseContext();
-      });
-
+      this.subscribeToRoundState();
       this.startNewRound();
+  }
+
+  continueSinglePlayerGame(): void {
+    // This method is for when we navigate back from the results page
+    this.totalRounds = (this.gameMode === 'normal') ? 5 : (this.seededVerseIds?.length || this.gameSettings?.rounds || 1);
+    this.currentRound = this.results.length; // Restore round number
+    this.subscribeToRoundState();
+    this.startNewRound();
+  }
+
+  private subscribeToRoundState(): void {
+    this.roundState$.pipe(
+      concatMap(() => {
+        this.isLoading = true;
+        if (this.seededVerseIds && this.seededVerseIds.length > 0) {
+          const verseId = this.seededVerseIds[this.currentRound - 1];
+          return this.bibleService.getVerseById(verseId);
+        } else {
+          if (this.gameMode === 'custom' && this.gameSettings?.books && this.gameSettings.books.length > 0) {
+            return this.bibleService.getRandomVerse(this.gameSettings.books);
+          }
+          return this.bibleService.getRandomVerse();
+        }
+      }),
+      takeUntil(this.destroy$)
+    ).subscribe(verse => {
+      this.currentVerse = verse;
+      if (verse) {
+        this.updateVerseContext();
+      }
+    });
   }
 
   setupMultiplayerGame(): void {
@@ -201,6 +220,11 @@ export class GameComponent implements OnInit, OnDestroy {
   }
 
   startNewRound(): void {
+    if (this.currentRound >= this.totalRounds) {
+      this.finishGame();
+      return;
+    }
+
     if (this.gameMode !== 'multiplayer') {
       this.currentRound++;
       this.isRoundOver = false;
@@ -386,7 +410,14 @@ export class GameComponent implements OnInit, OnDestroy {
         contextSize: this.contextSize,
         timeLimit: 0, books: []
       };
-      this.router.navigate(['/results'], { state: { results: this.results, settings: settings, mode: this.gameMode } });
+      this.router.navigate(['/results'], {
+        state: {
+          results: this.results,
+          settings: settings,
+          mode: this.gameMode,
+          verseIds: this.seededVerseIds
+        }
+      });
     }
   }
 

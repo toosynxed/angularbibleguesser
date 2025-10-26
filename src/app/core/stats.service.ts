@@ -42,8 +42,9 @@ export class StatsService {
 
   updateNormalModeStats(uid: string, score: number, stars: number): Promise<void> {
     const statsDocRef = doc(this.firestore, `userStats/${uid}`);
+    // This method is called after each round. We only increment score and stars.
+    // gamesPlayed is incremented separately on the final results page.
     return updateDoc(statsDocRef, {
-      'normal.gamesPlayed': increment(1),
       'normal.totalScore': increment(score),
       'normal.totalStars': increment(stars)
     }).catch(err => {

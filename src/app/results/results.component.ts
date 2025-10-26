@@ -33,6 +33,7 @@ export class ResultsComponent implements OnInit {
   // Single Player
   results: RoundResult[] = [];
   gameState: GameState;
+  isFinalRound = false;
   gameDataForSharing: any;
 
   // Multiplayer
@@ -148,6 +149,7 @@ export class ResultsComponent implements OnInit {
         this.totalScore = this.results.reduce((acc, r) => acc + r.score, 0);
         this.totalStars = this.results.reduce((acc, r) => acc + r.stars, 0);
         this.gameDataForSharing = { mode: 'shared', verseIds: this.results.map(r => r.verse.verseId), settings: this.gameState.settings };
+        this.isFinalRound = this.results.length >= this.gameState.settings.rounds;
         this.generatePermanentUrl(this.gameDataForSharing);
       }
     } else {
@@ -212,8 +214,13 @@ export class ResultsComponent implements OnInit {
 
       if (mode === 'normal') {
         const totalStars = results.reduce((sum, r) => sum + r.stars, 0);
-        await this.statsService.updateNormalModeStats(user.uid, totalScore, totalStars);
-        console.log('Normal stats update initiated.');
+        // Only update total score and stars per round.
+        // gamesPlayed is updated only when all rounds are complete.
+        await this.statsService.updateNormalModeStats(user.uid, results[results.length - 1].score, results[results.length - 1].stars);
+        if (results.length === this.gameState.settings.rounds) {
+          await this.statsService.incrementNormalGamesPlayed(user.uid);
+        }
+        console.log(`Normal stats update initiated for round ${results.length}.`);
       } else if (mode === 'custom' || mode === 'created' || mode === 'shared') {
         await this.statsService.updateCustomModeStats(user.uid, results.length, totalScore);
         console.log('Custom/Create/Shared stats update initiated.');
@@ -239,5 +246,15 @@ export class ResultsComponent implements OnInit {
 
   getStarArray(count: number): any[] {
     return new Array(Math.round(count));
+  }
+
+  continueGame(): void {
+    // Navigate back to the game component, passing the current results
+    // The game component will see the results and start the next round
+    this.router.navigate(['/game'], {
+      state: {
+        ...this.gameState
+      }
+    });
   }
 }

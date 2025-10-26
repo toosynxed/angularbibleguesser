@@ -124,3 +124,62 @@
   color: white;
   border-color: var(--primary-color);
 }
+
+/* --- Mobile Layout --- */
+@media (max-width: 768px) {
+  .lobby-container {
+    flex-direction: column;
+    padding: 0.5rem;
+    gap: 0.5rem;
+    height: 100vh; /* Full viewport height */
+    overflow: hidden; /* Prevent entire page from scrolling */
+  }
+
+  .lobby-sidebar {
+    flex: 0 0 auto; /* Don't grow or shrink, base size on content */
+    min-width: unset;
+    width: 100%;
+    padding: 0.5rem;
+    background-color: transparent;
+    border-bottom: 1px solid var(--border-color);
+    border-radius: 0;
+  }
+
+  .lobby-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .lobby-info .game-code {
+    font-size: 1.5rem;
+    padding: 0.25rem 0.5rem;
+    margin: 0;
+  }
+
+  .player-list {
+    display: none; /* Hide player list in the top bar for space */
+  }
+
+  .settings-main {
+    flex: 1; /* Take up remaining space */
+    overflow-y: auto; /* Allow settings to scroll internally */
+    padding: 0.5rem;
+  }
+
+  .book-selection {
+    display: flex;
+    flex-direction: column;
+    height: 100%; /* Make it fill the settings area */
+  }
+
+  .book-grid {
+    flex-grow: 1; /* Allow grid to take up space */
+    overflow-y: auto; /* Make the book grid scrollable */
+    max-height: 300px; /* Adjust as needed */
+    padding: 0.5rem;
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+  }
+}

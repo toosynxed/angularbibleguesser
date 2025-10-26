@@ -30,7 +30,7 @@
 .logo {
   max-height: 300px; /* Adjust this value to your preference */
   height: auto;
-  margin-bottom: 1rem;
+  margin-bottom: 0.25rem; /* Reduced margin for tighter spacing */
 }
 
 /* Add these styles to src/app/home/home.component.css */
@@ -284,4 +284,9 @@
   border-bottom: 1px solid var(--border-color);
   padding-bottom: 0.5rem;
   margin-bottom: 1rem;
+}
+
+/* Add top margin to the header to prevent overlap with login prompt */
+header {
+  margin-top: 2rem;
 }

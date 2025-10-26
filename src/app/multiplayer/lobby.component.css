@@ -34,6 +34,7 @@
 
 .lobby-info .share-text {
   font-size: 0.9rem;
+  min-width: 119px;
   color: var(--text-secondary-color);
 }
 
@@ -139,7 +140,7 @@
     flex: 0 0 auto; /* Don't grow or shrink, base size on content */
     min-width: unset;
     width: 100%;
-    padding: 0.5rem;
+    padding: 0rem;
     background-color: transparent;
     border-bottom: 1px solid var(--border-color);
     border-radius: 0;

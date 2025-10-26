@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { first } from 'rxjs/operators';
 import { AuthService } from '../auth.service';
+import { BibleService } from '../bible.service';
 import { LobbyService } from '../lobby.service';
 
 @Component({
@@ -17,7 +18,12 @@ export class MultiplayerHomeComponent implements OnInit, OnDestroy {
   isLoggedIn = false;
   private userSubscription: Subscription;
 
-  constructor(private lobbyService: LobbyService, private authService: AuthService, private router: Router) { }
+  constructor(
+    private lobbyService: LobbyService,
+    private authService: AuthService,
+    private router: Router,
+    private bibleService: BibleService
+  ) { }
 
   ngOnInit(): void {
     this.userSubscription = this.authService.user$.subscribe(user => {
@@ -41,7 +47,15 @@ export class MultiplayerHomeComponent implements OnInit, OnDestroy {
     }
     const user = await this.authService.user$.pipe(first()).toPromise();
     if (!user) { console.error('User not authenticated!'); return; }
-    const lobbyId = await this.lobbyService.createLobby({ uid: user.uid, displayName: this.displayName.trim(), isHost: true }, { rounds: 5, contextSize: 10, timeLimit: 0, books: [] });
+
+    // Get all books to set as the default for the new lobby
+    const allBooks = await this.bibleService.getBooks().pipe(first()).toPromise();
+
+    const lobbyId = await this.lobbyService.createLobby(
+      { uid: user.uid, displayName: this.displayName.trim(), isHost: true },
+      { rounds: 5, contextSize: 10, timeLimit: 0, books: allBooks || [] }
+    );
+
     this.router.navigate(['/multiplayer/loading'], { state: { lobbyId: lobbyId } });
   }
 

@@ -66,9 +66,9 @@ main {
 
 .verse-actions {
   position: absolute;
-  top: 5px;
-  right: 5px;
-  z-index: 10;
+  top: -35px; /* Position it above the verse-context box */
+  right: 0;
+  z-index: 5; /* Lower z-index is fine */
 }
 
 .context-slider {

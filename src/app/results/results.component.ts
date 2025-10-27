@@ -19,9 +19,10 @@ export interface GameState {
 
 interface LeaderboardPlayer {
   uid: string;
+  isHost: boolean;
   displayName: string;
   rank?: number;
-  score: number;
+  totalScore: number;
 }
 
 @Component({
@@ -69,22 +70,22 @@ export class ResultsComponent implements OnInit {
       if (this.lobby) {
         this.lobbyService.getLobbyPlayers(this.lobby.id).pipe(take(1)).subscribe(players => {
           const playerMap = new Map<string, Player>(players.map(p => [p.uid, p]));
-          const playerScores: { [uid: string]: { displayName: string, score: number } } = {};
+          const playerScores: { [uid: string]: { displayName: string, totalScore: number } } = {};
 
           // Aggregate scores
           if (this.lobby.guesses) {
             Object.values(this.lobby.guesses).forEach(roundGuesses => {
               Object.entries(roundGuesses).forEach(([uid, guessData]) => {
                 if (!playerScores[uid]) {
-                  playerScores[uid] = { displayName: playerMap.get(uid)?.displayName || 'Player', score: 0 };
+                  playerScores[uid] = { displayName: playerMap.get(uid)?.displayName || 'Player', totalScore: 0 };
                 }
-                playerScores[uid].score += guessData.score;
+                playerScores[uid].totalScore += guessData.score;
               });
             });
           }
 
-          this.leaderboard = Object.entries(playerScores).map(([uid, data]) => ({ uid, ...data }))
-            .sort((a, b) => b.score - a.score)
+          this.leaderboard = Object.entries(playerScores).map(([uid, data]) => ({ uid, ...data, isHost: this.lobby.hostId === uid }))
+            .sort((a, b) => b.totalScore - a.totalScore)
             .map((player, index) => ({ ...player, rank: index + 1 }));
           });
         this.gameDataForSharing = { mode: 'shared', verseIds: this.lobby.verseIds, settings: this.lobby.gameSettings };

@@ -177,10 +177,6 @@ export class GameComponent implements OnInit, OnDestroy {
       // Set game settings from the lobby
       this.totalRounds = lobby.gameSettings.rounds;
       this.contextSize = lobby.gameSettings.contextSize;
-      if (lobby.gameSettings.timeLimit > 0) {
-        this.timeLeft = lobby.gameSettings.timeLimit;
-        this.startTimer();
-      }
 
       // If the round has changed, reset the view
       if (this.currentRound !== lobby.currentRound + 1) {

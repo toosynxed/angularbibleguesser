@@ -285,6 +285,8 @@ export class GameComponent implements OnInit, OnDestroy {
       .subscribe(verses => {
         this.verseTextWithContext = verses;
         this.isLoading = false;
+        // Automatically scroll to the highlighted verse
+        setTimeout(() => this.scrollToGuessingVerse(), 0);
       });
   }
 

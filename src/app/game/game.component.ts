@@ -40,6 +40,7 @@ export class GameComponent implements OnInit, OnDestroy {
   lobby$: Observable<Lobby>;
   players$: Observable<Player[]>;
   userId: string;
+  isHost = false;
   isMultiplayerRoundOver = false;
   correctAnswer: string | null = null;
 
@@ -158,6 +159,7 @@ export class GameComponent implements OnInit, OnDestroy {
     this.players$ = this.lobbyService.getLobbyPlayers(this.lobbyId);
     this.authService.user$.pipe(first(user => !!user)).subscribe(user => this.userId = user.uid);
 
+
     this.lobby$.pipe(takeUntil(this.destroy$)).subscribe(lobby => {
       if (!lobby) {
         this.router.navigate(['/']); // Lobby was deleted
@@ -168,6 +170,9 @@ export class GameComponent implements OnInit, OnDestroy {
         this.router.navigate(['/multiplayer/leaderboard', this.lobbyId]);
         return;
       }
+
+      // Determine if the current user is the host
+      this.isHost = lobby.hostId === this.userId;
 
       // Set game settings from the lobby
       this.totalRounds = lobby.gameSettings.rounds;
@@ -418,6 +423,13 @@ export class GameComponent implements OnInit, OnDestroy {
           verseIds: this.seededVerseIds
         }
       });
+    }
+  }
+
+  skipRoundForEveryone(): void {
+    if (this.isHost && this.gameMode === 'multiplayer') {
+      // The host forces the game to the leaderboard state.
+      this.lobbyService.showLeaderboard(this.lobbyId);
     }
   }
 

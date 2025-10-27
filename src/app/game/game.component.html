@@ -61,6 +61,12 @@
       <p>{{ feedback }}</p>
     </div>
 
+    <div class="actions" *ngIf="isHost && gameMode === 'multiplayer' && isRoundOver">
+        <button type="button" class="secondary-button" (click)="skipRoundForEveryone()">
+            Skip Waiting
+        </button>
+    </div>
+
     <div class="actions" *ngIf="isRoundOver && gameMode !== 'multiplayer'">
       <button type="button" (click)="next()">
         {{ currentRound < totalRounds ? 'Next Round' : 'See Results' }}

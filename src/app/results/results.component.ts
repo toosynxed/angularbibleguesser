@@ -86,7 +86,8 @@ export class ResultsComponent implements OnInit {
 
           this.leaderboard = Object.entries(playerScores).map(([uid, data]) => ({ uid, ...data, isHost: this.lobby.hostId === uid }))
             .sort((a, b) => b.totalScore - a.totalScore)
-            .map((player, index) => ({ ...player, rank: index + 1 }));
+            .slice(0, 10) // Show only top 10
+            .map((player, index) => ({ ...player, rank: index + 1 })); // Assign rank after slicing
           });
         this.gameDataForSharing = { mode: 'shared', verseIds: this.lobby.verseIds, settings: this.lobby.gameSettings };
         this.generatePermanentUrl(this.gameDataForSharing);

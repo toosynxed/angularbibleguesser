@@ -53,7 +53,8 @@ export class MultiplayerLeaderboardComponent implements OnInit, OnDestroy {
             }, 0);
             return { ...p, score: totalScore };
           })
-          .sort((a, b) => b.score - a.score);
+          .sort((a, b) => b.score - a.score)
+          .slice(0, 5); // Show only top 5
       })
     );
 

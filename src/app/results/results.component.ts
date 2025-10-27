@@ -138,6 +138,7 @@ export class ResultsComponent implements OnInit {
             map(results => results.filter(r => r !== null)),
             tap(results => {
               this.totalScore = results.reduce((acc, r) => acc + (r?.score || 0), 0);
+              this.totalStars = results.reduce((acc, r) => acc + (r?.stars || 0), 0);
             })
           );
         })

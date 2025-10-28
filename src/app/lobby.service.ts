@@ -57,6 +57,11 @@ export class LobbyService {
   }
 
   async createLobby(host: Player, settings: GameSettings): Promise<string> {
+    // Enforce a maximum of 100 rounds
+    if (settings.rounds > 100) {
+      settings.rounds = 100;
+    }
+
     const id = this.afs.createId();
     host.joinedAt = firebase.firestore.FieldValue.serverTimestamp();
     const lobbyData: Lobby = {
@@ -101,6 +106,11 @@ export class LobbyService {
   }
 
   async updateLobbySettings(lobbyId: string, settings: GameSettings): Promise<void> {
+    // Enforce a maximum of 100 rounds
+    if (settings.rounds > 100) {
+      settings.rounds = 100;
+    }
+
     // Update the gameSettings field on the lobby document
     await this.afs.collection('lobbies').doc(lobbyId).update({
       gameSettings: settings,

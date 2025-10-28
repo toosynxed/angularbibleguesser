@@ -9,42 +9,51 @@
         <span>Stats</span>
       </button>
     </div>
-    <div class="login-area" *ngIf="user$ | async as user">
-      <button class="login-button secondary-action" routerLink="/login" *ngIf="user$ | async as user">
+    <div class="login-area" *ngIf="user$ | async as user; else showLoginButton">
+      <button class="login-button secondary-action" routerLink="/login">
         {{ user.isAnonymous ? 'Profile / Login' : 'Profile' }}
       </button>
       <div class="login-prompt" *ngIf="(user$ | async)?.isAnonymous">
         <span class="prompt-text">Login or create an account to save your name and progress!</span>
         <span class="arrow">⤴</span>
       </div>
+      <!-- Daily Challenge Button - will be positioned via CSS -->
+      <button class="daily-challenge-button secondary-action" disabled title="Coming Soon!">Daily</button>
     </div>
+    <!-- Fallback for when user$ is null (still loading) -->
+    <ng-template #showLoginButton>
+      <div class="login-area">
+        <button class="login-button secondary-action" routerLink="/login">Profile / Login</button>
+      </div>
+    </ng-template>
   </div>
 
   <header>
     <img src="assets/logo.png" alt="Better Bible Guesser • " class="logo">
-    <p>Test your knowledge of the Holy Scripture.</p>
+    <p class="header-text" style="margin-bottom: 1rem;">Test your knowledge of the Holy Scripture.</p>
   </header>
+  <main class="home-main" style="padding-top:0px;" *ngIf="!showCustomModesMenu">
+      <h2 style="margin-block-start: 0px; margin-block-end: 0px;">Choose a Game Mode</h2>
+      <!-- Display error messages here -->
+      <p *ngIf="error" class="error-message">{{ error }}</p>
 
-  <main class="home-main" style="padding-top:0px">
-    <h2  style="margin-block-start: 0px; margin-block-end: 0px;">Choose a Game Mode</h2>
-    <!-- Display error messages here -->
-    <p *ngIf="error" class="error-message">{{ error }}</p>
+      <button class="primary" (click)="startGame('normal')">Normal Mode</button>
+      <button class="primary" (click)="showCustomModesMenu = true">Custom Modes</button>
+      <button class="primary" (click)="goToMultiplayer()">Online Multiplayer Mode</button>
+      <button class="secondary-action" (click)="showCodeInput = !showCodeInput">Upload Via Code</button>
 
-    <button class="primary" (click)="startGame('normal')">Normal Mode</button>
-    <button class="primary" (click)="startGame('custom')">Custom Mode</button>
-    <button class="primary" (click)="createGame()">Create Mode</button>
-    <button class="primary" (click)="goToMultiplayer()">Online Multiplayer Mode</button>
-    <button class="secondary-action" (click)="showCodeInput = !showCodeInput">Play with Code</button>
+      <div *ngIf="showCodeInput" class="code-input-container">
+        <input type="text" [(ngModel)]="gameCode" placeholder="Enter game code..." (keyup.enter)="playFromCode()">
+        <button class="secondary-action" (click)="playFromCode()">Start from Code</button>
+      </div>
+  </main>
 
-    <div *ngIf="showCodeInput" class="code-input-container">
-      <input
-        type="text"
-        [(ngModel)]="gameCode"
-        placeholder="Enter game code..."
-        (keyup.enter)="playFromCode()"
-      >
-      <button class="secondary-action" (click)="playFromCode()">Start from Code</button>
-    </div>
+  <main class="home-main" style="padding-top:0px;" *ngIf="showCustomModesMenu">
+      <h2 style="margin-block-start: 0px; margin-block-end: 0px;">Custom Modes</h2>
+
+      <button class="primary" (click)="startGame('custom')">Custom Mode</button>
+      <button class="primary" (click)="createGame()">Create Mode</button>
+      <button class="secondary-action back-button" (click)="showCustomModesMenu = false">‹ Back</button>
   </main>
 
   <!-- Changelog Button -->
@@ -138,4 +147,6 @@
   <footer class="version-footer">
     Version 2.1.1-beta - For any issues/bugs/suggestions, please email bconomy.wiki@gmail.com or join the Discord at <a href="https://discord.gg/XtTbvV2p" target="_blank" rel="noopener noreferrer">https://discord.gg/XtTbvV2p</a>
   </footer>
+
+
 </div>

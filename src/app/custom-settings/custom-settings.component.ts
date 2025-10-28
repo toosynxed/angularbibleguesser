@@ -68,6 +68,11 @@ export class CustomSettingsComponent implements OnInit {
       alert('Please select at least one book to play with.');
       return;
     }
+    // Enforce a maximum of 100 rounds
+    if (this.settings.rounds > 100) {
+      this.settings.rounds = 100;
+    }
+
     this.router.navigate(['/game'], {
       state: {
         mode: 'custom', // Ensure correct mode is passed

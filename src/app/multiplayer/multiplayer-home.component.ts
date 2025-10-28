@@ -4,6 +4,7 @@ import { Subscription } from 'rxjs';
 import { first } from 'rxjs/operators';
 import { AuthService } from '../auth.service';
 import { BibleService } from '../bible.service';
+import { StatsService } from '../stats.service';
 import { LobbyService } from '../lobby.service';
 
 @Component({
@@ -23,14 +24,14 @@ export class MultiplayerHomeComponent implements OnInit, OnDestroy {
     private lobbyService: LobbyService,
     private authService: AuthService,
     private router: Router,
-    private bibleService: BibleService
+    private bibleService: BibleService,
+    private statsService: StatsService
   ) { }
 
   ngOnInit(): void {
     const navigation = this.router.getCurrentNavigation();
     if (navigation?.extras?.state?.['showTutorial']) {
       this.showTutorial = true;
-      localStorage.setItem('hasSeenMultiplayerTutorial', 'true');
     }
 
     this.userSubscription = this.authService.user$.subscribe(user => {
@@ -91,6 +92,7 @@ export class MultiplayerHomeComponent implements OnInit, OnDestroy {
   }
 
   closeTutorial(): void {
+    // TEMPORARY: Just hide the tutorial. Do not save the state.
     this.showTutorial = false;
   }
 }

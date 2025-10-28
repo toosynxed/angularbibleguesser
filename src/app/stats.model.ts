@@ -19,4 +19,5 @@ export interface UserStats {
   normal?: NormalModeStats;
   custom?: CustomModeStats;
   multiplayer?: MultiplayerModeStats;
+  hasSeenMultiplayerTutorial?: boolean;
 }

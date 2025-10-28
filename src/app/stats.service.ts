@@ -19,6 +19,10 @@ export class StatsService {
     return this.afs.collection('stats').doc<UserStats>(uid);
   }
 
+  updateUserStats(uid: string, data: Partial<UserStats>): Promise<void> {
+    return this.getStatsDoc(uid).set(data, { merge: true });
+  }
+
   async updateNormalModeStats(uid: string, score: number, stars: number): Promise<void> {
     const statsRef = this.getStatsDoc(uid).ref;
     try {

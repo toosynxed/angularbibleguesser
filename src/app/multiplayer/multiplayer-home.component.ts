@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Subscription } from 'rxjs';
-import { first } from 'rxjs/operators';
+import { Observable, Subscription } from 'rxjs';
+import { first, map } from 'rxjs/operators';
 import { AuthService } from '../auth.service';
 import { BibleService } from '../bible.service';
 import { StatsService } from '../stats.service';
@@ -18,6 +18,8 @@ export class MultiplayerHomeComponent implements OnInit, OnDestroy {
   displayName = '';
   isLoggedIn = false;
   private userSubscription: Subscription;
+  isAdmin$: Observable<boolean>;
+  showAdminPanel = false;
   showTutorial = false;
 
   constructor(
@@ -33,6 +35,10 @@ export class MultiplayerHomeComponent implements OnInit, OnDestroy {
     if (navigation?.extras?.state?.['showTutorial']) {
       this.showTutorial = true;
     }
+
+    this.isAdmin$ = this.authService.user$.pipe(
+      map(user => user ? this.authService.isAdmin(user.uid) : false)
+    );
 
     this.userSubscription = this.authService.user$.subscribe(user => {
       if (user && !user.isAnonymous) {

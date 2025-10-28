@@ -55,6 +55,9 @@
       <button class="secondary-action back-button" (click)="showCustomAndCodeMenu = false">‹ Back</button>
   </main>
 
+  <!-- Admin Panel -->
+  <app-admin-panel *ngIf="isAdmin$ | async"></app-admin-panel>
+
   <!-- Changelog Button -->
   <button class="changelog-button" (click)="showChangelog = true">Changelog</button>
 

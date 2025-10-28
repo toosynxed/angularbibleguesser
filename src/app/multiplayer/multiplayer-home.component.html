@@ -3,6 +3,9 @@
 <div class="container">
   <div class="header-controls">
     <button class="secondary-button" (click)="goBack()" title="Back to Home">‹ Home</button>
+    <button *ngIf="isAdmin$ | async" class="secondary-button admin-toggle" (click)="showAdminPanel = !showAdminPanel">
+      {{ showAdminPanel ? 'Hide Admin Panel' : 'Show Admin Panel' }}
+    </button>
   </div>
   <h1>Multiplayer</h1>
   <p>Create a lobby or join one with a code.</p>
@@ -17,4 +20,7 @@
     <input [(ngModel)]="lobbyCode" placeholder="Enter Lobby Code" (keyup.enter)="joinLobby()" />
     <button class="secondary" (click)="joinLobby()" [disabled]="!displayName.trim()">Join Lobby</button>
   </div>
+
+  <!-- Admin Panel -->
+  <app-admin-panel *ngIf="showAdminPanel"></app-admin-panel>
 </div>

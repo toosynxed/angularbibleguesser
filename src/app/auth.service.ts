@@ -13,7 +13,7 @@ export class AuthService {
   // --- ADMIN MANAGEMENT ---
   // Add the UIDs of your admin accounts here.
   private adminUids = [
-    'ZKz3W21df3cOz2KvY2pq8qpypd83'
+    'OHxIav7wuAYOowB7NG1P4cRKU1o2'
   ];
 
   constructor(private afAuth: AngularFireAuth) {

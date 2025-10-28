@@ -1,0 +1,31 @@
+<div class="lobbies-container">
+  <div class="lobbies-header">
+    <h3>Active Lobbies</h3>
+    <button (click)="loadLobbies()" class="refresh-button" title="Refresh List">🔄</button>
+  </div>
+  <div class="lobbies-list">
+    <div *ngIf="(lobbies$ | async)?.length === 0" class="no-lobbies">
+      No active lobbies found.
+    </div>
+    <table *ngIf="(lobbies$ | async)?.length > 0">
+      <thead>
+        <tr>
+          <th>Lobby Code</th>
+          <th>Host</th>
+          <th>Players</th>
+          <th>Game State</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let lobby of lobbies$ | async">
+          <td>{{ lobby.gameCode }}</td>
+          <td>{{ lobby.hostDisplayName }}</td>
+          <td>{{ lobby.playerCount }}</td>
+          <td>{{ getGameState(lobby) }}</td>
+          <td><button (click)="joinLobby(lobby.id)">Join</button></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

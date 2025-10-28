@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable, of, Subscription } from 'rxjs';
-import { first, switchMap } from 'rxjs/operators';
+import { first, map, switchMap } from 'rxjs/operators';
 import { ShareService } from '../share.service';
 import { AuthService } from '../auth.service';
 import { StatsService, } from '../stats.service';
@@ -24,6 +24,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   showStats = false;
   user$: Observable<firebase.User | null>;
   stats$: Observable<UserStats | undefined>;
+  isAdmin$: Observable<boolean>;
 
   // Content for the "Rules" tab
   rulesContent = `
@@ -212,6 +213,10 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.user$ = this.authService.user$;
+
+    this.isAdmin$ = this.user$.pipe(
+      map(user => user ? this.authService.isAdmin(user.uid) : false)
+    );
 
     this.stats$ = this.user$.pipe(
       switchMap(user => {

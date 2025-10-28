@@ -17,8 +17,6 @@
         <span class="prompt-text">Login or create an account to save your name and progress!</span>
         <span class="arrow">⤴</span>
       </div>
-      <!-- Daily Challenge Button - will be positioned via CSS -->
-      <button class="daily-challenge-button secondary-action" disabled title="Coming Soon!">Daily</button>
     </div>
     <!-- Fallback for when user$ is null (still loading) -->
     <ng-template #showLoginButton>
@@ -32,28 +30,29 @@
     <img src="assets/logo.png" alt="Better Bible Guesser • " class="logo">
     <p class="header-text" style="margin-bottom: 1rem;">Test your knowledge of the Holy Scripture.</p>
   </header>
-  <main class="home-main" style="padding-top:0px;" *ngIf="!showCustomModesMenu">
+  <main class="home-main" style="padding-top:0px;" *ngIf="!showCustomAndCodeMenu">
       <h2 style="margin-block-start: 0px; margin-block-end: 0px;">Choose a Game Mode</h2>
       <!-- Display error messages here -->
       <p *ngIf="error" class="error-message">{{ error }}</p>
 
       <button class="primary" (click)="startGame('normal')">Normal Mode</button>
-      <button class="primary" (click)="showCustomModesMenu = true">Custom Modes</button>
+      <button class="primary" disabled title="Coming Soon!">Daily Mode</button>
       <button class="primary" (click)="goToMultiplayer()">Online Multiplayer Mode</button>
+      <button class="primary" (click)="showCustomAndCodeMenu = true">Custom & Upload Codes</button>
+  </main>
+
+  <main class="home-main" style="padding-top:0px;" *ngIf="showCustomAndCodeMenu">
+      <h2 style="margin-block-start: 0px; margin-block-end: 0px;">Custom & Upload Modes</h2>
+
+      <button class="primary" (click)="startGame('custom')">Custom Mode</button>
+      <button class="primary" (click)="createGame()">Create Mode</button>
       <button class="secondary-action" (click)="showCodeInput = !showCodeInput">Upload Via Code</button>
 
       <div *ngIf="showCodeInput" class="code-input-container">
         <input type="text" [(ngModel)]="gameCode" placeholder="Enter game code..." (keyup.enter)="playFromCode()">
         <button class="secondary-action" (click)="playFromCode()">Start from Code</button>
       </div>
-  </main>
-
-  <main class="home-main" style="padding-top:0px;" *ngIf="showCustomModesMenu">
-      <h2 style="margin-block-start: 0px; margin-block-end: 0px;">Custom Modes</h2>
-
-      <button class="primary" (click)="startGame('custom')">Custom Mode</button>
-      <button class="primary" (click)="createGame()">Create Mode</button>
-      <button class="secondary-action back-button" (click)="showCustomModesMenu = false">‹ Back</button>
+      <button class="secondary-action back-button" (click)="showCustomAndCodeMenu = false">‹ Back</button>
   </main>
 
   <!-- Changelog Button -->

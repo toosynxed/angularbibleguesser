@@ -88,36 +88,6 @@
   max-width: 300px; /* Optional: constrain button width on larger screens */
 }
 
-/* --- Daily Challenge Button --- */
-.daily-challenge-button {
-  /* Desktop placement */
-  position: absolute;
-  right: 0; /* Aligns to the right of the login-area */
-  top: 4.5rem; /* Position it just above the header text */
-
-  /* Square box styling */
-  width: 60px;
-  height: 60px;
-  padding: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  /* Disabled look */
-  opacity: 0.5;
-  cursor: not-allowed;
-}
-
-/* Mobile placement */
-@media (max-width: 480px) {
-  .daily-challenge-button {
-    position: relative; /* Revert to flow */
-    top: auto;
-    right: auto;
-    align-self: center; /* Center it within the flex column */
-    margin-top: 1rem; /* Give it some space */
-  }
-}
-
 .back-button {
   margin-top: 1rem;
 }

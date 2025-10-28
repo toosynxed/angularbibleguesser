@@ -14,6 +14,7 @@ export interface Player {
   uid: string;
   displayName: string;
   isHost: boolean;
+  kicked?: boolean;
   joinedAt?: any;
 }
 
@@ -180,5 +181,14 @@ export class LobbyService {
         });
       }
     });
+  }
+
+  getActiveLobbies(): Observable<Lobby[]> {
+    // Get lobbies updated in the last 30 minutes.
+    const thirtyMinutesAgo = new Date(Date.now() - 30 * 60 * 1000);
+    return this.afs.collection<Lobby>('lobbies', ref =>
+      ref.where('lastUpdatedAt', '>', thirtyMinutesAgo)
+         .orderBy('lastUpdatedAt', 'desc')
+    ).valueChanges({ idField: 'id' });
   }
 }

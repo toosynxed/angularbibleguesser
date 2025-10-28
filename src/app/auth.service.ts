@@ -10,6 +10,12 @@ import firebase from 'firebase/compat/app';
 export class AuthService {
   user$: Observable<firebase.User | null>;
 
+  // --- ADMIN MANAGEMENT ---
+  // Add the UIDs of your admin accounts here.
+  private adminUids = [
+    'ZKz3W21df3cOz2KvY2pq8qpypd83'
+  ];
+
   constructor(private afAuth: AngularFireAuth) {
     this.user$ = this.afAuth.authState;
   }
@@ -71,5 +77,9 @@ export class AuthService {
     } else {
       throw new Error('Cannot reauthenticate. User or email not found.');
     }
+  }
+
+  isAdmin(uid: string): boolean {
+    return this.adminUids.includes(uid);
   }
 }

@@ -17,6 +17,7 @@ export class MultiplayerHomeComponent implements OnInit, OnDestroy {
   displayName = '';
   isLoggedIn = false;
   private userSubscription: Subscription;
+  showTutorial = false;
 
   constructor(
     private lobbyService: LobbyService,
@@ -26,6 +27,12 @@ export class MultiplayerHomeComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit(): void {
+    const navigation = this.router.getCurrentNavigation();
+    if (navigation?.extras?.state?.['showTutorial']) {
+      this.showTutorial = true;
+      localStorage.setItem('hasSeenMultiplayerTutorial', 'true');
+    }
+
     this.userSubscription = this.authService.user$.subscribe(user => {
       if (user && !user.isAnonymous) {
         this.isLoggedIn = true;
@@ -81,5 +88,9 @@ export class MultiplayerHomeComponent implements OnInit, OnDestroy {
 
   goBack(): void {
     this.router.navigate(['/']);
+  }
+
+  closeTutorial(): void {
+    this.showTutorial = false;
   }
 }

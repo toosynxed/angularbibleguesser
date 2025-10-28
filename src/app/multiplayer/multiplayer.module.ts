@@ -6,6 +6,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MultiplayerHomeComponent } from './multiplayer-home.component';
 import { LobbyComponent } from './lobby.component';
 import { LobbyLoadingComponent } from './lobby-loading.component';
+import { MultiplayerTutorialComponent } from '../multiplayer-tutorial/multiplayer-tutorial.component';
 import { LeaderboardComponent } from './leaderboard.component';
 
 // Define the routes specific to the multiplayer feature
@@ -21,7 +22,8 @@ const multiplayerRoutes: Routes = [
     MultiplayerHomeComponent,
     LobbyComponent,
     LobbyLoadingComponent,
-    LeaderboardComponent
+    LeaderboardComponent,
+    MultiplayerTutorialComponent
   ],
   imports: [
     CommonModule,

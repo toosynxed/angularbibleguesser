@@ -276,7 +276,13 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   goToMultiplayer(): void {
-    this.router.navigate(['/multiplayer']);
+    const hasSeenTutorial = localStorage.getItem('hasSeenMultiplayerTutorial');
+    if (!hasSeenTutorial) {
+      // First time visit, navigate with a state flag to show the tutorial
+      this.router.navigate(['/multiplayer'], { state: { showTutorial: true } });
+    } else {
+      this.router.navigate(['/multiplayer']);
+    }
   }
 
   getAverage(total: number, count: number): string {

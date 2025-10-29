@@ -72,16 +72,17 @@ export class LobbyComponent implements OnInit, OnDestroy {
         if (!lobby) {
           this.shareService.setErrorMessage('Lobby does not exist or has expired.');
           this.router.navigate(['/multiplayer']);
-        } else if (lobby.gameSettings) {
-          // Sync local settings with lobby settings
-          this.settings = lobby.gameSettings;
         } else if (lobby.gameState === 'in-progress' || lobby.gameState === 'leaderboard' || lobby.gameState === 'finished') {
+          // This check MUST come first. If the game has started, navigate immediately.
           this.router.navigate(['/game'], {
             state: {
               mode: 'multiplayer',
               lobbyId: this.lobbyId
             }
           });
+        } else if (lobby.gameSettings) {
+          // If the game hasn't started, sync local settings with lobby settings.
+          this.settings = lobby.gameSettings;
         }
       }),
       filter(lobby => !!lobby)

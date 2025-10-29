@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
+import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { Observable, of } from 'rxjs';
 import { switchMap, first } from 'rxjs/operators';
 import firebase from 'firebase/compat/app';
@@ -16,7 +17,10 @@ export class AuthService {
     'OHxIav7wuAYOowB7NG1P4cRKU1o2'
   ];
 
-  constructor(private afAuth: AngularFireAuth) {
+  constructor(
+    private afAuth: AngularFireAuth,
+    private afs: AngularFirestore
+    ) {
     this.user$ = this.afAuth.authState;
   }
 
@@ -58,8 +62,20 @@ export class AuthService {
   async updateProfile(displayName: string): Promise<void> {
     const user = await this.user$.pipe(first()).toPromise();
     if (user) {
-      return user.updateProfile({ displayName: displayName });
+      await user.updateProfile({ displayName: displayName });
+      // Also update the searchable 'users' collection in Firestore
+      return this.updateUserCollection(user.uid, displayName);
     }
+  }
+
+  // New method to keep the 'users' collection in sync
+  private updateUserCollection(uid: string, displayName: string): Promise<void> {
+    const userRef = this.afs.collection('users').doc(uid);
+    return userRef.set({
+      uid: uid,
+      displayName: displayName,
+      displayName_lowercase: displayName.toLowerCase()
+    }, { merge: true });
   }
 
   async deleteAccount(): Promise<void> {

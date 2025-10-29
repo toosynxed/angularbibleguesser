@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/compat/firestore';
 import { combineLatest, Observable, of } from 'rxjs';
-import { map, switchMap } from 'rxjs/operators';
+import { map, startWith, switchMap } from 'rxjs/operators';
 import { UserProfile, UserStats, UserProfileWithStats } from './stats.model';
 import firebase from 'firebase/compat/app';
 
@@ -36,7 +36,10 @@ export class StatsService {
         }
         const statsObservables = users.map(user =>
           this.getUserStats(user.uid).pipe(
-            map(stats => ({ ...user, stats }))
+            // Ensure the observable emits immediately, even if the doc doesn't exist.
+            // This prevents combineLatest from getting stuck.
+            startWith(undefined),
+            map(stats => ({ ...user, stats: stats || undefined }))
           )
         );
         return combineLatest(statsObservables);

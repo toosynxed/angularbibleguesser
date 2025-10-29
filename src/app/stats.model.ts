@@ -21,3 +21,14 @@ export interface UserStats {
   multiplayer?: MultiplayerModeStats;
   hasSeenMultiplayerTutorial?: boolean;
 }
+
+export interface UserProfile {
+  uid: string;
+  displayName: string;
+  displayName_lowercase: string;
+}
+
+export interface UserProfileWithStats extends UserProfile {
+  stats: UserStats | undefined;
+}
+

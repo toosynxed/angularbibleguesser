@@ -12,7 +12,7 @@ import { Component, Input } from '@angular/core';
 
       <app-manage-lobbies *ngIf="activeTab === 'lobbies'"></app-manage-lobbies>
       <app-manage-users *ngIf="activeTab === 'users'"></app-manage-users>
-      <!-- Placeholder for Search Stats -->
+      <app-search-stats *ngIf="activeTab === 'stats'"></app-search-stats>
     </div>
   `,
   styleUrls: ['./admin-panel.component.css']

@@ -44,6 +44,57 @@
   opacity: 0.5;
   cursor: not-allowed;
 }
+/* Styles for the new Stripe Support Section */
+.support-section {
+  position: fixed;
+  bottom: 3rem; /* Align with other floating buttons */
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 999; /* Ensure it's above other content but below modals */
+}
+
+.support-link {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.5rem 1rem;
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
+  text-decoration: none;
+  color: var(--text-secondary-color);
+  background-color: var(--background-color);
+  transition: background-color 0.2s ease, border-color 0.2s ease;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.support-link:hover {
+  background-color: var(--background-alt-color);
+  border-color: var(--primary-color);
+  color: var(--text-color);
+}
+
+.support-icon svg {
+  width: 24px; /* Make icon smaller */
+  height: 24px;
+}
+
+.support-text-desktop, .support-text-mobile {
+  margin: 0; /* Remove default paragraph margin */
+}
+
+.support-text-mobile {
+  display: none; /* Hidden by default on desktop */
+}
+
+/* On mobile devices (e.g., screen width 768px or less) */
+@media (max-width: 768px) {
+  .support-text-desktop {
+    display: none; /* Hide the long text */
+  }
+  .support-text-mobile {
+    display: block; /* Show the short text */
+  }
+}
 
 .stats-button svg {
   stroke: currentColor;

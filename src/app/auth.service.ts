@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { Observable, of } from 'rxjs';
+import { UserProfile } from './stats.model';
 import { switchMap, first } from 'rxjs/operators';
 import firebase from 'firebase/compat/app';
 
@@ -44,15 +45,33 @@ export class AuthService {
 
   async googleSignIn() {
     const provider = new firebase.auth.GoogleAuthProvider();
-    return this.afAuth.signInWithPopup(provider);
+    const credential = await this.afAuth.signInWithPopup(provider);
+    if (credential.user) {
+      await this.updateUserCollection(credential.user.uid, {
+        displayName: credential.user.displayName,
+        displayName_lowercase: credential.user.displayName.toLowerCase()
+      });
+    }
+    return credential;
   }
 
   async emailSignUp(email: string, password: string) {
-    return this.afAuth.createUserWithEmailAndPassword(email, password);
+    const credential = await this.afAuth.createUserWithEmailAndPassword(email, password);
+    if (credential.user) {
+      // Create a basic user profile document on sign-up
+      await this.updateUserCollection(credential.user.uid, {
+        displayName: 'New User', // A default name
+        displayName_lowercase: 'new user'
+      });
+    }
+    return credential;
   }
 
   async emailSignIn(email: string, password: string) {
-    return this.afAuth.signInWithEmailAndPassword(email, password);
+    // No profile creation needed here, as the user should already exist.
+    // If you wanted to sync on every sign-in, you could add logic here.
+    const credential = await this.afAuth.signInWithEmailAndPassword(email, password);
+    return credential;
   }
 
   signOut() {
@@ -64,18 +83,21 @@ export class AuthService {
     if (user) {
       await user.updateProfile({ displayName: displayName });
       // Also update the searchable 'users' collection in Firestore
-      return this.updateUserCollection(user.uid, displayName);
+      return this.updateUserCollection(user.uid, {
+        displayName: displayName,
+        displayName_lowercase: displayName.toLowerCase()
+      });
     }
   }
 
   // New method to keep the 'users' collection in sync
-  private updateUserCollection(uid: string, displayName: string): Promise<void> {
+  updateUserCollection(uid: string, data: Partial<UserProfile>): Promise<void> {
     const userRef = this.afs.collection('users').doc(uid);
-    return userRef.set({
-      uid: uid,
-      displayName: displayName,
-      displayName_lowercase: displayName.toLowerCase()
-    }, { merge: true });
+    return userRef.set({ uid, ...data }, { merge: true });
+  }
+
+  getUserProfile(uid: string): Observable<UserProfile | undefined> {
+    return this.afs.collection('users').doc<UserProfile>(uid).valueChanges();
   }
 
   async deleteAccount(): Promise<void> {

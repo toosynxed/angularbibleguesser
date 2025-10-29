@@ -110,10 +110,6 @@ export class LoginComponent implements OnInit, OnDestroy {
   async onGoogleSignIn(): Promise<void> {
     try {
       const credential = await this.authService.googleSignIn();
-      if (credential.user) {
-        // Ensure the user document is created/updated on Google Sign-In
-        await this.authService.updateProfile(credential.user.displayName);
-      }
       this.router.navigate(['/']);
     } catch (err) {
       this.error = err.message;

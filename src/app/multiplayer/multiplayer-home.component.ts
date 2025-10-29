@@ -98,7 +98,14 @@ export class MultiplayerHomeComponent implements OnInit, OnDestroy {
   }
 
   closeTutorial(): void {
-    // TEMPORARY: Just hide the tutorial. Do not save the state.
     this.showTutorial = false;
+    // When the tutorial is closed, update the user's profile in the 'users' collection.
+    this.authService.user$.pipe(
+      first(user => user && !user.isAnonymous) // Ensure we only proceed for logged-in users
+    ).subscribe(user => {
+      if (user) { // Check for user existence
+          this.authService.updateUserCollection(user.uid, { hasSeenMultiplayerTutorial: true });
+      }
+    });
   }
 }

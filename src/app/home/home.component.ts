@@ -281,13 +281,23 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   goToMultiplayer(): void {
-    const hasSeenTutorial = localStorage.getItem('hasSeenMultiplayerTutorial');
-    if (!hasSeenTutorial) {
-      // First time visit, navigate with a state flag to show the tutorial
-      this.router.navigate(['/multiplayer'], { state: { showTutorial: true } });
-    } else {
-      this.router.navigate(['/multiplayer']);
-    }
+    this.user$.pipe(first()).subscribe(user => {
+      if (user && !user.isAnonymous) {
+        // Logged-in user: check database
+        this.authService.getUserProfile(user.uid).pipe(first()).subscribe(profile => {
+          if (!profile || !profile.hasSeenMultiplayerTutorial) {
+            // If stats don't exist or flag is not set, show tutorial
+            this.router.navigate(['/multiplayer'], { state: { showTutorial: true } });
+          } else {
+            // User has already seen it
+            this.router.navigate(['/multiplayer']);
+          }
+        });
+      } else {
+        // For anonymous users, just navigate without the tutorial for now.
+        this.router.navigate(['/multiplayer']);
+      }
+    });
   }
 
   getAverage(total: number, count: number): string {

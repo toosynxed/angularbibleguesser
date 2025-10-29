@@ -19,16 +19,15 @@ export interface UserStats {
   normal?: NormalModeStats;
   custom?: CustomModeStats;
   multiplayer?: MultiplayerModeStats;
-  hasSeenMultiplayerTutorial?: boolean;
 }
 
 export interface UserProfile {
   uid: string;
   displayName: string;
   displayName_lowercase: string;
+  hasSeenMultiplayerTutorial?: boolean;
 }
 
 export interface UserProfileWithStats extends UserProfile {
   stats: UserStats | undefined;
 }
-

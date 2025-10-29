@@ -101,6 +101,10 @@ export class LobbyService {
     await this.afs.collection('lobbies').doc(lobbyId).collection('players').doc(player.uid).set(player);
   }
 
+  async kickPlayer(lobbyId: string, playerId: string): Promise<void> {
+    return this.afs.collection('lobbies').doc(lobbyId).collection('players').doc(playerId).update({ kicked: true });
+  }
+
   async assignNewHost(lobbyId: string, newHostId: string): Promise<void> {
     // This transaction ensures that we don't have a race condition for host migration
     return this.afs.collection('lobbies').doc(lobbyId).update({ hostId: newHostId });

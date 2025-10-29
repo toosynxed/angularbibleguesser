@@ -11,7 +11,7 @@ import { Component, Input } from '@angular/core';
       </div>
 
       <app-manage-lobbies *ngIf="activeTab === 'lobbies'"></app-manage-lobbies>
-      <!-- Placeholder for Manage Users -->
+      <app-manage-users *ngIf="activeTab === 'users'"></app-manage-users>
       <!-- Placeholder for Search Stats -->
     </div>
   `,

@@ -27,7 +27,7 @@ export class MultiplayerHomeComponent implements OnInit, OnDestroy {
     private authService: AuthService,
     private router: Router,
     private bibleService: BibleService,
-    private statsService: StatsService
+    private statsService: StatsService // This is required for dependency injection to work correctly.
   ) { }
 
   ngOnInit(): void {

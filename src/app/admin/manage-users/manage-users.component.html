@@ -1,0 +1,32 @@
+<div class="users-container">
+  <div class="users-header">
+    <h3>Active Users</h3>
+    <button (click)="loadAllPlayers()" class="refresh-button" title="Refresh List">🔄</button>
+  </div>
+  <div class="search-box">
+    <input type="text" [(ngModel)]="searchTerm" (ngModelChange)="applyFilter()" placeholder="Search by display name...">
+  </div>
+  <div class="users-list">
+    <div *ngIf="(filteredPlayers$ | async)?.length === 0" class="no-users">
+      No active users found.
+    </div>
+    <table *ngIf="(filteredPlayers$ | async)?.length > 0">
+      <thead>
+        <tr>
+          <th>Display Name</th>
+          <th>User State</th>
+          <th>Lobby Code</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let player of filteredPlayers$ | async">
+          <td>{{ player.displayName }}</td>
+          <td>{{ player.lobbyState }}</td>
+          <td>{{ player.lobbyCode }} <button class="join-lobby-small" (click)="joinLobby(player.lobbyId)">Join</button></td>
+          <td><button class="kick-button" (click)="kickPlayer(player.lobbyId, player.uid)">Kick</button></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

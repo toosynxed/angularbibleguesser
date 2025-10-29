@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { forkJoin, of, timer, Observable } from 'rxjs';
 import { map, switchMap, debounceTime, first, filter } from 'rxjs/operators';
 import { BibleService } from '../bible.service';
-import { GameData, ShareService, } from '../share.service';
+import { SharedGame, ShareService, } from '../share.service';
 import { GameSettings } from '../game-settings.model';
 
 @Component({
@@ -18,7 +18,7 @@ export class CreateGameComponent implements OnInit {
   errorMessage: string | null = null;
   longShareUrl: string | null = null;
   shortShareCode: string | null = null;
-  gameDataForSharing: GameData | null = null;
+  gameDataForSharing: SharedGame | null = null;
 
   timeOptions = [
     { value: 0, label: 'No Time Limit' },
@@ -127,9 +127,9 @@ export class CreateGameComponent implements OnInit {
       };
 
       this.gameDataForSharing = {
-        mode: 'create',
         verseIds: validVerseIds,
-        settings: gameSettings
+        gameSettings: gameSettings,
+        createdAt: new Date()
       };
 
       const longCode = this.shareService.encodeGameData(this.gameDataForSharing);

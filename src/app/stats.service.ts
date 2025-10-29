@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/compat/firestore';
-import { Observable } from 'rxjs';
-import { UserStats } from './stats.model';
+import { combineLatest, Observable, of } from 'rxjs';
+import { map, switchMap } from 'rxjs/operators';
+import { UserProfile, UserStats, UserProfileWithStats } from './stats.model';
 import firebase from 'firebase/compat/app';
 
 @Injectable({
@@ -13,6 +14,34 @@ export class StatsService {
 
   getUserStats(uid: string): Observable<UserStats | undefined> {
     return this.afs.collection('stats').doc<UserStats>(uid).valueChanges();
+  }
+
+  searchUsersAndGetStats(displayName: string): Observable<UserProfileWithStats[]> {
+    if (!displayName.trim()) {
+      return of([]);
+    }
+
+    // Firestore doesn't support case-insensitive or 'contains' queries well.
+    // This 'startsWith' query is a common and effective workaround.
+    const end = displayName.slice(0, -1) + String.fromCharCode(displayName.charCodeAt(displayName.length - 1) + 1);
+
+    return this.afs.collection<UserProfile>('users', ref => ref
+      .where('displayName_lowercase', '>=', displayName.toLowerCase())
+      .where('displayName_lowercase', '<', end.toLowerCase())
+      .limit(10)
+    ).valueChanges({ idField: 'uid' }).pipe(
+      switchMap(users => {
+        if (users.length === 0) {
+          return of([]);
+        }
+        const statsObservables = users.map(user =>
+          this.getUserStats(user.uid).pipe(
+            map(stats => ({ ...user, stats }))
+          )
+        );
+        return combineLatest(statsObservables);
+      })
+    );
   }
 
   private getStatsDoc(uid: string): AngularFirestoreDocument<UserStats> {

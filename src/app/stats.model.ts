@@ -19,6 +19,16 @@ export interface UserStats {
   normal?: NormalModeStats;
   custom?: CustomModeStats;
   multiplayer?: MultiplayerModeStats;
+  daily?: DailyModeStats;
+}
+
+export interface DailyModeStats {
+  currentStreak: number;
+  highestStreak: number;
+  completionHistory: { [date: string]: boolean }; // e.g. { '2024-05-21': true }
+  totalScore: number;
+  totalStars: number;
+  totalRoundsPlayed: number;
 }
 
 export interface UserProfile {

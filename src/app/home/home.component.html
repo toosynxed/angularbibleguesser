@@ -36,7 +36,7 @@
       <p *ngIf="error" class="error-message">{{ error }}</p>
 
       <button class="primary" (click)="startGame('normal')">Normal Mode</button>
-      <button class="primary" disabled title="Coming Soon!">Daily Mode</button>
+      <button class="primary" routerLink="/daily">Daily Mode</button>
       <button class="primary" (click)="goToMultiplayer()">Online Multiplayer Mode</button>
       <button class="primary" (click)="showCustomAndCodeMenu = true">Custom & Upload Codes</button>
   </main>
@@ -56,7 +56,10 @@
   </main>
 
   <!-- Admin Panel -->
-  <app-admin-panel *ngIf="isAdmin$ | async"></app-admin-panel>
+  <div *ngIf="isAdmin$ | async">
+    <app-admin-panel></app-admin-panel>
+    <button (click)="resetDailyVerses()">Reset Daily Verses (Admin)</button>
+  </div>
 
   <!-- Changelog Button -->
   <button class="changelog-button" (click)="showChangelog = true">Changelog</button>
@@ -135,6 +138,14 @@
               <h3>Multiplayer Mode</h3>
               <p><strong>Games Played:</strong> {{ multiStats.gamesPlayed || 0 }}</p>
               <p><strong>Average Score/Round:</strong> {{ getAverage(multiStats.totalScore, multiStats.totalRounds) }}</p>
+            </div>
+
+            <!-- Daily Mode Stats -->
+            <div class="stat-card" *ngIf="stats.daily as dailyStats">
+              <h3>Daily Mode</h3>
+              <p><strong>Highest Streak:</strong> {{ dailyStats.highestStreak || 0 }} days</p>
+              <p><strong>Average Score/Round:</strong> {{ getAverage(dailyStats.totalScore, dailyStats.totalRoundsPlayed) }}</p>
+              <p><strong>Average Stars/Round:</strong> {{ getAverage(dailyStats.totalStars, dailyStats.totalRoundsPlayed) }} / 3</p>
             </div>
           </div>
         </div>

@@ -91,14 +91,19 @@ export class BibleService {
           filteredVerses = verses.filter(v => bookSet.has(v.bookName));
         }
 
-        if (filteredVerses.length < count) {
-          // Not enough verses to meet the round count from the selected books.
-          // You might want to handle this more gracefully, but for now, we'll return what we have.
-          console.warn(`Requested ${count} verses, but only ${filteredVerses.length} were available in the selected books.`);
+        // Efficiently get 'count' random verses without shuffling the whole array
+        const randomVerseIds = new Set<number>();
+        if (filteredVerses.length < count) { // Not enough verses
+          console.warn(`Requested ${count} verses, but only ${filteredVerses.length} were available.`);
+          return filteredVerses.map(v => v.verseId);
         }
 
-        const shuffled = filteredVerses.sort(() => 0.5 - Math.random());
-        return shuffled.slice(0, count).map(v => v.verseId);
+        while (randomVerseIds.size < count) {
+          const randomIndex = Math.floor(Math.random() * filteredVerses.length);
+          randomVerseIds.add(filteredVerses[randomIndex].verseId);
+        }
+
+        return Array.from(randomVerseIds);
       })
     );
   }

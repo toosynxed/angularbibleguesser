@@ -8,6 +8,7 @@ import { ShareService } from '../share.service';
 import { GameSettings } from '../game-settings.model';
 import { Lobby, LobbyService, Player } from '../lobby.service';
 import { AuthService } from '../auth.service';
+import { DailyChallengeService } from '../daily-challenge.service';
 
 export interface RoundResult {
   verse: Verse;
@@ -28,7 +29,7 @@ export class GameComponent implements OnInit, OnDestroy {
   @ViewChild('verseContextContainer') private verseContextContainer: ElementRef<HTMLElement>;
 
   // Game State - Added 'shared' to the possible game modes
-  gameMode: 'normal' | 'custom' | 'created' | 'shared' | 'multiplayer' = 'normal';
+  gameMode: 'normal' | 'custom' | 'created' | 'shared' | 'multiplayer' | 'daily' = 'normal';
   totalRounds = 1;
   seededVerseIds: number[] | null = null;
   gameSettings: GameSettings | null = null; // To hold marathon settings
@@ -73,11 +74,12 @@ export class GameComponent implements OnInit, OnDestroy {
     private router: Router,
     private shareService: ShareService,
     private lobbyService: LobbyService,
-    private authService: AuthService
+    private authService: AuthService,
+    private dailyChallengeService: DailyChallengeService
   ) {
     const navigation = this.router.getCurrentNavigation();
     const state = navigation?.extras.state as {
-      mode: 'normal' | 'custom' | 'created' | 'shared' | 'multiplayer', // Added 'shared' here as well
+      mode: 'normal' | 'custom' | 'created' | 'shared' | 'multiplayer' | 'daily',
       verseIds?: number[],
       settings?: GameSettings,
       lobbyId?: string,
@@ -86,7 +88,7 @@ export class GameComponent implements OnInit, OnDestroy {
     this.results = state?.results || []; // Restore results if coming back from inter-round results page
     this.lobbyId = state?.lobbyId || null;
     this.seededVerseIds = state?.verseIds || null;
-    this.gameMode = state?.mode || (this.seededVerseIds ? 'created' : 'normal');
+    this.gameMode = state?.mode || 'normal';
     if ((this.gameMode === 'custom' || this.gameMode === 'created' || this.gameMode === 'shared') && state?.settings) {
       this.gameSettings = state.settings;
     }
@@ -108,16 +110,23 @@ export class GameComponent implements OnInit, OnDestroy {
   }
 
   setupSinglePlayerGame(): void {
+    if (this.gameMode === 'daily') {
+      this.totalRounds = 5;
+      this.contextSize = 250; // Lock context size for daily mode
+      this.gameSettings = { rounds: 5, contextSize: 250, timeLimit: 0, books: [] };
+    } else {
       this.totalRounds = (this.gameMode === 'normal') ? 5 : (this.seededVerseIds?.length || this.gameSettings?.rounds || 1);
-      this.currentRound = 0; // Start at 0 for a new game
+    }
 
-      if (this.gameSettings) {
-        this.contextSize = this.gameSettings.contextSize;
-        if (this.gameSettings.timeLimit > 0) {
-          this.timeLeft = this.gameSettings.timeLimit;
-          this.startTimer();
-        }
+    this.currentRound = 0; // Start at 0 for a new game
+
+    if (this.gameSettings && this.gameMode !== 'daily') { // Don't override daily settings
+      this.contextSize = this.gameSettings.contextSize;
+      if (this.gameSettings.timeLimit > 0) {
+        this.timeLeft = this.gameSettings.timeLimit;
+        this.startTimer();
       }
+    }
 
       this.subscribeToRoundState();
       this.startNewRound();
@@ -406,6 +415,16 @@ export class GameComponent implements OnInit, OnDestroy {
 
   finishGame(): void {
     // In single-player, we pass the results. Multiplayer is handled by the LeaderboardComponent.
+    if (this.gameMode === 'daily') {
+      this.authService.user$.pipe(first(user => !!user && !user.isAnonymous)).subscribe(user => {
+        if (user) {
+          const totalScore = this.results.reduce((acc, r) => acc + r.score, 0);
+          const totalStars = this.results.reduce((acc, r) => acc + r.stars, 0);
+          this.dailyChallengeService.completeDailyChallenge(user.uid, totalScore, totalStars);
+        }
+      });
+    }
+
     if (this.gameMode !== 'multiplayer') {
       // For normal mode, gameSettings might be null. Create a default one.
       const settings = this.gameSettings ?? {

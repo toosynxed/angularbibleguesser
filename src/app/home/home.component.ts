@@ -4,6 +4,7 @@ import { Observable, of, Subscription } from 'rxjs';
 import { first, map, switchMap } from 'rxjs/operators';
 import { ShareService } from '../share.service';
 import { AuthService } from '../auth.service';
+import { DailyChallengeService } from '../daily-challenge.service';
 import { StatsService, } from '../stats.service';
 import { UserStats } from '../stats.model';
 import firebase from 'firebase/compat/app';
@@ -208,7 +209,8 @@ export class HomeComponent implements OnInit, OnDestroy {
     private router: Router,
     private shareService: ShareService,
     private authService: AuthService,
-    private statsService: StatsService
+    private statsService: StatsService,
+    private dailyChallengeService: DailyChallengeService
   ) { }
 
   ngOnInit(): void {
@@ -278,6 +280,13 @@ export class HomeComponent implements OnInit, OnDestroy {
         }
       }
     });
+  }
+
+  async resetDailyVerses(): Promise<void> {
+    if (confirm('Are you sure you want to generate a new set of verses for today\'s daily challenge? This will affect all users.')) {
+      await this.dailyChallengeService.generateNewDailyChallenge();
+      alert('New daily verses have been generated.');
+    }
   }
 
   goToMultiplayer(): void {

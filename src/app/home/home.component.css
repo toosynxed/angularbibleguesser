@@ -156,6 +156,17 @@
   opacity: 0.7;
 }
 
+/* Special style for the Daily Mode button */
+.home-main button.daily-button {
+  background-color: #FFD700; /* A gold color to make it stand out */
+  color: #1a1a1a; /* Dark text for better contrast on gold */
+  border: 1px solid #DAA520; /* A darker gold border */
+}
+
+.home-main button.daily-button:hover {
+  background-color: #f0c400; /* Slightly darker gold on hover */
+}
+
 /* Changelog Button */
 .changelog-button {
   position: fixed;

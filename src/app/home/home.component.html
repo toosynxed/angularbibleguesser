@@ -36,7 +36,7 @@
       <p *ngIf="error" class="error-message">{{ error }}</p>
 
       <button class="primary" (click)="startGame('normal')">Normal Mode</button>
-      <button class="primary" routerLink="/daily">Daily Mode</button>
+      <button class="primary daily-button" routerLink="/daily">Daily Mode</button>
       <button class="primary" (click)="goToMultiplayer()">Online Multiplayer Mode</button>
       <button class="primary" (click)="showCustomAndCodeMenu = true">Custom & Upload Codes</button>
   </main>

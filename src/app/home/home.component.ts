@@ -222,8 +222,8 @@ export class HomeComponent implements OnInit, OnDestroy {
 
     this.stats$ = this.user$.pipe(
       switchMap(user => {
-        if (user && !user.isAnonymous) {
-          return this.statsService.getUserStats(user.uid);
+        if (user) { // Fetch stats for any user, including anonymous
+          return this.statsService.getUserStats(user.uid); // No longer checking for isAnonymous
         }
         return of(undefined); // No stats for guests or if not logged in
       })

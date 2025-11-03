@@ -416,12 +416,10 @@ export class GameComponent implements OnInit, OnDestroy {
   finishGame(): void {
     // In single-player, we pass the results. Multiplayer is handled by the LeaderboardComponent.
     if (this.gameMode === 'daily') {
-      this.authService.user$.pipe(first(user => !!user && !user.isAnonymous)).subscribe(user => {
-        if (user) {
-          const totalScore = this.results.reduce((acc, r) => acc + r.score, 0);
-          const totalStars = this.results.reduce((acc, r) => acc + r.stars, 0);
-          this.dailyChallengeService.completeDailyChallenge(user.uid, totalScore, totalStars);
-        }
+      this.authService.user$.pipe(first(user => !!user)).subscribe(user => {
+        const totalScore = this.results.reduce((acc, r) => acc + r.score, 0);
+        const totalStars = this.results.reduce((acc, r) => acc + r.stars, 0);
+        this.dailyChallengeService.completeDailyChallenge(user.uid, totalScore, totalStars);
       });
     }
 

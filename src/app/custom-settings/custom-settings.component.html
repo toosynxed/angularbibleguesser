@@ -30,7 +30,7 @@
       <label>Included Books ({{ settings.books.length }} / {{ allBooks.length }})</label>
       <div class="book-selection-container">
         <div *ngFor="let group of bookGroups" class="book-group">
-          <h4 (click)="toggleBookGroup(group)">{{ group.groupName }}</h4>
+          <h4 (click)="toggleBookGroup(group)">{{ group.groupName }} (Click to select/unselect all)</h4>
           <div class="book-grid">
             <div *ngFor="let book of group.books"
                  class="book-item"

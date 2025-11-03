@@ -9,7 +9,7 @@ import { Verse } from './verse.model';
   providedIn: 'root'
 })
 export class BibleService {
-  private csvUrl = 'assets/net.csv';
+  private csvUrl = 'assets/net_cleaned.csv';
   private verses$: Observable<Verse[]>;
 
   private bookGroups: { groupName: string, books: string[] }[] = [];

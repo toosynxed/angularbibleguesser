@@ -7,7 +7,7 @@ import { AuthService } from '../auth.service';
 import { StatsService } from '../stats.service';
 import { BibleService, } from '../bible.service';
 import { first, map, switchMap, tap, take } from 'rxjs/operators';
-import { combineLatest, from, of, Observable } from 'rxjs';
+import { combineLatest, of, Observable } from 'rxjs';
 import firebase from 'firebase/compat/app';
 import { GameSettings } from '../game-settings.model';
 
@@ -90,7 +90,7 @@ export class ResultsComponent implements OnInit {
             .slice(0, 10) // Show only top 10
             .map((player, index) => ({ ...player, rank: index + 1 })); // Assign rank after slicing
           });
-        this.gameDataForSharing = { mode: 'shared', verseIds: this.lobby.verseIds, settings: this.lobby.gameSettings };
+        this.gameDataForSharing = { verseIds: this.lobby.verseIds, settings: this.lobby.gameSettings };
         this.generatePermanentUrl(this.gameDataForSharing);
       }
 
@@ -152,7 +152,7 @@ export class ResultsComponent implements OnInit {
         this.results = this.gameState.results;
         this.totalScore = this.results.reduce((acc, r) => acc + r.score, 0);
         this.totalStars = this.results.reduce((acc, r) => acc + r.stars, 0);
-        this.gameDataForSharing = { mode: 'shared', verseIds: this.results.map(r => r.verse.verseId), settings: this.gameState.settings };
+        this.gameDataForSharing = { verseIds: this.results.map(r => r.verse.verseId), settings: this.gameState.settings };
         this.isFinalRound = this.results.length >= this.gameState.settings.rounds;
         this.generatePermanentUrl(this.gameDataForSharing);
       }
@@ -168,9 +168,9 @@ export class ResultsComponent implements OnInit {
     await this.updateStats();
   }
 
-  private generatePermanentUrl(gameData: any) {
-    const longCode = this.shareService.encodeGameData(gameData);
-    this.longShareUrl = `${window.location.origin}/game/${longCode}`;
+  private async generatePermanentUrl(gameData: any) {
+    const permanentId = await this.shareService.createPermanentSharedGame(gameData);
+    this.longShareUrl = `${window.location.origin}/game/${permanentId}`;
   }
 
   async createAndCopyShortCode(): Promise<void> {

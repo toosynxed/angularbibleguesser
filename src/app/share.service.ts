@@ -6,8 +6,9 @@ import { GameSettings } from './game-settings.model';
 export interface SharedGame {
   id?: string;
   verseIds: number[];
-  gameSettings: GameSettings;
-  createdAt: any;
+  gameSettings?: GameSettings;
+  settings?: GameSettings; // For backward compatibility with old base64 links
+  createdAt?: any;
 }
 
 @Injectable({
@@ -43,6 +44,16 @@ export class ShareService {
     return this.afs.collection('shared_games').doc<SharedGame>(code).valueChanges();
   }
 
+  async findSharedGame(code: string): Promise<SharedGame | undefined> {
+    // First, check the temporary collection
+    let gameDoc = await this.afs.collection('shared_games').doc<SharedGame>(code).get().toPromise();
+    if (gameDoc.exists) {
+      return gameDoc.data();
+    }
+    // If not found, check the permanent collection
+    gameDoc = await this.afs.collection('permanent_shared_games').doc<SharedGame>(code).get().toPromise();
+    return gameDoc.exists ? gameDoc.data() : undefined;
+  }
   // This is a placeholder for the old decoding logic.
   // You might want to remove this if old codes are no longer supported.
   decodeGameData(code: string): any {
@@ -66,5 +77,14 @@ export class ShareService {
 
   private generateShortCode(): string {
     return Math.random().toString(36).substring(2, 8).toUpperCase();
+  }
+
+  async createPermanentSharedGame(gameData: SharedGame): Promise<string> {
+    const docRef = this.afs.collection('permanent_shared_games').doc();
+    await docRef.set({
+      ...gameData,
+      // No need for a createdAt timestamp for expiration
+    });
+    return docRef.ref.id;
   }
 }

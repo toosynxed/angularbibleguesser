@@ -22,6 +22,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   showHelp = false;
   showCustomAndCodeMenu = false;
   activeHelpTab: 'rules' | 'about' | 'learn' = 'rules';
+  showLeaderboard = false;
   showStats = false;
   user$: Observable<firebase.User | null>;
   stats$: Observable<UserStats | undefined>;

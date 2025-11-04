@@ -8,6 +8,12 @@
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg>
         <span>Stats</span>
       </button>
+      <button class="stats-button"
+              (click)="showLeaderboard = true"
+              title="View leaderboards">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/><path d="M4 15h1.5a2.5 2.5 0 0 1 0 5H4"/><path d="M18 15h1.5a2.5 2.5 0 0 0 0 5H18"/><path d="M9 6h6"/><path d="M9 18h6"/><path d="M12 3v18"/></svg>
+        <span>Leaderboards</span>
+      </button>
     </div>
     <div class="login-area" *ngIf="user$ | async as user; else showLoginButton">
       <button class="login-button secondary-action" routerLink="/login">
@@ -156,6 +162,9 @@
     </div>
   </div>
 
+  <!-- Leaderboard Modal -->
+  <app-leaderboard *ngIf="showLeaderboard" (close)="showLeaderboard = false"></app-leaderboard>
+
   <!-- Stripe Support Link Section -->
   <div class="support-section">
     <a href="https://buy.stripe.com/6oU28kflzfwi9Aw1dufYY00" target="_blank" rel="noopener noreferrer" class="support-link">
@@ -174,7 +183,7 @@
 
   <!-- Version and Contact Footer -->
   <footer class="version-footer">
-    Version 2.2.0 - "Daily" - For any issues/bugs/suggestions, please email bconomy.wiki@gmail.com or join the Discord at <a href="https://discord.gg/XtTbvV2p" target="_blank" rel="noopener noreferrer">https://discord.gg/XtTbvV2p</a>
+    Version 2.1.1-beta - For any issues/bugs/suggestions, please email bconomy.wiki@gmail.com or join the Discord at <a href="https://discord.gg/XtTbvV2p" target="_blank" rel="noopener noreferrer">https://discord.gg/XtTbvV2p</a>
   </footer>
 
 

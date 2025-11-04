@@ -5,6 +5,7 @@ import { Observable, of } from 'rxjs';
 import { UserProfile } from './stats.model';
 import { switchMap, first } from 'rxjs/operators';
 import firebase from 'firebase/compat/app';
+import { StatsService } from './stats.service';
 
 @Injectable({
   providedIn: 'root'
@@ -20,7 +21,8 @@ export class AuthService {
 
   constructor(
     private afAuth: AngularFireAuth,
-    private afs: AngularFirestore
+    private afs: AngularFirestore,
+    private statsService: StatsService // Inject StatsService
     ) {
     this.user$ = this.afAuth.authState;
   }
@@ -44,6 +46,7 @@ export class AuthService {
   }
 
   async googleSignIn() {
+    const oldUser = await this.user$.pipe(first()).toPromise();
     const provider = new firebase.auth.GoogleAuthProvider();
     const credential = await this.afAuth.signInWithPopup(provider);
     if (credential.user) {
@@ -51,6 +54,8 @@ export class AuthService {
         displayName: credential.user.displayName,
         displayName_lowercase: credential.user.displayName.toLowerCase()
       });
+      // After creating the new user, merge old stats if they exist
+      await this.mergeAnonymousStats(oldUser, credential.user);
     }
     return credential;
   }
@@ -63,6 +68,8 @@ export class AuthService {
         displayName: 'New User', // A default name
         displayName_lowercase: 'new user'
       });
+      // After creating the new user, merge old stats if they exist
+      await this.mergeAnonymousStats(null, credential.user); // Pass null for oldUser as we don't have it before createUser
     }
     return credential;
   }
@@ -70,7 +77,10 @@ export class AuthService {
   async emailSignIn(email: string, password: string) {
     // No profile creation needed here, as the user should already exist.
     // If you wanted to sync on every sign-in, you could add logic here.
+    const oldUser = await this.user$.pipe(first()).toPromise();
     const credential = await this.afAuth.signInWithEmailAndPassword(email, password);
+    // Merge stats on sign-in as well, in case they were anonymous before
+    await this.mergeAnonymousStats(oldUser, credential.user);
     return credential;
   }
 
@@ -119,5 +129,30 @@ export class AuthService {
 
   isAdmin(uid: string): boolean {
     return this.adminUids.includes(uid);
+  }
+
+  private async mergeAnonymousStats(oldUser: firebase.User | null, newUser: firebase.User | null): Promise<void> {
+    if (!oldUser || !newUser || !oldUser.isAnonymous || oldUser.uid === newUser.uid) {
+      return; // Only proceed if there was an old anonymous user and a new permanent user
+    }
+
+    try {
+      const oldStats = await this.statsService.getUserStats(oldUser.uid).pipe(first()).toPromise();
+
+      if (oldStats && oldStats.daily) {
+        // We have daily stats to merge
+        const newStats = await this.statsService.getUserStats(newUser.uid).pipe(first()).toPromise();
+
+        const mergedDailyStats = {
+          ...newStats?.daily,
+          ...oldStats.daily
+        };
+
+        await this.statsService.updateUserStats(newUser.uid, { daily: mergedDailyStats });
+        await this.statsService.deleteUserStats(oldUser.uid); // Clean up old anonymous stats
+      }
+    } catch (error) {
+      console.error('Error merging anonymous stats:', error);
+    }
   }
 }

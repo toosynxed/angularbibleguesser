@@ -1,0 +1,105 @@
+.modal-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  background: var(--background-color, #fff);
+  padding: 1.5rem;
+  border-radius: 8px;
+  width: 90%;
+  max-width: 700px;
+  max-height: 80vh;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid var(--border-color, #ddd);
+  padding-bottom: 1rem;
+  margin-bottom: 1rem;
+}
+
+.modal-tabs {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.tab-button {
+  background: none;
+  border: none;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  font-size: 1rem;
+  color: var(--text-secondary-color, #666);
+  border-bottom: 2px solid transparent;
+  transition: color 0.2s ease, border-color 0.2s ease;
+}
+
+.tab-button:hover {
+  color: var(--text-color, #333);
+}
+
+.tab-button.active {
+  color: var(--primary-color, #008B8B);
+  font-weight: bold;
+  border-bottom-color: var(--primary-color, #008B8B);
+}
+
+.close-button {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+.modal-body {
+  overflow-y: auto;
+}
+
+.leaderboard-note {
+  font-size: 0.9rem;
+  color: var(--text-secondary-color);
+  margin-top: -0.5rem;
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1rem;
+}
+
+th, td {
+  padding: 0.75rem;
+  text-align: left;
+  border-bottom: 1px solid var(--border-color);
+}
+
+th {
+  background-color: var(--surface-color);
+}
+
+td:first-child, th:first-child {
+  text-align: center;
+  width: 50px;
+}
+
+td:nth-child(3), th:nth-child(3),
+td:nth-child(4), th:nth-child(4) {
+  text-align: center;
+}

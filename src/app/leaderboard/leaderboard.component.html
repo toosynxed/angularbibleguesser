@@ -1,0 +1,104 @@
+<div class="modal-backdrop" (click)="close.emit()">
+  <div class="modal-content" (click)="$event.stopPropagation()">
+    <div class="modal-header">
+      <div class="modal-tabs">
+        <button class="tab-button" [class.active]="activeTab === 'normal'" (click)="changeTab('normal')">Normal Score</button>
+        <button class="tab-button" [class.active]="activeTab === 'dailyStreak'" (click)="changeTab('dailyStreak')">Daily Streak</button>
+        <button class="tab-button" [class.active]="activeTab === 'dailyScore'" (click)="changeTab('dailyScore')">Daily Score</button>
+        <button class="tab-button" [class.active]="activeTab === 'multiplayer'" (click)="changeTab('multiplayer')">Multiplayer</button>
+      </div>
+      <button class="close-button" (click)="close.emit()">&times;</button>
+    </div>
+    <div class="modal-body">
+
+      <!-- Normal Mode Leaderboard -->
+      <div *ngIf="activeTab === 'normal'">
+        <h2>Leaderboard: Normal Mode Average Score</h2>
+        <p class="leaderboard-note">Players must complete at least 10 games to qualify for this leaderboard.</p>
+        <div *ngIf="normalLeaderboard$ | async as players; else loading">
+          <table *ngIf="players.length > 0; else noPlayers">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Player</th>
+                <th>Games Played</th>
+                <th>Avg Score</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let player of players; let i = index">
+                <td>{{ i + 1 }}</td>
+                <td>{{ player.displayName }}</td>
+                <td>{{ player.gamesPlayed }}</td>
+                <td>{{ player.value.toFixed(2) }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Daily Streak Leaderboard -->
+      <div *ngIf="activeTab === 'dailyStreak'">
+        <h2>Leaderboard: Daily Mode Highest Streak</h2>
+        <div *ngIf="dailyStreakLeaderboard$ | async as players; else loading">
+          <table *ngIf="players.length > 0; else noPlayers">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Player</th>
+                <th>Highest Streak</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let player of players; let i = index">
+                <td>{{ i + 1 }}</td>
+                <td>{{ player.displayName }}</td>
+                <td>{{ player.value }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Daily Score Leaderboard -->
+      <div *ngIf="activeTab === 'dailyScore'">
+        <h2>Leaderboard: Daily Mode Average Score</h2>
+        <div *ngIf="dailyScoreLeaderboard$ | async as players; else loading">
+          <table *ngIf="players.length > 0; else noPlayers">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Player</th>
+                <th>Daily Games</th>
+                <th>Avg Score</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let player of players; let i = index">
+                <td>{{ i + 1 }}</td>
+                <td>{{ player.displayName }}</td>
+                <td>{{ player.gamesPlayed }}</td>
+                <td>{{ player.value.toFixed(2) }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Multiplayer Leaderboard -->
+      <div *ngIf="activeTab === 'multiplayer'">
+        <h2>Leaderboard: Multiplayer</h2>
+        <p class="leaderboard-note">This leaderboard is currently under development. Check back soon!</p>
+      </div>
+
+      <!-- Common Templates -->
+      <ng-template #loading>
+        <p>Loading leaderboard...</p>
+      </ng-template>
+      <ng-template #noPlayers>
+        <p>No players on the leaderboard yet. Go play some games!</p>
+      </ng-template>
+
+    </div>
+  </div>
+</div>

@@ -51,6 +51,7 @@
         </div>
 
         <div class="profile-actions" *ngIf="!showUsernameForm && !showDeleteConfirm">
+          <a routerLink="/profile" class="secondary-action">View/Customize Profile</a>
           <button (click)="showUsernameForm = true" class="secondary-action">Change Username</button>
           <button (click)="showDeleteConfirm = true" class="secondary-action">Delete Account</button>
         </div>

@@ -1,4 +1,4 @@
-<span class="name-container" [ngClass]="profile?.customization?.nameplate">
+<span class="name-container">
   <span class="name-icon" *ngIf="profile?.customization?.icon">{{ profile.customization.icon }}</span>
   <span class="display-name" [ngStyle]="nameStyles" [ngClass]="profile?.customization?.nameEffect">
     {{ profile?.displayName || 'Player' }}

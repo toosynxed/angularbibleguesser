@@ -134,8 +134,8 @@
       <h4 class="permanent-link-title">Permanent Link</h4>
       <p>Use this link to share the game permanently. It won't expire.</p>
       <div class="code-actions">
-        <input type="text" [value]="longShareUrl" readonly>
-        <button (click)="copyLongUrl()">{{ longCodeCopyButtonText }}</button>
+        <input type="text" [value]="longShareUrl" placeholder="Click 'Copy Link' to generate" readonly>
+        <button (click)="createAndCopyPermanentUrl()" [disabled]="isLongCodeGenerating">{{ longCodeCopyButtonText }}</button>
       </div>
     </div>
 

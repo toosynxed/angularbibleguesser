@@ -104,6 +104,13 @@ export class HomeComponent implements OnInit, OnDestroy {
   // You can update the changelog text here.
   // Using backticks (`) allows for multi-line strings.
   changelogContent = `
+<h3>Version 2.2.0 "Daily"</h3>
+<ul>
+  <li>Added NEW Daily Challenge mode with new verses every day! \nBuild up your streak as you continue to play each day!</li>
+  <li>Completely revamped the share code system for better reliability and user experience.</li>
+  <li>Improved error handling and user feedback when entering invalid codes.</li>
+  <li>Implemented Wordle-like visual sharing style for game results.</li>
+</ul>
 <h3>Version 2.1.1 - beta</h3>
 <ul>
   <li>Changed Normal Mode to 5 rounds by default.</li>

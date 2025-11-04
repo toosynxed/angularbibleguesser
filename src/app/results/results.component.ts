@@ -50,6 +50,7 @@ export class ResultsComponent implements OnInit {
   longShareUrl = '';
   shortCodeCopyButtonText = 'Create and Copy';
   isShortCodeGenerating = false;
+  isLongCodeGenerating = false;
   longCodeCopyButtonText = 'Copy Link';
   copyResultsButtonText = 'Copy Results';
   expandedIndex: number | null = null;
@@ -90,8 +91,7 @@ export class ResultsComponent implements OnInit {
             .slice(0, 10) // Show only top 10
             .map((player, index) => ({ ...player, rank: index + 1 })); // Assign rank after slicing
           });
-        this.gameDataForSharing = { verseIds: this.lobby.verseIds, settings: this.lobby.gameSettings };
-        this.generatePermanentUrl(this.gameDataForSharing);
+        this.gameDataForSharing = { verseIds: this.lobby.verseIds, gameSettings: this.lobby.gameSettings };
       }
 
       this.multiplayerUserResults$ = this.authService.user$.pipe(
@@ -152,9 +152,8 @@ export class ResultsComponent implements OnInit {
         this.results = this.gameState.results;
         this.totalScore = this.results.reduce((acc, r) => acc + r.score, 0);
         this.totalStars = this.results.reduce((acc, r) => acc + r.stars, 0);
-        this.gameDataForSharing = { verseIds: this.results.map(r => r.verse.verseId), settings: this.gameState.settings };
+        this.gameDataForSharing = { verseIds: this.results.map(r => r.verse.verseId), gameSettings: this.gameState.settings };
         this.isFinalRound = this.results.length >= this.gameState.settings.rounds;
-        this.generatePermanentUrl(this.gameDataForSharing);
       }
     } else {
       // If there's no state, redirect home
@@ -166,11 +165,6 @@ export class ResultsComponent implements OnInit {
     // The constructor now handles initialization based on state.
     // We'll call the stat update logic here, after everything is initialized.
     await this.updateStats();
-  }
-
-  private async generatePermanentUrl(gameData: any) {
-    const permanentId = await this.shareService.createPermanentSharedGame(gameData);
-    this.longShareUrl = `${window.location.origin}/game/${permanentId}`;
   }
 
   async createAndCopyShortCode(): Promise<void> {
@@ -237,7 +231,17 @@ export class ResultsComponent implements OnInit {
     }
   }
 
-  copyLongUrl(): void {
+  async createAndCopyPermanentUrl(): Promise<void> {
+    if (this.isLongCodeGenerating) return;
+
+    if (!this.longShareUrl) {
+      this.isLongCodeGenerating = true;
+      this.longCodeCopyButtonText = 'Creating...';
+      const permanentId = await this.shareService.createPermanentSharedGame(this.gameDataForSharing);
+      this.longShareUrl = `${window.location.origin}/game/${permanentId}`;
+      this.isLongCodeGenerating = false;
+    }
+
     navigator.clipboard.writeText(this.longShareUrl).then(() => {
       this.longCodeCopyButtonText = 'Copied!';
       setTimeout(() => this.longCodeCopyButtonText = 'Copy Link', 2000);

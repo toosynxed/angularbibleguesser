@@ -16,6 +16,9 @@
     <div *ngIf="isLoading" class="loading">Loading...</div>
     <div class="verse-container" *ngIf="currentVerse && !isLoading">
       <div class="verse-actions">
+        <button (click)="toggleInputMode()" title="Switch input method">
+          {{ useClassicInput ? 'Use Scroll Picker' : 'Use Classic Input' }}
+        </button>
         <button (click)="scrollToGuessingVerse()" title="Scroll to current verse">Refocus</button>
       </div>
       <div class="verse-context" #verseContextContainer aria-live="polite">
@@ -37,8 +40,10 @@
       <input type="range" id="context" min="0" max="250" [(ngModel)]="contextSize" (input)="onSliderChange($event)">
     </div>
 
-    <div class="guess-container" *ngIf="!isRoundOver">
-      <div class="scroll-picker-group">
+    <!-- Guessing Inputs -->
+    <div class="guess-container" *ngIf="!isRoundOver && !useClassicInput">
+      <!-- Scroll Picker Input -->
+      <div class="scroll-picker-group" >
         <app-scroll-picker class="book-picker"
                            [items]="bookOptions"
                            (selectedChange)="onBookSelected($event)"></app-scroll-picker>
@@ -55,6 +60,11 @@
           Guess
         </button>
       </div>
+    </div>
+
+    <div class="guess-container" *ngIf="!isRoundOver && useClassicInput">
+        <!-- Classic Text Input -->
+        <app-classic-input (guess)="onGuess($event)"></app-classic-input>
     </div>
 
     <div class="feedback" *ngIf="feedback">

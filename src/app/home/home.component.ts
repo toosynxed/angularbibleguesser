@@ -107,7 +107,6 @@ export class HomeComponent implements OnInit, OnDestroy {
   changelogContent = `
 <h3>Version 2.2.0 "Daily"</h3>
 <ul>
-  <li>Added NEW Daily Challenge mode with new verses every day! \nBuild up your streak as you continue to play each day!</li>
   <li>New profile customisation options including profile pictures and display names.</li>
   <li>Completely revamped the share code system for better reliability and user experience.</li>
   <li>Improved error handling and user feedback when entering invalid codes.</li>

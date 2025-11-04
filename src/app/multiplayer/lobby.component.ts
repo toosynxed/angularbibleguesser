@@ -189,10 +189,19 @@ export class LobbyComponent implements OnInit, OnDestroy {
     });
   }
 
+  copySpectatorLink(): void {
+    // Construct the full URL for the external leaderboard
+    const spectatorUrl = `${window.location.origin}/leaderboard/${this.lobbyId}`;
+
+    navigator.clipboard.writeText(spectatorUrl).then(() => {
+      this.shareService.setSuccessMessage('Spectator link copied to clipboard!');
+    }).catch(err => {
+      console.error('Failed to copy link: ', err);
+      this.shareService.setErrorMessage('Failed to copy link. Please try again.');
+    });
+  }
+
   goBack(): void {
     this.router.navigate(['/']);
   }
 }
-
-
-//These changes introduce the "Manage Users" panel, allowing admins to see all active players and kick them from their lobbies. The kicked player will be gracefully removed from their session and notified.

@@ -68,6 +68,8 @@ main {
   position: absolute;
   top: -35px; /* Position it above the verse-context box */
   right: 0;
+  display: flex;
+  gap: 0.5rem;
   z-index: 5; /* Lower z-index is fine */
 }
 

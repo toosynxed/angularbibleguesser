@@ -1,0 +1,34 @@
+<div class="container">
+  <div *ngIf="isLoading$ | async" class="loading">Loading Leaderboard...</div>
+
+  <ng-container *ngIf="(lobby$ | async) as lobby">
+    <header>
+      <h1>{{ lobby.lobbyName }} - Leaderboard</h1>
+      <p>Round {{ lobby.gameState === 'finished' ? lobby.gameSettings.rounds : lobby.currentRound + 1 }} of {{ lobby.gameSettings.rounds }}</p>
+      <button (click)="copyLink()" class="secondary-button">Copy Link</button>
+    </header>
+
+    <div class="leaderboard-list">
+      <table>
+        <thead>
+          <tr>
+            <th>Rank</th>
+            <th>Player</th>
+            <th>Score</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let player of (leaderboard$ | async)">
+            <td class="rank">{{ player.rank }}</td>
+            <td class="player-name">
+              <app-decorated-name [player]="player"></app-decorated-name> <span *ngIf="player.isHost">(Host)</span>
+            </td>
+            <td>{{ player.totalScore }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p *ngIf="lobby.gameState === 'finished'" class="game-finished-notice">This game has finished!</p>
+  </ng-container>
+</div>

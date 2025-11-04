@@ -8,6 +8,7 @@ import { CustomSettingsComponent } from './custom-settings/custom-settings.compo
 import { CreateGameComponent } from './create-game/create-game.component';
 import { ProfileComponent } from './profile/profile.component';
 import { SharedGameComponent } from './shared-game/shared-game.component';
+import { ExternalLeaderboardComponent } from './external-leaderboard/external-leaderboard.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -18,6 +19,7 @@ const routes: Routes = [
   { path: 'create-game', component: CreateGameComponent },
   { path: 'login', component: LoginComponent },
   { path: 'profile', component: ProfileComponent },
+  { path: 'leaderboard/:id', component: ExternalLeaderboardComponent },
   {
     path: 'multiplayer',
     loadChildren: () => import('./multiplayer/multiplayer.module').then(m => m.MultiplayerModule)

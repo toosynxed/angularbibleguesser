@@ -60,6 +60,9 @@ export class GameComponent implements OnInit, OnDestroy {
   chapterOptions: number[] = [];
   verseOptions: number[] = [];
 
+  // --- Input Mode State ---
+  public useClassicInput: boolean = false;
+
   selectedBook: string | null = null;
   selectedChapter: number | null = null;
   selectedVerse: number | null = null;
@@ -95,6 +98,9 @@ export class GameComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    const classicInputPref = localStorage.getItem('useClassicInput');
+    this.useClassicInput = classicInputPref === 'true';
+
     // Load book options for the picker
     this.bibleService.getBooks().subscribe(books => {
       this.bookOptions = books;
@@ -325,6 +331,67 @@ export class GameComponent implements OnInit, OnDestroy {
     this.selectedVerse = verse as number;
   }
 
+  /**
+   * Handles the guess submitted from the classic text input.
+   * @param rawGuess The string guess from the input, e.g., "John 3:16".
+   */
+  onGuess(rawGuess: string): void {
+    if (this.gameMode === 'multiplayer' && this.isRoundOver) {
+      return; // Already submitted for this round
+    }
+
+    if (!this.currentVerse) return;
+
+    const parsedGuess = this.bibleService.parseVerseReference(rawGuess);
+
+    if (!parsedGuess) {
+      this.feedback = "Invalid format. Please use 'Book Chapter:Verse' (e.g., John 3:16).";
+      return;
+    }
+
+    const answer = this.currentVerse;
+
+    const isBookCorrect = this.bibleService.normalizeBookName(parsedGuess.book) === this.bibleService.normalizeBookName(answer.bookName);
+    const isChapterCorrect = parsedGuess.chapter === answer.chapter;
+    const isVerseCorrect = parsedGuess.verse === answer.verse;
+
+    let stars = 0;
+    if (isBookCorrect) {
+      stars = 1;
+      if (isChapterCorrect) {
+        stars = 2;
+        if (isVerseCorrect) stars = 3;
+      }
+    }
+
+    const answerIndex$ = this.bibleService.getVerseIndex(answer);
+    const guessIndex$ = this.bibleService.getVerseIndex({ bookName: parsedGuess.book, chapter: parsedGuess.chapter, verse: parsedGuess.verse });
+
+    forkJoin([answerIndex$, guessIndex$]).subscribe(([answerIndex, guessIndex]) => {
+      const distance = (guessIndex === -1) ? 100 : Math.abs(answerIndex - guessIndex);
+      const score = Math.max(0, 100 - distance);
+
+      if (this.gameMode === 'multiplayer') {
+        this.lobbyService.submitGuess(this.lobbyId, this.currentRound - 1, this.userId, rawGuess, score);
+        this.isRoundOver = true;
+        this.feedback = stars === 3 ? 'Perfect! You got it exactly right!' : 'Your guess has been submitted! Waiting for other players...';
+      } else {
+        this.isRoundOver = true;
+        this.feedback = stars === 3 ? 'Perfect! You got it exactly right!' : `The correct answer was ${answer.bookName} ${answer.chapter}:${answer.verse}.`;
+
+        this.results.push({
+          verse: answer,
+          guess: parsedGuess,
+          score,
+          stars,
+          isBookCorrect,
+          isChapterCorrect,
+          isVerseCorrect
+        });
+      }
+    });
+  }
+
   submitGuess(): void {
     if (this.gameMode === 'multiplayer' && this.isRoundOver) {
       return; // Already submitted for this round
@@ -467,5 +534,10 @@ export class GameComponent implements OnInit, OnDestroy {
         verseElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
       }
     }
+  }
+
+  toggleInputMode(): void {
+    this.useClassicInput = !this.useClassicInput;
+    localStorage.setItem('useClassicInput', this.useClassicInput.toString());
   }
 }

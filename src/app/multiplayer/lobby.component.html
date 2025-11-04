@@ -9,8 +9,8 @@
     <div class="player-list">
       <h2>Players</h2>
       <ul>
-        <li *ngFor="let player of players$ | async">
-          {{ player.displayName }}
+        <li *ngFor="let player of players$ | async" class="player-list-item">
+          <app-decorated-name [player]="player"></app-decorated-name>
           <span *ngIf="player.isHost" class="host-tag">(Host)</span>
         </li>
       </ul>
@@ -18,6 +18,14 @@
 
     <button class="start-game-button" *ngIf="isHost$ | async" (click)="onStartGame(settings)">Start Game</button>
     <p *ngIf="!(isHost$ | async)">Waiting for host to start the game...</p>
+
+    <!-- Button to copy the external leaderboard link -->
+    <button
+      class="secondary-button spectator-link-button"
+      (click)="copySpectatorLink()"
+      title="Copy a shareable link for others to watch the leaderboard.">
+      Copy Spectator Link
+    </button>
 
     <!-- Back Button -->
     <button class="back-button secondary" (click)="goBack()">Back to Home</button>

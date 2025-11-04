@@ -1,0 +1,60 @@
+.container {
+  max-width: 800px;
+  margin: auto;
+  padding: 2rem;
+  text-align: center;
+}
+
+.loading {
+  font-size: 1.5rem;
+  margin-top: 2rem;
+}
+
+header {
+  margin-bottom: 2rem;
+}
+
+header h1 {
+  margin-bottom: 0.5rem;
+}
+
+header p {
+  color: var(--text-secondary-color);
+  margin-top: 0;
+}
+
+.leaderboard-list {
+  margin: 2rem 0;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: var(--surface-color);
+}
+
+th, td {
+  padding: 1rem;
+  border-bottom: 1px solid var(--border-color);
+}
+
+thead {
+  background-color: var(--background-alt-color);
+}
+
+.rank {
+  text-align: center;
+  font-weight: bold;
+}
+
+.player-name {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.game-finished-notice {
+  margin-top: 2rem;
+  font-weight: bold;
+  color: var(--primary-color);
+}

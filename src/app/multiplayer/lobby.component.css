@@ -54,6 +54,12 @@
   border-radius: var(--border-radius);
 }
 
+.player-list-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
 .host-tag {
   font-size: 0.8rem;
   color: var(--primary-color);
@@ -73,6 +79,9 @@
 }
 
 .start-game-button {
+}
+
+.spectator-link-button {
   width: 100%;
   margin-top: 2rem;
 }
@@ -103,6 +112,7 @@
   margin-bottom: 0.5rem;
   border-bottom: 1px solid var(--border-color);
   padding-bottom: 0.5rem;
+  box-sizing: border-box; /* Ensures padding doesn't affect width */
 }
 
 .book-group h4.clickable {

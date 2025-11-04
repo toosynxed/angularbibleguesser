@@ -1,0 +1,11 @@
+<!-- src/app/classic-input/classic-input.component.html -->
+
+<div class="classic-input-container">
+  <input
+    type="text"
+    [(ngModel)]="inputText"
+    (keyup.enter)="submitGuess()"
+    placeholder="Enter your guess"
+  />
+  <button (click)="submitGuess()">Guess</button>
+</div>

@@ -122,3 +122,8 @@
   color: var(--text-color);
   font-family: monospace;
 }
+
+.copy-results-container {
+  margin-top: 1rem;
+}
+

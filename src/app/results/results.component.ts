@@ -14,7 +14,7 @@ import { GameSettings } from '../game-settings.model';
 export interface GameState {
   results: RoundResult[];
   settings: GameSettings;
-  mode: 'normal' | 'custom' | 'created' | 'shared';
+  mode: 'normal' | 'custom' | 'created' | 'shared' | 'daily';
 }
 
 interface LeaderboardPlayer {
@@ -51,6 +51,7 @@ export class ResultsComponent implements OnInit {
   shortCodeCopyButtonText = 'Create and Copy';
   isShortCodeGenerating = false;
   longCodeCopyButtonText = 'Copy Link';
+  copyResultsButtonText = 'Copy Results';
   expandedIndex: number | null = null;
 
   constructor(
@@ -258,6 +259,56 @@ export class ResultsComponent implements OnInit {
       state: {
         ...this.gameState
       }
+    });
+  }
+
+  copyResults(): void {
+    let resultsText = '';
+    let modeName = 'Game';
+    let roundsPlayed = 0;
+    let resultsForCopy: { stars: number, score: number }[] = [];
+
+    // 1. Title
+    if (this.lobby) { // Multiplayer
+      modeName = 'Multiplayer';
+      roundsPlayed = this.lobby.gameSettings.rounds;
+      // We need to get the results from the observable
+      this.multiplayerUserResults$.pipe(take(1)).subscribe(results => {
+        resultsForCopy = results.map(r => ({ stars: r.stars, score: r.score }));
+        this.generateAndCopy(modeName, roundsPlayed, resultsForCopy);
+      });
+      return; // Async handling
+    } else if (this.gameState) { // Single Player
+      roundsPlayed = this.gameState.results.length;
+      switch (this.gameState.mode) {
+        case 'normal': modeName = 'Normal'; break;
+        case 'custom':
+        case 'created':
+        case 'shared': modeName = 'Custom'; break;
+        case 'daily': modeName = `Daily ${new Date().toLocaleDateString()}`; break;
+      }
+      resultsForCopy = this.gameState.results.map(r => ({ stars: r.stars, score: r.score }));
+      this.generateAndCopy(modeName, roundsPlayed, resultsForCopy);
+    }
+  }
+
+  private generateAndCopy(modeName: string, roundsPlayed: number, results: { stars: number, score: number }[]): void {
+    let resultsText = `Better Bible Guesser - ${modeName} ${roundsPlayed} Rounds\n\n`;
+
+    // 2. Result Rows
+    results.forEach(result => {
+      const greenBox = '🟩';
+      const redBox = '🟥';
+      const starsDisplay = greenBox.repeat(result.stars) + redBox.repeat(3 - result.stars);
+      resultsText += `${starsDisplay} ${result.score}/100\n`;
+    });
+
+    // 3. URL
+    resultsText += `\n${this.longShareUrl}`;
+
+    navigator.clipboard.writeText(resultsText).then(() => {
+      this.copyResultsButtonText = 'Copied!';
+      setTimeout(() => this.copyResultsButtonText = 'Copy Results', 2000);
     });
   }
 }

@@ -33,6 +33,9 @@
           <h3>Total Score: {{ totalScore }} / {{ lobby.gameSettings.rounds * 100 }}</h3>
           <h3>Total Stars: {{ totalStars }} / {{ lobby.gameSettings.rounds * 3 }}</h3>
         </div>
+        <div class="copy-results-container">
+          <button class="secondary-action" (click)="copyResults()">{{ copyResultsButtonText }}</button>
+        </div>
       </div>
       <!-- Re-use the same result card template as single-player -->
       <div *ngFor="let userResult of (multiplayerUserResults$ | async); let i = index" class="result-card" (click)="toggleExpand(i)">
@@ -77,6 +80,9 @@
         <div class="score-breakdown">
           <h2>Total Score: {{ totalScore }} / {{ results.length * 100 }}</h2>
           <h2>Total Stars: {{ totalStars }} / {{ results.length * 3 }}</h2>
+        </div>
+        <div class="copy-results-container">
+          <button class="secondary-action" (click)="copyResults()">{{ copyResultsButtonText }}</button>
         </div>
       </div>
       <div *ngFor="let result of results; let i = index" class="result-card" (click)="toggleExpand(i)">

@@ -2,13 +2,15 @@ import { Injectable } from '@angular/core';
 import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/compat/firestore';
 import { combineLatest, Observable, of, from } from 'rxjs';
 import { map, startWith, switchMap } from 'rxjs/operators';
-import { UserProfile, UserStats, UserProfileWithStats } from './stats.model';
+import { UserProfile, UserStats, UserProfileWithStats, ProfileCustomization } from './stats.model';
 import firebase from 'firebase/compat/app';
 
+export { ProfileCustomization };
 export interface LeaderboardPlayer {
   displayName: string;
   value: number;
   gamesPlayed?: number;
+  customization?: ProfileCustomization;
 }
 
 @Injectable({
@@ -75,14 +77,19 @@ export class StatsService {
 
           return combineLatest(userProfiles$).pipe(
             map(profiles => {
-              return filteredStats.map((stats, index) => {
+              const players: LeaderboardPlayer[] = [];
+              filteredStats.forEach((stats, index) => {
                 const profile = profiles[index];
-                return {
-                  displayName: profile?.displayName || 'Anonymous',
-                  value: mapFn ? mapFn(stats) : stats[field.split('.')[1]], // Simplified access
-                  gamesPlayed: gamesPlayedFn ? gamesPlayedFn(stats) : undefined
-                };
-              }).sort((a, b) => b.value - a.value); // Re-sort after client-side calculation
+                // Only include players with a valid profile and display name
+                if (profile && profile.displayName) {
+                  players.push({
+                    ...profile,
+                    value: mapFn ? mapFn(stats) : stats[field.split('.')[0]][field.split('.')[1]], // Correctly access nested property
+                    gamesPlayed: gamesPlayedFn ? gamesPlayedFn(stats) : undefined
+                  });
+                }
+              });
+              return players.sort((a, b) => b.value - a.value); // Re-sort after client-side calculation
             })
           );
         })
@@ -229,10 +236,12 @@ export class StatsService {
         const players: LeaderboardPlayer[] = [];
         statsList.forEach((stats, index) => {
           const profile = profiles[index];
-          // Only include players that have a user profile document with a display name.
-          // This effectively filters out anonymous users.
           if (profile && profile.displayName) {
-            players.push({ displayName: profile.displayName, value: valueFn(stats), gamesPlayed: gamesPlayedFn(stats) });
+            players.push({
+              ...profile, // Pass the whole profile for customization
+              value: valueFn(stats),
+              gamesPlayed: gamesPlayedFn(stats)
+            });
           }
         });
         return players;

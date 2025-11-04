@@ -31,11 +31,20 @@ export interface DailyModeStats {
   totalRoundsPlayed: number;
 }
 
+export interface ProfileCustomization {
+  nameColor?: string;
+  nameEffect?: 'none' | 'rainbow' | 'glow' | 'bold' | 'italic' | 'underline';
+  icon?: string;
+  nameplate?: string;
+}
+
 export interface UserProfile {
   uid: string;
   displayName: string;
   displayName_lowercase: string;
   hasSeenMultiplayerTutorial?: boolean;
+  // Add customization property
+  customization?: ProfileCustomization;
 }
 
 export interface UserProfileWithStats extends UserProfile {

@@ -26,6 +26,8 @@ import { ProfileComponent } from './profile/profile.component';
 import { SharedGameComponent } from './shared-game/shared-game.component';
 import { ScrollPickerComponent } from './scroll-picker/scroll-picker.component';
 import { LeaderboardComponent } from './leaderboard/leaderboard.component';
+import { ProfileCustomizationComponent } from './profile-customization/profile-customization.component';
+import { DecoratedNameComponent } from './decorated-name/decorated-name.component';
 
 @NgModule({
   declarations: [
@@ -39,7 +41,9 @@ import { LeaderboardComponent } from './leaderboard/leaderboard.component';
     ProfileComponent,
     SharedGameComponent,
     ScrollPickerComponent,
-    LeaderboardComponent
+    LeaderboardComponent,
+    ProfileCustomizationComponent,
+    DecoratedNameComponent
   ],
   imports: [
     BrowserModule,

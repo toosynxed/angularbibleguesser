@@ -28,7 +28,9 @@
             <tbody>
               <tr *ngFor="let player of players; let i = index">
                 <td>{{ i + 1 }}</td>
-                <td>{{ player.displayName }}</td>
+                <td>
+                  <app-decorated-name [profile]="player"></app-decorated-name>
+                </td>
                 <td>{{ player.gamesPlayed }}</td>
                 <td>{{ player.value.toFixed(2) }}</td>
               </tr>
@@ -52,7 +54,9 @@
             <tbody>
               <tr *ngFor="let player of players; let i = index">
                 <td>{{ i + 1 }}</td>
-                <td>{{ player.displayName }}</td>
+                <td>
+                  <app-decorated-name [profile]="player"></app-decorated-name>
+                </td>
                 <td>{{ player.value }}</td>
               </tr>
             </tbody>
@@ -76,7 +80,9 @@
             <tbody>
               <tr *ngFor="let player of players; let i = index">
                 <td>{{ i + 1 }}</td>
-                <td>{{ player.displayName }}</td>
+                <td>
+                  <app-decorated-name [profile]="player"></app-decorated-name>
+                </td>
                 <td>{{ player.gamesPlayed }}</td>
                 <td>{{ player.value.toFixed(2) }}</td>
               </tr>

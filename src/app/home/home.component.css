@@ -156,6 +156,14 @@
   opacity: 0.7;
 }
 
+.modal-footer {
+  margin-top: 1.5rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--border-color);
+  display: flex;
+  justify-content: flex-end;
+}
+
 /* Special style for the Daily Mode button */
 .home-main button.daily-button {
   background-color: #FFD700; /* A gold color to make it stand out */

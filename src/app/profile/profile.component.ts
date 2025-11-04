@@ -14,6 +14,7 @@ import firebase from 'firebase/compat/app';
 export class ProfileComponent implements OnInit {
   user$: Observable<firebase.User | null>;
   stats$: Observable<UserStats | undefined>;
+  showCustomization = false;
 
   constructor(
     private authService: AuthService,

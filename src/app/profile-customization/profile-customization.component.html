@@ -1,0 +1,65 @@
+<div class="modal-backdrop" (click)="close.emit()">
+  <div class="modal-content" (click)="$event.stopPropagation()">
+    <div class="modal-header">
+      <h2>Customize Your Profile</h2>
+      <button class="close-button" (click)="close.emit()">&times;</button>
+    </div>
+    <div class="modal-body">
+
+      <div class="customization-preview">
+        <h3>Preview:</h3>
+        <app-decorated-name [profile]="{ displayName: user.displayName, customization: customization }"></app-decorated-name>
+      </div>
+
+      <div class="form-grid">
+        <!-- Name Color -->
+        <div class="form-group">
+          <label for="nameColor">Name Color</label>
+          <input type="color" id="nameColor" [(ngModel)]="customization.nameColor" [disabled]="customization.nameEffect === 'rainbow'">
+          <small *ngIf="customization.nameEffect === 'rainbow'">Disabled by Rainbow effect.</small>
+        </div>
+
+        <!-- Name Effect -->
+        <div class="form-group">
+          <label for="nameEffect">Name Effect</label>
+          <select id="nameEffect" [(ngModel)]="customization.nameEffect">
+            <option *ngFor="let effect of nameEffects" [value]="effect.value">{{ effect.label }}</option>
+          </select>
+        </div>
+
+        <!-- Icon Picker -->
+        <div class="form-group">
+          <label for="icon">Icon</label>
+          <select id="icon" [(ngModel)]="customization.icon">
+            <option *ngFor="let icon of icons" [value]="icon === 'None' ? '' : icon">{{ icon }}</option>
+          </select>
+        </div>
+
+        <!-- Nameplate -->
+        <div class="form-group">
+          <label for="nameplate">Nameplate</label>
+          <select id="nameplate" [(ngModel)]="customization.nameplate">
+            <option *ngFor="let plate of nameplates" [value]="plate.value === 'none' ? '' : plate.value">{{ plate.label }}</option>
+          </select>
+        </div>
+      </div>
+
+      <!--
+        PAID FEATURE CHECK
+        When you implement payments, you can wrap the content above like this:
+
+        <div *ngIf="userHasSubscription; else showUpgradeMessage">
+          ... all the form fields ...
+        </div>
+        <ng-template #showUpgradeMessage>
+          <p>Profile customization is a premium feature. Please subscribe to unlock.</p>
+          <a href="YOUR_STRIPE_LINK" target="_blank">Subscribe Now</a>
+        </ng-template>
+      -->
+
+    </div>
+    <div class="modal-footer">
+      <button class="primary" (click)="saveCustomization()" [disabled]="isSaving">{{ saveButtonText }}</button>
+    </div>
+  </div>
+</div>

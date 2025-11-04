@@ -1,0 +1,79 @@
+.name-container {
+  display: inline-block;
+  position: relative;
+  padding: 0.2rem 0.5rem;
+  border-radius: var(--border-radius);
+  overflow: hidden; /* Ensures pseudo-elements from animations don't overflow */
+}
+
+.display-name {
+  position: relative;
+  z-index: 2;
+}
+
+.name-icon {
+  margin-right: 0.3em;
+}
+
+/* --- Name Effects --- */
+.bold { font-weight: bold; }
+.italic { font-style: italic; }
+.underline { text-decoration: underline; }
+
+.glow {
+  text-shadow: 0 0 5px currentColor, 0 0 10px currentColor;
+}
+
+.rainbow {
+  background: linear-gradient(to right, #ff0000, #ff7f00, #ffff00, #00ff00, #0000ff, #4b0082, #9400d3);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: rainbow-animation 5s ease-in-out infinite;
+  background-size: 400% 100%;
+}
+
+@keyframes rainbow-animation {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+/* --- Nameplates --- */
+/* You can add your background images here */
+/* Make sure to crop them, not scale them. background-size: cover and background-position: center helps. */
+
+.name-container::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  z-index: 1;
+  opacity: 0.8;
+  background-size: cover;
+  background-position: center;
+}
+
+.gold-plate::before {
+  background-color: #ffd700;
+  background-image: linear-gradient(45deg, #f0c742, #d4af37, #f0c742);
+  opacity: 0.4;
+}
+
+.ice-plate::before {
+  background-color: #a2d2ff;
+  background-image: linear-gradient(45deg, #e0f2ff, #a2d2ff, #e0f2ff);
+  opacity: 0.5;
+}
+
+.fire-animated::before {
+  /* Placeholder for a fire GIF/animation */
+  /* Example: background-image: url('/assets/nameplates/fire.gif'); */
+  background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+	background-size: 400% 400%;
+	animation: fire-gradient 10s ease infinite;
+}
+
+@keyframes fire-gradient {
+	0% { background-position: 0% 50%; }
+	50% { background-position: 100% 50%; }
+	100% { background-position: 0% 50%; }
+}

@@ -1,6 +1,11 @@
 <div class="container">
   <div *ngIf="user$ | async as user">
-    <h2>{{ user.displayName }}'s Profile</h2>
+    <div class="profile-header">
+      <h2>{{ user.displayName }}'s Profile</h2>
+      <button class="secondary-action" (click)="showCustomization = true">
+        Customize Profile
+      </button>
+    </div>
 
     <div *ngIf="stats$ | async as stats; else loadingOrNoStats">
       <div class="stats-container">
@@ -45,4 +50,7 @@
   <div class="actions">
     <a routerLink="/login" class="secondary-action">‹ Account Settings</a>
   </div>
+
+  <!-- Customization Modal (moved inside the main user$ async block) -->
+  <app-profile-customization *ngIf="showCustomization && (user$ | async)" [user]="(user$ | async)" (close)="showCustomization = false"></app-profile-customization>
 </div>

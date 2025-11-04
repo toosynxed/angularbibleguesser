@@ -1,6 +1,6 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { Observable, of } from 'rxjs';
-import { StatsService, LeaderboardPlayer } from '../stats.service';
+import { StatsService, LeaderboardPlayer, ProfileCustomization } from '../stats.service';
 
 @Component({
   selector: 'app-leaderboard',

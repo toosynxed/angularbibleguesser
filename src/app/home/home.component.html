@@ -158,6 +158,9 @@
         <ng-template #loadingOrNoStats>
           <p>Loading stats or no stats recorded yet. Go play some games!</p>
         </ng-template>
+        <div class="modal-footer">
+          <a routerLink="/login" class="secondary-action" (click)="showStats = false">Customize Profile</a>
+        </div>
       </div>
     </div>
   </div>

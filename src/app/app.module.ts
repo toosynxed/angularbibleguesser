@@ -27,7 +27,6 @@ import { SharedGameComponent } from './shared-game/shared-game.component';
 import { ScrollPickerComponent } from './scroll-picker/scroll-picker.component';
 import { LeaderboardComponent } from './leaderboard/leaderboard.component';
 import { ProfileCustomizationComponent } from './profile-customization/profile-customization.component';
-import { DecoratedNameComponent } from './decorated-name/decorated-name.component';
 import { ClassicInputComponent } from './classic-input/classic-input.component';
 import { ExternalLeaderboardComponent } from './external-leaderboard/external-leaderboard.component';
 
@@ -45,7 +44,6 @@ import { ExternalLeaderboardComponent } from './external-leaderboard/external-le
     ScrollPickerComponent,
     LeaderboardComponent,
     ProfileCustomizationComponent,
-    DecoratedNameComponent,
     ClassicInputComponent,
     ExternalLeaderboardComponent
   ],

@@ -10,8 +10,7 @@
       <h2>Players</h2>
       <ul>
         <li *ngFor="let player of players$ | async" class="player-list-item">
-          <app-decorated-name [player]="player"></app-decorated-name>
-          <span *ngIf="player.isHost" class="host-tag">(Host)</span>
+          <app-decorated-name [profile]="player"></app-decorated-name> <span *ngIf="player.isHost" class="host-tag">(Host)</span>
         </li>
       </ul>
     </div>

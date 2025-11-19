@@ -21,7 +21,7 @@
           <tr *ngFor="let player of (leaderboard$ | async)">
             <td class="rank">{{ player.rank }}</td>
             <td class="player-name">
-              <app-decorated-name [player]="player"></app-decorated-name> <span *ngIf="player.isHost">(Host)</span>
+              <app-decorated-name [profile]="player"></app-decorated-name> <span *ngIf="player.isHost">(Host)</span>
             </td>
             <td>{{ player.totalScore }}</td>
           </tr>

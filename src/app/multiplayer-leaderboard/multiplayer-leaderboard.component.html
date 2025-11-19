@@ -15,7 +15,7 @@
       <ol>
         <li *ngFor="let player of players$ | async">
           <span class="player-name">
-            {{ player.name }}
+            <app-decorated-name [profile]="player"></app-decorated-name>
             <span *ngIf="player.uid === userId" class="you-indicator">(You)</span>
             <span *ngIf="player.uid === lobby.hostId" class="host-indicator">👑</span>
           </span>

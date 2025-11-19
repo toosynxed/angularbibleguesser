@@ -34,7 +34,7 @@ interface LeaderboardPlayer extends Player {
           <tbody>
             <tr *ngFor="let player of leaderboard$ | async">
               <td>{{ player.rank }}</td>
-              <td>{{ player.displayName }} <span *ngIf="player.isHost">(Host)</span></td>
+              <td><app-decorated-name [profile]="player"></app-decorated-name> <span *ngIf="player.isHost">(Host)</span></td>
               <td>{{ player.totalScore }}</td>
             </tr>
           </tbody>

@@ -7,7 +7,7 @@
     "rules": "database.rules.json"
   },
   "hosting": {
-    "public": "dist/angularbibleguesser",
+    "public": "dist/angular-basic",
     "ignore": [
       "firebase.json",
       "**/.*",

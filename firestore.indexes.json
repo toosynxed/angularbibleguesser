@@ -1,4 +1,39 @@
 {
   "indexes": [],
-  "fieldOverrides": []
+  "fieldOverrides": [
+    {
+      "collectionGroup": "lobbies",
+      "fieldPath": "lastUpdatedAt",
+      "ttlConfig": {
+        "state": "ACTIVE"
+      },
+      "indexes": [
+        {
+          "order": "ASCENDING",
+          "queryScope": "COLLECTION"
+        },
+        {
+          "order": "DESCENDING",
+          "queryScope": "COLLECTION"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "sharedGames",
+      "fieldPath": "createdAt",
+      "ttlConfig": {
+        "state": "ACTIVE"
+      },
+      "indexes": [
+        {
+          "order": "ASCENDING",
+          "queryScope": "COLLECTION"
+        },
+        {
+          "order": "DESCENDING",
+          "queryScope": "COLLECTION"
+        }
+      ]
+    }
+  ]
 }

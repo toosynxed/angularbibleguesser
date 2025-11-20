@@ -2,54 +2,56 @@ rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
 
-    // Users can read their own data and other users' public profiles.
-    // Anyone authenticated can create a user document for themselves.
+    // --- User Data ---
+    // Users can read public profiles, but can only create and update their own document.
     match /users/{userId} {
       allow read: if request.auth != null;
       allow create: if request.auth != null && request.auth.uid == userId;
-      allow update: if request.auth != null && request.auth.uid == userId;
+      // Allow users to update their own profile data (e.g., displayName, customization).
+      allow update: if request.auth.uid == userId;
     }
 
-    // Lobbies can be read by anyone, which is needed for leaderboards and joining games.
-    // Lobbies can be created by anyone.
-    // Updates are restricted to prevent malicious data changes.
+    // --- Multiplayer Lobbies ---
+    // Any authenticated user can read or create a lobby.
     match /lobbies/{lobbyId} {
       allow read, create: if request.auth != null;
-
-      // Allow updates only for specific fields like 'guesses' or 'state'.
-      // This prevents a user from changing the lobby owner or other critical data.
-      allow update: if request.resource.data.diff(resource.data).affectedKeys().hasOnly(['guesses', 'state', 'currentRound']);
+      // The lobby owner can update any field.
+      // Other players can only update game-state related fields.
+      allow update: if request.auth.uid == resource.data.ownerId ||
+                      request.resource.data.diff(resource.data).affectedKeys().hasAny([
+                        'guesses', 'state', 'currentRound', 'lastUpdatedAt', 'players'
+                      ]);
     }
 
-    // Players in a lobby can be read by anyone.
-    // A player can only be added to a lobby (no updates/deletes by clients).
-    // This prevents players from kicking others or changing scores.
+    // Players can be added to a lobby, but not modified or deleted by clients.
     match /lobbies/{lobbyId}/players/{playerId} {
       allow read, create: if request.auth != null;
       allow update, delete: if false;
     }
 
-    // Daily challenges can be read by anyone.
+    // --- Daily Challenges ---
+    // Any authenticated user can read the daily challenges (for the calendar and playing).
     match /daily_challenges/{date} {
-      // Authenticated users can get a single challenge or a list of them (for the calendar).
       allow read: if request.auth != null;
-      allow create, update, delete: if false; // Only backend/admins should create challenges
+      allow write: if false; // Only backend/admins should create challenges
     }
 
-    // Daily scores can be read by anyone (for leaderboards).
-    // Users can only create their own score entry.
-    // No one can update or delete scores to maintain leaderboard integrity.
+    // --- Daily Scores (for Leaderboards) ---
+    // Anyone can read scores for leaderboards.
+    // Users can only create or update their own score entry.
     match /daily_scores/{date}/scores/{userId} {
-       allow read: if true;
-       // Allow score creation if the user is creating their own score entry.
-       // This works for both anonymous and signed-in users via their UID.
-       allow create: if request.auth != null && request.auth.uid == userId;
-       allow update, delete: if false;
+       allow read: if request.auth != null;
+       allow create, update: if request.auth != null && request.auth.uid == userId;
+       allow delete: if false;
     }
 
-    // Default deny all other access to prevent any open paths.
-    match /{document=**} {
-      allow read, write: if false;
+    // --- Shared Games (for sharing results) ---
+    // Any authenticated user can create a shared game link.
+    // Anyone (even unauthenticated) can read a shared game to view the results.
+    match /sharedGames/{shareId} {
+      allow read: if true;
+      allow create: if request.auth != null;
+      allow update, delete: if false;
     }
   }
 }

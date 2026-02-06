@@ -4,7 +4,7 @@
   "scripts": {
     "ng": "ng",
     "sudo builld": "sudo npm run build",
-    "asd123": "ng build --configuration production",
+    "firebase": "firebase deploy --only firestore",
     "start": "ng serve",
     "build": "npm run build:sitemap && ng build",
     "build:sitemap": "node generate-sitemap.js",

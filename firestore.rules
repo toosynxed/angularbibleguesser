@@ -5,7 +5,7 @@ service cloud.firestore {
     // --- User Data ---
     // Users can read public profiles, but can only create and update their own document.
     match /users/{userId} {
-      allow read: if request.auth != null;
+      allow read: if request.auth != null && request.auth.uid == userId;
       allow create: if request.auth != null && request.auth.uid == userId;
       // Allow users to update their own profile data (e.g., displayName, customization).
       allow update: if request.auth.uid == userId;
@@ -32,26 +32,27 @@ service cloud.firestore {
     // --- Daily Challenges ---
     // Any authenticated user can read the daily challenges (for the calendar and playing).
     match /daily_challenges/{date} {
-      allow read: if request.auth != null;
-      allow write: if false; // Only backend/admins should create challenges
+      allow get, list: if true;
+      allow write: if false;
     }
 
     // --- Daily Scores (for Leaderboards) ---
-    // Anyone can read scores for leaderboards.
-    // Users can only create or update their own score entry.
-    match /daily_scores/{date}/scores/{userId} {
-       allow read: if request.auth != null;
-       allow create, update: if request.auth != null && request.auth.uid == userId;
-       allow delete: if false;
+    match /daily_scores/{date} {
+      // Allow anyone to read the daily_scores document itself (if it exists).
+      allow get: if true;
+      // Disallow listing all daily_scores docs or writing to the collection.
+      allow list, write: if false;
+
+      match /scores/{userId} {
+         // Allow reading any single score document, and listing scores for a specific day (for leaderboards).
+         allow get, list: if true;
+         // Allow users to create or update their own score document.
+         allow create, update: if request.auth != null && request.auth.uid == userId;
+         allow delete: if false;
+      }
     }
 
     // --- Shared Games (for sharing results) ---
-    // Any authenticated user can create a shared game link.
-    // Anyone (even unauthenticated) can read a shared game to view the results.
-    match /sharedGames/{shareId} {
-      allow read: if true;
-      allow create: if request.auth != null;
-      allow update, delete: if false;
-    }
+    match /sharedGames/{shareId} { allow read: if true; allow create: if request.auth != null; allow update, delete: if false; }
   }
 }

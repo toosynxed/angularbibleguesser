@@ -1,58 +1,10 @@
 rules_version = '2';
+
 service cloud.firestore {
   match /databases/{database}/documents {
-
-    // --- User Data ---
-    // Users can read public profiles, but can only create and update their own document.
-    match /users/{userId} {
-      allow read: if request.auth != null && request.auth.uid == userId;
-      allow create: if request.auth != null && request.auth.uid == userId;
-      // Allow users to update their own profile data (e.g., displayName, customization).
-      allow update: if request.auth.uid == userId;
+    match /{document=**} {
+      allow read, write: if
+          request.time < timestamp.date(2026, 12, 26);
     }
-
-    // --- Multiplayer Lobbies ---
-    // Any authenticated user can read or create a lobby.
-    match /lobbies/{lobbyId} {
-      allow read, create: if request.auth != null;
-      // The lobby owner can update any field.
-      // Other players can only update game-state related fields.
-      allow update: if request.auth.uid == resource.data.ownerId ||
-                      request.resource.data.diff(resource.data).affectedKeys().hasAny([
-                        'guesses', 'state', 'currentRound', 'lastUpdatedAt', 'players'
-                      ]);
-    }
-
-    // Players can be added to a lobby, but not modified or deleted by clients.
-    match /lobbies/{lobbyId}/players/{playerId} {
-      allow read, create: if request.auth != null;
-      allow update, delete: if false;
-    }
-
-    // --- Daily Challenges ---
-    // Any authenticated user can read the daily challenges (for the calendar and playing).
-    match /daily_challenges/{date} {
-      allow get, list: if true;
-      allow write: if false;
-    }
-
-    // --- Daily Scores (for Leaderboards) ---
-    match /daily_scores/{date} {
-      // Allow anyone to read the daily_scores document itself (if it exists).
-      allow get: if true;
-      // Disallow listing all daily_scores docs or writing to the collection.
-      allow list, write: if false;
-
-      match /scores/{userId} {
-         // Allow reading any single score document, and listing scores for a specific day (for leaderboards).
-         allow get, list: if true;
-         // Allow users to create or update their own score document.
-         allow create, update: if request.auth != null && request.auth.uid == userId;
-         allow delete: if false;
-      }
-    }
-
-    // --- Shared Games (for sharing results) ---
-    match /sharedGames/{shareId} { allow read: if true; allow create: if request.auth != null; allow update, delete: if false; }
   }
 }

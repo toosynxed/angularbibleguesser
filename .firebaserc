@@ -1,6 +1,7 @@
 {
   "projects": {
-    "bibleguesser": "angularbetterbibleguesser"
+    "bibleguesser": "angularbetterbibleguesser",
+    "default": "angularbetterbibleguesser"
   },
   "targets": {},
   "etags": {}

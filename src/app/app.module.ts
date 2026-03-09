@@ -31,6 +31,7 @@ import { ProfileCustomizationComponent } from './profile-customization/profile-c
 import { ClassicInputComponent } from './classic-input/classic-input.component';
 import { ExternalLeaderboardComponent } from './external-leaderboard/external-leaderboard.component';
 import { ChatBotComponent } from './chat-bot/chat-bot.component';
+import { QuestModeComponent } from './quest-mode/quest-mode.component';
 
 @NgModule({
   declarations: [
@@ -48,7 +49,8 @@ import { ChatBotComponent } from './chat-bot/chat-bot.component';
     ProfileCustomizationComponent,
     ClassicInputComponent,
     ExternalLeaderboardComponent,
-    ChatBotComponent
+    ChatBotComponent,
+    QuestModeComponent
   ],
   imports: [
     BrowserModule,
@@ -64,10 +66,10 @@ import { ChatBotComponent } from './chat-bot/chat-bot.component';
   ],
   providers: [
     { provide: REGION, useValue: 'us-central1' },
-    { provide: USE_AUTH_EMULATOR, useValue: (location.hostname === 'localhost' || location.hostname === '127.0.0.1') ? ['http://localhost:9099'] : undefined },
-    { provide: USE_FIRESTORE_EMULATOR, useValue: (location.hostname === 'localhost' || location.hostname === '127.0.0.1') ? ['localhost', 8080] : undefined },
-    { provide: USE_DATABASE_EMULATOR, useValue: (location.hostname === 'localhost' || location.hostname === '127.0.0.1') ? ['localhost', 9000] : undefined },
-    { provide: USE_FUNCTIONS_EMULATOR, useValue: (location.hostname === 'localhost' || location.hostname === '127.0.0.1') ? ['localhost', 5001] : undefined }
+    { provide: USE_AUTH_EMULATOR, useValue: (location.hostname === 'localhost' || location.hostname === '127.0.0.1') ? ['http://127.0.0.1:9100'] : undefined },
+    { provide: USE_FIRESTORE_EMULATOR, useValue: (location.hostname === 'localhost' || location.hostname === '127.0.0.1') ? ['127.0.0.1', 8085] : undefined },
+    { provide: USE_DATABASE_EMULATOR, useValue: (location.hostname === 'localhost' || location.hostname === '127.0.0.1') ? ['127.0.0.1', 9000] : undefined },
+    { provide: USE_FUNCTIONS_EMULATOR, useValue: (location.hostname === 'localhost' || location.hostname === '127.0.0.1') ? ['127.0.0.1', 5001] : undefined }
   ],
   bootstrap: [AppComponent]
 })

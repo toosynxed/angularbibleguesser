@@ -33,7 +33,7 @@ export const chatWithBot = functions.https.onCall(async (data, context) => {
     You can only answer questions about the game and how to play. Do not provide any information about the Bible verses themselves, as that would ruin the game. If the user asks for help, provide general tips on how to guess verses without giving specific hints.
   `;
 
-    const model = genAI.getGenerativeModel({ model: "gemini-2.5-pro" });
+    const model = genAI.getGenerativeModel({ model: "gemini-2.5-flash" });
     const result = await model.generateContent(systemPrompt + "\n\nUser Question: " + userMessage);
     const response = result.response;
     return { text: response.text() };

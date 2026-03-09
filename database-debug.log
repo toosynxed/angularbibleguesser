@@ -1,14 +1,4 @@
-09:11:52.491 [NamespaceSystem-akka.actor.default-dispatcher-4] INFO akka.event.slf4j.Slf4jLogger - Slf4jLogger started
-09:11:52.601 [main] INFO com.firebase.server.forge.App$ - Listening at 127.0.0.1:9000
-09:12:04.554 [NamespaceSystem-akka.actor.default-dispatcher-4] INFO com.firebase.core.namespace.NamespaceActor - angularbetterbibleguesser-default-rtdb successfully activated FBKV (SurveyIdle(0)) wait: 90ms, init: 0ms
-09:12:04.582 [NamespaceSystem-blocking-namespace-operation-dispatcher-7] INFO com.firebase.core.namespace.StateManager - Namespace angularbetterbibleguesser-default-rtdb status Active to Active
-09:12:36.811 [FirebaseWorkerPool-1-3] WARN com.firebase.core.persistence.backend.dummy.EmulatorMetadataPersistence - Multiple projectIds are not recommended in single project mode. Requested 
-namespace angularbetterbibleguesser, but the emulator is configured for angularbetterbibleguesser-default-rtdb. To 
-opt-out of single project mode add/set the singleProjectMode: false property in 
-the firebase.json emulators config. 
-09:12:36.820 [NamespaceSystem-akka.actor.default-dispatcher-4] INFO com.firebase.core.namespace.NamespaceActor - angularbetterbibleguesser successfully activated FBKV (SurveyIdle(0)) wait: 4ms, init: 0ms
-09:57:04.743 [Thread-0] INFO com.firebase.server.forge.App$ - Attempting graceful shutdown.
-09:57:04.855 [NamespaceSystem-akka.actor.default-dispatcher-18] INFO com.firebase.core.namespace.Terminator$Terminator - 2 actors left to terminate: angularbetterbibleguesser-default-rtdb, angularbetterbibleguesser
-09:57:04.874 [NamespaceSystem-akka.actor.default-dispatcher-19] INFO com.firebase.core.namespace.NamespaceActor - stopped namespace actor for angularbetterbibleguesser-default-rtdb
-09:57:04.874 [NamespaceSystem-akka.actor.default-dispatcher-23] INFO com.firebase.core.namespace.NamespaceActor - stopped namespace actor for angularbetterbibleguesser
-09:57:04.887 [Thread-0] INFO com.firebase.server.forge.App$ - Graceful shutdown complete.
+12:34:13.954 [NamespaceSystem-akka.actor.default-dispatcher-4] INFO akka.event.slf4j.Slf4jLogger - Slf4jLogger started
+12:34:14.044 [main] INFO com.firebase.server.forge.App$ - Listening at 127.0.0.1:9000
+12:34:26.826 [NamespaceSystem-akka.actor.default-dispatcher-4] INFO com.firebase.core.namespace.NamespaceActor - angularbetterbibleguesser-default-rtdb successfully activated FBKV (SurveyIdle(0)) wait: 75ms, init: 0ms
+12:34:26.855 [NamespaceSystem-blocking-namespace-operation-dispatcher-6] INFO com.firebase.core.namespace.StateManager - Namespace angularbetterbibleguesser-default-rtdb status Active to Active

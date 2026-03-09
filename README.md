@@ -1,3 +1,13 @@
+# To Run Development Locally:
+Run in /functions:
+```bash
+ng serve
+```
+Run in main:
+```bash
+firebase emulators:start
+```
+
 # Note
 In order to connect to your Firebase database, please create a directory
 

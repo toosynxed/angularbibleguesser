@@ -14,7 +14,7 @@ export class AuthService {
   user$: Observable<firebase.User | null>;
 
   // --- ADMIN MANAGEMENT ---
-  // Add the UIDs of your admin accounts here.
+  // Add the UIDs of admin accounts here.
   private adminUids = [
     'OHxIav7wuAYOowB7NG1P4cRKU1o2'
   ];

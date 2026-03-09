@@ -9,6 +9,7 @@ import { CreateGameComponent } from './create-game/create-game.component';
 import { ProfileComponent } from './profile/profile.component';
 import { SharedGameComponent } from './shared-game/shared-game.component';
 import { ExternalLeaderboardComponent } from './external-leaderboard/external-leaderboard.component';
+import { QuestModeComponent } from './quest-mode/quest-mode.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -27,6 +28,10 @@ const routes: Routes = [
   {
     path: 'daily',
     loadChildren: () => import('./daily-challenge/daily-challenge.module').then(m => m.DailyChallengeModule)
+  },
+  {
+    path: 'quest',
+    component: QuestModeComponent
   },
   { path: '**', redirectTo: '' } // Wildcard route for a 404-like redirect
 ];

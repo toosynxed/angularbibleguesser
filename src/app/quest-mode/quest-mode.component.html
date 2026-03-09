@@ -1,33 +1,55 @@
 <div class="container">
-  <div *ngIf="user$ | async as user; else loading">
-    <div class="profile-header">
-      <h2>{{ user.displayName || 'Guest' }}'s Questline!</h2>
-      <h3>Quest Map</h3>
+    <header style="display: grid;">
+          
+    <div class="actions">
+            <a routerLink="/" class="secondary-action">‹ Home</a>
     </div>
+    <div class="clickable-header" (click)="confirmGoHome()" title="Back to Home">
+      <img src="assets/logo.png" alt="Bible Guesser Logo" class="logo">
+    </div>
+    <div *ngIf="user$ | async as user">
+        <h2 style="text-align: center;">{{ user.displayName || 'Guest' }}'s Questline!</h2>  
+    </div>
+    </header>
+
+    <h3>Quest Map</h3>
 
     <div class="Quest-Map">
 
-        <img src="assets/quest-map.png" alt="Quest Map" class="quest-map-image" justify:left />
+        <img src="assets/quest-map.png" alt="Quest Map" class="quest-map-image" />
 
         <!-- Example of interactive quest points -->
-        <div class="quest-point" style="top: 30%; left: 20%;">
+        <div class="quest-point-container" style="top: 36%; left: 14%;">
+            <!-- Replace src with your actual overlay image -->
+            <img src="assets/marketplace-icon.png" class="quest-icon" (click)="startQuest('marketplace')" alt="Marketplace" />
             <div class="quest-tooltip">
-            <h4>Forest of Beginnings</h4>
-            <p>Complete 5 games in Normal Mode.</p>
+              <h4>Marketplace</h4>
+              <p>Spend your scrolls to obtain NEW profile customisation options!</p>
             </div>
         </div>
 
-        <div class="quest-point" style="top: 50%; left: 50%;">
+        <div class="quest-point-container" style="top: 20%; left: 85%;">
+            <img src="assets/academy-icon.png" class="quest-icon" (click)="startQuest('academy')" alt="academy" />
             <div class="quest-tooltip">
-            <h4>Cave of Challenges</h4>
-            <p>Win a game in Custom Mode with at least 3 stars.</p>
+              <h4>Academy of Challenges</h4>
+              <p>Win a game in Custom Mode with at least 3 stars.</p>
             </div>
         </div>
 
-        <div class="quest-point" style="top: 70%; left: 80%;">
+        <div class="quest-point-container" style="top: 38%; left: 50%;">
+            <img src="assets/castle-icon.png" class="quest-icon" (click)="startQuest('castle')" alt="Castle" />
             <div class="quest-tooltip">
-            <h4>Castle of Champions</h4>
-            <p>Play a multiplayer game and score over 80 points.</p>
+              <h4>Castle of Champions</h4>
+              <p>Defeat the final boss in Hard Mode.</p>
+            </div>
+        </div>
+
+
+        <div class="quest-point-container" style="top: 68%; left: 75%;">
+            <img src="assets/racetrack-icon.png" class="quest-icon" (click)="startQuest('racetrack')" alt="Racetrack" />
+            <div class="quest-tooltip">
+              <h4>Racetrack</h4>
+              <p>Play a multiplayer game and score over 80 points.</p>
             </div>
         </div>
     </div>
@@ -68,15 +90,13 @@
       </div>
     </ng-template>
     -->
-  </div>
+  
   
   <ng-template #loading>
     <p>Loading quest data...</p>
   </ng-template>
 
-  <div class="actions">
-    <a routerLink="/" class="secondary-action">‹ Home</a>
-  </div>
+
 
   <app-profile-customization *ngIf="showCustomization && (user$ | async)" [user]="(user$ | async)" (close)="showCustomization = false"></app-profile-customization>
-</div>
+  </div>

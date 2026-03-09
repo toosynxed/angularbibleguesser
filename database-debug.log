@@ -2,3 +2,7 @@
 12:34:14.044 [main] INFO com.firebase.server.forge.App$ - Listening at 127.0.0.1:9000
 12:34:26.826 [NamespaceSystem-akka.actor.default-dispatcher-4] INFO com.firebase.core.namespace.NamespaceActor - angularbetterbibleguesser-default-rtdb successfully activated FBKV (SurveyIdle(0)) wait: 75ms, init: 0ms
 12:34:26.855 [NamespaceSystem-blocking-namespace-operation-dispatcher-6] INFO com.firebase.core.namespace.StateManager - Namespace angularbetterbibleguesser-default-rtdb status Active to Active
+16:16:21.829 [Thread-0] INFO com.firebase.server.forge.App$ - Attempting graceful shutdown.
+16:16:21.978 [NamespaceSystem-akka.actor.default-dispatcher-11] INFO com.firebase.core.namespace.Terminator$Terminator - 1 actors left to terminate: angularbetterbibleguesser-default-rtdb
+16:16:22.013 [NamespaceSystem-akka.actor.default-dispatcher-11] INFO com.firebase.core.namespace.NamespaceActor - stopped namespace actor for angularbetterbibleguesser-default-rtdb
+16:16:22.026 [Thread-0] INFO com.firebase.server.forge.App$ - Graceful shutdown complete.

@@ -37,3 +37,8 @@
 .actions {
   margin-top: 2rem;
 }
+.header-controls {
+  position: absolute;
+  top: 0;
+  left: 0;
+}

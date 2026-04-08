@@ -38,6 +38,7 @@ export class ResultsComponent implements OnInit {
   isFinalRound = false;
   gameDataForSharing: any;
   setId: string | null = null;  // Track the set ID for shared games
+  verseIDb: string | null = null;  
 
   // Multiplayer
   lobby: Lobby | null = null;
@@ -232,6 +233,7 @@ export class ResultsComponent implements OnInit {
         
         // STEP 3: If this is a shared game, increment the set's gamesPlayed
         if (mode === 'shared' && this.setId) {
+          console.log(`inside shared and adding`)
           await this.setsBoardService.incrementGamesPlayed(this.setId);
           console.log(`Set ${this.setId} gamesPlayed incremented.`);
         }

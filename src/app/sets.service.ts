@@ -28,7 +28,7 @@ export class SetsBoard{
               // STEP 4: Return every field as a separate, flat value
               return {
                 id: set.setId,                    // Document ID
-                verseID: set.verseID,            // linked verses.
+                verseIDb: set.verseID,            // linked verses.
                 setName: set.name,                // Set Name
                 date: set.uploadDate,             // Upload Date
                 rounds: set.totalRounds || 0,     // Individual field

@@ -38,6 +38,7 @@ export class GameComponent implements OnInit, OnDestroy {
 
   // Multiplayer State
   lobbyId: string | null = null;
+  setId: string | null = null;
   lobby$: Observable<Lobby>;
   players$: Observable<Player[]>;
   userId: string;
@@ -86,12 +87,14 @@ export class GameComponent implements OnInit, OnDestroy {
       verseIds?: number[],
       settings?: GameSettings,
       lobbyId?: string,
-      results?: RoundResult[]
+      results?: RoundResult[],
+      setId?: string
     };
     this.results = state?.results || []; // Restore results if coming back from inter-round results page
     this.lobbyId = state?.lobbyId || null;
     this.seededVerseIds = state?.verseIds || null;
     this.gameMode = state?.mode || 'normal';
+    this.setId = state?.setId || null;
     if ((this.gameMode === 'custom' || this.gameMode === 'created' || this.gameMode === 'shared') && state?.settings) {
       this.gameSettings = state.settings;
     }
@@ -502,7 +505,8 @@ export class GameComponent implements OnInit, OnDestroy {
           results: this.results,
           settings: settings,
           mode: this.gameMode,
-          verseIds: this.seededVerseIds
+          verseIds: this.seededVerseIds,
+          setId: this.setId
         }
       });
     }

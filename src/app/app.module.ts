@@ -32,6 +32,7 @@ import { ClassicInputComponent } from './classic-input/classic-input.component';
 import { ExternalLeaderboardComponent } from './external-leaderboard/external-leaderboard.component';
 import { ChatBotComponent } from './chat-bot/chat-bot.component';
 import { QuestModeComponent } from './quest-mode/quest-mode.component';
+import { RelativeTimePipe } from './relative-time.pipe';
 
 @NgModule({
   declarations: [
@@ -50,7 +51,8 @@ import { QuestModeComponent } from './quest-mode/quest-mode.component';
     ClassicInputComponent,
     ExternalLeaderboardComponent,
     ChatBotComponent,
-    QuestModeComponent
+    QuestModeComponent,
+    RelativeTimePipe
   ],
   imports: [
     BrowserModule,

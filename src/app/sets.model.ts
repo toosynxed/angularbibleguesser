@@ -56,9 +56,8 @@ export interface UserProfileWithStats extends UserProfile {
 export interface sets {
   setId: string;
   uid: string;
-  rounds: number;
   name: string;
-  uploadDate: Date;
+  uploadDate: Timestamp<any>;
   totalRounds: number;
   gamesPlayed: number
 }

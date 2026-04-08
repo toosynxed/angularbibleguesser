@@ -7,6 +7,12 @@
           <p class="text-center text-muted">Define your own game by specifying the verses for each round, then share the code with a friend!</p>
 
           <form [formGroup]="createForm" (ngSubmit)="generateCode()">
+            <!-- Set Name -->
+            <div class="form-group mb-3">
+              <label for="setName" class="form-label">Set Name (Optional)</label>
+              <input type="text" id="setName" class="form-control" formControlName="setName" placeholder="e.g., Gospel of John" maxlength="100">
+            </div>
+
             <!-- Game Settings -->
             <div class="row">
               <div class="col-md-4">
@@ -65,6 +71,9 @@
 
             <!-- Generate Button -->
             <div class="d-grid gap-2 mt-4">
+              <button></button>
+            </div>
+            <div class="d-grid gap-2 mt-4">
               <button type="submit" class="btn btn-primary" [disabled]="createForm.invalid || createForm.pending || isGenerating">
                 <span *ngIf="isGenerating" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
                 {{ isGenerating ? 'Generating...' : 'Generate Game Code' }}
@@ -85,9 +94,20 @@
               </div>
 
               <h5>Permanent Link</h5>
-              <div class="input-group">
+              <div class="input-group mb-3">
                 <input type="text" class="form-control" [value]="longShareUrl" readonly>
                 <button class="btn btn-outline-secondary" (click)="copyLongUrl()">{{ longCodeCopyButtonText }}</button>
+              </div>
+
+              <h5>Save to My Sets</h5>
+              <div class="input-group">
+                <button type="button" class="btn btn-success w-100" (click)="saveSetToDatabase()" [disabled]="isSavingSet || setId" *ngIf="!setId">
+                  <span *ngIf="isSavingSet" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                  {{ saveSetButtonText }}
+                </button>
+                <div *ngIf="setId" class="alert alert-success w-100 mb-0 d-flex align-items-center">
+                  <span class="me-2">✓</span> Saved to your sets!
+                </div>
               </div>
             </div>
           </div>

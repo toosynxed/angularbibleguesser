@@ -39,7 +39,9 @@ export class SetsBoard{
           );
         });
 
-        return combineLatest(joins);
+        return combineLatest(joins).pipe(
+          map(results => results.sort((a, b) => b.plays - a.plays)) // Sort by plays descending
+        );
       })
     );
   }

@@ -6,6 +6,8 @@ import { map, switchMap, debounceTime, first, filter } from 'rxjs/operators';
 import { BibleService } from '../bible.service';
 import { SharedGame, ShareService, } from '../share.service';
 import { GameSettings } from '../game-settings.model';
+import { AuthService } from '../auth.service';
+import { AngularFirestore } from '@angular/fire/compat/firestore';
 
 @Component({
   selector: 'app-create-game',
@@ -19,6 +21,8 @@ export class CreateGameComponent implements OnInit {
   longShareUrl: string | null = null;
   shortShareCode: string | null = null;
   gameDataForSharing: SharedGame | null = null;
+  setId: string | null = null;
+  isSavingSet = false;
 
   timeOptions = [
     { value: 0, label: 'No Time Limit' },
@@ -32,12 +36,15 @@ export class CreateGameComponent implements OnInit {
   shortCodeCopyButtonText = 'Create and Copy';
   isShortCodeGenerating = false;
   longCodeCopyButtonText = 'Copy Link';
+  saveSetButtonText = 'Save to My Sets';
 
   constructor(
     private fb: FormBuilder,
     private bibleService: BibleService,
     private shareService: ShareService,
-    private router: Router
+    private router: Router,
+    private authService: AuthService,
+    private afs: AngularFirestore
   ) {}
 
 
@@ -46,6 +53,7 @@ export class CreateGameComponent implements OnInit {
 
   ngOnInit(): void {
     this.createForm = this.fb.group({
+      setName: ['', Validators.maxLength(100)],
       rounds: [5, [Validators.required, Validators.min(1), Validators.max(50)]],
       contextSize: [10, [Validators.required, Validators.min(0), Validators.max(250)]],
       timeLimit: [0],
@@ -132,6 +140,10 @@ export class CreateGameComponent implements OnInit {
         createdAt: new Date()
       };
 
+      // Convert verse IDs to comma-separated string for storage
+      const verseIdString = validVerseIds.join(',');
+      (this.gameDataForSharing as any)['verseIdString'] = verseIdString;
+
       const longCode = this.shareService.encodeGameData(this.gameDataForSharing);
       this.longShareUrl = `${window.location.origin}/game/${longCode}`;
     });
@@ -151,6 +163,80 @@ export class CreateGameComponent implements OnInit {
       this.shortCodeCopyButtonText = 'Copied!';
       setTimeout(() => this.shortCodeCopyButtonText = 'Copy Code', 2000);
     });
+  }
+
+  async saveSetToDatabase(): Promise<void> {
+    if (this.isSavingSet || !this.gameDataForSharing || this.setId) return;
+
+    this.isSavingSet = true;
+    this.saveSetButtonText = 'Saving...';
+
+    try {
+      const user = await this.authService.user$.pipe(first()).toPromise();
+      if (!user) {
+        this.errorMessage = 'You must be logged in to save a set.';
+        this.isSavingSet = false;
+        this.saveSetButtonText = 'Save to My Sets';
+        return;
+      }
+
+      const setName = this.createForm.get('setName')?.value?.trim() || `My Custom Set (${new Date().toLocaleDateString()})`;
+      const gameSettings = this.gameDataForSharing.gameSettings;
+
+      // Generate a randomly generated setId (like "n5EcEcjD49KbGtLnvySK")
+      const randomSetId = this.generateRandomId();
+
+      // Create a short code to use as the document name
+      const shortCode = this.shareService['generateShortCode']();
+
+      // Update gameDataForSharing with the setId and short code for sharing
+      this.gameDataForSharing['setId'] = randomSetId;
+      this.gameDataForSharing['shortCode'] = shortCode;
+
+      // Save to sets collection with shortCode as document name
+      await this.afs.collection('sets').doc(shortCode).set({
+        name: setName,
+        verseID: shortCode,  // verseID is the short code
+        uid: user.uid,
+        uploadDate: new Date(),
+        totalRounds: gameSettings?.rounds || 5,
+        gamesPlayed: 0,
+        setId: randomSetId  // Randomly generated ID
+      });
+
+      // Create a short code game in shared_games with the setId reference if needed
+      if (!this.shortShareCode) {
+        this.shortShareCode = shortCode;
+        // Optionally save to shared_games collection as well
+        await this.afs.collection('shared_games').doc(shortCode).set({
+          ...this.gameDataForSharing,
+          createdAt: new Date()
+        });
+      }
+
+      this.setId = randomSetId;
+
+      this.saveSetButtonText = 'Saved!';
+      setTimeout(() => {
+        this.saveSetButtonText = 'Save to My Sets';
+      }, 2000);
+    } catch (error) {
+      console.error('Error saving set:', error);
+      this.errorMessage = 'Failed to save the set. Please try again.';
+      this.saveSetButtonText = 'Save to My Sets';
+    } finally {
+      this.isSavingSet = false;
+    }
+  }
+
+  private generateRandomId(): string {
+    // Generate a random ID similar to Firebase IDs (20 characters, alphanumeric)
+    const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    let result = '';
+    for (let i = 0; i < 20; i++) {
+      result += chars.charAt(Math.floor(Math.random() * chars.length));
+    }
+    return result;
   }
 
   copyLongUrl(): void {

@@ -60,5 +60,5 @@ export interface sets {
   name: string;
   uploadDate: Timestamp<any>;
   totalRounds: number;
-  gamesPlayed: number
+  gamesPlayed: number;
 }

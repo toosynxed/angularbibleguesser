@@ -194,7 +194,7 @@
               <p><strong>Uploader:</strong> {{set.authorName}}</p>
               <p><strong>Upload Time:</strong> {{set.date | relativeTime}}</p>
               <p><strong>Total Rounds:</strong> {{set.rounds ? (set.rounds) : 'Unknown'}}</p>
-              <p><strong>Times Played:</strong> {{set.gamesPlayed ? (set.gamesPlayed) : '0'}}</p>
+              <p><strong>Times Played:</strong> {{set.plays ? (set.plays) : '0' }}</p>
               
               <button class="secondary-action" (click)="playFromSetId(set.verseIDb)">Start from Code</button>
               

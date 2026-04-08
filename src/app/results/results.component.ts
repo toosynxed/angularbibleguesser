@@ -6,6 +6,7 @@ import { ShareService } from '../share.service';
 import { AuthService } from '../auth.service';
 import { StatsService } from '../stats.service';
 import { BibleService, } from '../bible.service';
+import { SetsBoard } from '../sets.service';
 import { first, map, switchMap, tap, take } from 'rxjs/operators';
 import { combineLatest, of, Observable } from 'rxjs';
 import firebase from 'firebase/compat/app';
@@ -36,6 +37,7 @@ export class ResultsComponent implements OnInit {
   gameState: GameState;
   isFinalRound = false;
   gameDataForSharing: any;
+  setId: string | null = null;  // Track the set ID for shared games
 
   // Multiplayer
   lobby: Lobby | null = null;
@@ -61,6 +63,7 @@ export class ResultsComponent implements OnInit {
     private authService: AuthService,
     private statsService: StatsService,
     private bibleService: BibleService,
+    private setsBoardService: SetsBoard,
     private lobbyService: LobbyService
   ) {
     const navigation = this.router.getCurrentNavigation();
@@ -154,6 +157,10 @@ export class ResultsComponent implements OnInit {
         this.totalStars = this.results.reduce((acc, r) => acc + r.stars, 0);
         this.gameDataForSharing = { verseIds: this.results.map(r => r.verse.verseId), gameSettings: this.gameState.settings };
         this.isFinalRound = this.results.length >= this.gameState.settings.rounds;
+        // Capture setId if this is a shared game
+        if (state?.setId) {
+          this.setId = state.setId;
+        }
       }
     } else {
       // If there's no state, redirect home
@@ -222,6 +229,12 @@ export class ResultsComponent implements OnInit {
       } else if (mode === 'custom' || mode === 'created' || mode === 'shared') {
         await this.statsService.updateCustomModeStats(user.uid, results.length, totalScore);
         console.log('Custom/Create/Shared stats update initiated.');
+        
+        // STEP 3: If this is a shared game, increment the set's gamesPlayed
+        if (mode === 'shared' && this.setId) {
+          await this.setsBoardService.incrementGamesPlayed(this.setId);
+          console.log(`Set ${this.setId} gamesPlayed incremented.`);
+        }
       } else {
         console.log('Single Player: Unknown mode, skipping stats update.');
       }

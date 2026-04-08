@@ -55,6 +55,7 @@ export interface UserProfileWithStats extends UserProfile {
 
 export interface sets {
   setId: string;
+  verseID: string;
   uid: string;
   name: string;
   uploadDate: Timestamp<any>;

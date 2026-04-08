@@ -31,6 +31,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   stats$: Observable<UserStats | undefined>;
   set$: Observable<any[]>;
   isAdmin$: Observable<boolean>;
+  currentPlayingSetId: string | null = null;
 
   // Content for the "Rules" tab
   rulesContent = `
@@ -268,6 +269,12 @@ export class HomeComponent implements OnInit, OnDestroy {
   createGame(): void {
     this.router.navigate(['/create-game']);
   }
+  playFromSetId(setId: string): void {
+    this.gameCode = setId;
+    this.currentPlayingSetId = setId;
+    this.playFromCode();
+  }
+
   playFromCode(): void {
     this.error = null;
     const code = this.gameCode.trim().toUpperCase();
@@ -282,7 +289,8 @@ export class HomeComponent implements OnInit, OnDestroy {
           state: {
             mode: 'shared',
             verseIds: gameData.verseIds,
-            settings: gameData.gameSettings
+            settings: gameData.gameSettings,
+            setId: this.currentPlayingSetId  // Add this
           }
         });
       } else {

@@ -190,11 +190,15 @@
 
             <!-- Normal Mode Stats -->
             <div class="stat-card" *ngFor="let set of setsList">
-              <h3>{{set.setName ? (set.setName) : 'Unknown'}}</h3>
+              <h3>{{set.setName ? (set.setName) : 'Verse Set'}}</h3>
               <p><strong>Uploader:</strong> {{set.authorName}}</p>
-              <p><strong>Upload Date:</strong> {{set.date | relativeTime}}</p>
+              <p><strong>Upload Time:</strong> {{set.date | relativeTime}}</p>
               <p><strong>Total Rounds:</strong> {{set.rounds ? (set.rounds) : 'Unknown'}}</p>
               <p><strong>Times Played:</strong> {{set.gamesPlayed ? (set.gamesPlayed) : '0'}}</p>
+              
+              <button class="secondary-action" (click)="playFromSetId(set.verseID, set.gamesPlayed)">Start from Code</button>
+              
+
             </div>
 
             

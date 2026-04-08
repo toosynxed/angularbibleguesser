@@ -27,11 +27,12 @@ export class SetsBoard{
             map(user => {
               // STEP 4: Return every field as a separate, flat value
               return {
-                id: set.setId,                 // Document ID
-                setName: set.name,             // Set Name
-                date: set.uploadDate,          // Upload Date
-                rounds: set.totalRounds || 0, // Individual field
-                plays: set.gamesPlayed || 0,  // Individual field
+                id: set.setId,                    // Document ID
+                verseID: set.verseID,            // linked verses.
+                setName: set.name,                // Set Name
+                date: set.uploadDate,             // Upload Date
+                rounds: set.totalRounds || 0,     // Individual field
+                plays: set.gamesPlayed || 0,      // Individual field
                 authorName: user?.displayName || 'Unknown' // Joined field
               };
             })
@@ -42,8 +43,13 @@ export class SetsBoard{
       })
     );
   }
+
+  incrementGamesPlayed(setId: string): Promise<void> {
+    return this.afs.collection('sets').doc(setId).update({
+      gamesPlayed: firebase.firestore.FieldValue.increment(1)
+    });
+  }
 }
 
 
 
-//     return this.afs.collection<sets>('sets').valueChanges({ idField: 'setId' }).pipe(

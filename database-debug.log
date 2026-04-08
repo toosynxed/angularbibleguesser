@@ -2,3 +2,8 @@
 09:31:27.680 [main] INFO com.firebase.server.forge.App$ - Listening at 127.0.0.1:9000
 09:31:39.967 [NamespaceSystem-akka.actor.default-dispatcher-4] INFO com.firebase.core.namespace.NamespaceActor - angularbetterbibleguesser-default-rtdb successfully activated FBKV (SurveyIdle(0)) wait: 72ms, init: 0ms
 09:31:39.996 [NamespaceSystem-blocking-namespace-operation-dispatcher-7] INFO com.firebase.core.namespace.StateManager - Namespace angularbetterbibleguesser-default-rtdb status Active to Active
+10:23:01.768 [FirebaseWorkerPool-1-4] WARN com.firebase.core.persistence.backend.dummy.EmulatorMetadataPersistence - Multiple projectIds are not recommended in single project mode. Requested 
+namespace angularbetterbibleguesser, but the emulator is configured for angularbetterbibleguesser-default-rtdb. To 
+opt-out of single project mode add/set the singleProjectMode: false property in 
+the firebase.json emulators config. 
+10:23:01.818 [NamespaceSystem-akka.actor.default-dispatcher-14] INFO com.firebase.core.namespace.NamespaceActor - angularbetterbibleguesser successfully activated FBKV (SurveyIdle(0)) wait: 14ms, init: 0ms

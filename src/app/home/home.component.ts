@@ -7,7 +7,8 @@ import { AuthService } from '../auth.service';
 import { DailyChallengeService } from '../daily-challenge.service';
 import { StatsService, } from '../stats.service';
 import { UserStats } from '../stats.model';
-import { sets } from '../sets.model'
+import { sets } from '../sets.model';
+import { SetsBoard } from '../sets.service';
 import firebase from 'firebase/compat/app';
 
 @Component({
@@ -28,7 +29,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   showStats = false;
   user$: Observable<firebase.User | null>;
   stats$: Observable<UserStats | undefined>;
-  sets$: Observable<sets | UnderlyingByteSource>;
+  set$: Observable<any[]>;
   isAdmin$: Observable<boolean>;
 
   // Content for the "Rules" tab
@@ -222,7 +223,8 @@ export class HomeComponent implements OnInit, OnDestroy {
     private shareService: ShareService,
     private authService: AuthService,
     private statsService: StatsService,
-    private dailyChallengeService: DailyChallengeService
+    private dailyChallengeService: DailyChallengeService,
+    private setsBoardService: SetsBoard
   ) { }
 
   ngOnInit(): void {
@@ -248,6 +250,7 @@ export class HomeComponent implements OnInit, OnDestroy {
         this.shareService.clearErrorMessage();
       }
     });
+    this.set$ = this.setsBoardService.getDetailedSetsList();
   }
 
   ngOnDestroy(): void {

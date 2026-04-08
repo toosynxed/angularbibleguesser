@@ -177,22 +177,21 @@
   <!-- Leaderboard Modal -->
   <app-leaderboard *ngIf="showLeaderboard" (close)="showLeaderboard = false"></app-leaderboard>
 
- <div *ngIf="showBoard" class="modal-backdrop" (click)="showBoard = false">
+  <!-- Verse Board Modal-->
+  <div *ngIf="showBoard" class="modal-backdrop" (click)="showBoard = false">
     <div class="modal-content" (click)="$event.stopPropagation()">
       <div class="modal-header">
         <h2>Verse Board</h2>
         <button class="close-button" (click)="showBoard = false">&times;</button>
       </div>
       <div class="modal-body">
-        <div *ngIf="sets$ | async as sets; else loadingOrNoStats">
+        <div *ngIf="set$ | async as setsList; else loadingOrNoStats">
           <div class="stats-container">
 
             <!-- Normal Mode Stats -->
-            <div class="stat-card" *ngIf="sets.normal as normalsets">
-              <h3>Normal Mode</h3>
-              <p><strong>Games Played:</strong> {{ normalStats.gamesPlayed || 0 }}</p>
-              <p><strong>Average Score:</strong> {{ getAverage(normalStats.totalScore, normalStats.gamesPlayed) }} / 100</p>
-              <p><strong>Average Stars:</strong> {{ getAverage(normalStats.totalStars, normalStats.gamesPlayed) }} / 3</p>
+            <div class="stat-card" *ngFor="let set of setsList">
+              <h3>{{set.setName}}</h3>
+              <p><strong>Average Score:</strong> {{set.authorName}}</p>
             </div>
 
             

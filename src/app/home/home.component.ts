@@ -7,6 +7,7 @@ import { AuthService } from '../auth.service';
 import { DailyChallengeService } from '../daily-challenge.service';
 import { StatsService, } from '../stats.service';
 import { UserStats } from '../stats.model';
+import { sets } from '../sets.model'
 import firebase from 'firebase/compat/app';
 
 @Component({
@@ -23,9 +24,11 @@ export class HomeComponent implements OnInit, OnDestroy {
   showCustomAndCodeMenu = false;
   activeHelpTab: 'rules' | 'about' | 'learn' = 'rules';
   showLeaderboard = false;
+  showBoard = false;
   showStats = false;
   user$: Observable<firebase.User | null>;
   stats$: Observable<UserStats | undefined>;
+  sets$: Observable<sets | UnderlyingByteSource>;
   isAdmin$: Observable<boolean>;
 
   // Content for the "Rules" tab

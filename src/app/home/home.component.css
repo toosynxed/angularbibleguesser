@@ -175,6 +175,16 @@
   background-color: #f0c400; /* Slightly darker gold on hover */
 }
 
+.home-main button.quest-button {
+  background-color: #6AF9F7; /* A gold color to make it stand out */
+  color: #1a1a1a; /* Dark text for better contrast on gold */
+  border: 1px solid #306d6c; /* A darker gold border */
+}
+
+.home-main button.quest-button:hover {
+  background-color: #29b1af; /* Slightly darker gold on hover */
+}
+
 /* Changelog Button */
 .changelog-button {
   position: fixed;

@@ -8,11 +8,20 @@
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg>
         <span>Stats</span>
       </button>
+
       <button class="stats-button"
               (click)="showLeaderboard = true"
               title="View leaderboards">
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/><path d="M4 15h1.5a2.5 2.5 0 0 1 0 5H4"/><path d="M18 15h1.5a2.5 2.5 0 0 0 0 5H18"/><path d="M9 6h6"/><path d="M9 18h6"/><path d="M12 3v18"/></svg>
         <span>Leaderboards</span>
+      </button>
+
+      <button class="board-button"
+              (click)="showBoard = true"
+              title="View Verse Board" style="margin-top: 5%;">
+        <!-- NEED TO DO! FIND BOARD ICON BELOW!!!!! -->
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/><path d="M4 15h1.5a2.5 2.5 0 0 1 0 5H4"/><path d="M18 15h1.5a2.5 2.5 0 0 0 0 5H18"/><path d="M9 6h6"/><path d="M9 18h6"/><path d="M12 3v18"/></svg>
+        <span>Verse Board</span>
       </button>
     </div>
     <div class="login-area" *ngIf="user$ | async as user; else showLoginButton">
@@ -43,13 +52,13 @@
 
       <button class="primary" (click)="startGame('normal')">Normal Mode</button>
       <button class="primary daily-button" routerLink="/daily">Daily Mode</button>
-      <button class="primary" (click)="goToMultiplayer()">Online Multiplayer Mode</button>
-      <button class="primary" (click)="showCustomAndCodeMenu = true">Custom & Upload Codes</button>
+      <button class="primary" (click)="showCustomAndCodeMenu = true">Online Modes</button>
+      <button class="primary quest-button" routerLink="/quest">*NEW* Quest Mode</button>
   </main>
-
+<!-- goToMultiplayer() -->
   <main class="home-main" style="padding-top:0px;" *ngIf="showCustomAndCodeMenu">
-      <h2 style="margin-block-start: 0px; margin-block-end: 0px;">Custom & Upload Modes</h2>
-
+      <h2 style="margin-block-start: 0px; margin-block-end: 0px;">Online Modes</h2>
+      <button class="primary daily-button" (click)="goToMultiplayer()">Multiplayer Mode</button>
       <button class="primary" (click)="startGame('custom')">Custom Mode</button>
       <button class="primary" (click)="createGame()">Create Mode</button>
       <button class="secondary-action" (click)="showCodeInput = !showCodeInput">Upload Via Code</button>
@@ -58,7 +67,7 @@
         <input type="text" [(ngModel)]="gameCode" placeholder="Enter game code..." (keyup.enter)="playFromCode()">
         <button class="secondary-action" (click)="playFromCode()">Start from Code</button>
       </div>
-      <button class="secondary-action back-button" (click)="showCustomAndCodeMenu = false">‹ Back</button>
+      <button class="secondary-action back-button" style="background-color:rgb(106, 249, 247)" (click)="showCustomAndCodeMenu = false">‹ Back</button>
   </main>
 
   <!-- Admin Panel -->
@@ -167,6 +176,36 @@
 
   <!-- Leaderboard Modal -->
   <app-leaderboard *ngIf="showLeaderboard" (close)="showLeaderboard = false"></app-leaderboard>
+
+ <div *ngIf="showBoard" class="modal-backdrop" (click)="showBoard = false">
+    <div class="modal-content" (click)="$event.stopPropagation()">
+      <div class="modal-header">
+        <h2>Verse Board</h2>
+        <button class="close-button" (click)="showBoard = false">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div *ngIf="sets$ | async as sets; else loadingOrNoStats">
+          <div class="stats-container">
+
+            <!-- Normal Mode Stats -->
+            <div class="stat-card" *ngIf="sets.normal as normalsets">
+              <h3>Normal Mode</h3>
+              <p><strong>Games Played:</strong> {{ normalStats.gamesPlayed || 0 }}</p>
+              <p><strong>Average Score:</strong> {{ getAverage(normalStats.totalScore, normalStats.gamesPlayed) }} / 100</p>
+              <p><strong>Average Stars:</strong> {{ getAverage(normalStats.totalStars, normalStats.gamesPlayed) }} / 3</p>
+            </div>
+
+            
+          </div>
+        </div>
+        <ng-template #loadingOrNoStats>
+          <p>Loading Verse Sets or no Sets added yet. Go play upload some games!</p>
+        </ng-template>
+      </div>
+    </div>
+  </div>
+
+
 
   <!-- Stripe Support Link Section -->
   <div class="support-section">

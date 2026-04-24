@@ -9,14 +9,15 @@ export const chatWithBot = functions.https.onCall(async (data, context) => {
       throw new functions.https.HttpsError('internal', 'Chat configuration error! Rip, try adding the .env file with GEMINI_API_KEY, thx :D.');
     }
 
-    const { GoogleGenerativeAI } = await import('@google/generative-ai');
+    console.log('Calling Gemini API with message:', data.message);
+    const { GoogleGenerativeAI } = await import('@google/generative-ai'); 
     const genAI = new GoogleGenerativeAI(apiKey);
     const userMessage = data.message;
     const userContext = data.context || {};
 
     const systemPrompt = `
     You are the AI assistant for "Better Bible Guesser", a web game where users guess bible verses.
-
+ 
     User Context:
     - Current Page: ${userContext.currentPage}
     - Display Name: ${userContext.displayName || 'Guest'}
@@ -36,9 +37,15 @@ export const chatWithBot = functions.https.onCall(async (data, context) => {
     const model = genAI.getGenerativeModel({ model: "gemini-2.5-flash" });
     const result = await model.generateContent(systemPrompt + "\n\nUser Question: " + userMessage);
     const response = result.response;
+    console.log('Gemini response received successfully');
     return { text: response.text() };
   } catch (error: any) {
-    console.error("Gemini Error:", error);
+    console.error("Gemini Error details:", {
+      message: error?.message,
+      code: error?.code,
+      status: error?.status,
+      toString: error?.toString()
+    });
     if (error instanceof functions.https.HttpsError) {
       throw error;
     }

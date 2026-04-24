@@ -5,6 +5,7 @@ ng serve
 ```
 Run in main:
 ```bash
+export NODE_TLS_REJECT_UNAUTHORIZED=0
 firebase emulators:start
 ```
 
@@ -21,14 +22,14 @@ environment.ts
 ```
 
 And fill in your Firebase details:
-
+ 
 ```bash
 export const environment = {
   production: false,
   firebase: {
     apiKey: "API_KEY_HERE",
     authDomain: "FIREBASE_DOMAIN",
-    projectId: "FIREBASE_PROJECT_ID",
+    projectId: "FIREBASE_PROJECT_ID", 
     storageBucket: "STORAGE_BUCKET",
     messagingSenderId: "SENDER_ID",
     appId: "APP_ID",

@@ -17,9 +17,9 @@ export class MultiplayerHomeComponent implements OnInit, OnDestroy {
   lobbyCode = '';
   displayName = '';
   isLoggedIn = false;
-  private userSubscription: Subscription;
-  isAdmin$: Observable<boolean>;
-  showAdminPanel = false;
+  private userSubscription!: Subscription;
+  isAdmin$!: Observable<boolean>;
+  showAdminPanel = false; 
   showTutorial = false;
 
   constructor(
@@ -43,7 +43,7 @@ export class MultiplayerHomeComponent implements OnInit, OnDestroy {
     this.userSubscription = this.authService.user$.subscribe(user => {
       if (user && !user.isAnonymous) {
         this.isLoggedIn = true;
-        this.displayName = user.displayName;
+        this.displayName = user.displayName || '';
       } else {
         this.isLoggedIn = false;
       }
@@ -79,13 +79,15 @@ export class MultiplayerHomeComponent implements OnInit, OnDestroy {
       return;
     }
     if (!this.lobbyCode.trim()) { return; }
+    if (!this.displayName.trim()) { return; }
 
     this.lobbyService.findLobbyByCode(this.lobbyCode.trim().toUpperCase()).pipe(first()).toPromise().then(async lobbies => {
       if (lobbies && lobbies.length > 0) {
         const lobby = lobbies[0];
         const user = await this.authService.user$.pipe(first()).toPromise();
         if (!user) { console.error('User not authenticated!'); return; }
-        await this.lobbyService.joinLobby(lobby.id, { uid: user.uid, displayName: this.displayName.trim(), isHost: false });
+        const playerName = this.displayName.trim();
+        await this.lobbyService.joinLobby(lobby.id, { uid: user.uid, displayName: playerName, isHost: false });
         this.router.navigate(['/multiplayer/loading'], { state: { lobbyId: lobby.id } });
       } else {
         alert('Lobby not found. Please check the code and try again.');
@@ -101,7 +103,7 @@ export class MultiplayerHomeComponent implements OnInit, OnDestroy {
     this.showTutorial = false;
     // When the tutorial is closed, update the user's profile in the 'users' collection.
     this.authService.user$.pipe(
-      first(user => user && !user.isAnonymous) // Ensure we only proceed for logged-in users
+      first(user => user !== null && !user.isAnonymous) // Ensure we only proceed for logged-in users
     ).subscribe(user => {
       if (user) { // Check for user existence
           this.authService.updateUserCollection(user.uid, { hasSeenMultiplayerTutorial: true });

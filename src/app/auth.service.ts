@@ -51,8 +51,8 @@ export class AuthService {
     const credential = await this.afAuth.signInWithPopup(provider);
     if (credential.user) {
       await this.updateUserCollection(credential.user.uid, {
-        displayName: credential.user.displayName,
-        displayName_lowercase: credential.user.displayName.toLowerCase()
+        displayName: credential.user.displayName || undefined,
+        displayName_lowercase: (credential.user.displayName || '').toLowerCase()
       });
       // After creating the new user, merge old stats if they exist
       await this.mergeAnonymousStats(oldUser, credential.user);

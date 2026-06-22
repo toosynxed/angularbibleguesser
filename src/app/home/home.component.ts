@@ -27,10 +27,10 @@ export class HomeComponent implements OnInit, OnDestroy {
   showLeaderboard = false;
   showBoard = false;
   showStats = false;
-  user$: Observable<firebase.User | null>;
-  stats$: Observable<UserStats | undefined>;
-  set$: Observable<any[]>;
-  isAdmin$: Observable<boolean>;
+  user$!: Observable<firebase.User | null>;
+  stats$!: Observable<UserStats | undefined>;
+  set$!: Observable<any[]>;
+  isAdmin$!: Observable<boolean>;
   currentPlayingSetId: string | null = null;
 
   // Content for the "Rules" tab
@@ -217,7 +217,7 @@ export class HomeComponent implements OnInit, OnDestroy {
 </ul>
   `;
 
-  private errorSubscription: Subscription;
+  private errorSubscription!: Subscription;
 
   constructor(
     private router: Router,

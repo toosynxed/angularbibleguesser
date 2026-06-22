@@ -25,6 +25,9 @@ export class QuestModeComponent implements OnInit {
   startQuest(questId: string): void {
     console.log('Starting quest:', questId);
     // Example: this.router.navigate(['/game'], { state: { mode: 'quest', questId: questId } });
+  
+    //this.router.navigate(['/game'])
+
   }
   confirmGoHome(): void {
     const confirmation = window.confirm('Are you sure you want to leave? Your current game progress will be lost.');

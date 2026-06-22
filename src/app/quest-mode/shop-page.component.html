@@ -14,13 +14,12 @@
 
     <div class="Quest-Map">
 
-        <img src="assets/quest-map.png" alt="Quest Map" class="quest-map-image">
+        <img src="assets/quest-map.png" alt="Quest Map" class="quest-map-image" />
 
         <!-- Example of interactive quest points -->
         <div class="quest-point-container" style="top: 36%; left: 14%;">
             <!-- Replace src with your actual overlay image -->
-            <img src="assets/marketplace-icon.png" class="quest-icon" routerlink="shop-page.component.html" alt="Marketplace">
-            <!--(click)="/shop-page.component.html"-->
+            <img src="assets/marketplace-icon.png" class="quest-icon" (click)="startQuest('marketplace')" alt="Marketplace" />
             <div class="quest-tooltip">
               <h4>Marketplace</h4>
               <p>Spend your scrolls to obtain NEW profile customisation options!</p>
@@ -28,8 +27,7 @@
         </div>
 
         <div class="quest-point-container" style="top: 20%; left: 85%;">
-            <img src="assets/academy-icon.png" class="quest-icon" alt="academy">
-            <!--(click)="startQuest('academy')"-->
+            <img src="assets/academy-icon.png" class="quest-icon" (click)="startQuest('academy')" alt="academy" />
             <div class="quest-tooltip">
               <h4>Academy of Challenges</h4>
               <p>Win a game in Custom Mode with at least 3 stars.</p>
@@ -37,8 +35,7 @@
         </div>
 
         <div class="quest-point-container" style="top: 38%; left: 50%;">
-            <img src="assets/castle-icon.png" class="quest-icon"  alt="Castle">
-            <!--(click)="startQuest('castle')"-->
+            <img src="assets/castle-icon.png" class="quest-icon" (click)="startQuest('castle')" alt="Castle" />
             <div class="quest-tooltip">
               <h4>Castle of Champions</h4>
               <p>Defeat the final boss in Hard Mode.</p>
@@ -47,8 +44,7 @@
 
 
         <div class="quest-point-container" style="top: 68%; left: 75%;">
-            <img src="assets/racetrack-icon.png" class="quest-icon" alt="Racetrack">
-            <!-- (click)="startQuest('racetrack')"-->
+            <img src="assets/racetrack-icon.png" class="quest-icon" (click)="startQuest('racetrack')" alt="Racetrack" />
             <div class="quest-tooltip">
               <h4>Racetrack</h4>
               <p>Play a multiplayer game and score over 80 points.</p>

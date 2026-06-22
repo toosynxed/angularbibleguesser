@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { combineLatest, Observable } from 'rxjs';
+import { combineLatest, Observable, of } from 'rxjs';
 import { map, switchMap, tap, filter } from 'rxjs/operators';
 import { BibleService } from '../bible.service';
 import { AuthService } from '../auth.service';
@@ -51,12 +51,12 @@ interface LeaderboardPlayer extends Player {
   styleUrls: ['./leaderboard.component.css']
 })
 export class LeaderboardComponent implements OnInit {
-  lobbyId: string;
-  lobby$: Observable<Lobby>;
-  leaderboard$: Observable<LeaderboardPlayer[]>;
-  isHost$: Observable<boolean>;
-  isFinalRound$: Observable<boolean>;
-  correctVerse$: Observable<Verse>;
+  lobbyId!: string;
+  lobby$!: Observable<Lobby>;
+  leaderboard$!: Observable<LeaderboardPlayer[]>;
+  isHost$!: Observable<boolean>;
+  isFinalRound$!: Observable<boolean>;
+  correctVerse$!: Observable<Verse | null>;
 
   constructor(
     private route: ActivatedRoute,
@@ -67,7 +67,7 @@ export class LeaderboardComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.lobbyId = this.route.snapshot.paramMap.get('id');
+    this.lobbyId = this.route.snapshot.paramMap.get('id') as string;
 
     this.lobby$ = this.lobbyService.getLobby(this.lobbyId).valueChanges().pipe(
       tap(lobby => {
@@ -89,8 +89,8 @@ export class LeaderboardComponent implements OnInit {
 
     this.correctVerse$ = this.lobby$.pipe(
       switchMap(lobby => {
-        const verseId = lobby.verseIds[lobby.currentRound];
-        return this.bibleService.getVerseById(verseId);
+        const verseId = lobby.verseIds?.[lobby.currentRound];
+        return verseId ? this.bibleService.getVerseById(verseId) : of(null);
       })
     );
 

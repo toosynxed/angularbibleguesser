@@ -71,6 +71,11 @@
   height: 40px;
 }
 
+.form-group select option.locked-option,
+.form-group select option:disabled {
+  color: #8a8a8a;
+}
+
 .modal-footer {
   margin-top: 1.5rem;
   padding-top: 1rem;

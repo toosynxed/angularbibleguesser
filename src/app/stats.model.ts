@@ -43,8 +43,9 @@ export interface UserProfile {
   displayName: string;
   displayName_lowercase: string;
   hasSeenMultiplayerTutorial?: boolean;
-  // Add customization property
   customization?: ProfileCustomization;
+  scrolls?: number; // In-game currency for quest mode
+  BitMarket: number; //This here is for the /marketplace.component.ts calsl?
 }
 
 export interface UserProfileWithStats extends UserProfile {

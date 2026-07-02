@@ -6,6 +6,8 @@ import { UserProfile } from './stats.model';
 import { switchMap, first } from 'rxjs/operators';
 import firebase from 'firebase/compat/app';
 import { StatsService } from './stats.service';
+import { ScrollsService } from './scrolls.service';
+import { INITIAL_BITMARKET_MASK } from './marketplace-bitmask';
 
 @Injectable({
   providedIn: 'root'
@@ -16,13 +18,16 @@ export class AuthService {
   // --- ADMIN MANAGEMENT ---
   // Add the UIDs of admin accounts here.
   private adminUids = [
-    'OHxIav7wuAYOowB7NG1P4cRKU1o2'
+    'OHxIav7wuAYOowB7NG1P4cRKU1o2',
+    '8GQPTP6uLYeR4B198UN6FAKcWG0g',
+    'Dir2gYbwMCBAMC2v1MNnXUmWa6ze'
   ];
 
   constructor(
     private afAuth: AngularFireAuth,
     private afs: AngularFirestore,
-    private statsService: StatsService // Inject StatsService
+    private statsService: StatsService, // Inject StatsService
+    private scrollsService: ScrollsService
     ) {
     this.user$ = this.afAuth.authState;
   }
@@ -34,9 +39,15 @@ export class AuthService {
       first(), // take the first emission and complete
       switchMap(user => {
         if (user) {
+          void this.updateUserCollection(user.uid, {});
           return of(user); // User is already logged in
         }
-        return this.signInAnonymously(); // No user, so sign in anonymously
+        return this.signInAnonymously().then(credential => {
+          if (credential.user?.uid) {
+            void this.updateUserCollection(credential.user.uid, {});
+          }
+          return credential.user;
+        }); // No user, so sign in anonymously
       })
     ).subscribe();
   }
@@ -54,6 +65,7 @@ export class AuthService {
         displayName: credential.user.displayName || undefined,
         displayName_lowercase: (credential.user.displayName || '').toLowerCase()
       });
+      await this.scrollsService.initializeScrolls(credential.user.uid);
       // After creating the new user, merge old stats if they exist
       await this.mergeAnonymousStats(oldUser, credential.user);
     }
@@ -68,6 +80,7 @@ export class AuthService {
         displayName: 'New User', // A default name
         displayName_lowercase: 'new user'
       });
+      await this.scrollsService.initializeScrolls(credential.user.uid);
       // After creating the new user, merge old stats if they exist
       await this.mergeAnonymousStats(null, credential.user); // Pass null for oldUser as we don't have it before createUser
     }
@@ -102,8 +115,18 @@ export class AuthService {
 
   // New method to keep the 'users' collection in sync
   updateUserCollection(uid: string, data: Partial<UserProfile>): Promise<void> {
-    const userRef = this.afs.collection('users').doc(uid);
-    return userRef.set({ uid, ...data }, { merge: true });
+    const userRef = this.afs.collection('users').doc(uid).ref;
+    return this.afs.firestore.runTransaction(async transaction => {
+      const doc = await transaction.get(userRef);
+      const existing = doc.exists ? (doc.data() as Partial<UserProfile>) : {};
+      const updates: Partial<UserProfile> = { uid, ...data };
+
+      if (existing.BitMarket === undefined && updates.BitMarket === undefined) {
+        updates.BitMarket = INITIAL_BITMARKET_MASK;
+      }
+
+      transaction.set(userRef, updates, { merge: true });
+    });
   }
 
   getUserProfile(uid: string): Observable<UserProfile | undefined> {
@@ -156,3 +179,4 @@ export class AuthService {
     }
   }
 }
+

@@ -7,6 +7,7 @@ import { AuthService } from '../auth.service';
 import { StatsService } from '../stats.service';
 import { BibleService, } from '../bible.service';
 import { SetsBoard } from '../sets.service';
+import { DailyChallengeService } from '../daily-challenge.service';
 import { first, map, switchMap, tap, take } from 'rxjs/operators';
 import { combineLatest, of, Observable } from 'rxjs';
 import firebase from 'firebase/compat/app';
@@ -65,6 +66,7 @@ export class ResultsComponent implements OnInit {
     private statsService: StatsService,
     private bibleService: BibleService,
     private setsBoardService: SetsBoard,
+    private dailyChallengeService: DailyChallengeService,
     private lobbyService: LobbyService
   ) {
     const navigation = this.router.getCurrentNavigation();
@@ -219,14 +221,19 @@ export class ResultsComponent implements OnInit {
       console.log('Single Player GameState:', this.gameState);
 
       if (mode === 'normal') {
-        const totalStars = results.reduce((sum, r) => sum + r.stars, 0);
+        const latestRound = results[results.length - 1];
+        const roundScore = Number.isFinite(Number(latestRound?.score)) ? Number(latestRound?.score) : 0;
+        const roundStars = Number.isFinite(Number(latestRound?.stars)) ? Number(latestRound?.stars) : 0;
         // Only update total score and stars per round.
         // gamesPlayed is updated only when all rounds are complete.
-        await this.statsService.updateNormalModeStats(user.uid, results[results.length - 1].score, results[results.length - 1].stars);
+        await this.statsService.updateNormalModeStats(user.uid, roundScore, roundStars);
         if (results.length === this.gameState.settings.rounds) {
           await this.statsService.incrementNormalGamesPlayed(user.uid);
         }
         console.log(`Normal stats update initiated for round ${results.length}.`);
+      } else if (mode === 'daily') {
+        await this.dailyChallengeService.completeDailyChallenge(user.uid, this.totalScore, this.totalStars);
+        console.log('Daily stats update initiated.');
       } else if (mode === 'custom' || mode === 'created' || mode === 'shared') {
         await this.statsService.updateCustomModeStats(user.uid, results.length, totalScore);
         console.log('Custom/Create/Shared stats update initiated.');

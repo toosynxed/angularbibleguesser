@@ -23,7 +23,13 @@
         <div class="form-group">
           <label for="nameEffect">Name Effect</label>
           <select id="nameEffect" [(ngModel)]="customization.nameEffect">
-            <option *ngFor="let effect of nameEffects" [value]="effect.value">{{ effect.label }}</option>
+            <option
+              *ngFor="let effect of nameEffects"
+              [value]="effect.value"
+              [disabled]="!isNameEffectUnlocked(effect.value)"
+              [class.locked-option]="!isNameEffectUnlocked(effect.value)">
+              {{ effect.label }}{{ isNameEffectUnlocked(effect.value) ? '' : ' (Locked)' }}
+            </option>
           </select>
         </div>
 
@@ -31,7 +37,13 @@
         <div class="form-group">
           <label for="icon">Icon</label>
           <select id="icon" [(ngModel)]="customization.icon">
-            <option *ngFor="let icon of icons" [value]="icon === 'None' ? '' : icon">{{ icon }}</option>
+            <option
+              *ngFor="let icon of icons"
+              [value]="icon === 'None' ? '' : icon"
+              [disabled]="!isIconUnlocked(icon)"
+              [class.locked-option]="!isIconUnlocked(icon)">
+              {{ icon }}{{ isIconUnlocked(icon) ? '' : ' (Locked)' }}
+            </option>
           </select>
         </div>
 
@@ -39,7 +51,13 @@
         <div class="form-group">
           <label for="nameplate">Nameplate</label>
           <select id="nameplate" [(ngModel)]="customization.nameplate">
-            <option *ngFor="let plate of nameplates" [value]="plate.value === 'none' ? '' : plate.value">{{ plate.label }}</option>
+            <option
+              *ngFor="let plate of nameplates"
+              [value]="plate.value === 'none' ? '' : plate.value"
+              [disabled]="!isNameplateUnlocked(plate.value)"
+              [class.locked-option]="!isNameplateUnlocked(plate.value)">
+              {{ plate.label }}{{ isNameplateUnlocked(plate.value) ? '' : ' (Locked)' }}
+            </option>
           </select>
         </div>
       </div>

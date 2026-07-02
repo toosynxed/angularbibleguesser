@@ -10,6 +10,9 @@ import { ProfileComponent } from './profile/profile.component';
 import { SharedGameComponent } from './shared-game/shared-game.component';
 import { ExternalLeaderboardComponent } from './external-leaderboard/external-leaderboard.component';
 import { QuestModeComponent } from './quest-mode/quest-mode.component';
+import { ShopModeComponent } from './quest-mode/marketplace.component';
+import { academyComponent} from './quest-mode/academy/academy.component';
+import { racetrackComponent } from './quest-mode/racetrack/racetrack.component'
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -21,6 +24,9 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'profile', component: ProfileComponent },
   { path: 'leaderboard/:id', component: ExternalLeaderboardComponent },
+  { path: 'marketplace', component: ShopModeComponent},
+  { path: 'academy', component: academyComponent},
+  { path: 'racetrack', component: racetrackComponent},
   {
     path: 'multiplayer',
     loadChildren: () => import('./multiplayer/multiplayer.module').then(m => m.MultiplayerModule)

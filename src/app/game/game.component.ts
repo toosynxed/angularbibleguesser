@@ -8,7 +8,6 @@ import { ShareService } from '../share.service';
 import { GameSettings } from '../game-settings.model';
 import { Lobby, LobbyService, Player } from '../lobby.service';
 import { AuthService } from '../auth.service';
-import { DailyChallengeService } from '../daily-challenge.service';
 
 export interface RoundResult {
   verse: Verse;
@@ -78,8 +77,7 @@ export class GameComponent implements OnInit, OnDestroy {
     private router: Router,
     private shareService: ShareService,
     private lobbyService: LobbyService,
-    private authService: AuthService,
-    private dailyChallengeService: DailyChallengeService
+    private authService: AuthService
   ) {
     const navigation = this.router.getCurrentNavigation();
     const state = navigation?.extras.state as {
@@ -485,14 +483,6 @@ export class GameComponent implements OnInit, OnDestroy {
 
   finishGame(): void {
     // In single-player, we pass the results. Multiplayer is handled by the LeaderboardComponent.
-    if (this.gameMode === 'daily') {
-      this.authService.user$.pipe(first(user => !!user)).subscribe(user => {
-        const totalScore = this.results.reduce((acc, r) => acc + r.score, 0);
-        const totalStars = this.results.reduce((acc, r) => acc + r.stars, 0);
-        this.dailyChallengeService.completeDailyChallenge(user.uid, totalScore, totalStars);
-      });
-    }
-
     if (this.gameMode !== 'multiplayer') {
       // For normal mode, gameSettings might be null. Create a default one.
       const settings = this.gameSettings ?? {

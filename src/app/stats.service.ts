@@ -20,6 +20,23 @@ export class StatsService {
 
   constructor(private afs: AngularFirestore) { }
 
+  private incrementField(value: number): number {
+    return firebase.firestore.FieldValue.increment(value) as unknown as number;
+  }
+  
+    /*** HERE IS THE METHOD TO CHECK FOR SPECIFIC FIELDS #HEREEEEE */
+  getUserField$<K extends keyof UserProfile>(uid: string, field: K): Observable<UserProfile[K] | undefined> { // # Hereee
+    return this.afs.collection<UserProfile>('users').doc<UserProfile>(uid)
+      .valueChanges()
+      .pipe(map(user => (user ? user[field] : undefined)));
+  }
+
+  updateUserField<K extends keyof UserProfile>(uid: string, field: K, value: UserProfile[K]): Promise<void> {
+    const userRef = this.afs.collection<UserProfile>('users').doc(uid);
+    return userRef.update({ [field]: value });
+  }
+
+
   getUserStats(uid: string): Observable<UserStats | undefined> {
     return this.afs.collection('stats').doc<UserStats>(uid).valueChanges();
   }
@@ -96,6 +113,8 @@ export class StatsService {
       );
   }
 
+
+
   getNormalLeaderboard(): Observable<LeaderboardPlayer[]> {
     // Firestore can't order by a calculated value.
     // We fetch by gamesPlayed to get active users, then calculate and sort on the client.
@@ -143,18 +162,22 @@ export class StatsService {
 
   async updateNormalModeStats(uid: string, score: number, stars: number): Promise<void> {
     const statsRef = this.getStatsDoc(uid).ref;
+    const safeScore = Number.isFinite(Number(score)) ? Number(score) : 0;
+    const safeStars = Number.isFinite(Number(stars)) ? Number(stars) : 0;
+
+    if (safeScore === 0 && safeStars === 0) {
+      return;
+    }
+
     try {
       return await this.afs.firestore.runTransaction(async (transaction) => {
-        const doc = await transaction.get(statsRef);
-        const stats = doc.data() || {};
-
-        const newNormalStats = {
-          ...stats.normal,
-          totalScore: (stats.normal?.totalScore || 0) + score,
-          totalStars: (stats.normal?.totalStars || 0) + stars,
+        const statsUpdate: any = {
+          normal: {
+            totalScore: this.incrementField(safeScore),
+            totalStars: this.incrementField(safeStars),
+          }
         };
-
-        transaction.set(statsRef, { ...stats, normal: newNormalStats }, { merge: true });
+        transaction.set(statsRef, statsUpdate, { merge: true });
       });
     } catch (error) {
       console.error(`Error updating normal mode stats for user ${uid}:`, error);
@@ -166,15 +189,12 @@ export class StatsService {
     const statsRef = this.getStatsDoc(uid).ref;
     try {
       return await this.afs.firestore.runTransaction(async (transaction) => {
-        const doc = await transaction.get(statsRef);
-        const stats = doc.data() || {};
-
-        const newNormalStats = {
-          ...stats.normal,
-          gamesPlayed: (stats.normal?.gamesPlayed || 0) + 1,
+        const statsUpdate: any = {
+          normal: {
+            gamesPlayed: this.incrementField(1),
+          }
         };
-
-        transaction.set(statsRef, { ...stats, normal: newNormalStats }, { merge: true });
+        transaction.set(statsRef, statsUpdate, { merge: true });
       });
     } catch (error) {
       console.error(`Error incrementing normal games played for user ${uid}:`, error);

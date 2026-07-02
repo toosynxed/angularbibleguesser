@@ -65,6 +65,12 @@ export class DailyChallengeService {
       totalStars: 0,
       totalRoundsPlayed: 0
     };
+    dailyStats.currentStreak = Number.isFinite(Number(dailyStats.currentStreak)) ? Number(dailyStats.currentStreak) : 0;
+    dailyStats.highestStreak = Number.isFinite(Number(dailyStats.highestStreak)) ? Number(dailyStats.highestStreak) : 0;
+    dailyStats.totalScore = Number.isFinite(Number(dailyStats.totalScore)) ? Number(dailyStats.totalScore) : 0;
+    dailyStats.totalStars = Number.isFinite(Number(dailyStats.totalStars)) ? Number(dailyStats.totalStars) : 0;
+    dailyStats.totalRoundsPlayed = Number.isFinite(Number(dailyStats.totalRoundsPlayed)) ? Number(dailyStats.totalRoundsPlayed) : 0;
+    dailyStats.completionHistory = dailyStats.completionHistory || {};
 
     // Avoid double-counting for the same day
     if (dailyStats.completionHistory[todayStr]) {

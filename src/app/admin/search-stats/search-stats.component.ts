@@ -33,9 +33,12 @@ export class SearchStatsComponent {
   }
 
   getAverage(total: number, count: number): string {
-    if (!count || count === 0) {
+    const safeTotal = Number(total);
+    const safeCount = Number(count);
+
+    if (!Number.isFinite(safeTotal) || !Number.isFinite(safeCount) || safeCount === 0) {
       return '0.00';
     }
-    return (total / count).toFixed(2);
+    return (safeTotal / safeCount).toFixed(2);
   }
 }

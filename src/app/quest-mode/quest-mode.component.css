@@ -21,6 +21,14 @@ header {
   align-items:normal;
   gap: 1rem;
 }
+
+.addbutton {
+  background-color: black;
+  padding: 1px;
+  color:#ffffff;
+
+}
+
 .stats-container {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));

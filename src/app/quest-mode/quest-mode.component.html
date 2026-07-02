@@ -10,16 +10,15 @@
     <p style="margin-block-end: 0px;" *ngIf="user$ | async as user" >Welcome, {{ user.displayName || 'Guest' }}</p>
   </header>
 
-    <h3 style="margin: 0px;">Quest Map</h3>
+    <h3 style="margin: 0px;">Quest Map        - Scroll Balance: {{ (userScrolls$ | async) ?? 0 }}</h3>
+    <button class="addbutton" (click)="addButton()">Click to increase scrolls by 1</button>
 
     <div class="Quest-Map">
 
         <img src="assets/quest-map.png" alt="Quest Map" class="quest-map-image">
 
-        <!-- Example of interactive quest points -->
         <div class="quest-point-container" style="top: 36%; left: 14%;">
-            <!-- Replace src with your actual overlay image -->
-            <img src="assets/marketplace-icon.png" class="quest-icon" routerlink="shop-page.component.html" alt="Marketplace">
+            <img src="assets/marketplace-icon.png" class="quest-icon" (click)="movePage('marketplace')" alt="Marketplace">
             <!--(click)="/shop-page.component.html"-->
             <div class="quest-tooltip">
               <h4>Marketplace</h4>
@@ -28,7 +27,7 @@
         </div>
 
         <div class="quest-point-container" style="top: 20%; left: 85%;">
-            <img src="assets/academy-icon.png" class="quest-icon" alt="academy">
+            <img src="assets/academy-icon.png" class="quest-icon" (click)="movePage('academy')" alt="academy">
             <!--(click)="startQuest('academy')"-->
             <div class="quest-tooltip">
               <h4>Academy of Challenges</h4>
@@ -37,7 +36,7 @@
         </div>
 
         <div class="quest-point-container" style="top: 38%; left: 50%;">
-            <img src="assets/castle-icon.png" class="quest-icon"  alt="Castle">
+            <img src="assets/castle-icon.png" class="quest-icon" (click)="movePage('castle')" alt="Castle">
             <!--(click)="startQuest('castle')"-->
             <div class="quest-tooltip">
               <h4>Castle of Champions</h4>
@@ -47,7 +46,7 @@
 
 
         <div class="quest-point-container" style="top: 68%; left: 75%;">
-            <img src="assets/racetrack-icon.png" class="quest-icon" alt="Racetrack">
+            <img src="assets/racetrack-icon.png" class="quest-icon" (click)="movePage('racetrack')" alt="Racetrack">
             <!-- (click)="startQuest('racetrack')"-->
             <div class="quest-tooltip">
               <h4>Racetrack</h4>
@@ -100,5 +99,7 @@
 
 
 
-  <app-profile-customization *ngIf="showCustomization && (user$ | async)" [user]="(user$ | async)" (close)="showCustomization = false"></app-profile-customization>
+  <ng-container *ngIf="user$ | async as user">
+    <app-profile-customization *ngIf="showCustomization" [user]="user" (close)="showCustomization = false"></app-profile-customization>
+  </ng-container>
   </div>

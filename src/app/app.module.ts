@@ -33,6 +33,11 @@ import { ExternalLeaderboardComponent } from './external-leaderboard/external-le
 import { ChatBotComponent } from './chat-bot/chat-bot.component';
 import { QuestModeComponent } from './quest-mode/quest-mode.component';
 import { RelativeTimePipe } from './relative-time.pipe';
+import { ShopModeComponent } from './quest-mode/marketplace.component';
+import { ScrollsService } from './scrolls.service';
+import { academyComponent } from './quest-mode/academy/academy.component';
+import { racetrackComponent } from './quest-mode/racetrack/racetrack.component';
+import { MarketItem } from './quest-mode/marketplace.component';
 
 @NgModule({
   declarations: [
@@ -52,7 +57,10 @@ import { RelativeTimePipe } from './relative-time.pipe';
     ExternalLeaderboardComponent,
     ChatBotComponent,
     QuestModeComponent,
-    RelativeTimePipe
+    RelativeTimePipe,
+    ShopModeComponent,
+    academyComponent,
+    racetrackComponent
   ],
   imports: [
     BrowserModule,

@@ -1,10 +1,3 @@
-.container {
-  max-width: 800px;
-  margin: auto;
-  padding: 2rem;
-  text-align: center;
-}
-
 .total-score {
   margin: 2rem 0;
 }
@@ -38,7 +31,7 @@
 
 .result-summary .score {
   margin: 0 1rem;
-  min-width: 120px; /* Give score some space */
+  min-width: 120px;
   text-align: center;
 }
 
@@ -69,7 +62,6 @@
 
 .verse-text {
   font-style: italic;
-  color: #555;
   margin-bottom: 1.5rem;
   color: var(--text-secondary-color);
 }
@@ -110,20 +102,10 @@
   border-radius: 8px;
 }
 
-.code-actions {
-  display: flex;
-  gap: 0.5rem;
-  margin-top: 1rem;
-}
-
-.code-actions input {
-  flex-grow: 1;
-  background-color: var(--background-color);
-  color: var(--text-color);
-  font-family: monospace;
-}
-
 .copy-results-container {
   margin-top: 1rem;
 }
 
+.your-results-title {
+  margin-top: 2rem;
+}

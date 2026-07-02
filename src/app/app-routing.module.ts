@@ -13,6 +13,9 @@ import { QuestModeComponent } from './quest-mode/quest-mode.component';
 import { ShopModeComponent } from './quest-mode/marketplace.component';
 import { academyComponent} from './quest-mode/academy/academy.component';
 import { racetrackComponent } from './quest-mode/racetrack/racetrack.component'
+import { NewGameModeComponent } from './features/new-game-mode/new-game-mode.component';
+import { ExperimentalVideoModeComponent } from './features/experimental-video-mode/experimental-video-mode.component';
+import { ImprovedSettingsComponent } from './features/improved-settings/improved-settings.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -27,6 +30,9 @@ const routes: Routes = [
   { path: 'marketplace', component: ShopModeComponent},
   { path: 'academy', component: academyComponent},
   { path: 'racetrack', component: racetrackComponent},
+  { path: 'town-quest', component: NewGameModeComponent },
+  { path: 'video-mode', component: ExperimentalVideoModeComponent },
+  { path: 'settings', component: ImprovedSettingsComponent },
   {
     path: 'multiplayer',
     loadChildren: () => import('./multiplayer/multiplayer.module').then(m => m.MultiplayerModule)

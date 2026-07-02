@@ -1,0 +1,32 @@
+<app-page-shell size="wide">
+  <app-page-header
+    title="Experimental Video Mode"
+    subtitle="A prototype for watching learning content before playing related verse rounds."
+    [showBackButton]="true"
+    backMode="home">
+  </app-page-header>
+
+  <section class="video-mode-layout">
+    <article class="video-player-card">
+      <div class="video-placeholder">
+        <p>Video embed placeholder</p>
+        <small>{{ selectedLesson.sourceUrl }}</small>
+      </div>
+      <h2>{{ selectedLesson.title }}</h2>
+      <p>{{ selectedLesson.summary }}</p>
+      <a class="secondary-action" [routerLink]="selectedLesson.relatedRoute">Play related rounds</a>
+    </article>
+
+    <aside class="video-lesson-list">
+      <h2>Lesson Queue</h2>
+      <button
+        type="button"
+        class="lesson-button"
+        *ngFor="let lesson of lessons"
+        [class.active]="lesson.id === selectedLesson.id"
+        (click)="selectLesson(lesson)">
+        {{ lesson.title }}
+      </button>
+    </aside>
+  </section>
+</app-page-shell>

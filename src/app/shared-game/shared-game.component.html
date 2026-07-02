@@ -1,8 +1,9 @@
 <div class="container">
-  <header>
-    <img src="assets/logo.png" alt="Better Bible Guesser Logo" class="logo">
-    <h1>You've Been Challenged!</h1>
-  </header>
+  <app-page-header
+    title="You've Been Challenged!"
+    [showLogo]="true"
+    [clickableLogo]="false">
+  </app-page-header>
 
   <main *ngIf="gameData && !error">
     <p>You're about to play a custom game created by another player.</p>

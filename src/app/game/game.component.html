@@ -1,16 +1,13 @@
-<div class="container">
-  <header>
-    <div class="header-controls">
-      <button class="secondary-button" (click)="confirmGoHome()" title="Back to Home">‹ Home</button>
-    </div>
-    <div class="header-timer" *ngIf="timeLeft !== null">
-      <span>{{ timeLeft }}s</span>
-    </div>
-    <div class="clickable-header" (click)="confirmGoHome()" title="Back to Home">
-      <img src="assets/logo.png" alt="Bible Guesser Logo" class="logo">
-    </div>
-    <p style="margin-block-end: 0px;">Round {{ currentRound }} of {{ totalRounds }}</p>
-  </header>
+<div class="container container--full-height">
+  <app-page-header
+    [showBackButton]="true"
+    [timer]="timeLeft"
+    backMode="emit"
+    logoMode="emit"
+    (backClick)="confirmGoHome()"
+    (logoClick)="confirmGoHome()">
+    <p class="u-mb-0">Round {{ currentRound }} of {{ totalRounds }}</p>
+  </app-page-header>
 
   <main>
     <div *ngIf="isLoading" class="loading">Loading...</div>
@@ -40,10 +37,8 @@
       <input type="range" id="context" min="0" max="250" [(ngModel)]="contextSize" (input)="onSliderChange($event)">
     </div>
 
-    <!-- Guessing Inputs -->
     <div class="guess-container" *ngIf="!isRoundOver && !useClassicInput">
-      <!-- Scroll Picker Input -->
-      <div class="scroll-picker-group" >
+      <div class="scroll-picker-group">
         <app-scroll-picker class="book-picker"
                            [items]="bookOptions"
                            (selectedChange)="onBookSelected($event)"></app-scroll-picker>
@@ -63,7 +58,6 @@
     </div>
 
     <div class="guess-container" *ngIf="!isRoundOver && useClassicInput">
-        <!-- Classic Text Input -->
         <app-classic-input (guess)="onGuess($event)"></app-classic-input>
     </div>
 

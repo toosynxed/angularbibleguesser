@@ -1,0 +1,24 @@
+<header class="app-page-header">
+  <div class="header-controls" *ngIf="showBackButton">
+    <button type="button" class="secondary-button" (click)="onBackClick()" [title]="backTitle">
+      {{ backLabel }}
+    </button>
+    <ng-content select="[header-controls-extra]"></ng-content>
+  </div>
+
+  <div class="header-timer" *ngIf="timer !== null">
+    <span>{{ timer }}{{ timerSuffix }}</span>
+  </div>
+
+  <div *ngIf="showLogo && clickableLogo" class="clickable-header" (click)="onLogoClick()" [title]="backTitle">
+    <img [src]="logoSrc" [alt]="logoAlt" class="logo">
+  </div>
+
+  <div *ngIf="showLogo && !clickableLogo">
+    <img [src]="logoSrc" [alt]="logoAlt" class="logo">
+  </div>
+
+  <h1 *ngIf="title">{{ title }}</h1>
+  <p *ngIf="subtitle">{{ subtitle }}</p>
+  <ng-content></ng-content>
+</header>

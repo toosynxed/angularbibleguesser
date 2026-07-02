@@ -23,7 +23,7 @@ interface LeaderboardPlayer extends Player {
       </div>
 
       <div class="leaderboard-list">
-        <table>
+        <table class="leaderboard-table leaderboard-table--scores">
           <thead>
             <tr>
               <th>Rank</th>

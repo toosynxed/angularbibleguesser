@@ -1,9 +1,10 @@
-<div class="container">
-  <div class="header-controls">
-    <button class="secondary-button" (click)="goBack()">‹ Back</button>
-  </div>
-
-  <h1>Daily Challenge</h1>
+<app-page-shell>
+  <app-page-header
+    title="Daily Challenge"
+    [showBackButton]="true"
+    backLabel="‹ Back"
+    backMode="home">
+  </app-page-header>
 
   <div class="calendar-container">
     <div class="calendar-header">
@@ -20,9 +21,7 @@
       <div *ngFor="let day of calendar" class="day" [class.not-current-month]="!day.isCurrentMonth" [class.today]="day.isToday" [class.completed]="day.isCompleted">
         <span class="day-number">{{ day.dayOfMonth }}</span>
         <div class="day-icons">
-          <!-- Show fire icon if it's part of a streak -->
           <span *ngIf="day.isStreak" class="icon">🔥</span>
-          <!-- Show checkmark if completed but not a streak day -->
           <span *ngIf="day.isCompleted && !day.isStreak" class="icon">✅</span>
         </div>
       </div>
@@ -36,12 +35,12 @@
 
   <div class="actions">
     <ng-container *ngIf="hasPlayedToday$ | async; else playButton">
-      <button class="primary" disabled>
+      <button class="btn-primary primary" disabled>
         Next challenge in: {{ countdown$ | async }}
       </button>
     </ng-container>
     <ng-template #playButton>
-      <button class="primary" (click)="playDaily()">Play Daily</button>
+      <button class="btn-primary primary" (click)="playDaily()">Play Daily</button>
     </ng-template>
   </div>
-</div>
+</app-page-shell>

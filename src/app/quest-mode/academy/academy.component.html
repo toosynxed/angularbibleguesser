@@ -1,70 +1,23 @@
-<div class="container">
-    
-  <header>
-    <div class="header-controls">
-      <button class="secondary-button" (click)="backToMap()" title="Back to Home">‹ Home</button>
-    </div>
-    <div class="clickable-header" (click)="confirmGoHome()" title="Back to Home">
-      <img src="assets/logo.png" alt="Bible Guesser Logo" class="logo">
-    </div>
-    <p style="margin-block-end: 0px;" *ngIf="user$ | async as user" >Welcome, {{ user.displayName || 'Guest' }}</p>
-  </header>
+<div class="container container--full">
+  <app-quest-header
+    title="📖 Academy of Challenges 📖"
+    [user]="user$ | async"
+    backLabel="‹ Quest Map"
+    backMode="route"
+    backRoute="/quest"
+    logoMode="route"
+    logoRoute="/">
+  </app-quest-header>
 
-    <h3 style="margin: 0px;">📖 Academy of Challenges 📖</h3>
-      <h2>Challenges Available:</h2>
+  <h2>Challenges Available:</h2>
 
+  <app-scroll-balance [amount]="(userScrolls$ | async) ?? 0"></app-scroll-balance>
 
-      </div>
-      <div class="balancebox">
-        <div class="balancetext">Remaining Balance:  {{ (userScrolls$ | async) ?? 0 }}</div>
-      </div>
-
-
-    <!--
-    <div *ngIf="stats$ | async as stats; else loadingOrNoStats">
-      <div class="stats-container">
-
-        <div class="stat-card" *ngIf="stats.normal as normalStats">
-          <h3>Normal Mode</h3>
-          <p><strong>Games Played:</strong> {{ normalStats.gamesPlayed || 0 }}</p>
-          <p><strong>Average Score:</strong> {{ getAverage(normalStats.totalScore, normalStats.gamesPlayed) }} / 100</p>
-          <p><strong>Average Stars:</strong> {{ getAverage(normalStats.totalStars, normalStats.gamesPlayed) }} / 3</p>
-        </div>
-
-        <div class="stat-card" *ngIf="stats.custom as customStats">
-          <h3>Custom Mode</h3>
-          <p><strong>Games Played:</strong> {{ customStats.gamesPlayed || 0 }}</p>
-          <p><strong>Total Rounds Played:</strong> {{ customStats.totalRounds || 0 }}</p>
-          <p><strong>Average Score/Round:</strong> {{ getAverage(customStats.totalScore, customStats.totalRounds) }}</p>
-        </div>
-
-        <div class="stat-card" *ngIf="stats.multiplayer as multiStats">
-          <h3>Multiplayer Mode</h3>
-          <p><strong>Games Played:</strong> {{ multiStats.gamesPlayed || 0 }}</p>
-          <p><strong>Average Score/Round:</strong> {{ getAverage(multiStats.totalScore, multiStats.totalRounds) }}</p>
-        </div>
-
-      </div>
-    </div>
-
-    <ng-template #loadingOrNoStats>
-      <div *ngIf="stats$ | async as stats">
-        <p>No stats recorded yet. Go play some games!</p>
-      </div>
-      <div *ngIf="(stats$ | async) === undefined">
-        <p>Loading stats...</p>
-      </div>
-    </ng-template>
-    -->
-  
-  
   <ng-template #loading>
     <p>Loading quest data...</p>
   </ng-template>
 
-
-
   <ng-container *ngIf="user$ | async as user">
     <app-profile-customization *ngIf="showCustomization" [user]="user" (close)="showCustomization = false"></app-profile-customization>
   </ng-container>
-
+</div>

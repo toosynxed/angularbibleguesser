@@ -23,30 +23,6 @@ header p {
   margin-top: 0;
 }
 
-.leaderboard-list {
-  margin: 2rem 0;
-}
-
-table {
-  width: 100%;
-  border-collapse: collapse;
-  background-color: var(--surface-color);
-}
-
-th, td {
-  padding: 1rem;
-  border-bottom: 1px solid var(--border-color);
-}
-
-thead {
-  background-color: var(--background-alt-color);
-}
-
-.rank {
-  text-align: center;
-  font-weight: bold;
-}
-
 .player-name {
   display: flex;
   align-items: center;

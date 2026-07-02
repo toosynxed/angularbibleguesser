@@ -18,8 +18,7 @@
 
       <button class="board-button"
               (click)="showBoard = true"
-              title="View Verse Board" style="margin-top: 5%;">
-        <!-- NEED TO DO! FIND BOARD ICON BELOW!!!!! -->
+              title="View Verse Board">
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/><path d="M4 15h1.5a2.5 2.5 0 0 1 0 5H4"/><path d="M18 15h1.5a2.5 2.5 0 0 0 0 5H18"/><path d="M9 6h6"/><path d="M9 18h6"/><path d="M12 3v18"/></svg>
         <span>Verse Board</span>
       </button>
@@ -33,7 +32,6 @@
         <span class="arrow">⤴</span>
       </div>
     </div>
-    <!-- Fallback for when user$ is null (still loading) -->
     <ng-template #showLoginButton>
       <div class="login-area">
         <button class="login-button secondary-action" routerLink="/login">Profile / Login</button>
@@ -43,21 +41,24 @@
 
   <header>
     <img src="assets/logo.png" alt="Better Bible Guesser • " class="logo">
-    <p class="header-text" style="margin-bottom: 1rem;">Test your knowledge of the Holy Scripture.</p>
+    <p class="header-text">Test your knowledge of the Holy Scripture.</p>
   </header>
-  <main class="home-main" style="padding-top:0px;" *ngIf="!showCustomAndCodeMenu">
-      <h2 style="margin-block-start: 0px; margin-block-end: 0px;">Choose a Game Mode</h2>
-      <!-- Display error messages here -->
+
+  <main class="home-main home-main--compact" *ngIf="!showCustomAndCodeMenu">
+      <h2 class="u-mt-0 u-mb-0">Choose a Game Mode</h2>
       <p *ngIf="error" class="error-message">{{ error }}</p>
 
-      <button class="primary" (click)="startGame('normal')">Normal Mode</button>
-      <button class="primary daily-button" routerLink="/daily">Daily Mode</button>
-      <button class="primary" (click)="showCustomAndCodeMenu = true">Online Modes</button>
-      <button class="primary quest-button" routerLink="/quest">*NEW* Quest Mode</button>
+      <button class="btn-primary primary" (click)="startGame('normal')">Normal Mode</button>
+      <button class="btn-primary primary daily-button" routerLink="/daily">Daily Mode</button>
+      <button class="btn-primary primary" (click)="showCustomAndCodeMenu = true">Online Modes</button>
+      <button class="btn-primary primary quest-button" routerLink="/quest">*NEW* Quest Mode</button>
+      <button class="btn-primary primary quest-button" routerLink="/town-quest">Town Quest Prototype</button>
+      <button class="btn-primary primary" routerLink="/video-mode">Experimental Video Mode</button>
+      <button class="secondary-action" routerLink="/settings">Settings</button>
   </main>
-<!-- goToMultiplayer() -->
-  <main class="home-main" style="padding-top:0px;" *ngIf="showCustomAndCodeMenu">
-      <h2 style="margin-block-start: 0px; margin-block-end: 0px;">Online Modes</h2>
+
+  <main class="home-main home-main--compact" *ngIf="showCustomAndCodeMenu">
+      <h2 class="u-mt-0 u-mb-0">Online Modes</h2>
       <button class="primary daily-button" (click)="goToMultiplayer()">Multiplayer Mode</button>
       <button class="primary" (click)="startGame('custom')">Custom Mode</button>
       <button class="primary" (click)="createGame()">Create Mode</button>
@@ -67,157 +68,112 @@
         <input type="text" [(ngModel)]="gameCode" placeholder="Enter game code..." (keyup.enter)="playFromCode()">
         <button class="secondary-action" (click)="playFromCode()">Start from Code</button>
       </div>
-      <button class="secondary-action back-button" style="background-color:rgb(106, 249, 247)" (click)="showCustomAndCodeMenu = false">‹ Back</button>
+      <button class="secondary-action back-button back-button--quest" (click)="showCustomAndCodeMenu = false">‹ Back</button>
   </main>
 
-  <!-- Admin Panel -->
   <div *ngIf="isAdmin$ | async">
     <app-admin-panel></app-admin-panel>
     <button (click)="resetDailyVerses()">Reset Daily Verses (Admin)</button>
   </div>
 
-  <!-- Changelog Button -->
-  <button class="changelog-button" (click)="showChangelog = true">Changelog</button>
+  <app-floating-action-button
+    label="Changelog"
+    ariaLabel="Open changelog"
+    position="bottom-left"
+    shape="pill"
+    variant="muted"
+    (pressed)="showChangelog = true">
+  </app-floating-action-button>
 
-  <!-- Help Button -->
-  <button class="help-button" (click)="showHelp = true">?</button>
+  <app-floating-action-button
+    label="?"
+    ariaLabel="Open help"
+    position="bottom-right"
+    shape="circle"
+    variant="primary"
+    (pressed)="showHelp = true">
+  </app-floating-action-button>
 
-  <!-- Changelog Modal -->
-  <div *ngIf="showChangelog" class="modal-backdrop" (click)="showChangelog = false">
-    <div class="modal-content" (click)="$event.stopPropagation()">
-      <div class="modal-header">
-        <h2>Changelog</h2>
-        <button class="close-button" (click)="showChangelog = false">&times;</button>
-      </div>
-      <div class="modal-body">
-        <!-- The content below is rendered from the changelogContent property in your component -->
-        <div class="changelog-content" [innerHTML]="changelogContent"></div>
-      </div>
+  <app-modal [isOpen]="showChangelog" (close)="showChangelog = false">
+    <h2 modal-title>Changelog</h2>
+    <div class="changelog-content" [innerHTML]="changelogContent"></div>
+  </app-modal>
+
+  <app-modal [isOpen]="showHelp" (close)="showHelp = false">
+    <div modal-title class="modal-tabs">
+      <button type="button" class="tab-button" [class.active]="activeHelpTab === 'rules'" (click)="activeHelpTab = 'rules'">Rules</button>
+      <button type="button" class="tab-button" [class.active]="activeHelpTab === 'about'" (click)="activeHelpTab = 'about'">About</button>
+      <button type="button" class="tab-button" [class.active]="activeHelpTab === 'learn'" (click)="activeHelpTab = 'learn'">Learn</button>
     </div>
-  </div>
+    <div *ngIf="activeHelpTab === 'rules'" class="help-content" [innerHTML]="rulesContent"></div>
+    <div *ngIf="activeHelpTab === 'about'" class="help-content" [innerHTML]="aboutContent"></div>
+    <div *ngIf="activeHelpTab === 'learn'" class="help-content" [innerHTML]="learnMoreContent"></div>
+  </app-modal>
 
-  <!-- Help Modal -->
-  <div *ngIf="showHelp" class="modal-backdrop" (click)="showHelp = false">
-    <div class="modal-content" (click)="$event.stopPropagation()">
-      <div class="modal-header">
-        <div class="modal-tabs">
-          <button class="tab-button" [class.active]="activeHelpTab === 'rules'" (click)="activeHelpTab = 'rules'">Rules</button>
-          <button class="tab-button" [class.active]="activeHelpTab === 'about'" (click)="activeHelpTab = 'about'">About</button>
-          <button class="tab-button" [class.active]="activeHelpTab === 'learn'" (click)="activeHelpTab = 'learn'">Learn</button>
-        </div>
-        <button class="close-button" (click)="showHelp = false">&times;</button>
-      </div>
-      <div class="modal-body">
-        <div *ngIf="activeHelpTab === 'rules'" class="help-content" [innerHTML]="rulesContent">
-          <!-- Rules content is displayed here -->
-        </div>
-        <div *ngIf="activeHelpTab === 'about'" class="help-content" [innerHTML]="aboutContent">
-          <!-- About content is displayed here -->
-        </div>
-        <div *ngIf="activeHelpTab === 'learn'" class="help-content" [innerHTML]="learnMoreContent">
-          <!-- Learn More content is displayed here -->
-        </div>
-      </div>
+  <app-modal [isOpen]="showStats" [showFooter]="true" (close)="showStats = false">
+    <h2 modal-title>Your Stats</h2>
+    <div *ngIf="stats$ | async as stats; else loadingOrNoStats">
+      <app-stats-grid>
+        <article class="stat-card" *ngIf="stats.normal as normalStats">
+          <h3>Normal Mode</h3>
+          <p><strong>Games Played:</strong> {{ normalStats.gamesPlayed || 0 }}</p>
+          <p><strong>Average Score:</strong> {{ getAverage(normalStats.totalScore, normalStats.gamesPlayed) }} / 100</p>
+          <p><strong>Average Stars:</strong> {{ getAverage(normalStats.totalStars, normalStats.gamesPlayed) }} / 3</p>
+        </article>
+
+        <article class="stat-card" *ngIf="stats.custom as customStats">
+          <h3>Custom Mode</h3>
+          <p><strong>Games Played:</strong> {{ customStats.gamesPlayed || 0 }}</p>
+          <p><strong>Total Rounds Played:</strong> {{ customStats.totalRounds || 0 }}</p>
+          <p><strong>Average Score/Round:</strong> {{ getAverage(customStats.totalScore, customStats.totalRounds) }}</p>
+        </article>
+
+        <article class="stat-card" *ngIf="stats.multiplayer as multiStats">
+          <h3>Multiplayer Mode</h3>
+          <p><strong>Games Played:</strong> {{ multiStats.gamesPlayed || 0 }}</p>
+          <p><strong>Average Score/Round:</strong> {{ getAverage(multiStats.totalScore, multiStats.totalRounds) }}</p>
+        </article>
+
+        <article class="stat-card" *ngIf="stats.daily as dailyStats">
+          <h3>Daily Mode</h3>
+          <p><strong>Highest Streak:</strong> {{ dailyStats.highestStreak || 0 }} days</p>
+          <p><strong>Average Score/Round:</strong> {{ getAverage(dailyStats.totalScore, dailyStats.totalRoundsPlayed) }}</p>
+          <p><strong>Average Stars/Round:</strong> {{ getAverage(dailyStats.totalStars, dailyStats.totalRoundsPlayed) }} / 3</p>
+        </article>
+      </app-stats-grid>
     </div>
-  </div>
-
-  <!-- Stats Modal -->
-  <div *ngIf="showStats" class="modal-backdrop" (click)="showStats = false">
-    <div class="modal-content" (click)="$event.stopPropagation()">
-      <div class="modal-header">
-        <h2>Your Stats</h2>
-        <button class="close-button" (click)="showStats = false">&times;</button>
-      </div>
-      <div class="modal-body">
-        <div *ngIf="stats$ | async as stats; else loadingOrNoStats">
-          <div class="stats-container">
-
-            <!-- Normal Mode Stats -->
-            <div class="stat-card" *ngIf="stats.normal as normalStats">
-              <h3>Normal Mode</h3>
-              <p><strong>Games Played:</strong> {{ normalStats.gamesPlayed || 0 }}</p>
-              <p><strong>Average Score:</strong> {{ getAverage(normalStats.totalScore, normalStats.gamesPlayed) }} / 100</p>
-              <p><strong>Average Stars:</strong> {{ getAverage(normalStats.totalStars, normalStats.gamesPlayed) }} / 3</p>
-            </div>
-
-            <!-- Custom Mode Stats -->
-            <div class="stat-card" *ngIf="stats.custom as customStats">
-              <h3>Custom Mode</h3>
-              <p><strong>Games Played:</strong> {{ customStats.gamesPlayed || 0 }}</p>
-              <p><strong>Total Rounds Played:</strong> {{ customStats.totalRounds || 0 }}</p>
-              <p><strong>Average Score/Round:</strong> {{ getAverage(customStats.totalScore, customStats.totalRounds) }}</p>
-            </div>
-
-            <!-- Multiplayer Mode Stats -->
-            <div class="stat-card" *ngIf="stats.multiplayer as multiStats">
-              <h3>Multiplayer Mode</h3>
-              <p><strong>Games Played:</strong> {{ multiStats.gamesPlayed || 0 }}</p>
-              <p><strong>Average Score/Round:</strong> {{ getAverage(multiStats.totalScore, multiStats.totalRounds) }}</p>
-            </div>
-
-            <!-- Daily Mode Stats -->
-            <div class="stat-card" *ngIf="stats.daily as dailyStats">
-              <h3>Daily Mode</h3>
-              <p><strong>Highest Streak:</strong> {{ dailyStats.highestStreak || 0 }} days</p>
-              <p><strong>Average Score/Round:</strong> {{ getAverage(dailyStats.totalScore, dailyStats.totalRoundsPlayed) }}</p>
-              <p><strong>Average Stars/Round:</strong> {{ getAverage(dailyStats.totalStars, dailyStats.totalRoundsPlayed) }} / 3</p>
-            </div>
-          </div>
-        </div>
-        <ng-template #loadingOrNoStats>
-          <p>Loading stats or no stats recorded yet. Go play some games!</p>
-        </ng-template>
-        <div class="modal-footer">
-          <a routerLink="/login" class="secondary-action" (click)="showStats = false">Customize Profile</a>
-        </div>
-      </div>
+    <ng-template #loadingOrNoStats>
+      <p>Loading stats or no stats recorded yet. Go play some games!</p>
+    </ng-template>
+    <div modal-footer>
+      <a routerLink="/login" class="secondary-action" (click)="showStats = false">Customize Profile</a>
     </div>
-  </div>
+  </app-modal>
 
-  <!-- Leaderboard Modal -->
   <app-leaderboard *ngIf="showLeaderboard" (close)="showLeaderboard = false"></app-leaderboard>
 
-  <!-- Verse Board Modal-->
-  <div *ngIf="showBoard" class="modal-backdrop" (click)="showBoard = false">
-    <div class="modal-content" (click)="$event.stopPropagation()">
-      <div class="modal-header">
-        <h2>Verse Board</h2>
-        <button class="close-button" (click)="showBoard = false">&times;</button>
-      </div>
-      <div class="modal-body">
-        <div *ngIf="set$ | async as setsList; else loadingOrNoStats">
-          <div class="stats-container">
-
-            <!-- Normal Mode Stats -->
-            <div class="stat-card" *ngFor="let set of setsList">
-              <h3>{{set.setName ? (set.setName) : 'Verse Set'}}</h3>
-              <p><strong>Uploader:</strong> {{set.authorName}}</p>
-              <p><strong>Upload Time:</strong> {{set.date | relativeTime}}</p>
-              <p><strong>Total Rounds:</strong> {{set.rounds ? (set.rounds) : 'Unknown'}}</p>
-              <p><strong>Times Played:</strong> {{set.plays ? (set.plays) : '0' }}</p>
-              
-              <button class="secondary-action" (click)="playFromSetId(set.verseIDb)">Start from Code</button>
-              
-
-            </div>
-
-            
-          </div>
-        </div>
-        <ng-template #loadingOrNoStats>
-          <p>Loading Verse Sets or no Sets added yet. Go play upload some games!</p>
-        </ng-template>
-      </div>
+  <app-modal [isOpen]="showBoard" (close)="showBoard = false">
+    <h2 modal-title>Verse Board</h2>
+    <div *ngIf="set$ | async as setsList; else loadingOrNoSets">
+      <app-stats-grid>
+        <article class="stat-card" *ngFor="let set of setsList">
+          <h3>{{ set.setName ? set.setName : 'Verse Set' }}</h3>
+          <p><strong>Uploader:</strong> {{ set.authorName }}</p>
+          <p><strong>Upload Time:</strong> {{ set.date | relativeTime }}</p>
+          <p><strong>Total Rounds:</strong> {{ set.rounds ? set.rounds : 'Unknown' }}</p>
+          <p><strong>Times Played:</strong> {{ set.plays ? set.plays : '0' }}</p>
+          <button class="secondary-action" (click)="playFromSetId(set.verseIDb)">Start from Code</button>
+        </article>
+      </app-stats-grid>
     </div>
-  </div>
+    <ng-template #loadingOrNoSets>
+      <p>Loading Verse Sets or no Sets added yet. Go play upload some games!</p>
+    </ng-template>
+  </app-modal>
 
-
-
-  <!-- Stripe Support Link Section -->
   <div class="support-section">
     <a href="https://buy.stripe.com/6oU28kflzfwi9Aw1dufYY00" target="_blank" rel="noopener noreferrer" class="support-link">
       <div class="support-icon">
-        <!-- Coffee cup SVG icon -->
         <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8h1a4 4 0 0 1 0 8h-1"></path><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"></path><line x1="6" y1="1" x2="6" y2="4"></line><line x1="10" y1="1" x2="10" y2="4"></line><line x1="14" y1="1" x2="14" y2="4"></line></svg>
       </div>
       <p class="support-text-desktop">
@@ -229,10 +185,7 @@
     </a>
   </div>
 
-  <!-- Version and Contact Footer -->
   <footer class="version-footer">
     Version 2.2.0 - "Daily" - For any issues/bugs/suggestions, please email bconomy.wiki@gmail.com or join the Discord at <a href="https://discord.gg/XtTbvV2p" target="_blank" rel="noopener noreferrer">https://discord.gg/XtTbvV2p</a>
   </footer>
-
-
 </div>

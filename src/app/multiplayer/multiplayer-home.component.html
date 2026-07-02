@@ -1,14 +1,15 @@
 <app-multiplayer-tutorial *ngIf="showTutorial" (close)="closeTutorial()"></app-multiplayer-tutorial>
 
 <div class="container">
-  <div class="header-controls">
-    <button class="secondary-button" (click)="goBack()" title="Back to Home">‹ Home</button>
-    <button *ngIf="isAdmin$ | async" class="secondary-button admin-toggle" (click)="showAdminPanel = !showAdminPanel">
+  <app-page-header
+    title="Multiplayer"
+    subtitle="Create a lobby or join one with a code."
+    [showBackButton]="true"
+    backMode="home">
+    <button header-controls-extra *ngIf="isAdmin$ | async" type="button" class="secondary-button admin-toggle" (click)="showAdminPanel = !showAdminPanel">
       {{ showAdminPanel ? 'Hide Admin Panel' : 'Show Admin Panel' }}
     </button>
-  </div>
-  <h1>Multiplayer</h1>
-  <p>Create a lobby or join one with a code.</p>
+  </app-page-header>
 
   <div class="display-name-group">
     <label for="displayName">Your Display Name</label>
@@ -21,6 +22,5 @@
     <button class="secondary" (click)="joinLobby()" [disabled]="!displayName.trim()">Join Lobby</button>
   </div>
 
-  <!-- Admin Panel -->
   <app-admin-panel *ngIf="showAdminPanel"></app-admin-panel>
 </div>

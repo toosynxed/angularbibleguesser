@@ -1,0 +1,23 @@
+<section class="lobby-mini-game" aria-label="Lobby mini-game">
+  <div class="mini-game-header">
+    <div>
+      <h3>Waiting Room Mini-game</h3>
+      <p>Click the moving scroll while waiting for the host.</p>
+    </div>
+    <button type="button" class="secondary-action" (click)="reset()">Reset</button>
+  </div>
+
+  <div class="mini-game-scoreboard">
+    <span>Score: {{ score }}</span>
+    <span>High score: {{ highScore }}</span>
+  </div>
+
+  <button
+    type="button"
+    class="mini-game-target"
+    [style.left.%]="targetPosition"
+    [disabled]="disabled"
+    (click)="hitTarget()">
+    Scroll
+  </button>
+</section>

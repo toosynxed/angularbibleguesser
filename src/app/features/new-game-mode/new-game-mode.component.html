@@ -1,0 +1,35 @@
+<app-page-shell size="wide">
+  <app-page-header
+    title="Town Quest Mode"
+    subtitle="A starter structure for a longer progress-based mode."
+    [showBackButton]="true"
+    backMode="home">
+  </app-page-header>
+
+  <section class="town-layout">
+    <article class="town-map-panel">
+      <h2>Town Map Prototype</h2>
+      <p>
+        This page is the base for a longer quest mode where players complete verse tasks,
+        earn scrolls, and gradually upgrade a town.
+      </p>
+      <div class="town-map-placeholder" aria-label="Town map placeholder">
+        <span>Town Map</span>
+      </div>
+    </article>
+
+    <article class="town-task-panel">
+      <h2>Available Tasks</h2>
+      <div class="town-task-card" *ngFor="let task of tasks">
+        <div>
+          <h3>{{ task.title }}</h3>
+          <p>{{ task.description }}</p>
+          <small>Reward: {{ task.rewardScrolls }} scrolls</small>
+        </div>
+        <button type="button" class="primary" [disabled]="task.status === 'locked'" (click)="startTask(task)">
+          Start
+        </button>
+      </div>
+    </article>
+  </section>
+</app-page-shell>

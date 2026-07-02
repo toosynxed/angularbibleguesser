@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { ErrorHandler, NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -38,6 +38,10 @@ import { ScrollsService } from './scrolls.service';
 import { academyComponent } from './quest-mode/academy/academy.component';
 import { racetrackComponent } from './quest-mode/racetrack/racetrack.component';
 import { MarketItem } from './quest-mode/marketplace.component';
+import { NewGameModeComponent } from './features/new-game-mode/new-game-mode.component';
+import { ExperimentalVideoModeComponent } from './features/experimental-video-mode/experimental-video-mode.component';
+import { ImprovedSettingsComponent } from './features/improved-settings/improved-settings.component';
+import { ErrorHandlingService } from './features/error-handling/error-handling.service';
 
 @NgModule({
   declarations: [
@@ -60,7 +64,10 @@ import { MarketItem } from './quest-mode/marketplace.component';
     RelativeTimePipe,
     ShopModeComponent,
     academyComponent,
-    racetrackComponent
+    racetrackComponent,
+    NewGameModeComponent,
+    ExperimentalVideoModeComponent,
+    ImprovedSettingsComponent
   ],
   imports: [
     BrowserModule,
@@ -76,6 +83,7 @@ import { MarketItem } from './quest-mode/marketplace.component';
   ],
   providers: [
     { provide: REGION, useValue: 'us-central1' },
+    { provide: ErrorHandler, useExisting: ErrorHandlingService },
     { provide: USE_AUTH_EMULATOR, useValue: (location.hostname === 'localhost' || location.hostname === '127.0.0.1') ? ['http://127.0.0.1:9100'] : undefined },
     { provide: USE_FIRESTORE_EMULATOR, useValue: (location.hostname === 'localhost' || location.hostname === '127.0.0.1') ? ['127.0.0.1', 8085] : undefined },
     { provide: USE_DATABASE_EMULATOR, useValue: (location.hostname === 'localhost' || location.hostname === '127.0.0.1') ? ['127.0.0.1', 9000] : undefined },

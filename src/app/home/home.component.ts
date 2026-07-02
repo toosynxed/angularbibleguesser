@@ -10,6 +10,7 @@ import { UserStats } from '../stats.model';
 import { sets } from '../sets.model';
 import { SetsBoard } from '../sets.service';
 import firebase from 'firebase/compat/app';
+import { InputSanitisationService } from '../features/input-sanitisation/input-sanitisation.service';
 
 @Component({
   selector: 'app-home',
@@ -225,7 +226,8 @@ export class HomeComponent implements OnInit, OnDestroy {
     private authService: AuthService,
     private statsService: StatsService,
     private dailyChallengeService: DailyChallengeService,
-    private setsBoardService: SetsBoard
+    private setsBoardService: SetsBoard,
+    private inputSanitisation: InputSanitisationService
   ) { }
 
   ngOnInit(): void {
@@ -277,10 +279,12 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   playFromCode(): void {
     this.error = null;
-    const code = this.gameCode.trim().toUpperCase();
-    if (!code) {
+    const validation = this.inputSanitisation.validateGameCode(this.gameCode);
+    if (!validation.valid) {
+      this.error = validation.errors[0];
       return;
     }
+    const code = validation.value;
 
     // It's a short code, fetch from Firestore
     this.shareService.getSharedGame(code).pipe(first()).subscribe((gameData: any) => {

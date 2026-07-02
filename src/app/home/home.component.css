@@ -1,7 +1,7 @@
 .header-actions {
   display: flex;
   justify-content: space-between;
-  align-items: center; /* Better vertical alignment for items */
+  align-items: center;
   width: 100%;
   margin-bottom: 1rem;
 }
@@ -10,15 +10,10 @@
   .header-actions {
     gap: 0.5rem;
   }
-
-  .logo {
-    max-width: 70%; /* Make logo smaller on mobile */
-  }
 }
-.logo {
-  max-height: 300px; /* Adjust this value to your preference */
-  height: auto;
-  margin-bottom: 0.25rem; /* Reduced margin for tighter spacing */
+
+.header-text {
+  margin-bottom: 1rem;
 }
 
 .stats-button {
@@ -44,67 +39,20 @@
   opacity: 0.5;
   cursor: not-allowed;
 }
-/* Styles for the new Stripe Support Section */
-.support-section {
-  position: fixed;
-  bottom: 3rem; /* Align with other floating buttons */
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 999; /* Ensure it's above other content but below modals */
-}
-
-.support-link {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-  padding: 0.5rem 1rem;
-  border: 1px solid var(--border-color);
-  border-radius: var(--border-radius);
-  text-decoration: none;
-  color: var(--text-secondary-color);
-  background-color: var(--background-color);
-  transition: background-color 0.2s ease, border-color 0.2s ease;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-}
-
-.support-link:hover {
-  background-color: var(--background-alt-color);
-  border-color: var(--primary-color);
-  color: var(--text-color);
-}
-
-.support-icon svg {
-  width: 24px; /* Make icon smaller */
-  height: 24px;
-}
-
-.support-text-desktop, .support-text-mobile {
-  margin: 0; /* Remove default paragraph margin */
-}
-
-.support-text-mobile {
-  display: none; /* Hidden by default on desktop */
-}
-
-/* On mobile devices (e.g., screen width 768px or less) */
-@media (max-width: 768px) {
-  .support-text-desktop {
-    display: none; /* Hide the long text */
-  }
-  .support-text-mobile {
-    display: block; /* Show the short text */
-  }
-}
 
 .stats-button svg {
   stroke: currentColor;
+}
+
+.board-button {
+  margin-top: 5%;
 }
 
 .login-area {
   position: relative;
   display: flex;
   flex-direction: column;
-  align-items: flex-end; /* Aligns children (the button) to the right */
+  align-items: flex-end;
 }
 
 .login-prompt {
@@ -117,7 +65,7 @@
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  width: 200px; /* Adjust width as needed */
+  width: 200px;
   text-align: right;
 }
 
@@ -126,228 +74,59 @@
   line-height: 1;
 }
 
-/* Stack the main content vertically */
 .home-main {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 0.75rem; /* Adds space between the buttons */
+  gap: 0.75rem;
+}
+
+.home-main--compact {
+  padding-top: 0;
 }
 
 .home-main button {
   width: 100%;
-  max-width: 300px; /* Optional: constrain button width on larger screens */
+  max-width: 300px;
 }
 
-.back-button {
-  margin-top: 1rem;
-}
-
-/* New color for primary action buttons */
 .home-main button.primary {
-  background-color: #008B8B; /* A nice dark cyan / aqua color */
+  background-color: #008B8B;
   color: white;
 }
 
-.home-main button.primary:disabled {
-  background-color: #cccccc;
-  color: #666666;
-  cursor: not-allowed;
-  opacity: 0.7;
-}
-
-.modal-footer {
-  margin-top: 1.5rem;
-  padding-top: 1rem;
-  border-top: 1px solid var(--border-color);
-  display: flex;
-  justify-content: flex-end;
-}
-
-/* Special style for the Daily Mode button */
 .home-main button.daily-button {
-  background-color: #FFD700; /* A gold color to make it stand out */
-  color: #1a1a1a; /* Dark text for better contrast on gold */
-  border: 1px solid #DAA520; /* A darker gold border */
+  background-color: #FFD700;
+  color: #1a1a1a;
+  border: 1px solid #DAA520;
 }
 
 .home-main button.daily-button:hover {
-  background-color: #f0c400; /* Slightly darker gold on hover */
+  background-color: #f0c400;
 }
 
 .home-main button.quest-button {
-  background-color: #6AF9F7; /* A gold color to make it stand out */
-  color: #1a1a1a; /* Dark text for better contrast on gold */
-  border: 1px solid #306d6c; /* A darker gold border */
+  background-color: #6AF9F7;
+  color: #1a1a1a;
+  border: 1px solid #306d6c;
 }
 
 .home-main button.quest-button:hover {
-  background-color: #29b1af; /* Slightly darker gold on hover */
+  background-color: #29b1af;
 }
 
-/* Changelog Button */
-.changelog-button {
-  position: fixed;
-  bottom: 3rem; /* Raised to be above the footer */
-  left: 1rem;
-  background-color: var(--background-color, #fff);
-  color: var(--text-secondary-color, #555);
-  border: 1px solid var(--border-color, #ddd);
-  padding: 0.5rem 1rem;
-  border-radius: var(--border-radius, 4px);
-  cursor: pointer;
-  opacity: 0.7;
-  transition: opacity 0.2s ease;
+.back-button--quest {
+  background-color: rgb(106, 249, 247);
 }
 
-.changelog-button:hover {
-  opacity: 1;
+header {
+  margin-top: 2rem;
 }
 
-/* Help Button */
-.help-button {
-  position: fixed;
-  bottom: 3rem; /* Raised to be above the footer */
-  right: 1rem;
-  background-color: var(--secondary-color, #6c757d);
-  color: white;
-  border: none;
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  cursor: pointer;
-  font-size: 1.5rem;
-  font-weight: bold;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-}
-
-/* Modal styles */
-.modal-backdrop {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 1000;
-}
-
-.modal-content {
-  background: var(--background-color, #fff);
-  padding: 1.5rem;
-  border-radius: 8px;
-  width: 90%;
-  max-width: 600px;
-  max-height: 80vh;
+.code-input-container {
   display: flex;
   flex-direction: column;
-}
-
-.modal-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  border-bottom: 1px solid var(--border-color, #ddd);
-  padding-bottom: 1rem;
-}
-
-.modal-tabs {
-  display: flex;
   gap: 0.5rem;
-}
-
-.tab-button {
-  background: none;
-  border: none;
-  padding: 0.5rem 1rem;
-  cursor: pointer;
-  font-size: 1.1rem;
-  color: var(--text-secondary-color, #666);
-  border-bottom: 2px solid transparent;
-  transition: color 0.2s ease, border-color 0.2s ease;
-}
-
-.tab-button:hover {
-  color: var(--text-color, #333);
-}
-
-.tab-button.active {
-  color: var(--primary-color, #008B8B);
-  font-weight: bold;
-  border-bottom-color: var(--primary-color, #008B8B);
-}
-
-.modal-body {
-  overflow-y: auto;
-  margin-top: 1rem;
-}
-
-.changelog-content {
-  white-space: normal; /* Collapse whitespace and wrap text */
-  font-family: inherit; /* Use the same font as the rest of the app */
-  font-size: 0.9rem;
-}
-
-.help-content {
-  white-space: normal; /* Collapse whitespace and wrap text */
-  font-family: inherit;
-  font-size: 0.9rem;
-}
-
-.help-content a {
-  color: var(--primary-color, #008B8B);
-}
-
-.close-button {
-  background: none;
-  border: none;
-  font-size: 1.5rem;
-  cursor: pointer;
-}
-
-/* Version Footer */
-.version-footer {
-  position: fixed;
-  bottom: 0;
-  left: 0;
   width: 100%;
-  text-align: center;
-  padding: 0.5rem;
-  font-size: 0.75rem;
-  color: var(--text-secondary-color, #6c757d);
-  background-color: var(--background-color, #fff);
-}
-
-/* Styles for Stats Modal */
-.stats-container {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 1rem;
-  text-align: left;
-}
-
-.stat-card {
-  background-color: var(--background-alt-color);
-  padding: 1.5rem;
-  border-radius: var(--border-radius);
-  border: 1px solid var(--border-color);
-}
-
-.stat-card h3 {
-  margin-top: 0;
-  color: var(--primary-color);
-  border-bottom: 1px solid var(--border-color);
-  padding-bottom: 0.5rem;
-  margin-bottom: 1rem;
-}
-
-/* Add top margin to the header to prevent overlap with login prompt */
-header {
-  margin-top: 2rem; /* Pushes the logo and text down */
+  max-width: 300px;
 }

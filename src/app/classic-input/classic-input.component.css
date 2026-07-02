@@ -26,3 +26,9 @@
 .classic-input-container button:hover {
   background-color: #3e8e41;
 }
+
+.classic-input-error {
+  color: var(--error-color);
+  font-size: 0.9rem;
+  margin: 0.5rem 0 0;
+}

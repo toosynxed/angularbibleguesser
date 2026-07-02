@@ -1,0 +1,48 @@
+<app-page-shell>
+  <app-page-header
+    title="Improved Settings"
+    subtitle="Accessibility, audio, display, and multiplayer preferences."
+    [showBackButton]="true"
+    backMode="home">
+  </app-page-header>
+
+  <form class="settings-panel" *ngIf="settings" (ngSubmit)="save()">
+    <label class="settings-row">
+      <span>Effects audio</span>
+      <input type="checkbox" name="effectsAudio" [(ngModel)]="settings.effectsAudio">
+    </label>
+
+    <label class="settings-row">
+      <span>Game audio</span>
+      <input type="checkbox" name="gameAudio" [(ngModel)]="settings.gameAudio">
+    </label>
+
+    <label class="settings-row">
+      <span>High contrast mode</span>
+      <input type="checkbox" name="highContrast" [(ngModel)]="settings.highContrast">
+    </label>
+
+    <label class="settings-row">
+      <span>Hide other player names</span>
+      <input type="checkbox" name="hidePlayerNames" [(ngModel)]="settings.hidePlayerNames">
+    </label>
+
+    <label class="settings-row settings-row--stacked">
+      <span>Font size scale: {{ settings.fontScale }}</span>
+      <input type="range" name="fontScale" min="0.85" max="1.4" step="0.05" [(ngModel)]="settings.fontScale">
+    </label>
+
+    <label class="settings-row settings-row--stacked">
+      <span>Theme</span>
+      <select name="theme" [(ngModel)]="settings.theme">
+        <option value="dark">Dark</option>
+        <option value="light">Light</option>
+      </select>
+    </label>
+
+    <div class="actions">
+      <button type="submit" class="primary">Save Settings</button>
+      <button type="button" class="secondary-action" (click)="reset()">Reset</button>
+    </div>
+  </form>
+</app-page-shell>

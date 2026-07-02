@@ -1,0 +1,40 @@
+.town-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1.2fr) minmax(280px, 0.8fr);
+  gap: 1.5rem;
+  text-align: left;
+}
+
+.town-map-panel,
+.town-task-panel,
+.town-task-card {
+  background: var(--surface-color);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
+  padding: 1rem;
+}
+
+.town-map-placeholder {
+  min-height: 260px;
+  border: 2px dashed var(--primary-color);
+  border-radius: var(--border-radius);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-secondary-color);
+  background: linear-gradient(135deg, rgba(0, 139, 139, 0.2), rgba(255, 215, 0, 0.12));
+}
+
+.town-task-card {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+@media (max-width: 768px) {
+  .town-layout {
+    grid-template-columns: 1fr;
+  }
+}

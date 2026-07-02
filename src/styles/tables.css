@@ -1,0 +1,76 @@
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th,
+td {
+  padding: 0.75rem;
+  text-align: left;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.leaderboard-list {
+  margin: 2rem 0;
+}
+
+.leaderboard-table {
+  background-color: var(--surface-color);
+}
+
+.leaderboard-table th,
+.leaderboard-table td {
+  padding: 1rem;
+}
+
+.leaderboard-table thead {
+  background-color: var(--background-alt-color);
+}
+
+.leaderboard-table th {
+  background-color: var(--background-alt-color);
+  text-align: left;
+}
+
+.leaderboard-table td:first-child,
+.leaderboard-table th:first-child {
+  text-align: center;
+  font-weight: bold;
+  width: 50px;
+}
+
+.leaderboard-table .rank {
+  text-align: center;
+  font-weight: bold;
+}
+
+.leaderboard-table td:nth-child(3),
+.leaderboard-table th:nth-child(3),
+.leaderboard-table td:nth-child(4),
+.leaderboard-table th:nth-child(4) {
+  text-align: center;
+}
+
+.leaderboard-table td:last-child,
+.leaderboard-table th:last-child {
+  text-align: right;
+  font-weight: bold;
+}
+
+.leaderboard-table--scores td:first-child,
+.leaderboard-table--scores th:first-child {
+  width: 10%;
+}
+
+.leaderboard-table--scores td:last-child,
+.leaderboard-table--scores th:last-child {
+  width: 20%;
+}
+
+.leaderboard-note {
+  font-size: 0.9rem;
+  color: var(--text-secondary-color);
+  margin-top: -0.5rem;
+  margin-bottom: 1.5rem;
+  text-align: center;
+}

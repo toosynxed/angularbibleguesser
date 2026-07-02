@@ -1,11 +1,10 @@
-<div class="container">
-  <header>
-    <div class="header-controls">
-      <button class="secondary-button" (click)="goBack()" title="Back to Home">‹ Home</button>
-    </div>
-    <h1>Custom Game</h1>
-    <p>Set up your game, then start playing!</p>
-  </header>
+<app-page-shell>
+  <app-page-header
+    title="Custom Game"
+    subtitle="Set up your game, then start playing!"
+    [showBackButton]="true"
+    backMode="home">
+  </app-page-header>
 
   <main class="settings-form">
     <div class="form-group">
@@ -44,7 +43,7 @@
     </div>
 
     <div class="actions">
-      <button class="start-button" (click)="startGame()">Start Custom Game</button>
+      <button class="btn-primary start-button" (click)="startGame()">Start Custom Game</button>
     </div>
   </main>
-</div>
+</app-page-shell>

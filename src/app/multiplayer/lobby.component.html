@@ -17,6 +17,7 @@
 
     <button class="start-game-button" *ngIf="isHost$ | async" (click)="onStartGame(settings)">Start Game</button>
     <p *ngIf="!(isHost$ | async)">Waiting for host to start the game...</p>
+    <app-lobby-mini-game *ngIf="!(isHost$ | async)"></app-lobby-mini-game>
 
     <!-- Button to copy the external leaderboard link -->
     <button

@@ -10,16 +10,17 @@
   </app-quest-header>
 
   <h2>Items On Sale:</h2>
-  <a (click)="calculateMarketItem()" class="refresh-link">Refresh Items</a>
+  <a (click)="reloadDailyItems()" class="refresh-link">Reload Daily Items</a>
 
   <div class="containerbox">
     <div *ngFor="let item of generatedMarketItems; let i = index" class="item-container">
-      <div class="box" [ngClass]="item.background">
+      <div class="box" [ngClass]="item.background" [class.owned]="item.isPurchased">
         <div class="item-name">{{ item.name }}</div>
         <div class="item-description">{{ item.description }}</div>
+        <div class="owned-badge" *ngIf="item.isPurchased">Owned</div>
       </div>
-      <button class="purchasebuttons" (click)="purchaseItem(item)">
-        Purchase for {{ item.price }}
+      <button class="purchasebuttons" [disabled]="item.isPurchased" (click)="purchaseItem(item)">
+        {{ item.isPurchased ? 'Owned' : 'Purchase for ' + item.price }}
       </button>
     </div>
   </div>

@@ -17,6 +17,7 @@ export interface RoundResult {
   isChapterCorrect: boolean;
   isVerseCorrect: boolean;
   stars: number;
+  elapsedTimeSeconds?: number;
 }
 
 @Component({
@@ -28,12 +29,16 @@ export class GameComponent implements OnInit, OnDestroy {
   @ViewChild('verseContextContainer') private verseContextContainer: ElementRef<HTMLElement>;
 
   // Game State - Added 'shared' to the possible game modes
-  gameMode: 'normal' | 'custom' | 'created' | 'shared' | 'multiplayer' | 'daily' = 'normal';
+  gameMode: 'normal' | 'custom' | 'created' | 'shared' | 'multiplayer' | 'daily' | 'racetrack' = 'normal';
   totalRounds = 1;
   seededVerseIds: number[] | null = null;
   gameSettings: GameSettings | null = null; // To hold marathon settings
   timeLeft: number | null = null;
   private timerSubscription: Subscription;
+
+  // Racetrack State - carried through to /results untouched, for the reward
+  // calculation added in a later stage. Unused by all other game modes.
+  racetrackMeta: { setId: string; difficulty: string; timeLimit: number; baseReward: number } | null = null;
 
   // Multiplayer State
   lobbyId: string | null = null;
@@ -71,6 +76,7 @@ export class GameComponent implements OnInit, OnDestroy {
 
   private destroy$ = new Subject<void>();
   private roundState$ = new Subject<void>();
+  private roundStartedAtMs: number | null = null;
 
   constructor(
     private bibleService: BibleService,
@@ -81,19 +87,21 @@ export class GameComponent implements OnInit, OnDestroy {
   ) {
     const navigation = this.router.getCurrentNavigation();
     const state = navigation?.extras.state as {
-      mode: 'normal' | 'custom' | 'created' | 'shared' | 'multiplayer' | 'daily',
+      mode: 'normal' | 'custom' | 'created' | 'shared' | 'multiplayer' | 'daily' | 'racetrack',
       verseIds?: number[],
       settings?: GameSettings,
       lobbyId?: string,
       results?: RoundResult[],
-      setId?: string
+      setId?: string,
+      racetrackMeta?: { setId: string; difficulty: string; timeLimit: number; baseReward: number }
     };
     this.results = state?.results || []; // Restore results if coming back from inter-round results page
     this.lobbyId = state?.lobbyId || null;
     this.seededVerseIds = state?.verseIds || null;
     this.gameMode = state?.mode || 'normal';
     this.setId = state?.setId || null;
-    if ((this.gameMode === 'custom' || this.gameMode === 'created' || this.gameMode === 'shared') && state?.settings) {
+    this.racetrackMeta = state?.racetrackMeta || null;
+    if ((this.gameMode === 'custom' || this.gameMode === 'created' || this.gameMode === 'shared' || this.gameMode === 'racetrack') && state?.settings) {
       this.gameSettings = state.settings;
     }
   }
@@ -244,6 +252,7 @@ export class GameComponent implements OnInit, OnDestroy {
 
     if (this.gameMode !== 'multiplayer') {
       this.currentRound++;
+      this.roundStartedAtMs = Date.now();
       this.isRoundOver = false;
       this.feedback = null;
       this.isLoading = true;
@@ -290,7 +299,8 @@ export class GameComponent implements OnInit, OnDestroy {
         stars: 0,
         isBookCorrect: false,
         isChapterCorrect: false,
-        isVerseCorrect: false
+        isVerseCorrect: false,
+        elapsedTimeSeconds: this.getCurrentRoundElapsedSeconds()
       });
     };
   }
@@ -387,7 +397,8 @@ export class GameComponent implements OnInit, OnDestroy {
           stars,
           isBookCorrect,
           isChapterCorrect,
-          isVerseCorrect
+          isVerseCorrect,
+          elapsedTimeSeconds: this.getCurrentRoundElapsedSeconds()
         });
       }
     });
@@ -460,10 +471,20 @@ export class GameComponent implements OnInit, OnDestroy {
           stars,
           isBookCorrect,
           isChapterCorrect,
-          isVerseCorrect
+          isVerseCorrect,
+          elapsedTimeSeconds: this.getCurrentRoundElapsedSeconds()
         });
       }
     });
+  }
+
+  private getCurrentRoundElapsedSeconds(): number {
+    if (!this.roundStartedAtMs) {
+      return 0;
+    }
+
+    const elapsedMs = Date.now() - this.roundStartedAtMs;
+    return Math.max(0, Math.ceil(elapsedMs / 1000));
   }
 
   checkIfAllPlayersGuessed(lobby: Lobby): void {
@@ -496,7 +517,8 @@ export class GameComponent implements OnInit, OnDestroy {
           settings: settings,
           mode: this.gameMode,
           verseIds: this.seededVerseIds,
-          setId: this.setId
+          setId: this.setId,
+          racetrackMeta: this.racetrackMeta
         }
       });
     }

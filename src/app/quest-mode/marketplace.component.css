@@ -13,6 +13,29 @@
   max-width: 15vw;
 }
 
+.purchasebuttons:disabled {
+  background-color: #888888;
+  color: #dddddd;
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+.box.owned {
+  opacity: 0.5;
+  filter: grayscale(70%);
+}
+
+.owned-badge {
+  margin-top: 0.5rem;
+  font-weight: bold;
+  font-size: 0.85rem;
+  color: #f0f0f0;
+  background-color: rgba(0, 0, 0, 0.4);
+  padding: 0.2rem 0.6rem;
+  border-radius: var(--border-radius);
+  display: inline-block;
+}
+
 .item-container {
   display: flex;
   flex-direction: column;

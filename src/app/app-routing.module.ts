@@ -14,7 +14,6 @@ import { ShopModeComponent } from './quest-mode/marketplace.component';
 import { academyComponent} from './quest-mode/academy/academy.component';
 import { racetrackComponent } from './quest-mode/racetrack/racetrack.component'
 import { NewGameModeComponent } from './features/new-game-mode/new-game-mode.component';
-import { ExperimentalVideoModeComponent } from './features/experimental-video-mode/experimental-video-mode.component';
 import { ImprovedSettingsComponent } from './features/improved-settings/improved-settings.component';
 
 const routes: Routes = [
@@ -29,9 +28,13 @@ const routes: Routes = [
   { path: 'leaderboard/:id', component: ExternalLeaderboardComponent },
   { path: 'marketplace', component: ShopModeComponent},
   { path: 'academy', component: academyComponent},
+  // Academy is now a single page; the old per-set video page is retired in
+  // favor of selecting sets in place on /academy.
+  { path: 'academy/video/:setId', redirectTo: '/academy' },
   { path: 'racetrack', component: racetrackComponent},
   { path: 'town-quest', component: NewGameModeComponent },
-  { path: 'video-mode', component: ExperimentalVideoModeComponent },
+  // Experimental video mode was retired in favor of Academy (see /academy).
+  { path: 'video-mode', redirectTo: '/academy', pathMatch: 'full' },
   { path: 'settings', component: ImprovedSettingsComponent },
   {
     path: 'multiplayer',

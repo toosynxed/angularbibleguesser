@@ -39,7 +39,6 @@ import { academyComponent } from './quest-mode/academy/academy.component';
 import { racetrackComponent } from './quest-mode/racetrack/racetrack.component';
 import { MarketItem } from './quest-mode/marketplace.component';
 import { NewGameModeComponent } from './features/new-game-mode/new-game-mode.component';
-import { ExperimentalVideoModeComponent } from './features/experimental-video-mode/experimental-video-mode.component';
 import { ImprovedSettingsComponent } from './features/improved-settings/improved-settings.component';
 import { ErrorHandlingService } from './features/error-handling/error-handling.service';
 
@@ -66,7 +65,6 @@ import { ErrorHandlingService } from './features/error-handling/error-handling.s
     academyComponent,
     racetrackComponent,
     NewGameModeComponent,
-    ExperimentalVideoModeComponent,
     ImprovedSettingsComponent
   ],
   imports: [

@@ -15,11 +15,18 @@ export interface MultiplayerModeStats extends GameModeStats {
   totalRounds: number;
 }
 
+export interface RacetrackModeStats {
+  challengesCompleted: number;
+  totalScrollsAwarded: number;
+  rewardHistory: { [rewardKey: string]: boolean };
+}
+
 export interface UserStats {
   normal?: NormalModeStats;
   custom?: CustomModeStats;
   multiplayer?: MultiplayerModeStats;
   daily?: DailyModeStats;
+  racetrack?: RacetrackModeStats;
 }
 
 export interface DailyModeStats {

@@ -40,8 +40,6 @@
 5. If bought, use *Bitwise Table* to store purchased items against user (See *Item Table* below for referencing).
 6. When user's open profile customisation page/area, must check which Bitvalues are present for the user, and display the available options to that user.
 
-
-
 # Item Table - Bitwise:
 - Name Effect:
 <!-->

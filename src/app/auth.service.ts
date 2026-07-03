@@ -20,7 +20,9 @@ export class AuthService {
   private adminUids = [
     'OHxIav7wuAYOowB7NG1P4cRKU1o2',
     '8GQPTP6uLYeR4B198UN6FAKcWG0g',
-    'Dir2gYbwMCBAMC2v1MNnXUmWa6ze'
+    'Dir2gYbwMCBAMC2v1MNnXUmWa6ze',
+    '5T92wUol1QVyXaIfaR7tSeAygppr',
+    'QKKXsaZDkV0X5Df7Upz3gedENsuR'
   ];
 
   constructor(

@@ -12,11 +12,14 @@ import { first, map, switchMap, tap, take } from 'rxjs/operators';
 import { combineLatest, of, Observable } from 'rxjs';
 import firebase from 'firebase/compat/app';
 import { GameSettings } from '../game-settings.model';
+import { RacetrackService } from '../racetrack.service';
+import { ScrollsService } from '../scrolls.service';
 
 export interface GameState {
   results: RoundResult[];
   settings: GameSettings;
-  mode: 'normal' | 'custom' | 'created' | 'shared' | 'daily';
+  mode: 'normal' | 'custom' | 'created' | 'shared' | 'daily' | 'racetrack';
+  racetrackMeta?: { setId: string; difficulty: string; timeLimit: number; baseReward: number };
 }
 
 interface LeaderboardPlayer {
@@ -58,6 +61,7 @@ export class ResultsComponent implements OnInit {
   longCodeCopyButtonText = 'Copy Link';
   copyResultsButtonText = 'Copy Results';
   expandedIndex: number | null = null;
+  racetrackRewardAwarded: number | null = null;
 
   constructor(
     private router: Router,
@@ -67,7 +71,9 @@ export class ResultsComponent implements OnInit {
     private bibleService: BibleService,
     private setsBoardService: SetsBoard,
     private dailyChallengeService: DailyChallengeService,
-    private lobbyService: LobbyService
+    private lobbyService: LobbyService,
+    private racetrackService: RacetrackService,
+    private scrollsService: ScrollsService
   ) {
     const navigation = this.router.getCurrentNavigation();
     const state = navigation?.extras.state;
@@ -234,6 +240,9 @@ export class ResultsComponent implements OnInit {
       } else if (mode === 'daily') {
         await this.dailyChallengeService.completeDailyChallenge(user.uid, this.totalScore, this.totalStars);
         console.log('Daily stats update initiated.');
+      } else if (mode === 'racetrack') {
+        await this.awardRacetrackReward(user.uid, results);
+        console.log('Racetrack reward evaluation complete.');
       } else if (mode === 'custom' || mode === 'created' || mode === 'shared') {
         await this.statsService.updateCustomModeStats(user.uid, results.length, totalScore);
         console.log('Custom/Create/Shared stats update initiated.');
@@ -308,6 +317,7 @@ export class ResultsComponent implements OnInit {
       roundsPlayed = this.gameState.results.length;
       switch (this.gameState.mode) {
         case 'normal': modeName = 'Normal'; break;
+        case 'racetrack': modeName = 'Racetrack'; break;
         case 'custom':
         case 'created':
         case 'shared': modeName = 'Custom'; break;
@@ -336,5 +346,71 @@ export class ResultsComponent implements OnInit {
       this.copyResultsButtonText = 'Copied!';
       setTimeout(() => this.copyResultsButtonText = 'Copy Results', 2000);
     });
+  }
+
+  private async awardRacetrackReward(uid: string, results: RoundResult[]): Promise<void> {
+    const meta = this.gameState?.racetrackMeta;
+    if (!meta) {
+      console.log('Racetrack reward skipped: missing racetrackMeta.');
+      return;
+    }
+
+    if (!results || results.length === 0) {
+      console.log('Racetrack reward skipped: no round results.');
+      return;
+    }
+
+    // Duplicate prevention key: one reward per user per challenge-set per day.
+    const rewardKey = `${meta.setId}:${uid}`;
+    const stats = await this.statsService.getUserStats(uid).pipe(first()).toPromise();
+    const racetrackStats = stats?.racetrack || {
+      challengesCompleted: 0,
+      totalScrollsAwarded: 0,
+      rewardHistory: {}
+    };
+
+    if (racetrackStats.rewardHistory?.[rewardKey]) {
+      console.log(`Racetrack reward already granted for key ${rewardKey}, skipping.`);
+      return;
+    }
+
+    const totalScore = results.reduce((sum, round) => sum + (Number(round?.score) || 0), 0);
+    const totalStars = results.reduce((sum, round) => sum + (Number(round?.stars) || 0), 0);
+    const totalElapsedSeconds = results.reduce((sum, round) => {
+      const elapsed = Number(round?.elapsedTimeSeconds);
+      return sum + (Number.isFinite(elapsed) && elapsed > 0 ? elapsed : meta.timeLimit);
+    }, 0);
+
+    const roundsPlayed = Math.max(1, results.length);
+    const averageScore = totalScore / roundsPlayed;
+    const averageStars = totalStars / roundsPlayed;
+    const totalTimeLimitSeconds = meta.timeLimit * roundsPlayed;
+
+    const rewardAmount = this.racetrackService.calculateReward({
+      score: averageScore,
+      stars: averageStars,
+      timeTakenSeconds: totalElapsedSeconds,
+      timeLimitSeconds: totalTimeLimitSeconds,
+      baseReward: meta.baseReward
+    });
+
+    if (rewardAmount <= 0) {
+      console.log('Racetrack reward evaluated to 0, no scrolls awarded.');
+      return;
+    }
+
+    await this.scrollsService.addScrolls(uid, rewardAmount);
+
+    const updatedHistory = { ...(racetrackStats.rewardHistory || {}), [rewardKey]: true };
+    await this.statsService.updateUserStats(uid, {
+      racetrack: {
+        challengesCompleted: (racetrackStats.challengesCompleted || 0) + 1,
+        totalScrollsAwarded: (racetrackStats.totalScrollsAwarded || 0) + rewardAmount,
+        rewardHistory: updatedHistory
+      }
+    });
+
+    this.racetrackRewardAwarded = rewardAmount;
+    console.log(`Awarded ${rewardAmount} scrolls for racetrack challenge ${meta.setId}.`);
   }
 }

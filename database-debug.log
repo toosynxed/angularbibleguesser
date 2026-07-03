@@ -1,4 +1,9 @@
-16:59:43.778 [NamespaceSystem-akka.actor.default-dispatcher-5] INFO akka.event.slf4j.Slf4jLogger - Slf4jLogger started
-16:59:44.007 [main] INFO com.firebase.server.forge.App$ - Listening at 127.0.0.1:9000
-16:59:57.199 [NamespaceSystem-akka.actor.default-dispatcher-5] INFO com.firebase.core.namespace.NamespaceActor - angularbetterbibleguesser-default-rtdb successfully activated FBKV (SurveyIdle(0)) wait: 77ms, init: 0ms
-16:59:57.234 [NamespaceSystem-blocking-namespace-operation-dispatcher-7] INFO com.firebase.core.namespace.StateManager - Namespace angularbetterbibleguesser-default-rtdb status Active to Active
+13:55:00.123 [NamespaceSystem-akka.actor.default-dispatcher-4] INFO akka.event.slf4j.Slf4jLogger - Slf4jLogger started
+13:55:00.268 [main] INFO com.firebase.server.forge.App$ - Listening at 127.0.0.1:9000
+13:55:13.947 [NamespaceSystem-akka.actor.default-dispatcher-4] INFO com.firebase.core.namespace.NamespaceActor - angularbetterbibleguesser-default-rtdb successfully activated FBKV (SurveyIdle(0)) wait: 86ms, init: 0ms
+13:55:13.979 [NamespaceSystem-blocking-namespace-operation-dispatcher-6] INFO com.firebase.core.namespace.StateManager - Namespace angularbetterbibleguesser-default-rtdb status Active to Active
+14:01:44.567 [FirebaseWorkerPool-1-4] WARN com.firebase.core.persistence.backend.dummy.EmulatorMetadataPersistence - Multiple projectIds are not recommended in single project mode. Requested 
+namespace angularbetterbibleguesser, but the emulator is configured for angularbetterbibleguesser-default-rtdb. To 
+opt-out of single project mode add/set the singleProjectMode: false property in 
+the firebase.json emulators config. 
+14:01:44.620 [NamespaceSystem-akka.actor.default-dispatcher-12] INFO com.firebase.core.namespace.NamespaceActor - angularbetterbibleguesser successfully activated FBKV (SurveyIdle(0)) wait: 16ms, init: 0ms

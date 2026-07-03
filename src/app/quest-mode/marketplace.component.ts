@@ -1,12 +1,13 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
-import { Observable, of, Subject } from 'rxjs';
+import { combineLatest, from, Observable, of, Subject } from 'rxjs';
 import { AuthService } from '../auth.service';
 import { Router } from '@angular/router';
 import firebase from 'firebase/compat/app';
 import { ScrollsService, ScrollsUpdate } from '../scrolls.service';
 import { switchMap, take, tap } from 'rxjs/operators';
 import { StatsService } from '../stats.service';
-import { INITIAL_BITMARKET_MASK, MARKETPLACE_ITEM_BITS, removeItemFromMarket } from '../marketplace-bitmask';
+import { INITIAL_BITMARKET_MASK, isItemPurchased, removeItemFromMarket, selectDailyMarketItemIds } from '../marketplace-bitmask';
+import { MarketplaceDailyService } from '../marketplace-daily.service';
 
 export interface MarketItem {
   id: number;
@@ -15,6 +16,13 @@ export interface MarketItem {
   price: number;
   description: string;
   background: string; // For CSS class or image URL
+}
+
+// View-model used by the template: same daily item, plus whether this user has
+// already purchased it. Purchased items stay in their slot (greyed out) rather
+// than being swapped out - see selectDailyMarketItemIds() in marketplace-bitmask.ts.
+export interface DisplayMarketItem extends MarketItem {
+  isPurchased: boolean;
 }
 
 const MARKETPLACE_ITEMS: Map<number, MarketItem> = new Map([
@@ -50,7 +58,7 @@ export class ShopModeComponent implements OnInit {
   showCustomization = false;
   userScrolls$!: Observable<number | undefined>;
   userBitMarket$!: Observable<number | undefined>;
-  generatedMarketItems: MarketItem[] = []; // Tracks your 5 random output items
+  generatedMarketItems: DisplayMarketItem[] = []; // Tracks today's deterministic 5 items for this user
   private calculateItemsTrigger = new Subject<void>();
 
   constructor(
@@ -58,7 +66,8 @@ export class ShopModeComponent implements OnInit {
     private router: Router,
     private scrollsService: ScrollsService,
     private StatsService: StatsService,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+    private marketplaceDailyService: MarketplaceDailyService
   ) { }
 
   ngOnInit(): void {
@@ -70,6 +79,8 @@ export class ShopModeComponent implements OnInit {
       switchMap((user) => user?.uid ? this.StatsService.getUserField$(user.uid, 'BitMarket') : of(undefined))
     );
     this.setupMarketItemCalculation();
+    // Load today's deterministic items immediately, rather than waiting for a manual reload click.
+    this.reloadDailyItems();
   }
 
   confirmGoHome(): void {
@@ -81,11 +92,19 @@ export class ShopModeComponent implements OnInit {
     console.log('Navigated to: /quest');
   }
 
-  calculateMarketItem(): void {
+  // Re-reads today's shared market seed and recomputes this user's deterministic
+  // daily items from it. This does NOT reroll/randomize - it only picks up a new
+  // seed if the admin has reset the shop, or a new day has started.
+  reloadDailyItems(): void {
     this.calculateItemsTrigger.next();
   }
 
-  async purchaseItem(itemToPurchase: MarketItem): Promise<void> {
+  async purchaseItem(itemToPurchase: DisplayMarketItem): Promise<void> {
+    if (itemToPurchase.isPurchased) {
+      // Defensive guard - the template already disables the button for owned items.
+      return;
+    }
+
     const user = await this.user$.pipe(take(1)).toPromise();
     if (!user?.uid) {
       alert('You must be logged in to purchase items.');
@@ -110,53 +129,47 @@ export class ShopModeComponent implements OnInit {
       await this.StatsService.updateUserField(user.uid, 'BitMarket', newBitMarket);
 
       alert(`Successfully purchased ${itemToPurchase.name}!`);
-      this.calculateMarketItem();
+      this.reloadDailyItems();
     } catch (error) {
       console.error('Purchase failed:', error);
       alert('There was an error with your purchase. Please try again.');
     }
   }
 
+  // Deterministic daily selection: given the same shared daily seed, the same user,
+  // and the same day, this always produces the same 5 item SLOTS. Purchasing an
+  // item does not remove it from its slot or pull in a replacement - it just marks
+  // that slot as owned/disabled (see isItemPurchased below). The only things that
+  // can change which 5 items appear are the calendar date rolling over, or an admin
+  // regenerating today's seed via the Reset Shop button (see MarketplaceDailyService).
   private setupMarketItemCalculation(): void {
     this.calculateItemsTrigger.pipe(
-      switchMap(() => this.userBitMarket$.pipe(take(1))), 
-      tap(bitMarketValue => {
+      switchMap(() =>
+        combineLatest([
+          this.user$.pipe(take(1)),
+          this.userBitMarket$.pipe(take(1)),
+          from(this.marketplaceDailyService.getTodaysMarketSeed())
+        ])
+      ),
+      tap(([user, bitMarketValue, dailySeed]) => {
         try {
-          const bitmask = bitMarketValue ?? INITIAL_BITMARKET_MASK;
-
-          // Active bits represent items still available to purchase.
-          const activeBitValues = MARKETPLACE_ITEM_BITS.filter(bit => (bitmask & bit) !== 0);
-
-          // 3. Fallback check if the user lacks enough bit flags
-          if (activeBitValues.length <= 5) {
-            this.generatedMarketItems = activeBitValues
-              .map(id => MARKETPLACE_ITEMS.get(id))
-              .filter((item): item is MarketItem => !!item);
-            this.cdr.detectChanges(); // Update view
+          if (!user?.uid) {
+            this.generatedMarketItems = [];
+            this.cdr.detectChanges();
             return;
           }
 
-          // 4. Randomly sample 5 unique bits using a shrinking pool (Fisher-Yates style)
-          const selectedBits: number[] = [];
-          const pool = [...activeBitValues];
+          const bitmask = bitMarketValue ?? INITIAL_BITMARKET_MASK;
+          const selectedBits = selectDailyMarketItemIds(user.uid, dailySeed.date, dailySeed.seed, 5);
 
-          while (selectedBits.length < 5) {
-            const randomIndex = Math.floor(Math.random() * pool.length);
-            const [chosenBit] = pool.splice(randomIndex, 1);
-            selectedBits.push(chosenBit);
-          }
-
-          // 6. Map bit values to full MarketItem objects
-          const finalItems = selectedBits
+          this.generatedMarketItems = selectedBits
             .map(id => MARKETPLACE_ITEMS.get(id))
-            .filter((item): item is MarketItem => !!item);
+            .filter((item): item is MarketItem => !!item)
+            .map(item => ({ ...item, isPurchased: isItemPurchased(bitmask, item.id) }));
 
-          this.generatedMarketItems = finalItems;
-          console.log("Successfully generated unique market items:", finalItems);
-          // Manually trigger change detection to update the view
-          this.cdr.detectChanges();
+          this.cdr.detectChanges(); // Update view
         } catch (error) {
-          console.error("Failed to calculate market items:", error);
+          console.error('Failed to calculate daily market items:', error);
           this.generatedMarketItems = []; // Clear on error
         }
       })

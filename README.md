@@ -8,6 +8,16 @@ Run in main:
 export NODE_TLS_REJECT_UNAUTHORIZED=0
 firebase emulators:start
 ```
+# To Push Development Live:
+Run in terminal:
+```bash
+ng build
+```
+and,
+```bash
+firebase deploy --only hosting
+```
+
 
 # Note
 In order to connect to your Firebase database, please create a directory

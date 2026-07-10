@@ -38,7 +38,6 @@ import { ScrollsService } from './scrolls.service';
 import { academyComponent } from './quest-mode/academy/academy.component';
 import { racetrackComponent } from './quest-mode/racetrack/racetrack.component';
 import { MarketItem } from './quest-mode/marketplace.component';
-import { NewGameModeComponent } from './features/new-game-mode/new-game-mode.component';
 import { ImprovedSettingsComponent } from './features/improved-settings/improved-settings.component';
 import { ErrorHandlingService } from './features/error-handling/error-handling.service';
 
@@ -64,7 +63,6 @@ import { ErrorHandlingService } from './features/error-handling/error-handling.s
     ShopModeComponent,
     academyComponent,
     racetrackComponent,
-    NewGameModeComponent,
     ImprovedSettingsComponent
   ],
   imports: [

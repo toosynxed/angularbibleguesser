@@ -7,6 +7,7 @@
     "firebase": "firebase deploy --only firestore",
     "start": "ng serve",
     "build": "npm run build:sitemap && ng build && firebase deploy",
+    "deploy": "npm run build:sitemap && ng build && firebase deploy --only hosting",
     "build:sitemap": "node generate-sitemap.js",
     "test": "ng test",
     "lint": "ng lint",

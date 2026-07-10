@@ -13,7 +13,6 @@ import { QuestModeComponent } from './quest-mode/quest-mode.component';
 import { ShopModeComponent } from './quest-mode/marketplace.component';
 import { academyComponent} from './quest-mode/academy/academy.component';
 import { racetrackComponent } from './quest-mode/racetrack/racetrack.component'
-import { NewGameModeComponent } from './features/new-game-mode/new-game-mode.component';
 import { ImprovedSettingsComponent } from './features/improved-settings/improved-settings.component';
 
 const routes: Routes = [
@@ -32,7 +31,6 @@ const routes: Routes = [
   // favor of selecting sets in place on /academy.
   { path: 'academy/video/:setId', redirectTo: '/academy' },
   { path: 'racetrack', component: racetrackComponent},
-  { path: 'town-quest', component: NewGameModeComponent },
   // Experimental video mode was retired in favor of Academy (see /academy).
   { path: 'video-mode', redirectTo: '/academy', pathMatch: 'full' },
   { path: 'settings', component: ImprovedSettingsComponent },

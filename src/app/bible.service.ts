@@ -9,9 +9,10 @@ import { Verse } from './verse.model';
   providedIn: 'root'
 })
 export class BibleService {
-  private csvUrl = 'assets/net.csv';
+  private csvUrl = 'assets/net_cleaned.csv';
   private verses$: Observable<Verse[]>;
 
+  private bookGroups: { groupName: string, books: string[] }[] = [];
   // For book name normalization
   private bookNameMap: Map<string, string> = new Map();
   private books: string[] = [];
@@ -55,11 +56,55 @@ export class BibleService {
 
   /**
    * Gets a single random verse from the collection.
+   * @param includedBooks An optional array of book names to filter by.
    * @returns An observable that emits a single random Verse object.
    */
-  getRandomVerse(): Observable<Verse> {
+  getRandomVerse(includedBooks?: string[]): Observable<Verse> {
     return this.getVerses().pipe(
-      map(verses => verses[Math.floor(Math.random() * verses.length)])
+      map(verses => {
+        let filteredVerses = verses;
+        if (includedBooks && includedBooks.length > 0) {
+          const bookSet = new Set(includedBooks);
+          filteredVerses = verses.filter(v => bookSet.has(v.bookName));
+        }
+        if (filteredVerses.length === 0) {
+          // Fallback to all verses if the filter results in an empty list
+          filteredVerses = verses;
+        }
+        return filteredVerses[Math.floor(Math.random() * filteredVerses.length)];
+      })
+    );
+  }
+
+  /**
+   * Gets a specified number of random verse IDs.
+   * @param count The number of verse IDs to get.
+   * @param includedBooks An optional array of book names to filter by.
+   * @returns An observable that emits an array of random verse IDs.
+   */
+  getRandomVerseIds(count: number, includedBooks?: string[]): Observable<number[]> {
+    return this.getVerses().pipe(
+      map(verses => {
+        let filteredVerses = verses;
+        if (includedBooks && includedBooks.length > 0) {
+          const bookSet = new Set(includedBooks);
+          filteredVerses = verses.filter(v => bookSet.has(v.bookName));
+        }
+
+        // Efficiently get 'count' random verses without shuffling the whole array
+        const randomVerseIds = new Set<number>();
+        if (filteredVerses.length < count) { // Not enough verses
+          console.warn(`Requested ${count} verses, but only ${filteredVerses.length} were available.`);
+          return filteredVerses.map(v => v.verseId);
+        }
+
+        while (randomVerseIds.size < count) {
+          const randomIndex = Math.floor(Math.random() * filteredVerses.length);
+          randomVerseIds.add(filteredVerses[randomIndex].verseId);
+        }
+
+        return Array.from(randomVerseIds);
+      })
     );
   }
 
@@ -79,6 +124,7 @@ export class BibleService {
     verses.forEach(verse => {
       bookSet.add(verse.bookName);
     });
+    this.initializeBookGroups([...bookSet]);
     this.books = [...bookSet];
 
     this.books.forEach(bookName => {
@@ -106,6 +152,40 @@ export class BibleService {
       this.bookNameMap.set(normalizedAlias, this.bookAliases[alias]);
     }
     return verses;
+  }
+
+  /**
+   * Returns an observable list of all unique book names.
+   */
+  getBooks(): Observable<string[]> {
+    return this.getVerses().pipe(
+      map(() => this.books)
+    );
+  }
+
+  /**
+   * Returns a synchronously available list of grouped books.
+   * This should be called after getBooks() has resolved at least once.
+   */
+  getGroupedBooks(): { groupName: string, books: string[] }[] {
+    return this.bookGroups;
+  }
+
+  private initializeBookGroups(books: string[]): void {
+    // This is a sample grouping. You can customize it as needed.
+    const otBooks = books.slice(0, 39);
+    const ntBooks = books.slice(39);
+
+    this.bookGroups = [
+      {
+        groupName: 'Old Testament',
+        books: otBooks
+      },
+      {
+        groupName: 'New Testament',
+        books: ntBooks
+      }
+    ];
   }
 
   private normalizeBookNameInternal(name: string): string {
@@ -150,6 +230,41 @@ export class BibleService {
           v.verse === verseRef.verse
         )
       )
+    );
+  }
+
+  /**
+   * Gets a verse ID from its index in the allVerses array.
+   * @param index The index of the verse.
+   * @returns An observable that emits the verseId or null if the index is out of bounds.
+   */
+  getVerseIdFromIndex(index: number): Observable<number | null> {
+    return this.getVerses().pipe(
+      map(verses => {
+        return (index >= 0 && index < verses.length) ? verses[index].verseId : null;
+      })
+    );
+  }
+
+  getChaptersForBook(bookName: string): Observable<number> {
+    return this.getVerses().pipe(
+      map(verses => {
+        const bookVerses = verses.filter(v => v.bookName === bookName);
+        if (bookVerses.length === 0) return 0;
+        // Find the max chapter number for the given book
+        return Math.max(...bookVerses.map(v => v.chapter));
+      })
+    );
+  }
+
+  getVersesForChapter(bookName: string, chapter: number): Observable<number> {
+    return this.getVerses().pipe(
+      map(verses => {
+        const chapterVerses = verses.filter(v => v.bookName === bookName && v.chapter === chapter);
+        if (chapterVerses.length === 0) return 0;
+        // Find the max verse number for the given chapter
+        return Math.max(...chapterVerses.map(v => v.verse));
+      })
     );
   }
 

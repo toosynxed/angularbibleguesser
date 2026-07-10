@@ -1,0 +1,48 @@
+<div class="search-stats-container">
+  <h3>Search Player Stats</h3>
+  <div class="search-box">
+    <input #searchInput type="text" (input)="search(searchInput.value)" placeholder="Enter display name...">
+  </div>
+
+  <div *ngIf="isLoading" class="loading-indicator">
+    <p>Searching...</p>
+  </div>
+
+  <div *ngIf="!isLoading && hasSearched && (users$ | async)?.length === 0" class="no-results">
+    <p>No users found matching that name.</p>
+  </div>
+
+  <div class="results-container" *ngIf="!isLoading && (users$ | async)?.length > 0">
+    <div *ngFor="let user of users$ | async" class="user-stats-card">
+      <h4>{{ user.displayName }}</h4>
+      <div class="stats-container">
+        <!-- Normal Mode Stats -->
+        <div class="stat-card" *ngIf="user.stats?.normal as normalStats">
+          <h5>Normal Mode</h5>
+          <p><strong>Games Played:</strong> {{ normalStats.gamesPlayed || 0 }}</p>
+          <p><strong>Average Score:</strong> {{ getAverage(normalStats.totalScore, normalStats.gamesPlayed) }} / 100</p>
+          <p><strong>Average Stars:</strong> {{ getAverage(normalStats.totalStars, normalStats.gamesPlayed) }} / 3</p>
+        </div>
+
+        <!-- Custom Mode Stats -->
+        <div class="stat-card" *ngIf="user.stats?.custom as customStats">
+          <h5>Custom Mode</h5>
+          <p><strong>Games Played:</strong> {{ customStats.gamesPlayed || 0 }}</p>
+          <p><strong>Total Rounds Played:</strong> {{ customStats.totalRounds || 0 }}</p>
+          <p><strong>Average Score/Round:</strong> {{ getAverage(customStats.totalScore, customStats.totalRounds) }}</p>
+        </div>
+
+        <!-- Multiplayer Mode Stats -->
+        <div class="stat-card" *ngIf="user.stats?.multiplayer as multiStats">
+          <h5>Multiplayer Mode</h5>
+          <p><strong>Games Played:</strong> {{ multiStats.gamesPlayed || 0 }}</p>
+          <p><strong>Average Score/Round:</strong> {{ getAverage(multiStats.totalScore, multiStats.totalRounds) }}</p>
+        </div>
+
+        <div *ngIf="!user.stats" class="no-stats">
+          <p>This user has not played any games yet.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

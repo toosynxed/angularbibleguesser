@@ -1,0 +1,58 @@
+.result-card {
+  background-color: var(--background-alt-color);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius, 8px);
+  padding: 1rem;
+  margin-bottom: 1rem;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+  text-align: left;
+}
+
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: 0.75rem;
+  margin-bottom: 0.75rem;
+}
+
+.card-header h3 {
+  margin: 0;
+  font-size: 1.2rem;
+  color: var(--primary-color);
+}
+
+.score {
+  font-weight: bold;
+  font-size: 1.1rem;
+}
+
+.card-body .detail {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.25rem 0;
+}
+
+.card-body .label {
+  color: var(--text-secondary-color);
+}
+
+.card-body .value {
+  font-weight: 500;
+}
+
+.card-body .value.incorrect {
+  color: #d9534f; /* A reddish color for incorrect guesses */
+}
+
+.stars {
+  text-align: center;
+  font-size: 1.8rem;
+  margin-top: 0.5rem;
+  color: #e0e0e0; /* Color for empty stars */
+}
+
+.stars .filled {
+  color: #ffc107; /* A gold color for filled stars */
+}

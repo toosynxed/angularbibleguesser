@@ -1,0 +1,37 @@
+<div class="container container--full">
+  <app-quest-header
+    title="Marketplace"
+    [user]="user$ | async"
+    backLabel="‹ Quest Map"
+    backMode="route"
+    backRoute="/quest"
+    logoMode="route"
+    logoRoute="/">
+  </app-quest-header>
+
+  <h2>Items On Sale:</h2>
+  <a (click)="reloadDailyItems()" class="refresh-link">Reload Daily Items</a>
+
+  <div class="containerbox">
+    <div *ngFor="let item of generatedMarketItems; let i = index" class="item-container">
+      <div class="box" [ngClass]="item.background" [class.owned]="item.isPurchased">
+        <div class="item-name">{{ item.name }}</div>
+        <div class="item-description">{{ item.description }}</div>
+        <div class="owned-badge" *ngIf="item.isPurchased">Owned</div>
+      </div>
+      <button class="purchasebuttons" [disabled]="item.isPurchased" (click)="purchaseItem(item)">
+        {{ item.isPurchased ? 'Owned' : 'Purchase for ' + item.price }}
+      </button>
+    </div>
+  </div>
+
+  <app-scroll-balance [amount]="(userScrolls$ | async) ?? 0"></app-scroll-balance>
+
+  <ng-template #loading>
+    <p>Loading quest data...</p>
+  </ng-template>
+
+  <ng-container *ngIf="user$ | async as user">
+    <app-profile-customization *ngIf="showCustomization" [user]="user" (close)="showCustomization = false"></app-profile-customization>
+  </ng-container>
+</div>

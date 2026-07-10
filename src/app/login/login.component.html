@@ -1,0 +1,114 @@
+<app-page-shell>
+  <div *ngIf="user$ | async as user">
+
+    <!-- First-time user: Set Display Name -->
+    <div *ngIf="isNewUser$ | async">
+      <h2>Welcome!</h2>
+      <p>Please set your display name to continue.</p>
+      <form [formGroup]="profileForm" (ngSubmit)="onSetProfile()" class="auth-form">
+        <div class="form-group">
+          <label for="displayName">Display Name</label>
+          <input id="displayName" type="text" formControlName="displayName" placeholder="Your Name" maxlength="15">
+        </div>
+        <button type="submit" class="secondary-action" [disabled]="profileForm.invalid">Save Name</button>
+        <p *ngIf="error" class="error-message">{{ error }}</p>
+      </form>
+    </div>
+
+    <!-- Existing Logged-in User -->
+    <div *ngIf="!(isNewUser$ | async)">
+      <div *ngIf="!user.isAnonymous; else anonymousUser" class="profile-view">
+        <h2>Profile</h2>
+        <p>You are logged in as <strong>{{ user.displayName }}</strong>.</p>
+        <div class="profile-details">
+          <p><strong>Login Method:</strong> {{ user.providerData[0]?.providerId === 'google.com' ? 'Google' : 'Email' }}</p>
+          <p><strong>Email:</strong> {{ maskEmail(user.email) }}</p>
+        </div>
+
+        <!-- Change Username Form -->
+        <div *ngIf="showUsernameForm" class="auth-form username-change-form">
+          <form [formGroup]="profileForm" (ngSubmit)="onSetProfile()">
+            <div class="form-group">
+              <label for="updateDisplayName">New Display Name</label>
+              <input id="updateDisplayName" type="text" formControlName="displayName" placeholder="Your Name" maxlength="15">
+            </div>
+            <button type="submit" class="secondary-action" [disabled]="profileForm.invalid">Save Name</button>
+          </form>
+        </div>
+
+        <!-- Delete Account Confirmation -->
+        <div *ngIf="showDeleteConfirm" class="delete-confirm-box">
+          <h4>Are you sure?</h4>
+          <p>This action is irreversible and will permanently delete your account and any associated data.</p>
+          <!-- Password field only for email users -->
+          <div *ngIf="user.providerData[0]?.providerId === 'password'" class="form-group">
+            <label for="deletePassword">Enter your password to confirm</label>
+            <input id="deletePassword" type="password" [(ngModel)]="deletePassword">
+          </div>
+          <label><input type="checkbox" [(ngModel)]="deleteConfirmChecked"> I understand and wish to proceed.</label>
+          <button (click)="onDeleteAccount()" class="secondary-action" [disabled]="!deleteConfirmChecked || (user.providerData[0]?.providerId === 'password' && !deletePassword)">Delete My Account</button>
+          <button (click)="showDeleteConfirm = false" class="secondary">Cancel</button>
+        </div>
+
+        <div class="profile-actions" *ngIf="!showUsernameForm && !showDeleteConfirm">
+          <a routerLink="/profile" class="secondary-action">View/Customize Profile</a>
+          <button (click)="showUsernameForm = true" class="secondary-action">Change Username</button>
+          <button (click)="showDeleteConfirm = true" class="secondary-action">Delete Account</button>
+        </div>
+
+        <button (click)="onSignOut()" class="secondary-action">Sign Out</button>
+      </div>
+      <ng-template #anonymousUser>
+        <h2>You are playing as a guest.</h2>
+        <p>Log in or sign up to save your progress and stats.</p>
+      </ng-template>
+    </div>
+
+    <p *ngIf="successMessage" class="success-message">{{ successMessage }}</p>
+    <!-- Login/Sign Up Forms (only show if not a new user setting profile) -->
+    <div *ngIf="user.isAnonymous && !(isNewUser$ | async)" class="auth-container">
+      <hr>
+      <!-- Google Sign In -->
+      <button (click)="onGoogleSignIn()" class="google-signin">Sign in with Google</button>
+      <p class="or-divider"><span>or</span></p>
+
+      <!-- Email/Password Forms -->
+      <div class="form-wrapper">
+        <!-- Sign In -->
+        <form [formGroup]="loginForm" (ngSubmit)="onEmailSignIn()" class="auth-form">
+          <h3>Sign In</h3>
+          <div class="form-group">
+            <label for="loginEmail">Email</label>
+            <input id="loginEmail" type="email" formControlName="email">
+          </div>
+          <div class="form-group">
+            <label for="loginPassword">Password</label>
+            <input id="loginPassword" type="password" formControlName="password">
+          </div>
+          <button type="submit" class="secondary-action" [disabled]="loginForm.invalid">Sign In</button>
+        </form>
+
+        <!-- Sign Up -->
+        <form [formGroup]="signUpForm" (ngSubmit)="onEmailSignUp()" class="auth-form">
+          <h3>Sign Up</h3>
+          <div class="form-group">
+            <label for="signUpEmail">Email</label>
+            <input id="signUpEmail" type="email" formControlName="email">
+          </div>
+          <div class="form-group">
+            <label for="signUpPassword">Password</label>
+            <input id="signUpPassword" type="password" formControlName="password" placeholder="6+ characters">
+          </div>
+          <button type="submit" class="secondary-action" [disabled]="signUpForm.invalid">Sign Up</button>
+        </form>
+      </div>
+
+      <p *ngIf="error" class="error-message">{{ error }}</p>
+    </div>
+
+  </div>
+
+  <div class="actions">
+    <a routerLink="/" class="secondary-action">‹ Back to Home</a>
+  </div>
+</app-page-shell>

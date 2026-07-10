@@ -1,0 +1,116 @@
+.tutorial-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6);
+  z-index: 1050;
+  pointer-events: all;
+}
+
+.close-tutorial-button {
+  position: fixed;
+  top: 1rem;
+  right: 1rem;
+  background: #fff;
+  color: #333;
+  border: none;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  font-size: 1.8rem;
+  font-weight: bold;
+  cursor: pointer;
+  z-index: 1051;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+}
+
+.tutorial-step {
+  position: absolute;
+  color: white;
+  font-size: 1.1rem;
+}
+
+.tutorial-step .circle {
+  position: absolute;
+  border: 3px solid #ff4d4d;
+  border-radius: 15px;
+  box-shadow: 0 0 15px #ff4d4d, inset 0 0 15px #ff4d4d;
+  pointer-events: none;
+  animation: pulsate 2s infinite;
+}
+
+.tutorial-step .arrow {
+  position: absolute;
+  font-size: 3rem;
+  color: #ff4d4d;
+  text-shadow: 0 0 10px #fff;
+}
+
+.tutorial-step .text-box {
+  position: absolute;
+  background-color: rgba(40, 40, 40, 0.9);
+  padding: 1rem;
+  border-radius: 8px;
+  border: 1px solid #ff4d4d;
+  width: 250px;
+}
+
+@keyframes pulsate {
+  0% {
+    transform: scale(1);
+    box-shadow: 0 0 15px #ff4d4d, inset 0 0 15px #ff4d4d;
+  }
+  50% {
+    transform: scale(1.03);
+    box-shadow: 0 0 25px #ff6666, inset 0 0 25px #ff6666;
+  }
+  100% {
+    transform: scale(1);
+    box-shadow: 0 0 15px #ff4d4d, inset 0 0 15px #ff4d4d;
+  }
+}
+
+/* --- Desktop Layout --- */
+@media (min-width: 769px) {
+  .step-1 .circle { top: 135px; right: 280px; width: 250px; height: 60px; }
+  .step-1 .arrow { top: 160px; right: 240px; }
+  .step-1 .text-box { top: 200px; right: 20px; }
+
+  .step-2 .circle { top: 220px; right: 20px; width: 510px; height: 60px; }
+  .step-2 .arrow { top: 250px; right: 540px; }
+  .step-2 .text-box { top: 300px; right: 280px; }
+
+  .step-3 .circle { top: 300px; right: 20px; width: 510px; height: 60px; }
+  .step-3 .arrow { top: 330px; right: 540px; }
+  .step-3 .text-box { top: 380px; right: 280px; }
+}
+
+/* --- Mobile Layout --- */
+@media (max-width: 768px) {
+  .tutorial-step {
+    left: 50%;
+    transform: translateX(-50%);
+    width: 90%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .tutorial-step .circle { position: static; transform: none; }
+  .tutorial-step .arrow { display: none; } /* Hide arrows on mobile */
+  .tutorial-step .text-box { position: static; margin-top: 0.5rem; width: 100%; text-align: center; }
+
+  .step-1 { top: 15%; }
+  .step-1 .circle { width: 100%; height: 60px; }
+
+  .step-2 { top: 35%; }
+  .step-2 .circle { width: 100%; height: 120px; }
+
+  .step-3 { top: 60%; }
+  .step-3 .circle { width: 100%; height: 60px; }
+}

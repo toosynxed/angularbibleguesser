@@ -1,0 +1,143 @@
+<div class="container container--wide">
+  <app-quest-header
+    title="📖 Academy of Challenges 📖"
+    [user]="user$ | async"
+    backLabel="‹ Quest Map"
+    backMode="route"
+    backRoute="/quest"
+    logoMode="route"
+    logoRoute="/">
+  </app-quest-header>
+
+  <ng-container *ngIf="selectedSet; else noSets">
+    <section class="video-mode-layout" [class.quiz-active]="stage === 'quiz' || stage === 'results'">
+      <article class="video-player-card">
+        <div class="video-embed-wrap" *ngIf="stage !== 'cover' && safeEmbedUrl">
+          <iframe
+            class="academy-video-embed"
+            [src]="safeEmbedUrl"
+            title="{{ selectedSet.title }} video lesson"
+            frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen>
+          </iframe>
+        </div>
+
+        <div class="video-placeholder video-cover" *ngIf="stage === 'cover' || !safeEmbedUrl">
+          <img
+            *ngIf="selectedSet.cardImageUrl"
+            [src]="selectedSet.cardImageUrl"
+            [alt]="selectedSet.title"
+            class="video-cover-image">
+          <div class="video-cover-content">
+            <p *ngIf="stage === 'cover'">Select a set from the list to begin.</p>
+            <p *ngIf="stage !== 'cover' && !selectedSet.embedUrl">No video is available for this lesson yet.</p>
+          </div>
+        </div>
+
+        <h2>{{ selectedSet.title }}</h2>
+        <p>{{ selectedSet.description }}</p>
+
+        <p class="academy-video-attribution" *ngIf="stage !== 'cover' && safeEmbedUrl">
+          Video by
+          <a [href]="selectedSet.authorUrl" target="_blank" rel="noopener noreferrer">{{ selectedSet.authorName }}</a>
+          <ng-container *ngIf="selectedSet.sourceUrl">
+            · <a [href]="selectedSet.sourceUrl" target="_blank" rel="noopener noreferrer">Watch on original site</a>
+          </ng-container>
+        </p>
+
+        <button type="button" class="primary" *ngIf="stage === 'video'" (click)="onSkipOrContinue()">Skip / Continue ›</button>
+      </article>
+
+      <aside class="video-lesson-list">
+        <ng-container [ngSwitch]="stage">
+
+          <div *ngSwitchCase="'cover'">
+            <h2>Academy Sets</h2>
+            <button
+              type="button"
+              class="lesson-button"
+              *ngFor="let set of videoSets"
+              [class.active]="set.id === selectedSet.id"
+              (click)="selectSet(set)">
+              {{ set.title }}
+            </button>
+          </div>
+
+          <div class="quiz-locked-panel" *ngSwitchCase="'video'">
+            <h2>🔒 Guessing Rounds</h2>
+            <p class="quiz-locked-message">Finish or skip the video to unlock 5 rounds of multiple-choice guessing.</p>
+            <div class="quiz-answers-grid quiz-answers-grid--locked">
+              <button type="button" class="quiz-answer" disabled *ngFor="let n of lockedPlaceholders">?</button>
+            </div>
+          </div>
+
+          <div *ngSwitchCase="'quiz'">
+            <p *ngIf="isLoadingQuiz">Loading your verses...</p>
+            <p class="quiz-error" *ngIf="quizError">{{ quizError }}</p>
+
+            <ng-container *ngIf="!isLoadingQuiz && !quizError && currentRound as round">
+              <h2>Round {{ currentRoundIndex + 1 }} of {{ quizRounds.length }}</h2>
+
+              <div class="quiz-context">
+                <p
+                  *ngFor="let ctxVerse of round.contextVerses"
+                  [class.quiz-context-highlight]="ctxVerse.verseId === round.verse.verseId">
+                  {{ ctxVerse.text }}
+                </p>
+              </div>
+
+              <p class="quiz-prompt">Which reference is this verse from?</p>
+
+              <div class="quiz-answers-grid">
+                <button
+                  type="button"
+                  class="quiz-answer"
+                  *ngFor="let option of round.options"
+                  [class.correct]="round.selectedAnswer && option === round.correctAnswer"
+                  [class.incorrect]="round.selectedAnswer === option && option !== round.correctAnswer"
+                  [disabled]="!!round.selectedAnswer"
+                  (click)="selectAnswer(option)">
+                  {{ option }}
+                </button>
+              </div>
+
+              <p class="quiz-round-score" *ngIf="round.selectedAnswer">
+                {{ round.isCorrect ? 'Correct!' : 'Not quite.' }} +{{ round.score }} points
+              </p>
+
+              <button type="button" class="primary quiz-next" *ngIf="round.selectedAnswer" (click)="goToNextRound()">
+                {{ currentRoundIndex + 1 < quizRounds.length ? 'Next ›' : 'See Results ›' }}
+              </button>
+            </ng-container>
+          </div>
+
+          <div *ngSwitchCase="'results'">
+            <h2>Academy Results</h2>
+            <p class="quiz-total-score">Total score: {{ quizTotalScore }} / {{ maxPossibleScore }}</p>
+            <ul class="quiz-results-list">
+              <li *ngFor="let round of quizRounds; let i = index">
+                Round {{ i + 1 }}: {{ round.correctAnswer }} —
+                <span [class.quiz-result-correct]="round.isCorrect" [class.quiz-result-incorrect]="!round.isCorrect">
+                  {{ round.isCorrect ? 'Correct' : 'Incorrect' }}
+                </span> ({{ round.score }} pts)
+              </li>
+            </ul>
+            <button type="button" class="primary" (click)="resetToSelection()">Play Another Set</button>
+          </div>
+
+        </ng-container>
+      </aside>
+    </section>
+  </ng-container>
+
+  <ng-template #noSets>
+    <p>No Academy sets are configured yet.</p>
+  </ng-template>
+
+  <app-scroll-balance [amount]="(userScrolls$ | async) ?? 0"></app-scroll-balance>
+
+  <ng-container *ngIf="user$ | async as user">
+    <app-profile-customization *ngIf="showCustomization" [user]="user" (close)="showCustomization = false"></app-profile-customization>
+  </ng-container>
+</div>

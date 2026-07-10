@@ -1,0 +1,19 @@
+.container {
+  position: relative;
+}
+
+.display-name-group {
+  margin-bottom: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.display-name-group input {
+  max-width: 300px;
+}
+
+.admin-toggle {
+  margin-left: 0.5rem;
+}

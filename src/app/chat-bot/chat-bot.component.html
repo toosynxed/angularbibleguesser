@@ -1,0 +1,23 @@
+<div class="chat-widget">
+  <div class="chat-window" *ngIf="isOpen">
+    <div class="chat-header">
+      <span>Better Bible Guesser Chatbot</span>
+      <button (click)="toggleChat()">×</button>
+    </div>
+    <div class="chat-messages" #scrollContainer>
+      <div *ngFor="let msg of messages" [class]="'message ' + msg.sender">
+        {{ msg.text }}
+      </div>
+      <div *ngIf="isLoading" class="message bot">...</div>
+    </div>
+    <div class="chat-input-area">
+      <input [(ngModel)]="userInput" (keyup.enter)="sendMessage()" placeholder="Ask a question..." [disabled]="isLoading">
+      <button (click)="sendMessage()" [disabled]="isLoading || !userInput.trim()">Send</button>
+    </div>
+  </div>
+
+  <button class="chat-button" (click)="toggleChat()">
+    <span *ngIf="!isOpen">💬</span>
+    <span *ngIf="isOpen">×</span>
+  </button>
+</div>

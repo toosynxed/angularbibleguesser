@@ -1,48 +1,77 @@
-<div class="container">
-  <header>
-    <div class="header-controls">
-      <button class="back-button" (click)="confirmGoHome()" title="Back to Home">‹ Home</button>
-    </div>
-    <h1>Bible Guesser</h1>
-    <p>Round {{ currentRound }} of {{ totalRounds }}</p>
-  </header>
+<div class="container container--full-height">
+  <app-page-header
+    [showBackButton]="true"
+    [timer]="timeLeft"
+    backMode="emit"
+    logoMode="emit"
+    (backClick)="confirmGoHome()"
+    (logoClick)="confirmGoHome()">
+    <p class="u-mb-0">Round {{ currentRound }} of {{ totalRounds }}</p>
+  </app-page-header>
 
   <main>
     <div *ngIf="isLoading" class="loading">Loading...</div>
     <div class="verse-container" *ngIf="currentVerse && !isLoading">
-      <div class="verse-context" aria-live="polite">
-        <p *ngFor="let verse of verseTextWithContext"
-           [ngClass]="{'highlight': verse.verseId === currentVerse?.verseId}">
-          {{ verse.text }}
+      <div class="verse-actions">
+        <button (click)="toggleInputMode()" title="Switch input method">
+          {{ useClassicInput ? 'Use Scroll Picker' : 'Use Classic Input' }}
+        </button>
+        <button (click)="scrollToGuessingVerse()" title="Scroll to current verse">Refocus</button>
+      </div>
+      <div class="verse-context" #verseContextContainer aria-live="polite">
+        <p class="verses-paragraph">
+          <span *ngFor="let verse of verseTextWithContext"
+                [class.highlight]="verse.verseId === currentVerse?.verseId">
+            {{ verse.text }}&nbsp;
+          </span>
         </p>
       </div>
 
-      <p class="answer" *ngIf="isRoundOver">
+      <p class="answer" *ngIf="isRoundOver && gameMode !== 'multiplayer'">
         <em>- {{ answerText }}</em>
       </p>
     </div>
 
-    <div class="context-slider">
-      <label for="context">Context: {{ contextSize }} verse(s) on each side</label>
-      <input type="range" id="context" min="0" max="5" [value]="contextSize" (input)="onSliderChange($event)">
+    <div class="context-slider" *ngIf="(gameMode === 'normal' || gameMode === 'custom') && !isRoundOver">
+      <label for="context">Context Verses: {{ contextSize }}</label>
+      <input type="range" id="context" min="0" max="250" [(ngModel)]="contextSize" (input)="onSliderChange($event)">
     </div>
 
-    <form [formGroup]="guessForm" (ngSubmit)="submitGuess()" *ngIf="!isRoundOver">
-      <div class="form-group">
-        <label for="guess">Your Guess (e.g., John 3:16)</label>
-        <input id="guess" type="text" formControlName="guess" placeholder="Book Chapter:Verse">
+    <div class="guess-container" *ngIf="!isRoundOver && !useClassicInput">
+      <div class="scroll-picker-group">
+        <app-scroll-picker class="book-picker"
+                           [items]="bookOptions"
+                           (selectedChange)="onBookSelected($event)"></app-scroll-picker>
+        <app-scroll-picker class="chapter-picker"
+                           [items]="chapterOptions"
+                           (selectedChange)="onChapterSelected($event)"></app-scroll-picker>
+        <app-scroll-picker class="verse-picker"
+                           [items]="verseOptions"
+                           (selectedChange)="onVerseSelected($event)"></app-scroll-picker>
       </div>
 
       <div class="actions">
-        <button type="submit" [disabled]="guessForm.invalid">Guess</button>
+        <button type="button" (click)="submitGuess()" [disabled]="!selectedBook || !selectedChapter || !selectedVerse">
+          Guess
+        </button>
       </div>
-    </form>
+    </div>
+
+    <div class="guess-container" *ngIf="!isRoundOver && useClassicInput">
+        <app-classic-input (guess)="onGuess($event)"></app-classic-input>
+    </div>
 
     <div class="feedback" *ngIf="feedback">
       <p>{{ feedback }}</p>
     </div>
 
-    <div class="actions" *ngIf="isRoundOver">
+    <div class="actions" *ngIf="isHost && gameMode === 'multiplayer' && isRoundOver">
+        <button type="button" class="secondary-button" (click)="skipRoundForEveryone()">
+            Skip Waiting
+        </button>
+    </div>
+
+    <div class="actions" *ngIf="isRoundOver && gameMode !== 'multiplayer'">
       <button type="button" (click)="next()">
         {{ currentRound < totalRounds ? 'Next Round' : 'See Results' }}
       </button>

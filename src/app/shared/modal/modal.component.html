@@ -1,0 +1,17 @@
+<div class="modal-backdrop" *ngIf="isOpen" (click)="onBackdropClick()">
+  <section class="modal-content" [style.max-width]="maxWidth" (click)="$event.stopPropagation()">
+    <header class="modal-header">
+      <ng-content select="[modal-title]"></ng-content>
+      <h2 *ngIf="title">{{ title }}</h2>
+      <button type="button" class="close-button" (click)="close.emit()">&times;</button>
+    </header>
+
+    <div class="modal-body">
+      <ng-content></ng-content>
+    </div>
+
+    <footer class="modal-footer" *ngIf="showFooter">
+      <ng-content select="[modal-footer]"></ng-content>
+    </footer>
+  </section>
+</div>

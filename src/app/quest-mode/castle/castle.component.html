@@ -1,0 +1,23 @@
+<div class="container container--full">
+  <app-quest-header
+    title="⚔️ Castle of Champions ⚔️"
+    [user]="user$ | async"
+    backLabel="‹ Quest Map"
+    backMode="route"
+    backRoute="/quest"
+    logoMode="route"
+    logoRoute="/">
+  </app-quest-header>
+
+  <h2>Quests Available:</h2>
+
+  <app-scroll-balance [amount]="(userScrolls$ | async) ?? 0"></app-scroll-balance>
+
+  <ng-template #loading>
+    <p>Loading quest data...</p>
+  </ng-template>
+
+  <ng-container *ngIf="user$ | async as user">
+    <app-profile-customization *ngIf="showCustomization" [user]="user" (close)="showCustomization = false"></app-profile-customization>
+  </ng-container>
+</div>

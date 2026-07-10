@@ -1,0 +1,42 @@
+.stats-container,
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1rem;
+  text-align: left;
+}
+
+.stat-card {
+  background-color: var(--background-alt-color);
+  padding: 1.5rem;
+  border-radius: var(--border-radius);
+  border: 1px solid var(--border-color);
+}
+
+.stat-card h3 {
+  margin-top: 0;
+  color: var(--primary-color);
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.game-details {
+  background-color: var(--background-alt-color);
+  border-radius: var(--border-radius);
+  padding: 1.25rem;
+  margin: 1.25rem 0;
+  border: 1px solid var(--border-color);
+  max-width: 400px;
+  width: 100%;
+}
+
+.game-details ul {
+  list-style-type: none;
+  padding: 0;
+  text-align: left;
+}
+
+.game-details li {
+  margin-bottom: 0.5rem;
+}

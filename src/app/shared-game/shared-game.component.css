@@ -1,0 +1,10 @@
+h1 {
+  font-size: 2.5rem;
+  color: #FFD700;
+  margin-bottom: 10px;
+}
+
+.error-message {
+  color: #ff6b6b;
+  font-size: 1.2rem;
+}

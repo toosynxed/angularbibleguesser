@@ -1,0 +1,9 @@
+# Rules for all web crawlers
+User-agent: *
+
+# Disallow crawlers from accessing specific paths if they exist
+# Add any paths here you don't want indexed, e.g., /admin
+# Disallow: /admin
+
+# Point crawlers to the sitemap
+Sitemap: https://betterbibleguesser.com/sitemap.xml

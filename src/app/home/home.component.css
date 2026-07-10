@@ -1,39 +1,132 @@
-.container {
+.header-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  margin-bottom: 1rem;
+}
+
+@media (max-width: 480px) {
+  .header-actions {
+    gap: 0.5rem;
+  }
+}
+
+.header-text {
+  margin-bottom: 1rem;
+}
+
+.stats-button {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: none;
+  border: 1px solid var(--border-color);
+  color: var(--text-secondary-color);
+  padding: 0.5rem 1rem;
+  border-radius: var(--border-radius);
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+
+.stats-button:not(.disabled):hover {
+  background-color: var(--background-alt-color);
+  border-color: var(--text-secondary-color);
+}
+
+.stats-button.disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.stats-button svg {
+  stroke: currentColor;
+}
+
+.board-button {
+  margin-top: 5%;
+}
+
+.login-area {
+  position: relative;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  align-items: flex-end;
+}
+
+.login-prompt {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  margin-top: 0.5rem;
+  color: var(--text-secondary-color);
+  font-size: 0.8rem;
+  display: flex;
   align-items: center;
-  text-align: center;
-  min-height: 100vh;
+  gap: 0.5rem;
+  width: 200px;
+  text-align: right;
+}
+
+.arrow {
+  font-size: 1.5rem;
+  line-height: 1;
 }
 
 .home-main {
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.home-main--compact {
+  padding-top: 0;
+}
+
+.home-main button {
+  width: 100%;
+  max-width: 300px;
+}
+
+.home-main button.primary {
+  background-color: #008B8B;
+  color: white;
+}
+
+.home-main button.daily-button {
+  background-color: #FFD700;
+  color: #1a1a1a;
+  border: 1px solid #DAA520;
+}
+
+.home-main button.daily-button:hover {
+  background-color: #f0c400;
+}
+
+.home-main button.quest-button {
+  background-color: #6AF9F7;
+  color: #1a1a1a;
+  border: 1px solid #306d6c;
+}
+
+.home-main button.quest-button:hover {
+  background-color: #29b1af;
+}
+
+.back-button--quest {
+  background-color: rgb(106, 249, 247);
+}
+
+header {
   margin-top: 2rem;
 }
 
-.home-main button.secondary {
-  background-color: #4a4a4a;
-  color: var(--text-color);
-}
-
-.home-main button.secondary:hover {
-  background-color: #5f5f5f;
-}
-
 .code-input-container {
-  margin-top: 1.5rem;
-  padding: 1.5rem;
-  border: 1px solid var(--border-color);
-  border-radius: 8px;
-  background-color: var(--surface-color);
   display: flex;
   flex-direction: column;
-  gap: 1rem;
-}
-
-.error-message {
-  color: var(--error-color);
+  gap: 0.5rem;
+  width: 100%;
+  max-width: 300px;
 }

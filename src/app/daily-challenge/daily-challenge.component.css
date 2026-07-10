@@ -1,0 +1,77 @@
+.calendar-container {
+  margin: 2rem 0;
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
+}
+
+.calendar-header {
+  padding: 1rem;
+  background-color: var(--background-alt-color);
+}
+
+.calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 1px;
+  background-color: var(--border-color);
+}
+
+.day-name, .day {
+  background-color: var(--background-color);
+  padding: 1rem 0.5rem;
+}
+
+.day-name {
+  font-weight: bold;
+  color: var(--text-secondary-color);
+}
+
+.day {
+  min-height: 60px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.day.not-current-month {
+  color: var(--text-secondary-color);
+  opacity: 0.5;
+}
+
+.day.today {
+  background-color: var(--primary-color-light);
+  border: 2px solid var(--primary-color);
+  font-weight: bold;
+}
+
+.day.completed {
+  background-color: #e8f5e9;
+}
+
+.day-number {
+  align-self: flex-start;
+}
+
+.day-icons {
+  align-self: flex-end;
+  font-size: 1.2rem;
+  line-height: 1;
+}
+
+.streak-container {
+  margin: 2rem 0;
+  padding: 1rem;
+  background-color: var(--background-alt-color);
+  border-radius: var(--border-radius);
+}
+
+.streak-container h3 {
+  margin-top: 0;
+  color: var(--primary-color);
+}
+
+.actions button {
+  width: 100%;
+  max-width: 300px;
+}

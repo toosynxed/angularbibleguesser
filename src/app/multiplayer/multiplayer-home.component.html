@@ -1,0 +1,26 @@
+<app-multiplayer-tutorial *ngIf="showTutorial" (close)="closeTutorial()"></app-multiplayer-tutorial>
+
+<div class="container">
+  <app-page-header
+    title="Multiplayer"
+    subtitle="Create a lobby or join one with a code."
+    [showBackButton]="true"
+    backMode="home">
+    <button header-controls-extra *ngIf="isAdmin$ | async" type="button" class="secondary-button admin-toggle" (click)="showAdminPanel = !showAdminPanel">
+      {{ showAdminPanel ? 'Hide Admin Panel' : 'Show Admin Panel' }}
+    </button>
+  </app-page-header>
+
+  <div class="display-name-group">
+    <label for="displayName">Your Display Name</label>
+    <input id="displayName" type="text" [(ngModel)]="displayName" placeholder="Enter your name..." maxlength="15" [disabled]="isLoggedIn" />
+  </div>
+
+  <div class="actions">
+    <button class="primary" (click)="createLobby()" [disabled]="!displayName.trim()">Create Lobby</button>
+    <input [(ngModel)]="lobbyCode" placeholder="Enter Lobby Code" (keyup.enter)="joinLobby()" />
+    <button class="secondary" (click)="joinLobby()" [disabled]="!displayName.trim()">Join Lobby</button>
+  </div>
+
+  <app-admin-panel *ngIf="showAdminPanel"></app-admin-panel>
+</div>

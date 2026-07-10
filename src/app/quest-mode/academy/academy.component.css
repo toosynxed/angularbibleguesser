@@ -1,0 +1,256 @@
+/* Base layout adapted from the retired
+   src/app/features/experimental-video-mode/experimental-video-mode.component.css
+   (.video-mode-layout / .video-player-card / .video-lesson-list /
+   .video-placeholder / .lesson-button). Switched from grid to flexbox here
+   (vs. the old plain grid) specifically so the sidebar can smoothly expand
+   into the main interaction area once the quiz starts - see
+   .quiz-active below. */
+.video-mode-layout {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  text-align: left;
+}
+
+.video-player-card,
+.video-lesson-list {
+  background: var(--surface-color);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
+  padding: 1rem;
+}
+
+.video-player-card {
+  flex: 1 1 640px;
+  min-width: 280px;
+  transition: flex-basis 0.4s ease, max-width 0.4s ease;
+}
+
+.video-lesson-list {
+  flex: 0 0 280px;
+  min-width: 260px;
+  transition: flex-basis 0.4s ease, flex-grow 0.4s ease;
+}
+
+/* Quiz state: the video card contracts and the sidebar expands to become
+   the main interaction area (requirements 9-10 of the guessing flow). */
+.video-mode-layout.quiz-active .video-player-card {
+  flex: 0 1 320px;
+  max-width: 380px;
+}
+
+.video-mode-layout.quiz-active .video-lesson-list {
+  flex: 1 1 480px;
+}
+
+@media (max-width: 768px) {
+  .video-player-card,
+  .video-lesson-list,
+  .video-mode-layout.quiz-active .video-player-card,
+  .video-mode-layout.quiz-active .video-lesson-list {
+    flex-basis: 100%;
+    max-width: none;
+  }
+}
+
+.video-placeholder {
+  aspect-ratio: 16 / 9;
+  border-radius: var(--border-radius);
+  background: linear-gradient(135deg, #111, #334);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-secondary-color);
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+.lesson-button {
+  width: 100%;
+  margin-bottom: 0.75rem;
+  background: var(--background-alt-color);
+  color: var(--text-color);
+}
+
+.lesson-button.active {
+  outline: 2px solid var(--primary-color);
+}
+
+/* Real BibleProject/YouTube iframe (old prototype only ever had a static
+   placeholder, never a live embed to position). */
+.video-embed-wrap {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  border-radius: var(--border-radius);
+  overflow: hidden;
+  background-color: #000;
+  margin-bottom: 1rem;
+}
+
+.academy-video-embed {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+/* Selection-state cover image, layered on top of .video-placeholder's
+   aspect-ratio/gradient box above. */
+.video-cover {
+  position: relative;
+  overflow: hidden;
+}
+
+.video-cover-image {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.video-cover-content {
+  position: relative;
+  z-index: 1;
+  background: rgba(0, 0, 0, 0.45);
+  padding: 0.75rem 1.25rem;
+  border-radius: var(--border-radius);
+}
+
+.academy-video-attribution {
+  margin-top: 0.5rem;
+  margin-bottom: 1rem;
+  font-size: 0.85rem;
+  color: var(--text-secondary-color);
+}
+
+.academy-video-attribution a {
+  color: var(--primary-color);
+}
+
+/* Locked sidebar preview shown while the video is playing. */
+.quiz-locked-panel {
+  opacity: 0.85;
+}
+
+.quiz-locked-message {
+  color: var(--text-secondary-color);
+  font-size: 0.85rem;
+  margin-bottom: 0.75rem;
+}
+
+.quiz-answers-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.5rem;
+  margin-bottom: 0.75rem;
+}
+
+.quiz-answer {
+  width: 100%;
+  min-height: 3rem;
+  background: var(--background-alt-color);
+  color: var(--text-color);
+  border-radius: var(--border-radius);
+  padding: 0.5rem;
+  font-size: 0.85rem;
+  line-height: 1.25;
+  white-space: normal;
+  word-break: break-word;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.quiz-answers-grid--locked .quiz-answer {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.quiz-answer.correct {
+  background-color: #2ecc71;
+  color: #06280f;
+}
+
+.quiz-answer.incorrect {
+  background-color: #e74c3c;
+  color: #2c0a06;
+}
+
+.quiz-answer:disabled {
+  cursor: default;
+}
+
+/* Verse + 2-verse context on either side (fixed, non-changeable). */
+.quiz-context {
+  background: var(--background-alt-color);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
+  padding: 0.75rem;
+  margin-bottom: 0.75rem;
+  max-height: 240px;
+  overflow-y: auto;
+  font-size: 0.85rem;
+  line-height: 1.5;
+  text-align: left;
+}
+
+.quiz-context p {
+  margin: 0 0 0.5rem;
+  color: var(--text-secondary-color);
+}
+
+.quiz-context p:last-child {
+  margin-bottom: 0;
+}
+
+.quiz-context-highlight {
+  color: var(--text-color);
+  font-weight: bold;
+}
+
+.quiz-prompt {
+  font-size: 0.85rem;
+  margin-bottom: 0.5rem;
+}
+
+.quiz-round-score {
+  font-size: 0.85rem;
+  margin-bottom: 0.5rem;
+}
+
+.quiz-next {
+  width: 100%;
+}
+
+.quiz-error {
+  color: #e74c3c;
+}
+
+.quiz-total-score {
+  font-weight: bold;
+  margin-bottom: 0.75rem;
+}
+
+.quiz-results-list {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 1rem;
+  font-size: 0.85rem;
+}
+
+.quiz-results-list li {
+  margin-bottom: 0.5rem;
+}
+
+.quiz-result-correct {
+  color: #2ecc71;
+  font-weight: bold;
+}
+
+.quiz-result-incorrect {
+  color: #e74c3c;
+  font-weight: bold;
+}

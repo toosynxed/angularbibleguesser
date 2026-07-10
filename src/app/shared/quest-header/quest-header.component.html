@@ -1,0 +1,19 @@
+<app-page-header
+  [showBackButton]="true"
+  [backLabel]="backLabel"
+  [backMode]="backMode"
+  [backRoute]="backRoute"
+  [logoMode]="logoMode"
+  [logoRoute]="logoRoute"
+  (backClick)="backClick.emit()"
+  (logoClick)="logoClick.emit()">
+  <p class="u-mb-0" *ngIf="user">Welcome, {{ user.displayName || 'Guest' }}</p>
+</app-page-header>
+
+<div class="quest-header-meta" *ngIf="title || scrollBalance !== null">
+  <h3 class="quest-page-title">
+    <span *ngIf="title">{{ title }}</span>
+    <span *ngIf="title && scrollBalance !== null"> - </span>
+    <span *ngIf="scrollBalance !== null">Scroll Balance: {{ scrollBalance }}</span>
+  </h3>
+</div>

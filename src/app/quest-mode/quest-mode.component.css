@@ -1,0 +1,10 @@
+.addbutton {
+  background-color: black;
+  padding: 1px;
+  color: #ffffff;
+}
+
+.actions {
+  margin-top: 0;
+  justify-content: left;
+}

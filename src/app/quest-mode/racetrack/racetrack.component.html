@@ -1,0 +1,42 @@
+<div class="container container--full">
+  <app-quest-header
+    title="🐎 Racetrack 🐎"
+    [user]="user$ | async"
+    backLabel="‹ Quest Map"
+    backMode="route"
+    backRoute="/quest"
+    logoMode="route"
+    logoRoute="/">
+  </app-quest-header>
+
+  <h2>Today's Daily Challenges:</h2>
+
+  <div *ngIf="isLoadingSets" class="containerbox racetrack-preview">
+    <p>Loading today's challenges...</p>
+  </div>
+
+  <div *ngIf="!isLoadingSets && loadError" class="containerbox racetrack-preview">
+    <p>{{ loadError }}</p>
+  </div>
+
+  <app-stats-grid *ngIf="!isLoadingSets && !loadError">
+    <article class="stat-card" *ngFor="let set of todaysSets">
+      <h3>{{ getDifficultyLabel(set.difficulty) }} Challenge</h3>
+      <p>Race through {{ set.verseIds.length }} verses before time runs out!</p>
+      <p><strong>Verses:</strong> {{ set.verseIds.length }}</p>
+      <p><strong>Time Limit:</strong> {{ set.timeLimit }}s</p>
+      <p><strong>Base Reward:</strong> {{ set.baseReward }} scrolls</p>
+      <button type="button" class="primary" (click)="playSet(set)">Play</button>
+    </article>
+  </app-stats-grid>
+
+  <app-scroll-balance [amount]="(userScrolls$ | async) ?? 0"></app-scroll-balance>
+
+  <ng-template #loading>
+    <p>Loading quest data...</p>
+  </ng-template>
+
+  <ng-container *ngIf="user$ | async as user">
+    <app-profile-customization *ngIf="showCustomization" [user]="user" (close)="showCustomization = false"></app-profile-customization>
+  </ng-container>
+</div>

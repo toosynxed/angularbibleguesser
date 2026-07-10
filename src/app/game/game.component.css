@@ -1,93 +1,66 @@
-.container {
+main {
+  width: 100%;
   max-width: 800px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
-header {
-  position: relative;
+.verse-container {
+  width: 100%;
   margin-bottom: 1rem;
-}
-
-.header-controls {
-  position: absolute;
-  top: 0;
-  left: 0;
-}
-
-.back-button {
-  background: none;
-  border: 1px solid var(--border-color);
-  color: var(--text-secondary-color);
-  padding: 0.5rem 1rem;
-  border-radius: 20px;
-  cursor: pointer;
-  font-size: 0.9rem;
-  transition: background-color 0.2s ease, border-color 0.2s ease;
-}
-
-.back-button:hover {
-  background-color: var(--verse-context-bg);
-  border-color: var(--text-secondary-color);
-}
-
-.form-group input {
-  width: 100%;
-  max-width: 400px;
-  margin: auto;
-}
-
-.context-slider {
-  margin: 2rem 0;
-}
-.context-slider input {
-  width: 100%;
-  max-width: 400px;
-}
-
-.loading {
-  font-size: 1.2rem;
-  color: var(--text-secondary-color);
-  margin: 2rem 0;
+  position: relative;
 }
 
 .verse-context {
-  margin-bottom: 1.5rem;
-  max-height: 250px; /* Set a maximum height for the container */
-  overflow-y: auto;  /* Enable vertical scrolling when content exceeds the height */
-  border: 1px solid var(--verse-context-border); /* Add a subtle border to define the scrollable area */
-  padding: 1rem;
-  border-radius: 4px;
-  text-align: left;
-  background-color: var(--verse-context-bg);
-}
-
-.verse-context p {
-  margin: 0.25em 0;
-  padding: 0.5em;
-  border: 1px solid transparent; /* Add transparent border to maintain layout on highlight */
-  border-radius: 6px;
-  transition: background-color 0.3s ease;
-}
-
-.verse-context .highlight {
-  /* A more prominent color for the verse to guess */
-  background-color: var(--highlight-bg);
-  border-color: var(--highlight-border);
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-  font-weight: 500;
-}
-
-.feedback {
-  margin-top: 1.5rem;
+  max-height: 30vh;
+  overflow-y: auto;
+  border: 1px solid #444;
   padding: 1rem;
   border-radius: 8px;
-  background-color: var(--feedback-bg);
-  color: var(--feedback-text);
-  border: 1px solid var(--feedback-border);
-  max-width: 400px;
-  margin-left: auto;
-  margin-right: auto;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  background-color: #2a2a2a;
+  text-align: justify;
+}
+
+.verses-paragraph .highlight {
+  color: #a985f6;
+  font-weight: bold;
+}
+
+.verse-actions {
+  position: absolute;
+  top: -35px;
+  right: 0;
+  display: flex;
+  gap: 0.5rem;
+  z-index: 5;
+}
+
+.context-slider {
+  width: 100%;
+  margin-bottom: 1rem;
+}
+
+.guess-container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.scroll-picker-group {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  gap: 10px;
+  margin-bottom: 1rem;
+}
+
+.book-picker { flex: 3; }
+.chapter-picker { flex: 1; }
+.verse-picker { flex: 1; }
+
+.feedback, .actions {
+  margin-top: 0;
 }

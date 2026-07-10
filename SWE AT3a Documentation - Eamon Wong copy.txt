@@ -1,0 +1,671 @@
+Eamon Wong
+SWE at3-a Documentation
+Eamon Wong
+SWE at3-a Documentation
+
+Table of Contents
+Section 1 - Identifying and Defining (20 Marks)	2
+1.1 — Client Scenario (3 Marks)	2
+1.2 — Environmental Specification (3 Marks)	3
+1.3 — List of Objectives (3 Marks)	5
+1.4 — Performance Criteria (3 Marks)	8
+1.5 — IPO (Input-Process-Output) (3 Marks)	9
+1.6 — Gantt Chart (5 Marks)	15
+2.1 — Research (5 Marks)	16
+Similar Applications:	16
+Bibleguesser.com:	16
+Kahoot.it	16
+Blooket.com	17
+Current Technologies:	18
+Bitwise Operations	18
+Real-Time Databases	18
+Firebase Authentication	19
+Cloud FireStore Databases	19
+Relevant Best-Practises:	20
+Security and Authentication Rules	20
+Database Rules	20
+Point-in-time recovery	20
+Scheduled Backups	20
+2.2 — Data Flow Diagram (DFD) (10 Marks)	21
+Data Flow Diagram 1 – Login Process	21
+Data Flow Diagram 2 – Statistic Leaderboards	22
+Data Flow Diagram 3 – Game Flow and Score Calculation	23
+2.3 — Storyboard (5 Marks)	24
+2.4 — Pseudocode (10 Marks)	25
+Algorithm 1 – Login Process	25
+Algorithm 2 – Statistic Leaderboards	26
+Algorithm 3 – Game Flow and Score Calculation	28
+
+
+Section 1 - Identifying and Defining (20 Marks)
+
+1.1 — Client Scenario (3 Marks)
+Define a clear scenario based on the client’s needs, including the application’s purpose, target audience, and primary goals. Detail the client's requirements and provide a narrative that encapsulates the problem that the application aims to solve. Explain the overall vision and the expected impact of the application.
+
+The initial Better Bible Guesser application was developed to provide people of faith to test their knowledge of the Bible, differentiating itself from market competition through the development of a multiplayer mode to allow users to test their knowledge of the Bible against others, encouraging scriptural-based conversations between people of faith and creating a community of encouragement and betterment of knowledge.
+
+The current Better Bible Guesser application provides users with a easy-to-use interface that allows users to test their knowledge of the Bible through a range of guessing modes (including singleplayer 5-round mode, a daily mode, custom and sharable games and a multiplayer mode that allows other users to all play the same rounds at the same time and rank against others). Despite all these things Better Bible Guesser still lacks many functions and capabilities that could take the application to its maximum potential.
+
+The current application, whilst functional, is not scalable and provides basic functionality with few customisation options, with initial loading times taking over 8 seconds, with the time taken for games to begin taking around 4 seconds. This is due to inefficient data management, requiring users to reload an entire 80,000 row .csv file every time. To improve this, the client requires that the new application should be able to support up to 1,000 concurrent user connections to the database, implement secure password encryption and storage methods, utilise best practise database transmission and security rules, better session management, and support offline capabilities. Additionally, aside from these essential functions, several other less important additions would be implemented, including an AI chat bot feature to assist with help topics but also to handle a new game mode that utilises videos and personalised content and a new and improved settings menu to allow for greater user accessibility among other small features.
+
+With the implementation of these requirements, a more robust Bible guesser application will be able to support more users in their gospel learnings, fostering collaboration with secure and low-latency multiplayer modes, more detailed tracking of statistics, and personalisation to keep users engaged in learning and provide the best possible UX. The AI assistant will increase knowledge retention by making the user review already-guessed verses, and the experimental video mode will allow users to engage with the content in different formats.
+Overall, the new version of Better Bible Guesser aims to produce an improved design of the application, introducing new features and capabilities to the game that will greatly improve user experience and retention for the application, aiming to be completed before Term 3, Week 1.
+
+1.2 — Environmental Specification (3 Marks)
+Outline the technical environment in which the application will operate. This includes hardware, software, network specifications, and other relevant environmental factors. Describe the operating systems, development tools, servers, and other infrastructure components necessary for the application.
+
+Hardware
+Image
+Part
+Specification
+
+User device
+Device with a JavaScript supported browser (both mobile and desktop supported), and an internet connection if wanting to utilise online/collaborative features/capabilities.
+The device must be either Linux, MacOS, or Windows, with at least 1 GB of RAM free, at least an “Intel Core i5-12400” processor on the device.
+
+Router
+Allows for user device and external server connections to the internet.
+
+Web browser
+A browser with JavaScript enabled, HTTPS ability and internet connection in order to load the application.
+
+Web Servers
+Web servers with application hosting capabilities to provide users with access to the application.
+
+Software 
+Image
+Application
+Specification
+ 
+
+FireStore Authentication (Better Bible Guesser account) 
+A FireStore account with a valid API key and project number matching the web key.
+Additionally, in order to access the complete variety of functions on the application, users will be required to have a valid account with the application.
+
+FireBase Hosting and Emulations
+A valid FireStore account, with access to the FireBase project. Allows for local testing of the application rather than needing to release changes straight to web.
+
+Network
+Image
+Part
+Specification
+
+IONOS cloud-based web hosting
+A valid IONOS service account and subscription for a website.
+
+
+FireStore Database
+A valid FireBase account with a matching and valid API key and project number that matches the web key.
+
+
+FireBase Real-time Database
+A valid FireBase account with a matching and valid API key and project number that matches the web key. A valid Google Developers account/free subscription. A valid Database URL.
+
+Internet Connection
+User devices must have a valid and active internet connection to both the FireStore Database and application servers.
+1.3 — List of Objectives (3 Marks)
+Enumerate the specific objectives that the application aims to achieve. These should be clear, measurable goals that directly address the client’s needs. The objectives could include functionality, user engagement, performance targets, and other relevant criteria.
+
+Essential Requirements
+Feature 
+Priority
+Description
+Database security 
+HIGH
+Apply secure database security rules for reading and writing to secure sensitive user and game information. The rules must protect the database from being altered or read by unauthorised users. User device’s should only be able to read specific database areas when necessary, and must only be able to write to the database for their statistics and multiplayer lobby information, aside from those areas, the database will not be accessible for users.
+Session management
+HIGH
+The application must create and apply session and local cookies in order to track user session. This must not breach the User Privacy Act however, so data collected will be stored securely and not shared.
+Error Handling
+HIGH
+The application must feature rule sets that dictate how the application responds to different errors. This must allow the application to not be vulnerable to malicious intents even when the system is being overloaded or used by unintentional design.
+Webpage speed improvements
+HIGH
+The application must feature dynamic page loading to reduce the load on user devices. This will allow for only necessary resources to be retrieved when needed, thus resulting in decreased loading times and increasing user satisfaction. In order for this goal to be achieved, loading times must not exceed 2 seconds (on a standardised 20mb/s upload and download speed).
+Input sanitisation 
+HIGH
+The application must also feature rules to prevent malicious code from being executed through XSS attacks or other methods. In order for this goal to be achieved, rigorous testing using multiple different malicious code attempts must be successfully deflected.
+Real-time database
+MEDIUM
+The application must also feature a FireBase Real-Time Database connection in order to reduce user device loading times for multiplayer games. In order for this goal to be achieved, multiplayer lobbies must be able to be accessed and loaded within 3 seconds (on a standardised 20mb/s upload and download internet connection).
+Offline capabilities
+MEDIUM
+The platform must also feature the capabilities for users to utilise the core features of the game (such as the standard 5 verse game, custom mode and extended-code import modes) while without internet connection. In order for this goal to be successfully achieved, the application must allow users to load necessary resources for functioning at once while connected to the internet, and then allow for continuing use when offline without any significant performance impacts.
+
+Non-Essential Requirements
+Feature 
+Priority
+Description
+
+New Game Mode
+HIGH
+Introduce new game modes for users to play; both multiplayer and singleplayer; their verse sets and questions. Modes could include a “longer” quest game, where users have to improve their “town” or “city” by completing different “tasks” (answering verse sets), upgrading their town over many games (progress saves). As users complete objectives/”tasks”, they will receive “scrolls” (in-game currency) in relation to completed activities to be spent in the “Shop”.
+
+This game mode will feature a city “map” as the main page, with different clickable icons denoting places in the “town”.
+
+The mode will be dynamic, allowing for users on mobile to still interact with all the features of the mode. To create this, the website will convert the page into a different format when the browser window reaches a certain width that is common for mobile devices.
+Experimental video mode
+MEDIUM
+The application must feature an experimental video mode for users to view an educational video that covers the content that the following game rounds will cover. (Notebook LM).
+Online Question Set “Board”
+MEDIUM
+The application must feature a question “board” that allows users to post and upload verse sets for other users to view and play. Users should be allowed to “upvote” verse sets.
+Lobby mini-game
+
+
+LOW
+The application must feature a small OOP mini-game for users to play while they are waiting in a multiplayer lobby as a normal user (and not the host). In order for this goal to be achieved, user’s high scores and statistics must be saved to their user statistics, and carry over into other lobbies.
+Improved settings menu
+LOW
+Implement a settings menu with options for effects audio, game audio, night/light mode, font sizes, and even hiding other player’s names.
+Profile personalisation
+LOW
+Allows for users to pick from a certain set of visual profile customisation options, such as backgrounds (including at least a gold, red, blue, green, party and striped pattern background) for their names, name colours (including at least a RGB wheel picker), effects (including at least a RGB glow effect wheel, bold, italics, underline and name highlighting) and even logos (including at least these emoji’s: ♟️✝️👑🎉🎁⚽️🏏🎶).
+AI-Assistant 
+LOW
+Introduce an AI algorithm/chat bot to assist with suggesting multiple verses for a game (verse sets) or game help.
+Contrast Options
+LOW
+Allows for the toggling of a contrast option for low or impaired vision users which transforms colours on the websites to be distinct form others, providing wider accessibility for users.
+User Profile Shop
+LOW
+Introduce a “Shop” where users can spend their “scrolls” that they receive from playing game modes (such as the “town” mode) to unlock different profile customisation options. This could include unlocking different colours (including the ones above) for their name in multiplayer lobbies or leaderboards, or different character heads (including at least a dog head, cow head, sheep head and a horse head). The “shop” would rotate about 5 items in and out every 24 hours, to allow for users to obtain different items. 
+
+
+1.4 — Performance Criteria (3 Marks)
+Specify the application's performance criteria, including speed, reliability, scalability, and user satisfaction benchmarks. Define how performance will be measured and the application's standards.
+
+
+For the application to successfully reach the users satisfaction benchmarks, the speed of the application for loading must not be greater that 2 seconds for the initial loading time. Similarly, due to the introduction of a greater reliance on a Real-Time Database connection, communication times between the database and client must not exceed 200 milliseconds on a standardised internet connection (20MB/s upload and download speeds, 25 millisecond server ping).
+The application must also demonstrate a 99.9% server and access uptime for school hours (8am until 4pm), to ensure that the application is available for use by schools. Similarly, the application must support capabilities for at least 1,000 concurrent users. The application will also utilise auto-scaling capabilities in order to automatically transition the data stores to a large-scale subscription plan if the volume and velocity of data transmissions exceed the current plan’s limits (Blaze plan currently provides support for a total of: 20,000 writes per day (5,000 per hour), 100,000 reads per day (10,000 per hour)), thus providing better performance for the web application. Similarly, if the application requires greater resources for a single server instance, FireStore Servers provide the capability for higher connection limits, and a greater server quality.
+To provide the best user satisfaction experience for the client, the maximum number of clicks that will be required to join any game (whilst signed-in) will be 3 which will increase user satisfaction by reducing the complexities of navigating the application. Similarly, users will be prompted to rate their multiplayer-game experience out of 5 stars with a pop-up once they finish a multiplayer game. To successfully fulfill user satisfaction, the mean rating will need to be 4 or higher. Additionally, the application will utilise FireStore Authentication models to protect and secure password and other sensitive user information, thus improving the security of the application’s data storage.
+
+
+
+
+1.5 — IPO (Input-Process-Output) (3 Marks)
+Develop an IPO model that outlines the application's inputs, processes, and outputs. 
+
+Input
+Process
+Output
+Guessed verse
+Checks that the input provided by the user for their guessed verse follows the valid format: Book Chapter:Verse
+Error message if invalid.
+Valid verse guess
+Converts the guessed verse input into the verse ID format of the verse string.
+Verse ID of guess
+Verse ID of guess and actual Verse ID
+Calculates the difference between the ID’s of the guessed verse and actual verse.
+If greater than 100 verse ID’s difference: Round Score = 0.
+
+If less than 100 verse ID’s off: 0 < Distance <= 100.
+Verse Distance
+Calculates round score: 100 – Verse Distance
+Round Score.
+Guessed verse and actual verse book name, chapter number and verse number
+Calculate round stars: Give 1 star for each matching value (book, chapter and verse).
+Round Stars
+Round score, stars, guessed verse and actual verse.
+Creates the mini-results card display for each round. Star, scores and verses.
+Displays the results card.
+
+Input
+Process
+Output
+Email and password input
+Checks that the email and password meet the minimum-security requirements:
+	•	Email: must include characters before an ‘@’ and then at least one more character, followed by a ‘.’ And then another character at minimum.
+	•	Password: Must be minimum 10 characters long, include at least one:
+	•	Upper and lowercase character
+	•	One number
+	•	One special character (e.g. ‘.’, ‘!’, ‘&’)
+Email and Password valid? 
+
+
+Valid Password input
+Utilises SHA-256 hashing to encrypt password to get it ready for transmission.
+Password Hash
+Valid email and password hash
+Checks with the authentication database that the user does not already exist. 
+
+Okay to create account.
+
+Okay to create account
+If does not exist already --> Stores new user account in authentication database.
+If does exist already with email --> Do not store, send user back to start of account creation.
+Account created confirmation.
+Account created confirmation, valid user credentials
+Generate session and local cookie, and stores on users local device.
+Confirmation of active user session.
+Active user session confirmation
+Signs user into their account. Retrieves user details from user authentication database.
+Display user relevant user information.
+Invalid user credential entry.
+Display “Invalid credentials” to user
+Invalid, prompt for re-entry.
+
+Input
+Process
+Output
+User Display Name and ID
+Checks to make sure the inputted display name meets the following criteria:
+	•	maximum 20 characters in length
+Valid or Invalid display name confirmation.
+Valid display name confirmation
+Create a new lobby in the Firebase Real-Time Database using the user’s ID as the host.
+Return the created lobby “object”.
+Lobby “object”
+Generate the lobby Game Code.
+Display Game Code.
+Game Code 
+Add the host user to the multiplayer lobby.
+Display Lobby “object”
+Lobby data
+Load lobby information from database, displaying connected users and lobby settings
+Multiplayer lobby UI
+
+Input
+Process
+Output
+Host User ID, Lobby ID, Modified Settings 
+Sends the updated settings to the Real-Time Database to be stored.
+Database Updated.
+Updated Database
+Send/update all users with the new settings that are connected to the multiplayer game lobby.
+Visibly synced game lobby settings
+
+Input
+Process
+Output
+Display name, User ID and Multiplayer Lobby Code
+Checks to make sure the inputted display name meets the following criteria:
+	•	maximum 20 characters in length
+Valid or Invalid display name confirmation
+Multiplayer Lobby Code
+Check to make sure the inputted lobby code is valid:
+	•	6 characters
+Valid or Invalid Multiplayer Lobby Code confirmation
+Valid multiplayer lobby code confirmation 
+Checks the Real-Time database to make sure the lobby does exist.
+Lobby exists or does not.
+Lobby Exists 
+Adds the user’s ID to the Real-Time Database lobby entry and display name
+Updated multiplayer lobby users
+Users successfully added
+Load the lobby’s settings and connected users.
+Update lobby UI
+Lobby does not exist
+Return an error overlay.
+Error message.
+
+Input
+Process 
+Output
+Book selections
+Validate that the books exist as an option
+Accept or reject change
+Time limit
+Validate that the timelimit option inputted matches available options.
+Accept or reject change
+Context size
+Validate that the context size option is available.
+Accept or reject change
+Number of rounds
+Validate that the numeric value is available and valid.
+Accept or reject change
+Valid configurations
+Randomly select the actual verses from the chosen books inputted
+The actual verse for each round
+Valid configurations
+Set the time limit and context verses
+Game configuration object
+Game created confirmation
+Load the custom game page for the user.
+UI for Custom mode
+
+Input
+Process 
+Output
+User ID
+Retrieve the quest stats and progress for the user
+The User’s quest data
+User’s progress
+Load the user’s town map, scrolls and items
+Quest mode UI information, First time/returning
+Firsttime user
+Direct the User to the tutorial overlay/page
+Tutorial page
+Returning user
+Load the quest mode page for the user.
+Quest mode main UI
+
+Input
+Process
+Output
+User ID and scrolls balance
+Checks the user’s scroll balance is greater or equal to the item’s price.
+Valid or invalid purchase available.
+Valid purchase available
+Deduct the cost of the item form the user’s scroll balance.
+Updated user’s scroll balance
+Valid purchase available
+Add the item’s ID to the user’s inventory
+Updated user’s inventory
+Successful purchase
+Show “Purchase Successful” overlay to the user
+Confirmation of purchase 
+User balance is insufficient for scrolls needed
+Show “Failed — Not Enough Scrolls” overlay to the user
+Error message.
+
+Input 
+Process 
+Output
+User’s ID, Gemini API key, user message
+Validates that the API key is active/valid
+Api key is valid/invalid
+Valid API key
+Retrieve the user’s context + stats from the Database to help AI model generate responses.
+User ‘s context and stats
+User’s input and context
+Send the chat prompt to the Gemini API.
+The API response
+Gemini API response
+Displays the AI response in the chat box
+AI chat response
+Invalid API key
+Shows an error message
+Error output
+
+Input
+Process
+Output
+User’s ID, Question Set ID, upload timestamp and set description
+Checks to see if the Set ID already exists in the database.
+Exists or if it is okay to post/upload.
+Set does not exist already
+Creates a new database object for the set.
+Posted Set
+Set does not exist already
+Shows the user a “Successfully Posted” overlay
+Confirmation of upload
+Set exists already
+Shows an error to the user that the “Set Already Exists”
+Error message
+Successful upload confirmation 
+Displays the new post on board for all users to see.
+Updated board interface display.
+
+
+
+
+1.6 — Gantt Chart (5 Marks)
+Create a Gantt chart to outline the project timeline. The chart should include all major milestones, tasks, and deadlines. It should also visually represent the project schedule, showing each task's start and end dates and the dependencies between tasks.
+
+SWE AT3a Gantt.xlsx
+
+
+
+
+2.1 — Research (5 Marks)
+Similar Applications:
+Bibleguesser.com:
+	•	A single-player game that betterbibleguesser.com was based off as the idea. Only provides very minimal customisation options to the user for both gameplay and visual changes. Does not have multiplayer capabilities and only provides one singular game mode to play.
+Kahoot.it
+	•	Kahoot.it is a multiplayer educational application that allows users to create question sets with images, audio and videos and then create a game with a simple code which other users can enter when they search up kahoot.it and then join that question sets’ lobby and play against other people to see who can get the most points. Points are allocated only for correct answers, using the formula:
+
+The creator of the questions can also choose certain questions to receive point multipliers, change the amount of time users get to guess, change the way users input their answers. These ways include: 
+	•	Single select
+	•	Multi-select
+	•	Ordering tiles
+	•	Typed answers
+	•	Poll
+	•	True/False
+	•	Word cloud
+	•	Open-ended
+	•	Brainstorm mode 
+	•	Drop-pin (users select a certain location on an image)
+	•	Sliding scale
+All these different types of customisations for games allow Kahoot games to be engaging and interactive to users, which could prove useful for my application. Kahoot also allows users to customise their user “face” from a wide range of set animals, with head add-ons such as glasses or a funny fake nose, and a “clothes” option with options such as a firefighter, space suit etc. 
+	•	However it can get a bit boring for users to sit in the lobby waiting for the game to start, so it would be a good idea to implement a sort of game at this stage so that users have something to do while they wait for their multiplayer game to start.
+Blooket.com
+	•	Blooket.com is an application similar in some ways to Kahoot.it, however what sets Blooket.com apart from Kahoot.it is the wide variety of game modes in which users can play the question sets. Blooket.com offers a variety of games such as “Dino digger”, “Tower Defence” and many more different games which change the way players will perform actions within. 
+
+For example, the game mode “Tower Defence” is centred around answering questions correctly to receive gold for each correct answer and then using that gold to purchase or upgrade their towers to defend against “waves” of attackers (Just like the Bloon TD’s games).
+
+Despite Blooket.it using different modes for users to play, ultimately, the website uses the games to entice users to answer questions quickly and correctly to gain points or beat other people in their game. 
+
+After a user completes a game (or the lobby they were in finishes), they will receive an in game “coin” currency in relation to how well the user performed and how many questions they answered correctly. Once out of a game, users can then use those “coins” to purchase character icons, profile backgrounds, and other cosmetic items which they can equip in other games that they play.
+
+Blooket.it also offers a small mini-game for users waiting in lobbies, which is a flappy-bird-like game, with the bird replaced by the user’s chosen icon.
+
+
+
+
+Current Technologies:
+Bitwise Operations
+	•	Bitwise operations are a great way to store multiple Boolean values in one single numerical number. Bitwise uses a bit array to store multiple values in one single number by assigning individual variables powers of 2. Here is an example table of this:
+
+Bit Number
+8th
+7th 
+6th
+5th
+4th
+3rd
+2nd
+1st
+Power of 2
+27
+26
+25
+24
+23
+22
+21
+20
+Decimal Value
+128
+64
+32
+16
+8
+4
+2
+1
+For example, the setting for toggling dark mode on is set to the 7th bit number, and the setting for toggling on high contrast is the 4th bit number, if both were to be toggled on, you would add the 7th and 4th decimal value to the bitwise value (64 + 8 = 72). Using the bitwise operator AND (&), to check if the dark mode setting is toggled on (7th bit number), you would take the bitwise value and apply the AND operator with the decimal or power of 2 value for the 7th bit number (for example: 72 & 64) if the operation returns the decimal number inputted as the result, then the bitwise value does contain the bit number. However, if the operation returns 0 as the result, then the bit number is not present.
+
+Using this method, it is possible to store multiple Boolean values (Such as the settings configurations for on/off features) all together in one variable, reducing the number of stored variables in the database. Additionally, Bitwise operations are usually up to several times faster than multiplication, significantly faster than division and even faster that addition and subtraction. Overall, using this system for both storage and processing of grouped Boolean values can be a great asset in developing a fast, lightweight and efficient software application. 
+	•	Positives: Highly efficient and easy to code into software applications, allows for bundled variables reducing likelihood of data loss during transmission or processing as well as significantly reducing variable sizes for storage.
+	•	Negatives: Can be difficult to understand the full capabilities for someone new, if stored Bitwise variables are not documented correctly there can be great confusion and time lost identifying and working backwards to identify the functions of even one Bitwise value.
+
+Real-Time Databases
+	•	Real-Time Databases (RTDB’s) provide the ability for a developer to synchronise and store data in “real-time” across multiple different applications and devices. RTDB tools also allow for automatic synchronisation of local changes made on a device while it was offline against remote changes, “Intelligently merging any conflicts” – Firebase. RTDB’s are also NoSQL-based databases, which means that it is optimised for fast and real-time functions and operations on a wide-large scale or global operation, rather than regional datasets. This means that it will be extremely useful in scenarios that require fast-paced and collaborative contributions from across the globe, or live-updates (for example, A multiplayer game or lobby).
+	•	Positives: Offline data, conflict resolution, secure communication.
+	•	Negatives: Not suited to regional datasets, difficult to upkeep and maintain individually.
+
+Firebase Authentication
+	•	Firebase provides an “Easy-To-Use” SDK (Software Development Kit) with pre-made UI’s that provide developers with controls to create authentication settings to protect their data within Firebase. Firebase supports popular authentication methods such as email and password, authentication via phone number, as well as many popular external providers such as Google, Facebook and X. This Firebase tool also has capabilities for “pro features” (with paid access) such as multi-factor authentication, user activity logging, blocking functions (such as IP blocks) and capabilities for SAML/OpenID Connect (SAML 2.0 and OIDC) support. There are two different methods supported by Firebase, SAML and OpenID Connect:
+	•	SAML: Uses SAML 2.0.
+	•	Positives: Very established, trusted and secure, very applicable for complex and important applications.
+	•	Negatives: Resource heavy, complex.
+	•	OpenID Connect (OIDC): Based on OAuth 2.0
+	•	Positives: Much less resource-heavy than SAML, easier to use than SAML for simple applications.
+	•	Negatives: A much newer method, not as many features than SAML.
+	•	Overall, Firebase Authentication tools provide a very useful foundation to create secure systems for a web-based application.
+	•	Positives: Secure, easy-to-use, simple interfaces.
+	•	Negatives: Less customisation ability.
+
+Cloud FireStore Databases
+	•	FireBase supports cloud database connections and storage, a “Flexible and scalable NoSQL Database”, which organises data into collections of documents in a hierarchical format. This allows for Real-time connections, up-to-date information and recent and current data.
+	•	Positives: Supports Firebase Authentication rules, scalable, easy-to-use and understand.
+	•	Negatives: No SQL, not very customisable.
+
+
+Relevant Best-Practises:
+Security and Authentication Rules
+	•	Firebase Password Policies: Allows for minimum and maximum length requirements, password requirement options (e.g. Requiring upper and lower case characters, requiring a numerical character, etc…). Also allows the user to enforce password policies for new accounts, rejecting invalid inputs, or accepting them.
+Database Rules
+	•	Read and Write permissions: Restrict who can edit and view specific data sets within the application to protect sensitive data and prevent unauthorised data changes.
+Point-in-time recovery
+	•	Protects data from accidental deletion or writes by providing the ability to version control and query previous versions of data for a certain time period, and allows you to selectively write the needed data back into the database.
+Scheduled Backups
+	•	Allows for automatic backups of your database to create timestamped data histories. This allows for version control and logging between time periods to identify when changes were made, and to completely roll-back to a certain timestamp if needed.
+
+
+2.2 — Data Flow Diagram (DFD) (10 Marks)
+Design a DFD for each feature of your project to illustrate how data will flow through the system. The DFD should show the interactions between inputs, processes, and outputs. Provide detailed diagrams and explanations for each feature.
+
+Data Flow Diagram 1 – Login Process
+
+
+
+
+
+Data Flow Diagram 2 – Statistic Leaderboards
+
+
+
+Data Flow Diagram 3 – Game Flow and Score Calculation
+
+
+
+
+
+2.3 — Storyboard (5 Marks)
+Create a storyboard to outline the user journey through the application. The storyboard should include key screens, user actions, and interactions. Provide a narrative to explain how users will navigate the application and achieve their goals.
+
+
+
+Figma link: https://www.figma.com/design/E9U8Wu65TPTCINVwZwt7hx/Better-Bible-Guesser-Storyboards?node-id=0-1&t=02NLYyMdckWg9Q09-1 
+
+
+
+2.4 — Pseudocode (10 Marks)
+Write three pseudocode algorithms for critical functions and algorithms in the web application's backend. These pseudocode algorithms should provide a clear foundation for coding the application. Include detailed explanations and comments for each algorithm.
+
+Algorithm 1 – Login Process
+BEGIN LoginProcesses (email, password)
+	IF email OR password is empty THEN 
+//Here, the algorithm checks that the inputs are not empty
+		RETURN an error message that the email and password provided cannot be empty.
+	ENDIF
+	SET userID FROM FireBase Authentication using email and password 
+//Here, the algorithm sends a request the FireBase Authentication module to retrieve the corresponding user ID that matches the login details.
+	IF userID IS valid THEN
+               Set userProfile FROM FireStore using UserID 
+//Here, the algorithm then retrieves any user account customisation options from the database and applies them to the users device.
+		RETURN userProfile
+	ELSE
+		RETURN an error message that the provided credentials were/are invalid.
+	ENDIF
+END LoginProcess (email, password)
+
+
+
+Algorithm 2 – Statistic Leaderboards
+BEGIN CreateOnlineLeaderboard ()
+SET AllUserStatistics to RetrieveUserStatistics ()
+
+IF AllUserStatistics IS empty THEN
+//Here, the algorithm is checking if there are any users even on the leaderboard so as to not raise any errors if the algorithm tries to run processes on nothing
+ 	RETURN a message to users that the leaderboard doesn’t have any users
+ENDIF
+SET CompileStatistics to SORT AllUserStatistics BY AverageRoundScore DESCENDING
+SET UserTopStatistics to first 10 items from CompileStatistics
+//Here, the algorithm is sorting the collected user statistics entries starting with the highest average round score and going down from there for only the top 10 highest average round scores.
+SET UserTopStatisticsUserID to FIND UserID FOR each item IN UserTopStatistics
+SET UserTopProfiles to RetrieveUserProfile (UserTopStatisticsUserID)
+//Here, the algorithm is going through each of the leaderboard entries and finding their user ID and display name.
+SET FormattedOnlineLeaderboard to CompileUserStatisticsUserProfiles (UserTopStatistics, UserTopProfiles)
+//Here, the algorithm calls the compile subprocess and returns the completed leaderboard.
+RETURN FormattedOnlineLeaderboard
+END CreateOnlineLeaderboard ()
+
+BEGIN RetrieveUserStatistics ()
+	SET UserRecords to UserStatistics FROM FireStore Collections
+	RETURN UserRecords
+//Here, the algorithm retrieves user’s statistics from the database.
+END RetrieveUserStatistics  ()
+
+BEGIN RetrieveUserProfile (UserTopStatisticsUserID)
+	SET UserProfileList to empty ARRAY
+
+	FOR userindex in UserTopStatisticsUserID
+//Here, the algorithm is repeating through each of the user entries in the leaderboard, and finding the corresponding profile customisation options, such as name effects, colours and icons for example.
+		SET UserProfile FROM FireStore Collections using UserID
+		APPEND UserProfile to UserProfileList
+	NEXT userindex + 1
+//Here, the algorithm then repeats for the next user entry in the leaderboard.
+	RETURN UserProfileList
+END RetrieveUserProfile (UserTopStatisticsUserID)
+BEGIN CompileUserStatisticsUserProfiles (UserTopStatistics, UserTopProfiles)
+	SET UserLeaderboard to empty ARRAY
+
+	FOR userindex IN UserTopStatistics
+//Here, the algorithm is repeating the loop for each of the users in the leaderboard.
+		SET UserProfile FROM FireStore Collections using UserID
+		INCREMENT GameLeaderboardEntry.TopRank by 1
+		SET GameLeaderboardEntry.UserDisplayName to UserProfile.DisplayName
+		SET GameLeaderboardEntry.CardsScore to UserProfile.CardsScore
+		SET GameLeaderboardEntry.UserProfileEffectsDisplay to UserProfile.UserProfileEffectsDisplay
+		APPEND GameLeaderboardEntry to UserLeaderboard
+//Here, the algorithm formats the leaderboard, adding each user entry to the object, including profile customisation options such as name colours and effects, as well as including the relevant statistics for that leaderboard.
+	NEXT userindex + 1
+	
+	RETURN UserLeaderboard
+END CompileUserStatisticsUserProfiles (UserTopStatistics, UserTopProfiles)
+
+
+
+
+Algorithm 3 – Game Flow and Score Calculation
+BEGIN RoundScoreCalculations (GuessedVerse, ActualVerseID)
+	GET GuessedVerseID (GuessedVerse)
+	GET ActualVerseIDComparison (ActualVerseID)
+	SET VerseDistance to CALCULATE (ActualVerseID – GuessedVerseID)
+//Here, the algorithm is using the inputted verse from the user and the actual verse ID that was randomly generated, and parses it through subprocesses to strip and expand out the ID’s and verse text into a comparable format.
+	IF VerseDistance is less than 0 THEN
+//Here, the algorithm checks to see if the difference between the guessed and actual verse ID’s are within the 100 point range, if not, then it gives no points, if it is, it calculates the rewarded amount of points.
+		SET UserScore to 0
+	ELSE 
+		SET UserScore to 100 – VerseDistance
+	ENDIF
+	SET UserStars to 0
+	IF GuessedVerse.booknumber is ActualVerseIDComparison.booknumber THEN
+//Here, the algorithm retrieves the book number attribute from the Guessed Verse object created earlier, comparing to see if it is the same as the book number from the Actual Verse object, allocating one star if it is. 
+		INCREMENT UserStars
+	ENDIF
+	
+	IF GuessedVerse.ChapterNumber is ActualVerseIDComparison.ChapterNumber THEN
+//Here, the algorithm is again checking for any possible star allocation by this time comparing the chapter numbers between the two objects, and allocating one star if they match.
+		INCREMENT UserStars
+	ENDIF
+	IF GuessedVerse.VerseNumber is ActualVerseIDComparison.VerseNumber THEN
+//Similarly, the same happens here, but with a star given if the verse numbers match correctly.
+		INCREMENT UserStars
+	ENDIF
+	SET RoundResult to ResultObject (UserScore, UserStars)
+	RETURN RoundResult
+//Here, the algorithm then takes the generated score and stars and creates a round object with those attributes, which is then returned as an object. 
+END RoundScoreCalculations (GuessedVerse, ActualVerseID)
+BEGIN GuessedVerseID (GuessedVerse)
+	SET VerseID to CALCULATE (GuessedVerse.booknumber * 100,000)
+	SET VerseID to CALCULATE (VerseID + (GuessedVerse.ChapterNumber * 1,000))
+	SET VerseID to CALCULATE (VerseID + GuessedVerse.VerseNumber)
+//Here, what is happening is that the algorithm is creating the Guessed Verse ID for the inputted guessed verse. The algorithm first takes the book number inputted and multiplies that by 100,000 which produces a number with minimum 5 0’s afterwards. Next, the inputted chapter number is taken and multiplied by 1,000 meaning that this number will never exceed 99,999 and will always have 3 0’s afterwards. This gap allows for the two numbers just calculated to be added together. Next, the verse number is added to the value, completing the Verse ID generation for the guessed verse.
+	RETURN VerseID
+END GuessedVerseID (GuessedVerse)
+BEGIN ActualVerseIDComparison (ActualVerseID)
+	SET booknumber to CALCULATE (ActualVerseID / 100,000)
+	SET chapternumber to CALCULATE ((ActualVerseID – (booknumber * 100,000))/ 1,000)
+	SET versenumber to CALCULATE ((ActualVerseID – (booknumber * 100,000) – (chapternumber * 1,000))
+//What is happening here, is that the algorithm is taking the verse ID of the actual verse which was randomly generated, and splits the number down into its 3 main components: Book number, chapter number and verse number. It does this by reversing the process taken to generate the verse ID for the guessed input.
+	RETURN booknumber, chapternumber, versenumber
+END ActualVerseIDComparison (ActualVerseID)
+
+
+
+
+

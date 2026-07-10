@@ -1,0 +1,23 @@
+<div class="result-card" *ngIf="result">
+  <div class="card-header">
+    <h3>Round {{ roundNumber }} Result</h3>
+    <div class="score">Score: {{ result.score }}</div>
+  </div>
+  <div class="card-body">
+    <div class="detail">
+      <span class="label">Correct Answer:</span>
+      <span class="value">{{ result.verse.bookName }} {{ result.verse.chapter }}:{{ result.verse.verse }}</span>
+    </div>
+    <div class="detail">
+      <span class="label">Your Guess:</span>
+      <span class="value" [class.incorrect]="!result.isBookCorrect || !result.isChapterCorrect || !result.isVerseCorrect">
+        {{ result.guess ? result.guess.book + ' ' + result.guess.chapter + ':' + result.guess.verse : 'No Guess' }}
+      </span>
+    </div>
+    <div class="stars">
+      <span [class.filled]="result.stars >= 1">★</span>
+      <span [class.filled]="result.stars >= 2">★</span>
+      <span [class.filled]="result.stars >= 3">★</span>
+    </div>
+  </div>
+</div>

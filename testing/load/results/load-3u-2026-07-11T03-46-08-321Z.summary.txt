@@ -1,0 +1,8 @@
+target=https://better-bibleguesser.web.app
+mode=read-only
+users=3
+rows=9
+pass=9
+fail=0
+json=/Users/school/Documents/GitHub/angularbibleguesser/testing/load/results/load-3u-2026-07-11T03-46-08-321Z.json
+csv=/Users/school/Documents/GitHub/angularbibleguesser/testing/load/results/load-3u-2026-07-11T03-46-08-321Z.csv

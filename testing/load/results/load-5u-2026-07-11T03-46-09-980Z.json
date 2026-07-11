@@ -1,0 +1,144 @@
+{
+  "startedAt": "2026-07-11T03:46:08.623Z",
+  "finishedAt": "2026-07-11T03:46:09.980Z",
+  "baseUrl": "https://better-bibleguesser.web.app",
+  "readOnly": true,
+  "users": 5,
+  "rows": [
+    {
+      "scenario": "scenario1_app_page_load",
+      "users": 5,
+      "userIndex": 2,
+      "step": "home_ready",
+      "responseTimeMs": 422,
+      "passFail": "Pass",
+      "error": ""
+    },
+    {
+      "scenario": "scenario1_app_page_load",
+      "users": 5,
+      "userIndex": 1,
+      "step": "home_ready",
+      "responseTimeMs": 436,
+      "passFail": "Pass",
+      "error": ""
+    },
+    {
+      "scenario": "scenario1_app_page_load",
+      "users": 5,
+      "userIndex": 3,
+      "step": "home_ready",
+      "responseTimeMs": 421,
+      "passFail": "Pass",
+      "error": ""
+    },
+    {
+      "scenario": "scenario1_app_page_load",
+      "users": 5,
+      "userIndex": 4,
+      "step": "home_ready",
+      "responseTimeMs": 428,
+      "passFail": "Pass",
+      "error": ""
+    },
+    {
+      "scenario": "scenario1_app_page_load",
+      "users": 5,
+      "userIndex": 5,
+      "step": "home_ready",
+      "responseTimeMs": 425,
+      "passFail": "Pass",
+      "error": ""
+    },
+    {
+      "scenario": "scenario2_readonly_public_routes",
+      "users": 5,
+      "userIndex": 1,
+      "step": "quest_and_marketplace_routes_ready",
+      "responseTimeMs": 578,
+      "passFail": "Pass",
+      "error": ""
+    },
+    {
+      "scenario": "scenario2_readonly_public_routes",
+      "users": 5,
+      "userIndex": 4,
+      "step": "quest_and_marketplace_routes_ready",
+      "responseTimeMs": 583,
+      "passFail": "Pass",
+      "error": ""
+    },
+    {
+      "scenario": "scenario2_readonly_public_routes",
+      "users": 5,
+      "userIndex": 3,
+      "step": "quest_and_marketplace_routes_ready",
+      "responseTimeMs": 622,
+      "passFail": "Pass",
+      "error": ""
+    },
+    {
+      "scenario": "scenario2_readonly_public_routes",
+      "users": 5,
+      "userIndex": 5,
+      "step": "quest_and_marketplace_routes_ready",
+      "responseTimeMs": 611,
+      "passFail": "Pass",
+      "error": ""
+    },
+    {
+      "scenario": "scenario2_readonly_public_routes",
+      "users": 5,
+      "userIndex": 2,
+      "step": "quest_and_marketplace_routes_ready",
+      "responseTimeMs": 624,
+      "passFail": "Pass",
+      "error": ""
+    },
+    {
+      "scenario": "scenario3_readonly_visible_rendering",
+      "users": 5,
+      "userIndex": 1,
+      "step": "home_visible_render_ready",
+      "responseTimeMs": 190,
+      "passFail": "Pass",
+      "error": ""
+    },
+    {
+      "scenario": "scenario3_readonly_visible_rendering",
+      "users": 5,
+      "userIndex": 4,
+      "step": "home_visible_render_ready",
+      "responseTimeMs": 184,
+      "passFail": "Pass",
+      "error": ""
+    },
+    {
+      "scenario": "scenario3_readonly_visible_rendering",
+      "users": 5,
+      "userIndex": 5,
+      "step": "home_visible_render_ready",
+      "responseTimeMs": 168,
+      "passFail": "Pass",
+      "error": ""
+    },
+    {
+      "scenario": "scenario3_readonly_visible_rendering",
+      "users": 5,
+      "userIndex": 2,
+      "step": "home_visible_render_ready",
+      "responseTimeMs": 170,
+      "passFail": "Pass",
+      "error": ""
+    },
+    {
+      "scenario": "scenario3_readonly_visible_rendering",
+      "users": 5,
+      "userIndex": 3,
+      "step": "home_visible_render_ready",
+      "responseTimeMs": 181,
+      "passFail": "Pass",
+      "error": ""
+    }
+  ]
+}

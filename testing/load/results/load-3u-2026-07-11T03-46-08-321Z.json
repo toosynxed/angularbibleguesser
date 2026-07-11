@@ -1,0 +1,90 @@
+{
+  "startedAt": "2026-07-11T03:46:07.354Z",
+  "finishedAt": "2026-07-11T03:46:08.321Z",
+  "baseUrl": "https://better-bibleguesser.web.app",
+  "readOnly": true,
+  "users": 3,
+  "rows": [
+    {
+      "scenario": "scenario1_app_page_load",
+      "users": 3,
+      "userIndex": 3,
+      "step": "home_ready",
+      "responseTimeMs": 489,
+      "passFail": "Pass",
+      "error": ""
+    },
+    {
+      "scenario": "scenario1_app_page_load",
+      "users": 3,
+      "userIndex": 2,
+      "step": "home_ready",
+      "responseTimeMs": 489,
+      "passFail": "Pass",
+      "error": ""
+    },
+    {
+      "scenario": "scenario1_app_page_load",
+      "users": 3,
+      "userIndex": 1,
+      "step": "home_ready",
+      "responseTimeMs": 499,
+      "passFail": "Pass",
+      "error": ""
+    },
+    {
+      "scenario": "scenario2_readonly_public_routes",
+      "users": 3,
+      "userIndex": 1,
+      "step": "quest_and_marketplace_routes_ready",
+      "responseTimeMs": 224,
+      "passFail": "Pass",
+      "error": ""
+    },
+    {
+      "scenario": "scenario2_readonly_public_routes",
+      "users": 3,
+      "userIndex": 3,
+      "step": "quest_and_marketplace_routes_ready",
+      "responseTimeMs": 279,
+      "passFail": "Pass",
+      "error": ""
+    },
+    {
+      "scenario": "scenario2_readonly_public_routes",
+      "users": 3,
+      "userIndex": 2,
+      "step": "quest_and_marketplace_routes_ready",
+      "responseTimeMs": 299,
+      "passFail": "Pass",
+      "error": ""
+    },
+    {
+      "scenario": "scenario3_readonly_visible_rendering",
+      "users": 3,
+      "userIndex": 1,
+      "step": "home_visible_render_ready",
+      "responseTimeMs": 73,
+      "passFail": "Pass",
+      "error": ""
+    },
+    {
+      "scenario": "scenario3_readonly_visible_rendering",
+      "users": 3,
+      "userIndex": 3,
+      "step": "home_visible_render_ready",
+      "responseTimeMs": 69,
+      "passFail": "Pass",
+      "error": ""
+    },
+    {
+      "scenario": "scenario3_readonly_visible_rendering",
+      "users": 3,
+      "userIndex": 2,
+      "step": "home_visible_render_ready",
+      "responseTimeMs": 56,
+      "passFail": "Pass",
+      "error": ""
+    }
+  ]
+}

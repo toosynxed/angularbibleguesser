@@ -1,0 +1,893 @@
+"scenario","users","userIndex","step","responseTimeMs","passFail","error"
+"scenario1_app_page_load","100","20","home_ready","5092","Fail",""
+"scenario1_app_page_load","100","6","home_ready","5106","Fail",""
+"scenario1_app_page_load","100","2","home_ready","5113","Fail",""
+"scenario1_app_page_load","100","8","home_ready","5116","Fail",""
+"scenario1_app_page_load","100","12","home_ready","5162","Fail",""
+"scenario1_app_page_load","100","17","home_ready","5167","Fail",""
+"scenario1_app_page_load","100","16","home_ready","5044","Fail",""
+"scenario1_app_page_load","100","18","home_ready","5171","Fail",""
+"scenario1_app_page_load","100","13","home_ready","5173","Fail",""
+"scenario1_app_page_load","100","4","home_ready","5320","Fail",""
+"scenario1_app_page_load","100","11","home_ready","5318","Fail",""
+"scenario1_app_page_load","100","1","home_ready","5331","Fail",""
+"scenario1_app_page_load","100","15","home_ready","5523","Fail",""
+"scenario1_app_page_load","100","7","home_ready","5528","Fail",""
+"scenario1_app_page_load","100","19","home_ready","5479","Fail",""
+"scenario2_readonly_public_routes","100","6","quest_and_marketplace_routes_ready","6316","Fail",""
+"scenario2_readonly_public_routes","100","19","quest_and_marketplace_routes_ready","5864","Fail",""
+"scenario2_readonly_public_routes","100","18","quest_and_marketplace_routes_ready","6312","Fail",""
+"scenario2_readonly_public_routes","100","20","quest_and_marketplace_routes_ready","6393","Fail",""
+"scenario1_app_page_load","100","24","home_ready","11388","Fail",""
+"scenario1_app_page_load","100","5","home_ready","11517","Fail",""
+"scenario2_readonly_public_routes","100","1","quest_and_marketplace_routes_ready","6199","Fail",""
+"scenario2_readonly_public_routes","100","17","quest_and_marketplace_routes_ready","7147","Fail",""
+"scenario2_readonly_public_routes","100","8","quest_and_marketplace_routes_ready","7219","Fail",""
+"scenario2_readonly_public_routes","100","16","quest_and_marketplace_routes_ready","7205","Fail",""
+"scenario2_readonly_public_routes","100","4","quest_and_marketplace_routes_ready","7063","Fail",""
+"scenario2_readonly_public_routes","100","7","quest_and_marketplace_routes_ready","8007","Fail",""
+"scenario2_readonly_public_routes","100","11","quest_and_marketplace_routes_ready","8266","Fail",""
+"scenario2_readonly_public_routes","100","12","quest_and_marketplace_routes_ready","8447","Fail",""
+"scenario2_readonly_public_routes","100","15","quest_and_marketplace_routes_ready","8982","Fail",""
+"scenario2_readonly_public_routes","100","13","quest_and_marketplace_routes_ready","9967","Fail",""
+"scenario1_app_page_load","100","38","home_ready","22934","Fail",""
+"scenario1_app_page_load","100","32","home_ready","22949","Fail",""
+"scenario3_readonly_visible_rendering","100","19","home_visible_render_ready","15173","Fail",""
+"scenario3_readonly_visible_rendering","100","1","home_visible_render_ready","15271","Fail",""
+"scenario3_readonly_visible_rendering","100","20","home_visible_render_ready","15406","Fail",""
+"scenario3_readonly_visible_rendering","100","6","home_visible_render_ready","-1","Fail","page.waitForSelector: Timeout 10000ms exceeded.
+Call log:
+[2m  - waiting for locator('main.home-main button, .logo') to be visible[22m
+[2m    18 × locator resolved to 6 elements. Proceeding with the first one: <img class=""logo"" _ngcontent-etx-c43="""" src=""assets/logo.png"" alt=""Better Bible Guesser • ""/>[22m
+"
+"scenario3_readonly_visible_rendering","100","18","home_visible_render_ready","-1","Fail","page.waitForSelector: Timeout 10000ms exceeded.
+Call log:
+[2m  - waiting for locator('main.home-main button, .logo') to be visible[22m
+[2m    19 × locator resolved to 6 elements. Proceeding with the first one: <img class=""logo"" _ngcontent-sma-c43="""" src=""assets/logo.png"" alt=""Better Bible Guesser • ""/>[22m
+"
+"scenario3_readonly_visible_rendering","100","16","home_visible_render_ready","-1","Fail","page.waitForSelector: Timeout 10000ms exceeded.
+Call log:
+[2m  - waiting for locator('main.home-main button, .logo') to be visible[22m
+[2m    16 × locator resolved to 6 elements. Proceeding with the first one: <img class=""logo"" _ngcontent-dvb-c43="""" src=""assets/logo.png"" alt=""Better Bible Guesser • ""/>[22m
+"
+"scenario3_readonly_visible_rendering","100","4","home_visible_render_ready","-1","Fail","page.waitForSelector: Timeout 10000ms exceeded.
+Call log:
+[2m  - waiting for locator('main.home-main button, .logo') to be visible[22m
+[2m    16 × locator resolved to 6 elements. Proceeding with the first one: <img class=""logo"" _ngcontent-hbn-c43="""" src=""assets/logo.png"" alt=""Better Bible Guesser • ""/>[22m
+"
+"scenario3_readonly_visible_rendering","100","17","home_visible_render_ready","-1","Fail","page.waitForSelector: Timeout 10000ms exceeded.
+Call log:
+[2m  - waiting for locator('main.home-main button, .logo') to be visible[22m
+[2m    15 × locator resolved to 6 elements. Proceeding with the first one: <img class=""logo"" _ngcontent-ydl-c43="""" src=""assets/logo.png"" alt=""Better Bible Guesser • ""/>[22m
+"
+"scenario3_readonly_visible_rendering","100","8","home_visible_render_ready","-1","Fail","page.waitForSelector: Timeout 10000ms exceeded.
+Call log:
+[2m  - waiting for locator('main.home-main button, .logo') to be visible[22m
+[2m    15 × locator resolved to 6 elements. Proceeding with the first one: <img class=""logo"" _ngcontent-yee-c43="""" src=""assets/logo.png"" alt=""Better Bible Guesser • ""/>[22m
+"
+"scenario2_readonly_public_routes","100","2","quest_and_marketplace_routes_ready","24412","Fail",""
+"scenario1_app_page_load","100","3","home_ready","-1","Fail","page.goto: Timeout 30000ms exceeded.
+Call log:
+[2m  - navigating to ""https://better-bibleguesser.web.app/"", waiting until ""domcontentloaded""[22m
+"
+"scenario1_app_page_load","100","9","home_ready","-1","Fail","page.goto: Timeout 30000ms exceeded.
+Call log:
+[2m  - navigating to ""https://better-bibleguesser.web.app/"", waiting until ""domcontentloaded""[22m
+"
+"scenario1_app_page_load","100","10","home_ready","-1","Fail","page.goto: Timeout 30000ms exceeded.
+Call log:
+[2m  - navigating to ""https://better-bibleguesser.web.app/"", waiting until ""domcontentloaded""[22m
+"
+"scenario1_app_page_load","100","14","home_ready","-1","Fail","page.goto: Timeout 30000ms exceeded.
+Call log:
+[2m  - navigating to ""https://better-bibleguesser.web.app/"", waiting until ""domcontentloaded""[22m
+"
+"scenario1_app_page_load","100","21","home_ready","-1","Fail","page.goto: Timeout 30000ms exceeded.
+Call log:
+[2m  - navigating to ""https://better-bibleguesser.web.app/"", waiting until ""domcontentloaded""[22m
+"
+"scenario1_app_page_load","100","22","home_ready","-1","Fail","page.goto: Timeout 30000ms exceeded.
+Call log:
+[2m  - navigating to ""https://better-bibleguesser.web.app/"", waiting until ""domcontentloaded""[22m
+"
+"scenario1_app_page_load","100","23","home_ready","-1","Fail","page.goto: Timeout 30000ms exceeded.
+Call log:
+[2m  - navigating to ""https://better-bibleguesser.web.app/"", waiting until ""domcontentloaded""[22m
+"
+"scenario1_app_page_load","100","25","home_ready","-1","Fail","page.goto: Timeout 30000ms exceeded.
+Call log:
+[2m  - navigating to ""https://better-bibleguesser.web.app/"", waiting until ""domcontentloaded""[22m
+"
+"scenario1_app_page_load","100","26","home_ready","-1","Fail","page.goto: Timeout 30000ms exceeded.
+Call log:
+[2m  - navigating to ""https://better-bibleguesser.web.app/"", waiting until ""domcontentloaded""[22m
+"
+"scenario1_app_page_load","100","28","home_ready","-1","Fail","page.goto: Timeout 30000ms exceeded.
+Call log:
+[2m  - navigating to ""https://better-bibleguesser.web.app/"", waiting until ""domcontentloaded""[22m
+"
+"scenario1_app_page_load","100","29","home_ready","-1","Fail","page.goto: Timeout 30000ms exceeded.
+Call log:
+[2m  - navigating to ""https://better-bibleguesser.web.app/"", waiting until ""domcontentloaded""[22m
+"
+"scenario1_app_page_load","100","30","home_ready","-1","Fail","page.goto: Timeout 30000ms exceeded.
+Call log:
+[2m  - navigating to ""https://better-bibleguesser.web.app/"", waiting until ""domcontentloaded""[22m
+"
+"scenario1_app_page_load","100","27","home_ready","-1","Fail","page.goto: Timeout 30000ms exceeded.
+Call log:
+[2m  - navigating to ""https://better-bibleguesser.web.app/"", waiting until ""domcontentloaded""[22m
+"
+"scenario1_app_page_load","100","31","home_ready","-1","Fail","page.goto: Timeout 30000ms exceeded.
+Call log:
+[2m  - navigating to ""https://better-bibleguesser.web.app/"", waiting until ""domcontentloaded""[22m
+"
+"scenario1_app_page_load","100","33","home_ready","-1","Fail","page.goto: Timeout 30000ms exceeded.
+Call log:
+[2m  - navigating to ""https://better-bibleguesser.web.app/"", waiting until ""domcontentloaded""[22m
+"
+"scenario1_app_page_load","100","34","home_ready","-1","Fail","page.goto: Timeout 30000ms exceeded.
+Call log:
+[2m  - navigating to ""https://better-bibleguesser.web.app/"", waiting until ""domcontentloaded""[22m
+"
+"scenario1_app_page_load","100","35","home_ready","-1","Fail","page.goto: Timeout 30000ms exceeded.
+Call log:
+[2m  - navigating to ""https://better-bibleguesser.web.app/"", waiting until ""domcontentloaded""[22m
+"
+"scenario1_app_page_load","100","36","home_ready","-1","Fail","page.goto: Timeout 30000ms exceeded.
+Call log:
+[2m  - navigating to ""https://better-bibleguesser.web.app/"", waiting until ""domcontentloaded""[22m
+"
+"scenario1_app_page_load","100","37","home_ready","-1","Fail","page.goto: Timeout 30000ms exceeded.
+Call log:
+[2m  - navigating to ""https://better-bibleguesser.web.app/"", waiting until ""domcontentloaded""[22m
+"
+"scenario1_app_page_load","100","39","home_ready","-1","Fail","page.goto: Timeout 30000ms exceeded.
+Call log:
+[2m  - navigating to ""https://better-bibleguesser.web.app/"", waiting until ""domcontentloaded""[22m
+"
+"scenario1_app_page_load","100","40","home_ready","-1","Fail","page.goto: Timeout 30000ms exceeded.
+Call log:
+[2m  - navigating to ""https://better-bibleguesser.web.app/"", waiting until ""domcontentloaded""[22m
+"
+"scenario1_app_page_load","100","41","home_ready","-1","Fail","page.goto: Timeout 30000ms exceeded.
+Call log:
+[2m  - navigating to ""https://better-bibleguesser.web.app/"", waiting until ""domcontentloaded""[22m
+"
+"scenario1_app_page_load","100","42","home_ready","-1","Fail","page.goto: Timeout 30000ms exceeded.
+Call log:
+[2m  - navigating to ""https://better-bibleguesser.web.app/"", waiting until ""domcontentloaded""[22m
+"
+"scenario1_app_page_load","100","43","home_ready","-1","Fail","page.goto: Timeout 30000ms exceeded.
+Call log:
+[2m  - navigating to ""https://better-bibleguesser.web.app/"", waiting until ""domcontentloaded""[22m
+"
+"scenario1_app_page_load","100","44","home_ready","-1","Fail","page.goto: Timeout 30000ms exceeded.
+Call log:
+[2m  - navigating to ""https://better-bibleguesser.web.app/"", waiting until ""domcontentloaded""[22m
+"
+"scenario1_app_page_load","100","45","home_ready","-1","Fail","page.goto: Timeout 30000ms exceeded.
+Call log:
+[2m  - navigating to ""https://better-bibleguesser.web.app/"", waiting until ""domcontentloaded""[22m
+"
+"scenario1_app_page_load","100","46","home_ready","-1","Fail","page.goto: Timeout 30000ms exceeded.
+Call log:
+[2m  - navigating to ""https://better-bibleguesser.web.app/"", waiting until ""domcontentloaded""[22m
+"
+"scenario1_app_page_load","100","47","home_ready","-1","Fail","page.goto: Timeout 30000ms exceeded.
+Call log:
+[2m  - navigating to ""https://better-bibleguesser.web.app/"", waiting until ""domcontentloaded""[22m
+"
+"scenario1_app_page_load","100","48","home_ready","-1","Fail","page.goto: Timeout 30000ms exceeded.
+Call log:
+[2m  - navigating to ""https://better-bibleguesser.web.app/"", waiting until ""domcontentloaded""[22m
+"
+"scenario1_app_page_load","100","49","home_ready","-1","Fail","page.goto: Timeout 30000ms exceeded.
+Call log:
+[2m  - navigating to ""https://better-bibleguesser.web.app/"", waiting until ""domcontentloaded""[22m
+"
+"scenario1_app_page_load","100","50","home_ready","-1","Fail","page.goto: Timeout 30000ms exceeded.
+Call log:
+[2m  - navigating to ""https://better-bibleguesser.web.app/"", waiting until ""domcontentloaded""[22m
+"
+"scenario1_app_page_load","100","51","home_ready","-1","Fail","page.goto: Timeout 30000ms exceeded.
+Call log:
+[2m  - navigating to ""https://better-bibleguesser.web.app/"", waiting until ""domcontentloaded""[22m
+"
+"scenario1_app_page_load","100","52","home_ready","-1","Fail","page.goto: Timeout 30000ms exceeded.
+Call log:
+[2m  - navigating to ""https://better-bibleguesser.web.app/"", waiting until ""domcontentloaded""[22m
+"
+"scenario1_app_page_load","100","53","home_ready","-1","Fail","page.goto: Timeout 30000ms exceeded.
+Call log:
+[2m  - navigating to ""https://better-bibleguesser.web.app/"", waiting until ""domcontentloaded""[22m
+"
+"scenario1_app_page_load","100","54","home_ready","-1","Fail","page.goto: Timeout 30000ms exceeded.
+Call log:
+[2m  - navigating to ""https://better-bibleguesser.web.app/"", waiting until ""domcontentloaded""[22m
+"
+"scenario1_app_page_load","100","55","home_ready","-1","Fail","page.goto: Timeout 30000ms exceeded.
+Call log:
+[2m  - navigating to ""https://better-bibleguesser.web.app/"", waiting until ""domcontentloaded""[22m
+"
+"scenario1_app_page_load","100","56","home_ready","-1","Fail","page.goto: Timeout 30000ms exceeded.
+Call log:
+[2m  - navigating to ""https://better-bibleguesser.web.app/"", waiting until ""domcontentloaded""[22m
+"
+"scenario1_app_page_load","100","57","home_ready","-1","Fail","page.goto: Timeout 30000ms exceeded.
+Call log:
+[2m  - navigating to ""https://better-bibleguesser.web.app/"", waiting until ""domcontentloaded""[22m
+"
+"scenario1_app_page_load","100","58","home_ready","-1","Fail","page.goto: Timeout 30000ms exceeded.
+Call log:
+[2m  - navigating to ""https://better-bibleguesser.web.app/"", waiting until ""domcontentloaded""[22m
+"
+"scenario1_app_page_load","100","59","home_ready","-1","Fail","page.goto: Timeout 30000ms exceeded.
+Call log:
+[2m  - navigating to ""https://better-bibleguesser.web.app/"", waiting until ""domcontentloaded""[22m
+"
+"scenario1_app_page_load","100","60","home_ready","-1","Fail","page.goto: Timeout 30000ms exceeded.
+Call log:
+[2m  - navigating to ""https://better-bibleguesser.web.app/"", waiting until ""domcontentloaded""[22m
+"
+"scenario1_app_page_load","100","61","home_ready","-1","Fail","page.goto: Timeout 30000ms exceeded.
+Call log:
+[2m  - navigating to ""https://better-bibleguesser.web.app/"", waiting until ""domcontentloaded""[22m
+"
+"scenario1_app_page_load","100","62","home_ready","-1","Fail","page.goto: Timeout 30000ms exceeded.
+Call log:
+[2m  - navigating to ""https://better-bibleguesser.web.app/"", waiting until ""domcontentloaded""[22m
+"
+"scenario1_app_page_load","100","63","home_ready","-1","Fail","page.goto: Timeout 30000ms exceeded.
+Call log:
+[2m  - navigating to ""https://better-bibleguesser.web.app/"", waiting until ""domcontentloaded""[22m
+"
+"scenario1_app_page_load","100","64","home_ready","-1","Fail","page.goto: Timeout 30000ms exceeded.
+Call log:
+[2m  - navigating to ""https://better-bibleguesser.web.app/"", waiting until ""domcontentloaded""[22m
+"
+"scenario2_readonly_public_routes","100","24","quest_and_marketplace_routes_ready","19047","Fail",""
+"scenario1_app_page_load","100","65","home_ready","-1","Fail","page.goto: Timeout 30000ms exceeded.
+Call log:
+[2m  - navigating to ""https://better-bibleguesser.web.app/"", waiting until ""domcontentloaded""[22m
+"
+"scenario1_app_page_load","100","66","home_ready","-1","Fail","page.goto: Timeout 30000ms exceeded.
+Call log:
+[2m  - navigating to ""https://better-bibleguesser.web.app/"", waiting until ""domcontentloaded""[22m
+"
+"scenario1_app_page_load","100","67","home_ready","-1","Fail","page.goto: Timeout 30000ms exceeded.
+Call log:
+[2m  - navigating to ""https://better-bibleguesser.web.app/"", waiting until ""domcontentloaded""[22m
+"
+"scenario1_app_page_load","100","68","home_ready","-1","Fail","page.goto: Timeout 30000ms exceeded.
+Call log:
+[2m  - navigating to ""https://better-bibleguesser.web.app/"", waiting until ""domcontentloaded""[22m
+"
+"scenario1_app_page_load","100","69","home_ready","-1","Fail","page.goto: Timeout 30000ms exceeded.
+Call log:
+[2m  - navigating to ""https://better-bibleguesser.web.app/"", waiting until ""domcontentloaded""[22m
+"
+"scenario1_app_page_load","100","70","home_ready","-1","Fail","page.goto: Timeout 30000ms exceeded.
+Call log:
+[2m  - navigating to ""https://better-bibleguesser.web.app/"", waiting until ""domcontentloaded""[22m
+"
+"scenario1_app_page_load","100","71","home_ready","-1","Fail","page.goto: Timeout 30000ms exceeded.
+Call log:
+[2m  - navigating to ""https://better-bibleguesser.web.app/"", waiting until ""domcontentloaded""[22m
+"
+"scenario1_app_page_load","100","72","home_ready","-1","Fail","page.goto: Timeout 30000ms exceeded.
+Call log:
+[2m  - navigating to ""https://better-bibleguesser.web.app/"", waiting until ""domcontentloaded""[22m
+"
+"scenario1_app_page_load","100","73","home_ready","-1","Fail","page.goto: Timeout 30000ms exceeded.
+Call log:
+[2m  - navigating to ""https://better-bibleguesser.web.app/"", waiting until ""domcontentloaded""[22m
+"
+"scenario1_app_page_load","100","74","home_ready","-1","Fail","page.goto: Timeout 30000ms exceeded.
+Call log:
+[2m  - navigating to ""https://better-bibleguesser.web.app/"", waiting until ""domcontentloaded""[22m
+"
+"scenario1_app_page_load","100","75","home_ready","-1","Fail","page.goto: Timeout 30000ms exceeded.
+Call log:
+[2m  - navigating to ""https://better-bibleguesser.web.app/"", waiting until ""domcontentloaded""[22m
+"
+"scenario1_app_page_load","100","76","home_ready","-1","Fail","page.goto: Timeout 30000ms exceeded.
+Call log:
+[2m  - navigating to ""https://better-bibleguesser.web.app/"", waiting until ""domcontentloaded""[22m
+"
+"scenario1_app_page_load","100","77","home_ready","-1","Fail","page.goto: Timeout 30000ms exceeded.
+Call log:
+[2m  - navigating to ""https://better-bibleguesser.web.app/"", waiting until ""domcontentloaded""[22m
+"
+"scenario1_app_page_load","100","78","home_ready","-1","Fail","page.goto: Timeout 30000ms exceeded.
+Call log:
+[2m  - navigating to ""https://better-bibleguesser.web.app/"", waiting until ""domcontentloaded""[22m
+"
+"scenario1_app_page_load","100","79","home_ready","-1","Fail","page.goto: Timeout 30000ms exceeded.
+Call log:
+[2m  - navigating to ""https://better-bibleguesser.web.app/"", waiting until ""domcontentloaded""[22m
+"
+"scenario1_app_page_load","100","80","home_ready","-1","Fail","page.goto: Timeout 30000ms exceeded.
+Call log:
+[2m  - navigating to ""https://better-bibleguesser.web.app/"", waiting until ""domcontentloaded""[22m
+"
+"scenario1_app_page_load","100","81","home_ready","-1","Fail","page.goto: Timeout 30000ms exceeded.
+Call log:
+[2m  - navigating to ""https://better-bibleguesser.web.app/"", waiting until ""domcontentloaded""[22m
+"
+"scenario1_app_page_load","100","84","home_ready","-1","Fail","page.goto: Timeout 30000ms exceeded.
+Call log:
+[2m  - navigating to ""https://better-bibleguesser.web.app/"", waiting until ""domcontentloaded""[22m
+"
+"scenario1_app_page_load","100","85","home_ready","-1","Fail","page.goto: Timeout 30000ms exceeded.
+Call log:
+[2m  - navigating to ""https://better-bibleguesser.web.app/"", waiting until ""domcontentloaded""[22m
+"
+"scenario1_app_page_load","100","86","home_ready","-1","Fail","page.goto: Timeout 30000ms exceeded.
+Call log:
+[2m  - navigating to ""https://better-bibleguesser.web.app/"", waiting until ""domcontentloaded""[22m
+"
+"scenario1_app_page_load","100","82","home_ready","-1","Fail","page.goto: Timeout 30000ms exceeded.
+Call log:
+[2m  - navigating to ""https://better-bibleguesser.web.app/"", waiting until ""domcontentloaded""[22m
+"
+"scenario1_app_page_load","100","83","home_ready","-1","Fail","page.goto: Timeout 30000ms exceeded.
+Call log:
+[2m  - navigating to ""https://better-bibleguesser.web.app/"", waiting until ""domcontentloaded""[22m
+"
+"scenario1_app_page_load","100","87","home_ready","-1","Fail","page.goto: Timeout 30000ms exceeded.
+Call log:
+[2m  - navigating to ""https://better-bibleguesser.web.app/"", waiting until ""domcontentloaded""[22m
+"
+"scenario1_app_page_load","100","88","home_ready","-1","Fail","page.goto: Timeout 30000ms exceeded.
+Call log:
+[2m  - navigating to ""https://better-bibleguesser.web.app/"", waiting until ""domcontentloaded""[22m
+"
+"scenario1_app_page_load","100","89","home_ready","-1","Fail","page.goto: Timeout 30000ms exceeded.
+Call log:
+[2m  - navigating to ""https://better-bibleguesser.web.app/"", waiting until ""domcontentloaded""[22m
+"
+"scenario1_app_page_load","100","91","home_ready","-1","Fail","page.goto: Timeout 30000ms exceeded.
+Call log:
+[2m  - navigating to ""https://better-bibleguesser.web.app/"", waiting until ""domcontentloaded""[22m
+"
+"scenario1_app_page_load","100","92","home_ready","-1","Fail","page.goto: Timeout 30000ms exceeded.
+Call log:
+[2m  - navigating to ""https://better-bibleguesser.web.app/"", waiting until ""domcontentloaded""[22m
+"
+"scenario1_app_page_load","100","93","home_ready","-1","Fail","page.goto: Timeout 30000ms exceeded.
+Call log:
+[2m  - navigating to ""https://better-bibleguesser.web.app/"", waiting until ""domcontentloaded""[22m
+"
+"scenario1_app_page_load","100","94","home_ready","-1","Fail","page.goto: Timeout 30000ms exceeded.
+Call log:
+[2m  - navigating to ""https://better-bibleguesser.web.app/"", waiting until ""domcontentloaded""[22m
+"
+"scenario1_app_page_load","100","95","home_ready","-1","Fail","page.goto: Timeout 30000ms exceeded.
+Call log:
+[2m  - navigating to ""https://better-bibleguesser.web.app/"", waiting until ""domcontentloaded""[22m
+"
+"scenario1_app_page_load","100","96","home_ready","-1","Fail","page.goto: Timeout 30000ms exceeded.
+Call log:
+[2m  - navigating to ""https://better-bibleguesser.web.app/"", waiting until ""domcontentloaded""[22m
+"
+"scenario1_app_page_load","100","97","home_ready","-1","Fail","page.goto: Timeout 30000ms exceeded.
+Call log:
+[2m  - navigating to ""https://better-bibleguesser.web.app/"", waiting until ""domcontentloaded""[22m
+"
+"scenario1_app_page_load","100","98","home_ready","-1","Fail","page.goto: Timeout 30000ms exceeded.
+Call log:
+[2m  - navigating to ""https://better-bibleguesser.web.app/"", waiting until ""domcontentloaded""[22m
+"
+"scenario1_app_page_load","100","90","home_ready","-1","Fail","page.goto: Timeout 30000ms exceeded.
+Call log:
+[2m  - navigating to ""https://better-bibleguesser.web.app/"", waiting until ""domcontentloaded""[22m
+"
+"scenario1_app_page_load","100","99","home_ready","-1","Fail","page.goto: Timeout 30000ms exceeded.
+Call log:
+[2m  - navigating to ""https://better-bibleguesser.web.app/"", waiting until ""domcontentloaded""[22m
+"
+"scenario1_app_page_load","100","100","home_ready","-1","Fail","page.goto: Timeout 30000ms exceeded.
+Call log:
+[2m  - navigating to ""https://better-bibleguesser.web.app/"", waiting until ""domcontentloaded""[22m
+"
+"scenario3_readonly_visible_rendering","100","13","home_visible_render_ready","16906","Fail",""
+"scenario3_readonly_visible_rendering","100","11","home_visible_render_ready","19893","Fail",""
+"scenario3_readonly_visible_rendering","100","7","home_visible_render_ready","-1","Fail","page.waitForSelector: Timeout 10000ms exceeded.
+Call log:
+[2m  - waiting for locator('main.home-main button, .logo') to be visible[22m
+[2m    15 × locator resolved to 6 elements. Proceeding with the first one: <img class=""logo"" _ngcontent-bky-c43="""" src=""assets/logo.png"" alt=""Better Bible Guesser • ""/>[22m
+"
+"scenario3_readonly_visible_rendering","100","12","home_visible_render_ready","-1","Fail","page.waitForSelector: Timeout 10000ms exceeded.
+Call log:
+[2m  - waiting for locator('main.home-main button, .logo') to be visible[22m
+[2m    15 × locator resolved to 6 elements. Proceeding with the first one: <img class=""logo"" _ngcontent-fbx-c43="""" src=""assets/logo.png"" alt=""Better Bible Guesser • ""/>[22m
+"
+"scenario3_readonly_visible_rendering","100","15","home_visible_render_ready","-1","Fail","page.waitForSelector: Timeout 10000ms exceeded.
+Call log:
+[2m  - waiting for locator('main.home-main button, .logo') to be visible[22m
+[2m    14 × locator resolved to 6 elements. Proceeding with the first one: <img class=""logo"" _ngcontent-agk-c43="""" src=""assets/logo.png"" alt=""Better Bible Guesser • ""/>[22m
+"
+"scenario3_readonly_visible_rendering","100","24","home_visible_render_ready","13050","Fail",""
+"scenario2_readonly_public_routes","100","38","quest_and_marketplace_routes_ready","20544","Fail",""
+"scenario2_readonly_public_routes","100","32","quest_and_marketplace_routes_ready","20558","Fail",""
+"scenario2_readonly_public_routes","100","5","quest_and_marketplace_routes_ready","32131","Fail",""
+"scenario3_readonly_visible_rendering","100","2","home_visible_render_ready","15950","Fail",""
+"scenario3_readonly_visible_rendering","100","38","home_visible_render_ready","2574","Pass",""
+"scenario3_readonly_visible_rendering","100","5","home_visible_render_ready","2639","Pass",""
+"scenario3_readonly_visible_rendering","100","32","home_visible_render_ready","2672","Pass",""
+"scenario2_readonly_public_routes","100","93","quest_and_marketplace_routes_ready","-1","Fail","page.goto: Timeout 30000ms exceeded.
+Call log:
+[2m  - navigating to ""https://better-bibleguesser.web.app/quest"", waiting until ""domcontentloaded""[22m
+"
+"scenario2_readonly_public_routes","100","46","quest_and_marketplace_routes_ready","-1","Fail","page.waitForSelector: Timeout 10000ms exceeded.
+Call log:
+[2m  - waiting for locator('app-quest-header, .container') to be visible[22m
+"
+"scenario2_readonly_public_routes","100","37","quest_and_marketplace_routes_ready","-1","Fail","page.waitForSelector: Timeout 10000ms exceeded.
+Call log:
+[2m  - waiting for locator('app-quest-header, .container') to be visible[22m
+"
+"scenario2_readonly_public_routes","100","47","quest_and_marketplace_routes_ready","-1","Fail","page.waitForSelector: Timeout 10000ms exceeded.
+Call log:
+[2m  - waiting for locator('app-quest-header, .container') to be visible[22m
+"
+"scenario2_readonly_public_routes","100","35","quest_and_marketplace_routes_ready","-1","Fail","page.waitForSelector: Timeout 10000ms exceeded.
+Call log:
+[2m  - waiting for locator('app-quest-header, .container') to be visible[22m
+"
+"scenario2_readonly_public_routes","100","50","quest_and_marketplace_routes_ready","-1","Fail","page.waitForSelector: Timeout 10000ms exceeded.
+Call log:
+[2m  - waiting for locator('app-quest-header, .container') to be visible[22m
+"
+"scenario2_readonly_public_routes","100","49","quest_and_marketplace_routes_ready","-1","Fail","page.waitForSelector: Timeout 10000ms exceeded.
+Call log:
+[2m  - waiting for locator('app-quest-header, .container') to be visible[22m
+"
+"scenario2_readonly_public_routes","100","30","quest_and_marketplace_routes_ready","-1","Fail","page.waitForSelector: Timeout 10000ms exceeded.
+Call log:
+[2m  - waiting for locator('app-quest-header, .container') to be visible[22m
+"
+"scenario2_readonly_public_routes","100","41","quest_and_marketplace_routes_ready","-1","Fail","page.waitForSelector: Timeout 10000ms exceeded.
+Call log:
+[2m  - waiting for locator('app-quest-header, .container') to be visible[22m
+"
+"scenario2_readonly_public_routes","100","9","quest_and_marketplace_routes_ready","-1","Fail","page.waitForSelector: Timeout 10000ms exceeded.
+Call log:
+[2m  - waiting for locator('app-quest-header, .container') to be visible[22m
+"
+"scenario2_readonly_public_routes","100","33","quest_and_marketplace_routes_ready","-1","Fail","page.waitForSelector: Timeout 10000ms exceeded.
+Call log:
+[2m  - waiting for locator('app-quest-header, .container') to be visible[22m
+"
+"scenario2_readonly_public_routes","100","26","quest_and_marketplace_routes_ready","-1","Fail","page.waitForSelector: Timeout 10000ms exceeded.
+Call log:
+[2m  - waiting for locator('app-quest-header, .container') to be visible[22m
+"
+"scenario2_readonly_public_routes","100","51","quest_and_marketplace_routes_ready","-1","Fail","page.waitForSelector: Timeout 10000ms exceeded.
+Call log:
+[2m  - waiting for locator('app-quest-header, .container') to be visible[22m
+"
+"scenario2_readonly_public_routes","100","34","quest_and_marketplace_routes_ready","-1","Fail","page.waitForSelector: Timeout 10000ms exceeded.
+Call log:
+[2m  - waiting for locator('app-quest-header, .container') to be visible[22m
+"
+"scenario2_readonly_public_routes","100","39","quest_and_marketplace_routes_ready","-1","Fail","page.waitForSelector: Timeout 10000ms exceeded.
+Call log:
+[2m  - waiting for locator('app-quest-header, .container') to be visible[22m
+"
+"scenario2_readonly_public_routes","100","45","quest_and_marketplace_routes_ready","-1","Fail","page.waitForSelector: Timeout 10000ms exceeded.
+Call log:
+[2m  - waiting for locator('app-quest-header, .container') to be visible[22m
+"
+"scenario2_readonly_public_routes","100","29","quest_and_marketplace_routes_ready","-1","Fail","page.waitForSelector: Timeout 10000ms exceeded.
+Call log:
+[2m  - waiting for locator('app-quest-header, .container') to be visible[22m
+"
+"scenario2_readonly_public_routes","100","40","quest_and_marketplace_routes_ready","-1","Fail","page.waitForSelector: Timeout 10000ms exceeded.
+Call log:
+[2m  - waiting for locator('app-quest-header, .container') to be visible[22m
+"
+"scenario2_readonly_public_routes","100","52","quest_and_marketplace_routes_ready","-1","Fail","page.waitForSelector: Timeout 10000ms exceeded.
+Call log:
+[2m  - waiting for locator('app-quest-header, .container') to be visible[22m
+"
+"scenario2_readonly_public_routes","100","28","quest_and_marketplace_routes_ready","-1","Fail","page.waitForSelector: Timeout 10000ms exceeded.
+Call log:
+[2m  - waiting for locator('app-quest-header, .container') to be visible[22m
+"
+"scenario2_readonly_public_routes","100","3","quest_and_marketplace_routes_ready","-1","Fail","page.waitForSelector: Timeout 10000ms exceeded.
+Call log:
+[2m  - waiting for locator('app-quest-header, .container') to be visible[22m
+"
+"scenario2_readonly_public_routes","100","53","quest_and_marketplace_routes_ready","-1","Fail","page.waitForSelector: Timeout 10000ms exceeded.
+Call log:
+[2m  - waiting for locator('app-quest-header, .container') to be visible[22m
+"
+"scenario2_readonly_public_routes","100","36","quest_and_marketplace_routes_ready","-1","Fail","page.waitForSelector: Timeout 10000ms exceeded.
+Call log:
+[2m  - waiting for locator('app-quest-header, .container') to be visible[22m
+"
+"scenario2_readonly_public_routes","100","10","quest_and_marketplace_routes_ready","-1","Fail","page.waitForSelector: Timeout 10000ms exceeded.
+Call log:
+[2m  - waiting for locator('app-quest-header, .container') to be visible[22m
+"
+"scenario2_readonly_public_routes","100","21","quest_and_marketplace_routes_ready","-1","Fail","page.waitForSelector: Timeout 10000ms exceeded.
+Call log:
+[2m  - waiting for locator('app-quest-header, .container') to be visible[22m
+"
+"scenario2_readonly_public_routes","100","54","quest_and_marketplace_routes_ready","-1","Fail","page.waitForSelector: Timeout 10000ms exceeded.
+Call log:
+[2m  - waiting for locator('app-quest-header, .container') to be visible[22m
+"
+"scenario2_readonly_public_routes","100","23","quest_and_marketplace_routes_ready","-1","Fail","page.waitForSelector: Timeout 10000ms exceeded.
+Call log:
+[2m  - waiting for locator('app-quest-header, .container') to be visible[22m
+"
+"scenario2_readonly_public_routes","100","27","quest_and_marketplace_routes_ready","-1","Fail","page.waitForSelector: Timeout 10000ms exceeded.
+Call log:
+[2m  - waiting for locator('app-quest-header, .container') to be visible[22m
+"
+"scenario2_readonly_public_routes","100","25","quest_and_marketplace_routes_ready","-1","Fail","page.waitForSelector: Timeout 10000ms exceeded.
+Call log:
+[2m  - waiting for locator('app-quest-header, .container') to be visible[22m
+"
+"scenario2_readonly_public_routes","100","60","quest_and_marketplace_routes_ready","-1","Fail","page.waitForSelector: Timeout 10000ms exceeded.
+Call log:
+[2m  - waiting for locator('app-quest-header, .container') to be visible[22m
+"
+"scenario2_readonly_public_routes","100","42","quest_and_marketplace_routes_ready","-1","Fail","page.waitForSelector: Timeout 10000ms exceeded.
+Call log:
+[2m  - waiting for locator('app-quest-header, .container') to be visible[22m
+"
+"scenario2_readonly_public_routes","100","14","quest_and_marketplace_routes_ready","-1","Fail","page.waitForSelector: Timeout 10000ms exceeded.
+Call log:
+[2m  - waiting for locator('app-quest-header, .container') to be visible[22m
+"
+"scenario2_readonly_public_routes","100","55","quest_and_marketplace_routes_ready","-1","Fail","page.waitForSelector: Timeout 10000ms exceeded.
+Call log:
+[2m  - waiting for locator('app-quest-header, .container') to be visible[22m
+"
+"scenario2_readonly_public_routes","100","56","quest_and_marketplace_routes_ready","-1","Fail","page.waitForSelector: Timeout 10000ms exceeded.
+Call log:
+[2m  - waiting for locator('app-quest-header, .container') to be visible[22m
+"
+"scenario2_readonly_public_routes","100","74","quest_and_marketplace_routes_ready","-1","Fail","page.waitForSelector: Timeout 10000ms exceeded.
+Call log:
+[2m  - waiting for locator('app-quest-header, .container') to be visible[22m
+"
+"scenario2_readonly_public_routes","100","70","quest_and_marketplace_routes_ready","-1","Fail","page.waitForSelector: Timeout 10000ms exceeded.
+Call log:
+[2m  - waiting for locator('app-quest-header, .container') to be visible[22m
+"
+"scenario2_readonly_public_routes","100","69","quest_and_marketplace_routes_ready","-1","Fail","page.waitForSelector: Timeout 10000ms exceeded.
+Call log:
+[2m  - waiting for locator('app-quest-header, .container') to be visible[22m
+"
+"scenario2_readonly_public_routes","100","61","quest_and_marketplace_routes_ready","-1","Fail","page.waitForSelector: Timeout 10000ms exceeded.
+Call log:
+[2m  - waiting for locator('app-quest-header, .container') to be visible[22m
+"
+"scenario2_readonly_public_routes","100","77","quest_and_marketplace_routes_ready","-1","Fail","page.waitForSelector: Timeout 10000ms exceeded.
+Call log:
+[2m  - waiting for locator('app-quest-header, .container') to be visible[22m
+"
+"scenario2_readonly_public_routes","100","59","quest_and_marketplace_routes_ready","-1","Fail","page.waitForSelector: Timeout 10000ms exceeded.
+Call log:
+[2m  - waiting for locator('app-quest-header, .container') to be visible[22m
+"
+"scenario2_readonly_public_routes","100","73","quest_and_marketplace_routes_ready","-1","Fail","page.waitForSelector: Timeout 10000ms exceeded.
+Call log:
+[2m  - waiting for locator('app-quest-header, .container') to be visible[22m
+"
+"scenario2_readonly_public_routes","100","75","quest_and_marketplace_routes_ready","-1","Fail","page.waitForSelector: Timeout 10000ms exceeded.
+Call log:
+[2m  - waiting for locator('app-quest-header, .container') to be visible[22m
+"
+"scenario2_readonly_public_routes","100","68","quest_and_marketplace_routes_ready","-1","Fail","page.waitForSelector: Timeout 10000ms exceeded.
+Call log:
+[2m  - waiting for locator('app-quest-header, .container') to be visible[22m
+"
+"scenario2_readonly_public_routes","100","67","quest_and_marketplace_routes_ready","-1","Fail","page.waitForSelector: Timeout 10000ms exceeded.
+Call log:
+[2m  - waiting for locator('app-quest-header, .container') to be visible[22m
+"
+"scenario2_readonly_public_routes","100","62","quest_and_marketplace_routes_ready","-1","Fail","page.waitForSelector: Timeout 10000ms exceeded.
+Call log:
+[2m  - waiting for locator('app-quest-header, .container') to be visible[22m
+"
+"scenario2_readonly_public_routes","100","63","quest_and_marketplace_routes_ready","-1","Fail","page.waitForSelector: Timeout 10000ms exceeded.
+Call log:
+[2m  - waiting for locator('app-quest-header, .container') to be visible[22m
+"
+"scenario2_readonly_public_routes","100","71","quest_and_marketplace_routes_ready","-1","Fail","page.waitForSelector: Timeout 10000ms exceeded.
+Call log:
+[2m  - waiting for locator('app-quest-header, .container') to be visible[22m
+"
+"scenario2_readonly_public_routes","100","57","quest_and_marketplace_routes_ready","-1","Fail","page.waitForSelector: Timeout 10000ms exceeded.
+Call log:
+[2m  - waiting for locator('app-quest-header, .container') to be visible[22m
+"
+"scenario2_readonly_public_routes","100","76","quest_and_marketplace_routes_ready","-1","Fail","page.waitForSelector: Timeout 10000ms exceeded.
+Call log:
+[2m  - waiting for locator('app-quest-header, .container') to be visible[22m
+"
+"scenario2_readonly_public_routes","100","65","quest_and_marketplace_routes_ready","-1","Fail","page.waitForSelector: Timeout 10000ms exceeded.
+Call log:
+[2m  - waiting for locator('app-quest-header, .container') to be visible[22m
+"
+"scenario2_readonly_public_routes","100","79","quest_and_marketplace_routes_ready","-1","Fail","page.waitForSelector: Timeout 10000ms exceeded.
+Call log:
+[2m  - waiting for locator('app-quest-header, .container') to be visible[22m
+"
+"scenario2_readonly_public_routes","100","66","quest_and_marketplace_routes_ready","-1","Fail","page.waitForSelector: Timeout 10000ms exceeded.
+Call log:
+[2m  - waiting for locator('app-quest-header, .container') to be visible[22m
+"
+"scenario2_readonly_public_routes","100","64","quest_and_marketplace_routes_ready","-1","Fail","page.waitForSelector: Timeout 10000ms exceeded.
+Call log:
+[2m  - waiting for locator('app-quest-header, .container') to be visible[22m
+"
+"scenario2_readonly_public_routes","100","80","quest_and_marketplace_routes_ready","-1","Fail","page.waitForSelector: Timeout 10000ms exceeded.
+Call log:
+[2m  - waiting for locator('app-quest-header, .container') to be visible[22m
+"
+"scenario2_readonly_public_routes","100","48","quest_and_marketplace_routes_ready","-1","Fail","page.waitForSelector: Timeout 10000ms exceeded.
+Call log:
+[2m  - waiting for locator('app-quest-header, .container') to be visible[22m
+"
+"scenario2_readonly_public_routes","100","81","quest_and_marketplace_routes_ready","-1","Fail","page.waitForSelector: Timeout 10000ms exceeded.
+Call log:
+[2m  - waiting for locator('app-quest-header, .container') to be visible[22m
+"
+"scenario2_readonly_public_routes","100","89","quest_and_marketplace_routes_ready","-1","Fail","page.waitForSelector: Timeout 10000ms exceeded.
+Call log:
+[2m  - waiting for locator('app-quest-header, .container') to be visible[22m
+"
+"scenario2_readonly_public_routes","100","82","quest_and_marketplace_routes_ready","-1","Fail","page.waitForSelector: Timeout 10000ms exceeded.
+Call log:
+[2m  - waiting for locator('app-quest-header, .container') to be visible[22m
+"
+"scenario2_readonly_public_routes","100","83","quest_and_marketplace_routes_ready","-1","Fail","page.waitForSelector: Timeout 10000ms exceeded.
+Call log:
+[2m  - waiting for locator('app-quest-header, .container') to be visible[22m
+"
+"scenario2_readonly_public_routes","100","86","quest_and_marketplace_routes_ready","-1","Fail","page.waitForSelector: Timeout 10000ms exceeded.
+Call log:
+[2m  - waiting for locator('app-quest-header, .container') to be visible[22m
+"
+"scenario2_readonly_public_routes","100","84","quest_and_marketplace_routes_ready","-1","Fail","page.waitForSelector: Timeout 10000ms exceeded.
+Call log:
+[2m  - waiting for locator('app-quest-header, .container') to be visible[22m
+"
+"scenario2_readonly_public_routes","100","87","quest_and_marketplace_routes_ready","-1","Fail","page.waitForSelector: Timeout 10000ms exceeded.
+Call log:
+[2m  - waiting for locator('app-quest-header, .container') to be visible[22m
+"
+"scenario2_readonly_public_routes","100","88","quest_and_marketplace_routes_ready","-1","Fail","page.waitForSelector: Timeout 10000ms exceeded.
+Call log:
+[2m  - waiting for locator('app-quest-header, .container') to be visible[22m
+"
+"scenario2_readonly_public_routes","100","91","quest_and_marketplace_routes_ready","-1","Fail","page.waitForSelector: Timeout 10000ms exceeded.
+Call log:
+[2m  - waiting for locator('app-quest-header, .container') to be visible[22m
+"
+"scenario2_readonly_public_routes","100","85","quest_and_marketplace_routes_ready","-1","Fail","page.waitForSelector: Timeout 10000ms exceeded.
+Call log:
+[2m  - waiting for locator('app-quest-header, .container') to be visible[22m
+"
+"scenario2_readonly_public_routes","100","92","quest_and_marketplace_routes_ready","-1","Fail","page.waitForSelector: Timeout 10000ms exceeded.
+Call log:
+[2m  - waiting for locator('app-quest-header, .container') to be visible[22m
+"
+"scenario2_readonly_public_routes","100","31","quest_and_marketplace_routes_ready","-1","Fail","page.waitForSelector: Timeout 10000ms exceeded.
+Call log:
+[2m  - waiting for locator('app-quest-header, .container') to be visible[22m
+"
+"scenario2_readonly_public_routes","100","90","quest_and_marketplace_routes_ready","-1","Fail","page.waitForSelector: Timeout 10000ms exceeded.
+Call log:
+[2m  - waiting for locator('app-quest-header, .container') to be visible[22m
+"
+"scenario2_readonly_public_routes","100","100","quest_and_marketplace_routes_ready","-1","Fail","page.waitForSelector: Timeout 10000ms exceeded.
+Call log:
+[2m  - waiting for locator('app-quest-header, .container') to be visible[22m
+"
+"scenario2_readonly_public_routes","100","98","quest_and_marketplace_routes_ready","-1","Fail","page.waitForSelector: Timeout 10000ms exceeded.
+Call log:
+[2m  - waiting for locator('app-quest-header, .container') to be visible[22m
+"
+"scenario2_readonly_public_routes","100","22","quest_and_marketplace_routes_ready","-1","Fail","page.waitForSelector: Timeout 10000ms exceeded.
+Call log:
+[2m  - waiting for locator('app-quest-header, .container') to be visible[22m
+"
+"scenario2_readonly_public_routes","100","95","quest_and_marketplace_routes_ready","-1","Fail","page.waitForSelector: Timeout 10000ms exceeded.
+Call log:
+[2m  - waiting for locator('app-quest-header, .container') to be visible[22m
+"
+"scenario2_readonly_public_routes","100","44","quest_and_marketplace_routes_ready","-1","Fail","page.waitForSelector: Timeout 10000ms exceeded.
+Call log:
+[2m  - waiting for locator('app-quest-header, .container') to be visible[22m
+"
+"scenario2_readonly_public_routes","100","43","quest_and_marketplace_routes_ready","-1","Fail","page.waitForSelector: Timeout 10000ms exceeded.
+Call log:
+[2m  - waiting for locator('app-quest-header, .container') to be visible[22m
+"
+"scenario2_readonly_public_routes","100","97","quest_and_marketplace_routes_ready","-1","Fail","page.waitForSelector: Timeout 10000ms exceeded.
+Call log:
+[2m  - waiting for locator('app-quest-header, .container') to be visible[22m
+"
+"scenario2_readonly_public_routes","100","94","quest_and_marketplace_routes_ready","-1","Fail","page.waitForSelector: Timeout 10000ms exceeded.
+Call log:
+[2m  - waiting for locator('app-quest-header, .container') to be visible[22m
+"
+"scenario2_readonly_public_routes","100","99","quest_and_marketplace_routes_ready","-1","Fail","page.waitForSelector: Timeout 10000ms exceeded.
+Call log:
+[2m  - waiting for locator('app-quest-header, .container') to be visible[22m
+"
+"scenario2_readonly_public_routes","100","96","quest_and_marketplace_routes_ready","-1","Fail","page.waitForSelector: Timeout 10000ms exceeded.
+Call log:
+[2m  - waiting for locator('app-quest-header, .container') to be visible[22m
+"
+"scenario2_readonly_public_routes","100","58","quest_and_marketplace_routes_ready","-1","Fail","page.waitForSelector: Timeout 10000ms exceeded.
+Call log:
+[2m  - waiting for locator('app-quest-header, .container') to be visible[22m
+"
+"scenario2_readonly_public_routes","100","78","quest_and_marketplace_routes_ready","-1","Fail","page.waitForSelector: Timeout 10000ms exceeded.
+Call log:
+[2m  - waiting for locator('app-quest-header, .container') to be visible[22m
+"
+"scenario2_readonly_public_routes","100","72","quest_and_marketplace_routes_ready","-1","Fail","page.waitForSelector: Timeout 10000ms exceeded.
+Call log:
+[2m  - waiting for locator('app-quest-header, .container') to be visible[22m
+"
+"scenario3_readonly_visible_rendering","100","93","home_visible_render_ready","-1","Fail","page.goto: Timeout 30000ms exceeded.
+Call log:
+[2m  - navigating to ""https://better-bibleguesser.web.app/"", waiting until ""domcontentloaded""[22m
+"
+"scenario3_readonly_visible_rendering","100","46","home_visible_render_ready","-1","Fail","page.goto: Timeout 30000ms exceeded.
+Call log:
+[2m  - navigating to ""https://better-bibleguesser.web.app/"", waiting until ""domcontentloaded""[22m
+"
+"scenario3_readonly_visible_rendering","100","37","home_visible_render_ready","-1","Fail","page.goto: Timeout 30000ms exceeded.
+Call log:
+[2m  - navigating to ""https://better-bibleguesser.web.app/"", waiting until ""domcontentloaded""[22m
+"
+"scenario3_readonly_visible_rendering","100","47","home_visible_render_ready","-1","Fail","page.goto: Timeout 30000ms exceeded.
+Call log:
+[2m  - navigating to ""https://better-bibleguesser.web.app/"", waiting until ""domcontentloaded""[22m
+"
+"scenario3_readonly_visible_rendering","100","35","home_visible_render_ready","-1","Fail","page.goto: Timeout 30000ms exceeded.
+Call log:
+[2m  - navigating to ""https://better-bibleguesser.web.app/"", waiting until ""domcontentloaded""[22m
+"
+"scenario3_readonly_visible_rendering","100","50","home_visible_render_ready","-1","Fail","page.goto: Timeout 30000ms exceeded.
+Call log:
+[2m  - navigating to ""https://better-bibleguesser.web.app/"", waiting until ""domcontentloaded""[22m
+"
+"scenario3_readonly_visible_rendering","100","49","home_visible_render_ready","-1","Fail","page.goto: Timeout 30000ms exceeded.
+Call log:
+[2m  - navigating to ""https://better-bibleguesser.web.app/"", waiting until ""domcontentloaded""[22m
+"
+"scenario3_readonly_visible_rendering","100","30","home_visible_render_ready","-1","Fail","page.goto: Timeout 30000ms exceeded.
+Call log:
+[2m  - navigating to ""https://better-bibleguesser.web.app/"", waiting until ""domcontentloaded""[22m
+"
+"scenario3_readonly_visible_rendering","100","41","home_visible_render_ready","-1","Fail","page.goto: Timeout 30000ms exceeded.
+Call log:
+[2m  - navigating to ""https://better-bibleguesser.web.app/"", waiting until ""domcontentloaded""[22m
+"
+"scenario3_readonly_visible_rendering","100","9","home_visible_render_ready","-1","Fail","page.goto: Timeout 30000ms exceeded.
+Call log:
+[2m  - navigating to ""https://better-bibleguesser.web.app/"", waiting until ""domcontentloaded""[22m
+"
+"scenario3_readonly_visible_rendering","100","33","home_visible_render_ready","-1","Fail","page.goto: Timeout 30000ms exceeded.
+Call log:
+[2m  - navigating to ""https://better-bibleguesser.web.app/"", waiting until ""domcontentloaded""[22m
+"
+"scenario3_readonly_visible_rendering","100","26","home_visible_render_ready","-1","Fail","page.goto: Timeout 30000ms exceeded.
+Call log:
+[2m  - navigating to ""https://better-bibleguesser.web.app/"", waiting until ""domcontentloaded""[22m
+"
+"scenario3_readonly_visible_rendering","100","51","home_visible_render_ready","-1","Fail","page.goto: Timeout 30000ms exceeded.
+Call log:
+[2m  - navigating to ""https://better-bibleguesser.web.app/"", waiting until ""domcontentloaded""[22m
+"
+"scenario3_readonly_visible_rendering","100","34","home_visible_render_ready","-1","Fail","page.goto: Timeout 30000ms exceeded.
+Call log:
+[2m  - navigating to ""https://better-bibleguesser.web.app/"", waiting until ""domcontentloaded""[22m
+"
+"scenario3_readonly_visible_rendering","100","39","home_visible_render_ready","-1","Fail","page.goto: Timeout 30000ms exceeded.
+Call log:
+[2m  - navigating to ""https://better-bibleguesser.web.app/"", waiting until ""domcontentloaded""[22m
+"
+"scenario3_readonly_visible_rendering","100","45","home_visible_render_ready","-1","Fail","page.goto: Timeout 30000ms exceeded.
+Call log:
+[2m  - navigating to ""https://better-bibleguesser.web.app/"", waiting until ""domcontentloaded""[22m
+"
+"scenario3_readonly_visible_rendering","100","29","home_visible_render_ready","-1","Fail","page.goto: Timeout 30000ms exceeded.
+Call log:
+[2m  - navigating to ""https://better-bibleguesser.web.app/"", waiting until ""domcontentloaded""[22m
+"
+"scenario3_readonly_visible_rendering","100","40","home_visible_render_ready","-1","Fail","page.goto: Timeout 30000ms exceeded.
+Call log:
+[2m  - navigating to ""https://better-bibleguesser.web.app/"", waiting until ""domcontentloaded""[22m
+"
+"scenario3_readonly_visible_rendering","100","52","home_visible_render_ready","-1","Fail","page.goto: Timeout 30000ms exceeded.
+Call log:
+[2m  - navigating to ""https://better-bibleguesser.web.app/"", waiting until ""domcontentloaded""[22m
+"
+"scenario3_readonly_visible_rendering","100","28","home_visible_render_ready","-1","Fail","page.goto: Timeout 30000ms exceeded.
+Call log:
+[2m  - navigating to ""https://better-bibleguesser.web.app/"", waiting until ""domcontentloaded""[22m
+"
+"scenario3_readonly_visible_rendering","100","3","home_visible_render_ready","-1","Fail","page.goto: Timeout 30000ms exceeded.
+Call log:
+[2m  - navigating to ""https://better-bibleguesser.web.app/"", waiting until ""domcontentloaded""[22m
+"
+"scenario3_readonly_visible_rendering","100","53","home_visible_render_ready","-1","Fail","page.goto: Timeout 30000ms exceeded.
+Call log:
+[2m  - navigating to ""https://better-bibleguesser.web.app/"", waiting until ""domcontentloaded""[22m
+"
+"scenario3_readonly_visible_rendering","100","77","home_visible_render_ready","35900","Fail",""
+"scenario3_readonly_visible_rendering","100","59","home_visible_render_ready","35634","Fail",""
+"scenario3_readonly_visible_rendering","100","71","home_visible_render_ready","33152","Fail",""
+"scenario3_readonly_visible_rendering","100","21","home_visible_render_ready","41494","Fail",""
+"scenario3_readonly_visible_rendering","100","42","home_visible_render_ready","41376","Fail",""
+"scenario3_readonly_visible_rendering","100","25","home_visible_render_ready","41492","Fail",""
+"scenario3_readonly_visible_rendering","100","56","home_visible_render_ready","41166","Fail",""
+"scenario3_readonly_visible_rendering","100","75","home_visible_render_ready","33976","Fail",""
+"scenario3_readonly_visible_rendering","100","60","home_visible_render_ready","41499","Fail",""
+"scenario3_readonly_visible_rendering","100","27","home_visible_render_ready","41506","Fail",""
+"scenario3_readonly_visible_rendering","100","10","home_visible_render_ready","41533","Fail",""
+"scenario3_readonly_visible_rendering","100","61","home_visible_render_ready","36014","Fail",""
+"scenario3_readonly_visible_rendering","100","63","home_visible_render_ready","33253","Fail",""
+"scenario3_readonly_visible_rendering","100","36","home_visible_render_ready","43278","Fail",""
+"scenario3_readonly_visible_rendering","100","70","home_visible_render_ready","37737","Fail",""
+"scenario3_readonly_visible_rendering","100","54","home_visible_render_ready","41562","Fail",""
+"scenario3_readonly_visible_rendering","100","68","home_visible_render_ready","33566","Fail",""
+"scenario3_readonly_visible_rendering","100","69","home_visible_render_ready","36221","Fail",""
+"scenario3_readonly_visible_rendering","100","74","home_visible_render_ready","39557","Fail",""
+"scenario3_readonly_visible_rendering","100","67","home_visible_render_ready","35655","Fail",""
+"scenario3_readonly_visible_rendering","100","57","home_visible_render_ready","35468","Fail",""
+"scenario3_readonly_visible_rendering","100","76","home_visible_render_ready","34498","Fail",""
+"scenario3_readonly_visible_rendering","100","55","home_visible_render_ready","43854","Fail",""
+"scenario3_readonly_visible_rendering","100","100","home_visible_render_ready","29887","Fail",""
+"scenario3_readonly_visible_rendering","100","81","home_visible_render_ready","30479","Fail",""
+"scenario3_readonly_visible_rendering","100","98","home_visible_render_ready","29853","Fail",""
+"scenario3_readonly_visible_rendering","100","44","home_visible_render_ready","29372","Fail",""
+"scenario3_readonly_visible_rendering","100","95","home_visible_render_ready","29879","Fail",""
+"scenario3_readonly_visible_rendering","100","86","home_visible_render_ready","30523","Fail",""
+"scenario3_readonly_visible_rendering","100","14","home_visible_render_ready","44245","Fail",""
+"scenario3_readonly_visible_rendering","100","79","home_visible_render_ready","32821","Fail",""
+"scenario3_readonly_visible_rendering","100","66","home_visible_render_ready","32326","Fail",""
+"scenario3_readonly_visible_rendering","100","80","home_visible_render_ready","31999","Fail",""
+"scenario3_readonly_visible_rendering","100","64","home_visible_render_ready","32015","Fail",""
+"scenario3_readonly_visible_rendering","100","87","home_visible_render_ready","30626","Fail",""
+"scenario3_readonly_visible_rendering","100","83","home_visible_render_ready","30652","Fail",""
+"scenario3_readonly_visible_rendering","100","23","home_visible_render_ready","44534","Fail",""
+"scenario3_readonly_visible_rendering","100","84","home_visible_render_ready","30660","Fail",""
+"scenario3_readonly_visible_rendering","100","92","home_visible_render_ready","30657","Fail",""
+"scenario3_readonly_visible_rendering","100","91","home_visible_render_ready","30666","Fail",""
+"scenario3_readonly_visible_rendering","100","31","home_visible_render_ready","30498","Fail",""
+"scenario3_readonly_visible_rendering","100","88","home_visible_render_ready","30695","Fail",""
+"scenario3_readonly_visible_rendering","100","43","home_visible_render_ready","28947","Fail",""
+"scenario3_readonly_visible_rendering","100","89","home_visible_render_ready","30737","Fail",""
+"scenario3_readonly_visible_rendering","100","78","home_visible_render_ready","27004","Fail",""
+"scenario3_readonly_visible_rendering","100","58","home_visible_render_ready","27760","Fail",""
+"scenario3_readonly_visible_rendering","100","97","home_visible_render_ready","28985","Fail",""
+"scenario3_readonly_visible_rendering","100","94","home_visible_render_ready","28996","Fail",""
+"scenario3_readonly_visible_rendering","100","82","home_visible_render_ready","30774","Fail",""
+"scenario3_readonly_visible_rendering","100","99","home_visible_render_ready","28961","Fail",""
+"scenario3_readonly_visible_rendering","100","96","home_visible_render_ready","28532","Fail",""
+"scenario3_readonly_visible_rendering","100","22","home_visible_render_ready","30166","Fail",""
+"scenario3_readonly_visible_rendering","100","62","home_visible_render_ready","36803","Fail",""
+"scenario3_readonly_visible_rendering","100","85","home_visible_render_ready","31159","Fail",""
+"scenario3_readonly_visible_rendering","100","90","home_visible_render_ready","31737","Fail",""
+"scenario3_readonly_visible_rendering","100","73","home_visible_render_ready","39527","Fail",""
+"scenario3_readonly_visible_rendering","100","65","home_visible_render_ready","35136","Fail",""
+"scenario3_readonly_visible_rendering","100","48","home_visible_render_ready","33415","Fail",""
+"scenario3_readonly_visible_rendering","100","72","home_visible_render_ready","-1","Fail","page.waitForSelector: Timeout 10000ms exceeded.
+Call log:
+[2m  - waiting for locator('main.home-main button, .logo') to be visible[22m
+[2m    - locator resolved to 6 elements. Proceeding with the first one: <img class=""logo"" _ngcontent-jki-c43="""" src=""assets/logo.png"" alt=""Better Bible Guesser • ""/>[22m
+"

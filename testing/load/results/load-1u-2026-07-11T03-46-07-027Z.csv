@@ -1,0 +1,4 @@
+"scenario","users","userIndex","step","responseTimeMs","passFail","error"
+"scenario1_app_page_load","1","1","home_ready","383","Pass",""
+"scenario2_readonly_public_routes","1","1","quest_and_marketplace_routes_ready","164","Pass",""
+"scenario3_readonly_visible_rendering","1","1","home_visible_render_ready","67","Pass",""

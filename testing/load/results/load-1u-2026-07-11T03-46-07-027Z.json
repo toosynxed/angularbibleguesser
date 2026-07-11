@@ -1,0 +1,36 @@
+{
+  "startedAt": "2026-07-11T03:46:06.127Z",
+  "finishedAt": "2026-07-11T03:46:07.027Z",
+  "baseUrl": "https://better-bibleguesser.web.app",
+  "readOnly": true,
+  "users": 1,
+  "rows": [
+    {
+      "scenario": "scenario1_app_page_load",
+      "users": 1,
+      "userIndex": 1,
+      "step": "home_ready",
+      "responseTimeMs": 383,
+      "passFail": "Pass",
+      "error": ""
+    },
+    {
+      "scenario": "scenario2_readonly_public_routes",
+      "users": 1,
+      "userIndex": 1,
+      "step": "quest_and_marketplace_routes_ready",
+      "responseTimeMs": 164,
+      "passFail": "Pass",
+      "error": ""
+    },
+    {
+      "scenario": "scenario3_readonly_visible_rendering",
+      "users": 1,
+      "userIndex": 1,
+      "step": "home_visible_render_ready",
+      "responseTimeMs": 67,
+      "passFail": "Pass",
+      "error": ""
+    }
+  ]
+}

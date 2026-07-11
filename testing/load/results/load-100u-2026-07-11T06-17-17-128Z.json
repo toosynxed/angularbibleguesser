@@ -1,0 +1,2709 @@
+{
+  "startedAt": "2026-07-11T06:14:45.038Z",
+  "finishedAt": "2026-07-11T06:17:17.128Z",
+  "baseUrl": "https://better-bibleguesser.web.app",
+  "readOnly": true,
+  "users": 100,
+  "rows": [
+    {
+      "scenario": "scenario1_app_page_load",
+      "users": 100,
+      "userIndex": 20,
+      "step": "home_ready",
+      "responseTimeMs": 5092,
+      "passFail": "Fail",
+      "error": ""
+    },
+    {
+      "scenario": "scenario1_app_page_load",
+      "users": 100,
+      "userIndex": 6,
+      "step": "home_ready",
+      "responseTimeMs": 5106,
+      "passFail": "Fail",
+      "error": ""
+    },
+    {
+      "scenario": "scenario1_app_page_load",
+      "users": 100,
+      "userIndex": 2,
+      "step": "home_ready",
+      "responseTimeMs": 5113,
+      "passFail": "Fail",
+      "error": ""
+    },
+    {
+      "scenario": "scenario1_app_page_load",
+      "users": 100,
+      "userIndex": 8,
+      "step": "home_ready",
+      "responseTimeMs": 5116,
+      "passFail": "Fail",
+      "error": ""
+    },
+    {
+      "scenario": "scenario1_app_page_load",
+      "users": 100,
+      "userIndex": 12,
+      "step": "home_ready",
+      "responseTimeMs": 5162,
+      "passFail": "Fail",
+      "error": ""
+    },
+    {
+      "scenario": "scenario1_app_page_load",
+      "users": 100,
+      "userIndex": 17,
+      "step": "home_ready",
+      "responseTimeMs": 5167,
+      "passFail": "Fail",
+      "error": ""
+    },
+    {
+      "scenario": "scenario1_app_page_load",
+      "users": 100,
+      "userIndex": 16,
+      "step": "home_ready",
+      "responseTimeMs": 5044,
+      "passFail": "Fail",
+      "error": ""
+    },
+    {
+      "scenario": "scenario1_app_page_load",
+      "users": 100,
+      "userIndex": 18,
+      "step": "home_ready",
+      "responseTimeMs": 5171,
+      "passFail": "Fail",
+      "error": ""
+    },
+    {
+      "scenario": "scenario1_app_page_load",
+      "users": 100,
+      "userIndex": 13,
+      "step": "home_ready",
+      "responseTimeMs": 5173,
+      "passFail": "Fail",
+      "error": ""
+    },
+    {
+      "scenario": "scenario1_app_page_load",
+      "users": 100,
+      "userIndex": 4,
+      "step": "home_ready",
+      "responseTimeMs": 5320,
+      "passFail": "Fail",
+      "error": ""
+    },
+    {
+      "scenario": "scenario1_app_page_load",
+      "users": 100,
+      "userIndex": 11,
+      "step": "home_ready",
+      "responseTimeMs": 5318,
+      "passFail": "Fail",
+      "error": ""
+    },
+    {
+      "scenario": "scenario1_app_page_load",
+      "users": 100,
+      "userIndex": 1,
+      "step": "home_ready",
+      "responseTimeMs": 5331,
+      "passFail": "Fail",
+      "error": ""
+    },
+    {
+      "scenario": "scenario1_app_page_load",
+      "users": 100,
+      "userIndex": 15,
+      "step": "home_ready",
+      "responseTimeMs": 5523,
+      "passFail": "Fail",
+      "error": ""
+    },
+    {
+      "scenario": "scenario1_app_page_load",
+      "users": 100,
+      "userIndex": 7,
+      "step": "home_ready",
+      "responseTimeMs": 5528,
+      "passFail": "Fail",
+      "error": ""
+    },
+    {
+      "scenario": "scenario1_app_page_load",
+      "users": 100,
+      "userIndex": 19,
+      "step": "home_ready",
+      "responseTimeMs": 5479,
+      "passFail": "Fail",
+      "error": ""
+    },
+    {
+      "scenario": "scenario2_readonly_public_routes",
+      "users": 100,
+      "userIndex": 6,
+      "step": "quest_and_marketplace_routes_ready",
+      "responseTimeMs": 6316,
+      "passFail": "Fail",
+      "error": ""
+    },
+    {
+      "scenario": "scenario2_readonly_public_routes",
+      "users": 100,
+      "userIndex": 19,
+      "step": "quest_and_marketplace_routes_ready",
+      "responseTimeMs": 5864,
+      "passFail": "Fail",
+      "error": ""
+    },
+    {
+      "scenario": "scenario2_readonly_public_routes",
+      "users": 100,
+      "userIndex": 18,
+      "step": "quest_and_marketplace_routes_ready",
+      "responseTimeMs": 6312,
+      "passFail": "Fail",
+      "error": ""
+    },
+    {
+      "scenario": "scenario2_readonly_public_routes",
+      "users": 100,
+      "userIndex": 20,
+      "step": "quest_and_marketplace_routes_ready",
+      "responseTimeMs": 6393,
+      "passFail": "Fail",
+      "error": ""
+    },
+    {
+      "scenario": "scenario1_app_page_load",
+      "users": 100,
+      "userIndex": 24,
+      "step": "home_ready",
+      "responseTimeMs": 11388,
+      "passFail": "Fail",
+      "error": ""
+    },
+    {
+      "scenario": "scenario1_app_page_load",
+      "users": 100,
+      "userIndex": 5,
+      "step": "home_ready",
+      "responseTimeMs": 11517,
+      "passFail": "Fail",
+      "error": ""
+    },
+    {
+      "scenario": "scenario2_readonly_public_routes",
+      "users": 100,
+      "userIndex": 1,
+      "step": "quest_and_marketplace_routes_ready",
+      "responseTimeMs": 6199,
+      "passFail": "Fail",
+      "error": ""
+    },
+    {
+      "scenario": "scenario2_readonly_public_routes",
+      "users": 100,
+      "userIndex": 17,
+      "step": "quest_and_marketplace_routes_ready",
+      "responseTimeMs": 7147,
+      "passFail": "Fail",
+      "error": ""
+    },
+    {
+      "scenario": "scenario2_readonly_public_routes",
+      "users": 100,
+      "userIndex": 8,
+      "step": "quest_and_marketplace_routes_ready",
+      "responseTimeMs": 7219,
+      "passFail": "Fail",
+      "error": ""
+    },
+    {
+      "scenario": "scenario2_readonly_public_routes",
+      "users": 100,
+      "userIndex": 16,
+      "step": "quest_and_marketplace_routes_ready",
+      "responseTimeMs": 7205,
+      "passFail": "Fail",
+      "error": ""
+    },
+    {
+      "scenario": "scenario2_readonly_public_routes",
+      "users": 100,
+      "userIndex": 4,
+      "step": "quest_and_marketplace_routes_ready",
+      "responseTimeMs": 7063,
+      "passFail": "Fail",
+      "error": ""
+    },
+    {
+      "scenario": "scenario2_readonly_public_routes",
+      "users": 100,
+      "userIndex": 7,
+      "step": "quest_and_marketplace_routes_ready",
+      "responseTimeMs": 8007,
+      "passFail": "Fail",
+      "error": ""
+    },
+    {
+      "scenario": "scenario2_readonly_public_routes",
+      "users": 100,
+      "userIndex": 11,
+      "step": "quest_and_marketplace_routes_ready",
+      "responseTimeMs": 8266,
+      "passFail": "Fail",
+      "error": ""
+    },
+    {
+      "scenario": "scenario2_readonly_public_routes",
+      "users": 100,
+      "userIndex": 12,
+      "step": "quest_and_marketplace_routes_ready",
+      "responseTimeMs": 8447,
+      "passFail": "Fail",
+      "error": ""
+    },
+    {
+      "scenario": "scenario2_readonly_public_routes",
+      "users": 100,
+      "userIndex": 15,
+      "step": "quest_and_marketplace_routes_ready",
+      "responseTimeMs": 8982,
+      "passFail": "Fail",
+      "error": ""
+    },
+    {
+      "scenario": "scenario2_readonly_public_routes",
+      "users": 100,
+      "userIndex": 13,
+      "step": "quest_and_marketplace_routes_ready",
+      "responseTimeMs": 9967,
+      "passFail": "Fail",
+      "error": ""
+    },
+    {
+      "scenario": "scenario1_app_page_load",
+      "users": 100,
+      "userIndex": 38,
+      "step": "home_ready",
+      "responseTimeMs": 22934,
+      "passFail": "Fail",
+      "error": ""
+    },
+    {
+      "scenario": "scenario1_app_page_load",
+      "users": 100,
+      "userIndex": 32,
+      "step": "home_ready",
+      "responseTimeMs": 22949,
+      "passFail": "Fail",
+      "error": ""
+    },
+    {
+      "scenario": "scenario3_readonly_visible_rendering",
+      "users": 100,
+      "userIndex": 19,
+      "step": "home_visible_render_ready",
+      "responseTimeMs": 15173,
+      "passFail": "Fail",
+      "error": ""
+    },
+    {
+      "scenario": "scenario3_readonly_visible_rendering",
+      "users": 100,
+      "userIndex": 1,
+      "step": "home_visible_render_ready",
+      "responseTimeMs": 15271,
+      "passFail": "Fail",
+      "error": ""
+    },
+    {
+      "scenario": "scenario3_readonly_visible_rendering",
+      "users": 100,
+      "userIndex": 20,
+      "step": "home_visible_render_ready",
+      "responseTimeMs": 15406,
+      "passFail": "Fail",
+      "error": ""
+    },
+    {
+      "scenario": "scenario3_readonly_visible_rendering",
+      "users": 100,
+      "userIndex": 6,
+      "step": "home_visible_render_ready",
+      "responseTimeMs": -1,
+      "passFail": "Fail",
+      "error": "page.waitForSelector: Timeout 10000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('main.home-main button, .logo') to be visible\u001b[22m\n\u001b[2m    18 × locator resolved to 6 elements. Proceeding with the first one: <img class=\"logo\" _ngcontent-etx-c43=\"\" src=\"assets/logo.png\" alt=\"Better Bible Guesser • \"/>\u001b[22m\n"
+    },
+    {
+      "scenario": "scenario3_readonly_visible_rendering",
+      "users": 100,
+      "userIndex": 18,
+      "step": "home_visible_render_ready",
+      "responseTimeMs": -1,
+      "passFail": "Fail",
+      "error": "page.waitForSelector: Timeout 10000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('main.home-main button, .logo') to be visible\u001b[22m\n\u001b[2m    19 × locator resolved to 6 elements. Proceeding with the first one: <img class=\"logo\" _ngcontent-sma-c43=\"\" src=\"assets/logo.png\" alt=\"Better Bible Guesser • \"/>\u001b[22m\n"
+    },
+    {
+      "scenario": "scenario3_readonly_visible_rendering",
+      "users": 100,
+      "userIndex": 16,
+      "step": "home_visible_render_ready",
+      "responseTimeMs": -1,
+      "passFail": "Fail",
+      "error": "page.waitForSelector: Timeout 10000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('main.home-main button, .logo') to be visible\u001b[22m\n\u001b[2m    16 × locator resolved to 6 elements. Proceeding with the first one: <img class=\"logo\" _ngcontent-dvb-c43=\"\" src=\"assets/logo.png\" alt=\"Better Bible Guesser • \"/>\u001b[22m\n"
+    },
+    {
+      "scenario": "scenario3_readonly_visible_rendering",
+      "users": 100,
+      "userIndex": 4,
+      "step": "home_visible_render_ready",
+      "responseTimeMs": -1,
+      "passFail": "Fail",
+      "error": "page.waitForSelector: Timeout 10000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('main.home-main button, .logo') to be visible\u001b[22m\n\u001b[2m    16 × locator resolved to 6 elements. Proceeding with the first one: <img class=\"logo\" _ngcontent-hbn-c43=\"\" src=\"assets/logo.png\" alt=\"Better Bible Guesser • \"/>\u001b[22m\n"
+    },
+    {
+      "scenario": "scenario3_readonly_visible_rendering",
+      "users": 100,
+      "userIndex": 17,
+      "step": "home_visible_render_ready",
+      "responseTimeMs": -1,
+      "passFail": "Fail",
+      "error": "page.waitForSelector: Timeout 10000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('main.home-main button, .logo') to be visible\u001b[22m\n\u001b[2m    15 × locator resolved to 6 elements. Proceeding with the first one: <img class=\"logo\" _ngcontent-ydl-c43=\"\" src=\"assets/logo.png\" alt=\"Better Bible Guesser • \"/>\u001b[22m\n"
+    },
+    {
+      "scenario": "scenario3_readonly_visible_rendering",
+      "users": 100,
+      "userIndex": 8,
+      "step": "home_visible_render_ready",
+      "responseTimeMs": -1,
+      "passFail": "Fail",
+      "error": "page.waitForSelector: Timeout 10000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('main.home-main button, .logo') to be visible\u001b[22m\n\u001b[2m    15 × locator resolved to 6 elements. Proceeding with the first one: <img class=\"logo\" _ngcontent-yee-c43=\"\" src=\"assets/logo.png\" alt=\"Better Bible Guesser • \"/>\u001b[22m\n"
+    },
+    {
+      "scenario": "scenario2_readonly_public_routes",
+      "users": 100,
+      "userIndex": 2,
+      "step": "quest_and_marketplace_routes_ready",
+      "responseTimeMs": 24412,
+      "passFail": "Fail",
+      "error": ""
+    },
+    {
+      "scenario": "scenario1_app_page_load",
+      "users": 100,
+      "userIndex": 3,
+      "step": "home_ready",
+      "responseTimeMs": -1,
+      "passFail": "Fail",
+      "error": "page.goto: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - navigating to \"https://better-bibleguesser.web.app/\", waiting until \"domcontentloaded\"\u001b[22m\n"
+    },
+    {
+      "scenario": "scenario1_app_page_load",
+      "users": 100,
+      "userIndex": 9,
+      "step": "home_ready",
+      "responseTimeMs": -1,
+      "passFail": "Fail",
+      "error": "page.goto: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - navigating to \"https://better-bibleguesser.web.app/\", waiting until \"domcontentloaded\"\u001b[22m\n"
+    },
+    {
+      "scenario": "scenario1_app_page_load",
+      "users": 100,
+      "userIndex": 10,
+      "step": "home_ready",
+      "responseTimeMs": -1,
+      "passFail": "Fail",
+      "error": "page.goto: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - navigating to \"https://better-bibleguesser.web.app/\", waiting until \"domcontentloaded\"\u001b[22m\n"
+    },
+    {
+      "scenario": "scenario1_app_page_load",
+      "users": 100,
+      "userIndex": 14,
+      "step": "home_ready",
+      "responseTimeMs": -1,
+      "passFail": "Fail",
+      "error": "page.goto: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - navigating to \"https://better-bibleguesser.web.app/\", waiting until \"domcontentloaded\"\u001b[22m\n"
+    },
+    {
+      "scenario": "scenario1_app_page_load",
+      "users": 100,
+      "userIndex": 21,
+      "step": "home_ready",
+      "responseTimeMs": -1,
+      "passFail": "Fail",
+      "error": "page.goto: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - navigating to \"https://better-bibleguesser.web.app/\", waiting until \"domcontentloaded\"\u001b[22m\n"
+    },
+    {
+      "scenario": "scenario1_app_page_load",
+      "users": 100,
+      "userIndex": 22,
+      "step": "home_ready",
+      "responseTimeMs": -1,
+      "passFail": "Fail",
+      "error": "page.goto: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - navigating to \"https://better-bibleguesser.web.app/\", waiting until \"domcontentloaded\"\u001b[22m\n"
+    },
+    {
+      "scenario": "scenario1_app_page_load",
+      "users": 100,
+      "userIndex": 23,
+      "step": "home_ready",
+      "responseTimeMs": -1,
+      "passFail": "Fail",
+      "error": "page.goto: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - navigating to \"https://better-bibleguesser.web.app/\", waiting until \"domcontentloaded\"\u001b[22m\n"
+    },
+    {
+      "scenario": "scenario1_app_page_load",
+      "users": 100,
+      "userIndex": 25,
+      "step": "home_ready",
+      "responseTimeMs": -1,
+      "passFail": "Fail",
+      "error": "page.goto: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - navigating to \"https://better-bibleguesser.web.app/\", waiting until \"domcontentloaded\"\u001b[22m\n"
+    },
+    {
+      "scenario": "scenario1_app_page_load",
+      "users": 100,
+      "userIndex": 26,
+      "step": "home_ready",
+      "responseTimeMs": -1,
+      "passFail": "Fail",
+      "error": "page.goto: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - navigating to \"https://better-bibleguesser.web.app/\", waiting until \"domcontentloaded\"\u001b[22m\n"
+    },
+    {
+      "scenario": "scenario1_app_page_load",
+      "users": 100,
+      "userIndex": 28,
+      "step": "home_ready",
+      "responseTimeMs": -1,
+      "passFail": "Fail",
+      "error": "page.goto: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - navigating to \"https://better-bibleguesser.web.app/\", waiting until \"domcontentloaded\"\u001b[22m\n"
+    },
+    {
+      "scenario": "scenario1_app_page_load",
+      "users": 100,
+      "userIndex": 29,
+      "step": "home_ready",
+      "responseTimeMs": -1,
+      "passFail": "Fail",
+      "error": "page.goto: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - navigating to \"https://better-bibleguesser.web.app/\", waiting until \"domcontentloaded\"\u001b[22m\n"
+    },
+    {
+      "scenario": "scenario1_app_page_load",
+      "users": 100,
+      "userIndex": 30,
+      "step": "home_ready",
+      "responseTimeMs": -1,
+      "passFail": "Fail",
+      "error": "page.goto: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - navigating to \"https://better-bibleguesser.web.app/\", waiting until \"domcontentloaded\"\u001b[22m\n"
+    },
+    {
+      "scenario": "scenario1_app_page_load",
+      "users": 100,
+      "userIndex": 27,
+      "step": "home_ready",
+      "responseTimeMs": -1,
+      "passFail": "Fail",
+      "error": "page.goto: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - navigating to \"https://better-bibleguesser.web.app/\", waiting until \"domcontentloaded\"\u001b[22m\n"
+    },
+    {
+      "scenario": "scenario1_app_page_load",
+      "users": 100,
+      "userIndex": 31,
+      "step": "home_ready",
+      "responseTimeMs": -1,
+      "passFail": "Fail",
+      "error": "page.goto: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - navigating to \"https://better-bibleguesser.web.app/\", waiting until \"domcontentloaded\"\u001b[22m\n"
+    },
+    {
+      "scenario": "scenario1_app_page_load",
+      "users": 100,
+      "userIndex": 33,
+      "step": "home_ready",
+      "responseTimeMs": -1,
+      "passFail": "Fail",
+      "error": "page.goto: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - navigating to \"https://better-bibleguesser.web.app/\", waiting until \"domcontentloaded\"\u001b[22m\n"
+    },
+    {
+      "scenario": "scenario1_app_page_load",
+      "users": 100,
+      "userIndex": 34,
+      "step": "home_ready",
+      "responseTimeMs": -1,
+      "passFail": "Fail",
+      "error": "page.goto: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - navigating to \"https://better-bibleguesser.web.app/\", waiting until \"domcontentloaded\"\u001b[22m\n"
+    },
+    {
+      "scenario": "scenario1_app_page_load",
+      "users": 100,
+      "userIndex": 35,
+      "step": "home_ready",
+      "responseTimeMs": -1,
+      "passFail": "Fail",
+      "error": "page.goto: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - navigating to \"https://better-bibleguesser.web.app/\", waiting until \"domcontentloaded\"\u001b[22m\n"
+    },
+    {
+      "scenario": "scenario1_app_page_load",
+      "users": 100,
+      "userIndex": 36,
+      "step": "home_ready",
+      "responseTimeMs": -1,
+      "passFail": "Fail",
+      "error": "page.goto: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - navigating to \"https://better-bibleguesser.web.app/\", waiting until \"domcontentloaded\"\u001b[22m\n"
+    },
+    {
+      "scenario": "scenario1_app_page_load",
+      "users": 100,
+      "userIndex": 37,
+      "step": "home_ready",
+      "responseTimeMs": -1,
+      "passFail": "Fail",
+      "error": "page.goto: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - navigating to \"https://better-bibleguesser.web.app/\", waiting until \"domcontentloaded\"\u001b[22m\n"
+    },
+    {
+      "scenario": "scenario1_app_page_load",
+      "users": 100,
+      "userIndex": 39,
+      "step": "home_ready",
+      "responseTimeMs": -1,
+      "passFail": "Fail",
+      "error": "page.goto: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - navigating to \"https://better-bibleguesser.web.app/\", waiting until \"domcontentloaded\"\u001b[22m\n"
+    },
+    {
+      "scenario": "scenario1_app_page_load",
+      "users": 100,
+      "userIndex": 40,
+      "step": "home_ready",
+      "responseTimeMs": -1,
+      "passFail": "Fail",
+      "error": "page.goto: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - navigating to \"https://better-bibleguesser.web.app/\", waiting until \"domcontentloaded\"\u001b[22m\n"
+    },
+    {
+      "scenario": "scenario1_app_page_load",
+      "users": 100,
+      "userIndex": 41,
+      "step": "home_ready",
+      "responseTimeMs": -1,
+      "passFail": "Fail",
+      "error": "page.goto: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - navigating to \"https://better-bibleguesser.web.app/\", waiting until \"domcontentloaded\"\u001b[22m\n"
+    },
+    {
+      "scenario": "scenario1_app_page_load",
+      "users": 100,
+      "userIndex": 42,
+      "step": "home_ready",
+      "responseTimeMs": -1,
+      "passFail": "Fail",
+      "error": "page.goto: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - navigating to \"https://better-bibleguesser.web.app/\", waiting until \"domcontentloaded\"\u001b[22m\n"
+    },
+    {
+      "scenario": "scenario1_app_page_load",
+      "users": 100,
+      "userIndex": 43,
+      "step": "home_ready",
+      "responseTimeMs": -1,
+      "passFail": "Fail",
+      "error": "page.goto: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - navigating to \"https://better-bibleguesser.web.app/\", waiting until \"domcontentloaded\"\u001b[22m\n"
+    },
+    {
+      "scenario": "scenario1_app_page_load",
+      "users": 100,
+      "userIndex": 44,
+      "step": "home_ready",
+      "responseTimeMs": -1,
+      "passFail": "Fail",
+      "error": "page.goto: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - navigating to \"https://better-bibleguesser.web.app/\", waiting until \"domcontentloaded\"\u001b[22m\n"
+    },
+    {
+      "scenario": "scenario1_app_page_load",
+      "users": 100,
+      "userIndex": 45,
+      "step": "home_ready",
+      "responseTimeMs": -1,
+      "passFail": "Fail",
+      "error": "page.goto: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - navigating to \"https://better-bibleguesser.web.app/\", waiting until \"domcontentloaded\"\u001b[22m\n"
+    },
+    {
+      "scenario": "scenario1_app_page_load",
+      "users": 100,
+      "userIndex": 46,
+      "step": "home_ready",
+      "responseTimeMs": -1,
+      "passFail": "Fail",
+      "error": "page.goto: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - navigating to \"https://better-bibleguesser.web.app/\", waiting until \"domcontentloaded\"\u001b[22m\n"
+    },
+    {
+      "scenario": "scenario1_app_page_load",
+      "users": 100,
+      "userIndex": 47,
+      "step": "home_ready",
+      "responseTimeMs": -1,
+      "passFail": "Fail",
+      "error": "page.goto: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - navigating to \"https://better-bibleguesser.web.app/\", waiting until \"domcontentloaded\"\u001b[22m\n"
+    },
+    {
+      "scenario": "scenario1_app_page_load",
+      "users": 100,
+      "userIndex": 48,
+      "step": "home_ready",
+      "responseTimeMs": -1,
+      "passFail": "Fail",
+      "error": "page.goto: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - navigating to \"https://better-bibleguesser.web.app/\", waiting until \"domcontentloaded\"\u001b[22m\n"
+    },
+    {
+      "scenario": "scenario1_app_page_load",
+      "users": 100,
+      "userIndex": 49,
+      "step": "home_ready",
+      "responseTimeMs": -1,
+      "passFail": "Fail",
+      "error": "page.goto: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - navigating to \"https://better-bibleguesser.web.app/\", waiting until \"domcontentloaded\"\u001b[22m\n"
+    },
+    {
+      "scenario": "scenario1_app_page_load",
+      "users": 100,
+      "userIndex": 50,
+      "step": "home_ready",
+      "responseTimeMs": -1,
+      "passFail": "Fail",
+      "error": "page.goto: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - navigating to \"https://better-bibleguesser.web.app/\", waiting until \"domcontentloaded\"\u001b[22m\n"
+    },
+    {
+      "scenario": "scenario1_app_page_load",
+      "users": 100,
+      "userIndex": 51,
+      "step": "home_ready",
+      "responseTimeMs": -1,
+      "passFail": "Fail",
+      "error": "page.goto: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - navigating to \"https://better-bibleguesser.web.app/\", waiting until \"domcontentloaded\"\u001b[22m\n"
+    },
+    {
+      "scenario": "scenario1_app_page_load",
+      "users": 100,
+      "userIndex": 52,
+      "step": "home_ready",
+      "responseTimeMs": -1,
+      "passFail": "Fail",
+      "error": "page.goto: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - navigating to \"https://better-bibleguesser.web.app/\", waiting until \"domcontentloaded\"\u001b[22m\n"
+    },
+    {
+      "scenario": "scenario1_app_page_load",
+      "users": 100,
+      "userIndex": 53,
+      "step": "home_ready",
+      "responseTimeMs": -1,
+      "passFail": "Fail",
+      "error": "page.goto: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - navigating to \"https://better-bibleguesser.web.app/\", waiting until \"domcontentloaded\"\u001b[22m\n"
+    },
+    {
+      "scenario": "scenario1_app_page_load",
+      "users": 100,
+      "userIndex": 54,
+      "step": "home_ready",
+      "responseTimeMs": -1,
+      "passFail": "Fail",
+      "error": "page.goto: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - navigating to \"https://better-bibleguesser.web.app/\", waiting until \"domcontentloaded\"\u001b[22m\n"
+    },
+    {
+      "scenario": "scenario1_app_page_load",
+      "users": 100,
+      "userIndex": 55,
+      "step": "home_ready",
+      "responseTimeMs": -1,
+      "passFail": "Fail",
+      "error": "page.goto: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - navigating to \"https://better-bibleguesser.web.app/\", waiting until \"domcontentloaded\"\u001b[22m\n"
+    },
+    {
+      "scenario": "scenario1_app_page_load",
+      "users": 100,
+      "userIndex": 56,
+      "step": "home_ready",
+      "responseTimeMs": -1,
+      "passFail": "Fail",
+      "error": "page.goto: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - navigating to \"https://better-bibleguesser.web.app/\", waiting until \"domcontentloaded\"\u001b[22m\n"
+    },
+    {
+      "scenario": "scenario1_app_page_load",
+      "users": 100,
+      "userIndex": 57,
+      "step": "home_ready",
+      "responseTimeMs": -1,
+      "passFail": "Fail",
+      "error": "page.goto: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - navigating to \"https://better-bibleguesser.web.app/\", waiting until \"domcontentloaded\"\u001b[22m\n"
+    },
+    {
+      "scenario": "scenario1_app_page_load",
+      "users": 100,
+      "userIndex": 58,
+      "step": "home_ready",
+      "responseTimeMs": -1,
+      "passFail": "Fail",
+      "error": "page.goto: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - navigating to \"https://better-bibleguesser.web.app/\", waiting until \"domcontentloaded\"\u001b[22m\n"
+    },
+    {
+      "scenario": "scenario1_app_page_load",
+      "users": 100,
+      "userIndex": 59,
+      "step": "home_ready",
+      "responseTimeMs": -1,
+      "passFail": "Fail",
+      "error": "page.goto: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - navigating to \"https://better-bibleguesser.web.app/\", waiting until \"domcontentloaded\"\u001b[22m\n"
+    },
+    {
+      "scenario": "scenario1_app_page_load",
+      "users": 100,
+      "userIndex": 60,
+      "step": "home_ready",
+      "responseTimeMs": -1,
+      "passFail": "Fail",
+      "error": "page.goto: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - navigating to \"https://better-bibleguesser.web.app/\", waiting until \"domcontentloaded\"\u001b[22m\n"
+    },
+    {
+      "scenario": "scenario1_app_page_load",
+      "users": 100,
+      "userIndex": 61,
+      "step": "home_ready",
+      "responseTimeMs": -1,
+      "passFail": "Fail",
+      "error": "page.goto: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - navigating to \"https://better-bibleguesser.web.app/\", waiting until \"domcontentloaded\"\u001b[22m\n"
+    },
+    {
+      "scenario": "scenario1_app_page_load",
+      "users": 100,
+      "userIndex": 62,
+      "step": "home_ready",
+      "responseTimeMs": -1,
+      "passFail": "Fail",
+      "error": "page.goto: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - navigating to \"https://better-bibleguesser.web.app/\", waiting until \"domcontentloaded\"\u001b[22m\n"
+    },
+    {
+      "scenario": "scenario1_app_page_load",
+      "users": 100,
+      "userIndex": 63,
+      "step": "home_ready",
+      "responseTimeMs": -1,
+      "passFail": "Fail",
+      "error": "page.goto: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - navigating to \"https://better-bibleguesser.web.app/\", waiting until \"domcontentloaded\"\u001b[22m\n"
+    },
+    {
+      "scenario": "scenario1_app_page_load",
+      "users": 100,
+      "userIndex": 64,
+      "step": "home_ready",
+      "responseTimeMs": -1,
+      "passFail": "Fail",
+      "error": "page.goto: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - navigating to \"https://better-bibleguesser.web.app/\", waiting until \"domcontentloaded\"\u001b[22m\n"
+    },
+    {
+      "scenario": "scenario2_readonly_public_routes",
+      "users": 100,
+      "userIndex": 24,
+      "step": "quest_and_marketplace_routes_ready",
+      "responseTimeMs": 19047,
+      "passFail": "Fail",
+      "error": ""
+    },
+    {
+      "scenario": "scenario1_app_page_load",
+      "users": 100,
+      "userIndex": 65,
+      "step": "home_ready",
+      "responseTimeMs": -1,
+      "passFail": "Fail",
+      "error": "page.goto: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - navigating to \"https://better-bibleguesser.web.app/\", waiting until \"domcontentloaded\"\u001b[22m\n"
+    },
+    {
+      "scenario": "scenario1_app_page_load",
+      "users": 100,
+      "userIndex": 66,
+      "step": "home_ready",
+      "responseTimeMs": -1,
+      "passFail": "Fail",
+      "error": "page.goto: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - navigating to \"https://better-bibleguesser.web.app/\", waiting until \"domcontentloaded\"\u001b[22m\n"
+    },
+    {
+      "scenario": "scenario1_app_page_load",
+      "users": 100,
+      "userIndex": 67,
+      "step": "home_ready",
+      "responseTimeMs": -1,
+      "passFail": "Fail",
+      "error": "page.goto: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - navigating to \"https://better-bibleguesser.web.app/\", waiting until \"domcontentloaded\"\u001b[22m\n"
+    },
+    {
+      "scenario": "scenario1_app_page_load",
+      "users": 100,
+      "userIndex": 68,
+      "step": "home_ready",
+      "responseTimeMs": -1,
+      "passFail": "Fail",
+      "error": "page.goto: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - navigating to \"https://better-bibleguesser.web.app/\", waiting until \"domcontentloaded\"\u001b[22m\n"
+    },
+    {
+      "scenario": "scenario1_app_page_load",
+      "users": 100,
+      "userIndex": 69,
+      "step": "home_ready",
+      "responseTimeMs": -1,
+      "passFail": "Fail",
+      "error": "page.goto: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - navigating to \"https://better-bibleguesser.web.app/\", waiting until \"domcontentloaded\"\u001b[22m\n"
+    },
+    {
+      "scenario": "scenario1_app_page_load",
+      "users": 100,
+      "userIndex": 70,
+      "step": "home_ready",
+      "responseTimeMs": -1,
+      "passFail": "Fail",
+      "error": "page.goto: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - navigating to \"https://better-bibleguesser.web.app/\", waiting until \"domcontentloaded\"\u001b[22m\n"
+    },
+    {
+      "scenario": "scenario1_app_page_load",
+      "users": 100,
+      "userIndex": 71,
+      "step": "home_ready",
+      "responseTimeMs": -1,
+      "passFail": "Fail",
+      "error": "page.goto: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - navigating to \"https://better-bibleguesser.web.app/\", waiting until \"domcontentloaded\"\u001b[22m\n"
+    },
+    {
+      "scenario": "scenario1_app_page_load",
+      "users": 100,
+      "userIndex": 72,
+      "step": "home_ready",
+      "responseTimeMs": -1,
+      "passFail": "Fail",
+      "error": "page.goto: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - navigating to \"https://better-bibleguesser.web.app/\", waiting until \"domcontentloaded\"\u001b[22m\n"
+    },
+    {
+      "scenario": "scenario1_app_page_load",
+      "users": 100,
+      "userIndex": 73,
+      "step": "home_ready",
+      "responseTimeMs": -1,
+      "passFail": "Fail",
+      "error": "page.goto: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - navigating to \"https://better-bibleguesser.web.app/\", waiting until \"domcontentloaded\"\u001b[22m\n"
+    },
+    {
+      "scenario": "scenario1_app_page_load",
+      "users": 100,
+      "userIndex": 74,
+      "step": "home_ready",
+      "responseTimeMs": -1,
+      "passFail": "Fail",
+      "error": "page.goto: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - navigating to \"https://better-bibleguesser.web.app/\", waiting until \"domcontentloaded\"\u001b[22m\n"
+    },
+    {
+      "scenario": "scenario1_app_page_load",
+      "users": 100,
+      "userIndex": 75,
+      "step": "home_ready",
+      "responseTimeMs": -1,
+      "passFail": "Fail",
+      "error": "page.goto: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - navigating to \"https://better-bibleguesser.web.app/\", waiting until \"domcontentloaded\"\u001b[22m\n"
+    },
+    {
+      "scenario": "scenario1_app_page_load",
+      "users": 100,
+      "userIndex": 76,
+      "step": "home_ready",
+      "responseTimeMs": -1,
+      "passFail": "Fail",
+      "error": "page.goto: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - navigating to \"https://better-bibleguesser.web.app/\", waiting until \"domcontentloaded\"\u001b[22m\n"
+    },
+    {
+      "scenario": "scenario1_app_page_load",
+      "users": 100,
+      "userIndex": 77,
+      "step": "home_ready",
+      "responseTimeMs": -1,
+      "passFail": "Fail",
+      "error": "page.goto: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - navigating to \"https://better-bibleguesser.web.app/\", waiting until \"domcontentloaded\"\u001b[22m\n"
+    },
+    {
+      "scenario": "scenario1_app_page_load",
+      "users": 100,
+      "userIndex": 78,
+      "step": "home_ready",
+      "responseTimeMs": -1,
+      "passFail": "Fail",
+      "error": "page.goto: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - navigating to \"https://better-bibleguesser.web.app/\", waiting until \"domcontentloaded\"\u001b[22m\n"
+    },
+    {
+      "scenario": "scenario1_app_page_load",
+      "users": 100,
+      "userIndex": 79,
+      "step": "home_ready",
+      "responseTimeMs": -1,
+      "passFail": "Fail",
+      "error": "page.goto: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - navigating to \"https://better-bibleguesser.web.app/\", waiting until \"domcontentloaded\"\u001b[22m\n"
+    },
+    {
+      "scenario": "scenario1_app_page_load",
+      "users": 100,
+      "userIndex": 80,
+      "step": "home_ready",
+      "responseTimeMs": -1,
+      "passFail": "Fail",
+      "error": "page.goto: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - navigating to \"https://better-bibleguesser.web.app/\", waiting until \"domcontentloaded\"\u001b[22m\n"
+    },
+    {
+      "scenario": "scenario1_app_page_load",
+      "users": 100,
+      "userIndex": 81,
+      "step": "home_ready",
+      "responseTimeMs": -1,
+      "passFail": "Fail",
+      "error": "page.goto: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - navigating to \"https://better-bibleguesser.web.app/\", waiting until \"domcontentloaded\"\u001b[22m\n"
+    },
+    {
+      "scenario": "scenario1_app_page_load",
+      "users": 100,
+      "userIndex": 84,
+      "step": "home_ready",
+      "responseTimeMs": -1,
+      "passFail": "Fail",
+      "error": "page.goto: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - navigating to \"https://better-bibleguesser.web.app/\", waiting until \"domcontentloaded\"\u001b[22m\n"
+    },
+    {
+      "scenario": "scenario1_app_page_load",
+      "users": 100,
+      "userIndex": 85,
+      "step": "home_ready",
+      "responseTimeMs": -1,
+      "passFail": "Fail",
+      "error": "page.goto: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - navigating to \"https://better-bibleguesser.web.app/\", waiting until \"domcontentloaded\"\u001b[22m\n"
+    },
+    {
+      "scenario": "scenario1_app_page_load",
+      "users": 100,
+      "userIndex": 86,
+      "step": "home_ready",
+      "responseTimeMs": -1,
+      "passFail": "Fail",
+      "error": "page.goto: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - navigating to \"https://better-bibleguesser.web.app/\", waiting until \"domcontentloaded\"\u001b[22m\n"
+    },
+    {
+      "scenario": "scenario1_app_page_load",
+      "users": 100,
+      "userIndex": 82,
+      "step": "home_ready",
+      "responseTimeMs": -1,
+      "passFail": "Fail",
+      "error": "page.goto: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - navigating to \"https://better-bibleguesser.web.app/\", waiting until \"domcontentloaded\"\u001b[22m\n"
+    },
+    {
+      "scenario": "scenario1_app_page_load",
+      "users": 100,
+      "userIndex": 83,
+      "step": "home_ready",
+      "responseTimeMs": -1,
+      "passFail": "Fail",
+      "error": "page.goto: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - navigating to \"https://better-bibleguesser.web.app/\", waiting until \"domcontentloaded\"\u001b[22m\n"
+    },
+    {
+      "scenario": "scenario1_app_page_load",
+      "users": 100,
+      "userIndex": 87,
+      "step": "home_ready",
+      "responseTimeMs": -1,
+      "passFail": "Fail",
+      "error": "page.goto: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - navigating to \"https://better-bibleguesser.web.app/\", waiting until \"domcontentloaded\"\u001b[22m\n"
+    },
+    {
+      "scenario": "scenario1_app_page_load",
+      "users": 100,
+      "userIndex": 88,
+      "step": "home_ready",
+      "responseTimeMs": -1,
+      "passFail": "Fail",
+      "error": "page.goto: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - navigating to \"https://better-bibleguesser.web.app/\", waiting until \"domcontentloaded\"\u001b[22m\n"
+    },
+    {
+      "scenario": "scenario1_app_page_load",
+      "users": 100,
+      "userIndex": 89,
+      "step": "home_ready",
+      "responseTimeMs": -1,
+      "passFail": "Fail",
+      "error": "page.goto: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - navigating to \"https://better-bibleguesser.web.app/\", waiting until \"domcontentloaded\"\u001b[22m\n"
+    },
+    {
+      "scenario": "scenario1_app_page_load",
+      "users": 100,
+      "userIndex": 91,
+      "step": "home_ready",
+      "responseTimeMs": -1,
+      "passFail": "Fail",
+      "error": "page.goto: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - navigating to \"https://better-bibleguesser.web.app/\", waiting until \"domcontentloaded\"\u001b[22m\n"
+    },
+    {
+      "scenario": "scenario1_app_page_load",
+      "users": 100,
+      "userIndex": 92,
+      "step": "home_ready",
+      "responseTimeMs": -1,
+      "passFail": "Fail",
+      "error": "page.goto: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - navigating to \"https://better-bibleguesser.web.app/\", waiting until \"domcontentloaded\"\u001b[22m\n"
+    },
+    {
+      "scenario": "scenario1_app_page_load",
+      "users": 100,
+      "userIndex": 93,
+      "step": "home_ready",
+      "responseTimeMs": -1,
+      "passFail": "Fail",
+      "error": "page.goto: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - navigating to \"https://better-bibleguesser.web.app/\", waiting until \"domcontentloaded\"\u001b[22m\n"
+    },
+    {
+      "scenario": "scenario1_app_page_load",
+      "users": 100,
+      "userIndex": 94,
+      "step": "home_ready",
+      "responseTimeMs": -1,
+      "passFail": "Fail",
+      "error": "page.goto: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - navigating to \"https://better-bibleguesser.web.app/\", waiting until \"domcontentloaded\"\u001b[22m\n"
+    },
+    {
+      "scenario": "scenario1_app_page_load",
+      "users": 100,
+      "userIndex": 95,
+      "step": "home_ready",
+      "responseTimeMs": -1,
+      "passFail": "Fail",
+      "error": "page.goto: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - navigating to \"https://better-bibleguesser.web.app/\", waiting until \"domcontentloaded\"\u001b[22m\n"
+    },
+    {
+      "scenario": "scenario1_app_page_load",
+      "users": 100,
+      "userIndex": 96,
+      "step": "home_ready",
+      "responseTimeMs": -1,
+      "passFail": "Fail",
+      "error": "page.goto: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - navigating to \"https://better-bibleguesser.web.app/\", waiting until \"domcontentloaded\"\u001b[22m\n"
+    },
+    {
+      "scenario": "scenario1_app_page_load",
+      "users": 100,
+      "userIndex": 97,
+      "step": "home_ready",
+      "responseTimeMs": -1,
+      "passFail": "Fail",
+      "error": "page.goto: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - navigating to \"https://better-bibleguesser.web.app/\", waiting until \"domcontentloaded\"\u001b[22m\n"
+    },
+    {
+      "scenario": "scenario1_app_page_load",
+      "users": 100,
+      "userIndex": 98,
+      "step": "home_ready",
+      "responseTimeMs": -1,
+      "passFail": "Fail",
+      "error": "page.goto: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - navigating to \"https://better-bibleguesser.web.app/\", waiting until \"domcontentloaded\"\u001b[22m\n"
+    },
+    {
+      "scenario": "scenario1_app_page_load",
+      "users": 100,
+      "userIndex": 90,
+      "step": "home_ready",
+      "responseTimeMs": -1,
+      "passFail": "Fail",
+      "error": "page.goto: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - navigating to \"https://better-bibleguesser.web.app/\", waiting until \"domcontentloaded\"\u001b[22m\n"
+    },
+    {
+      "scenario": "scenario1_app_page_load",
+      "users": 100,
+      "userIndex": 99,
+      "step": "home_ready",
+      "responseTimeMs": -1,
+      "passFail": "Fail",
+      "error": "page.goto: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - navigating to \"https://better-bibleguesser.web.app/\", waiting until \"domcontentloaded\"\u001b[22m\n"
+    },
+    {
+      "scenario": "scenario1_app_page_load",
+      "users": 100,
+      "userIndex": 100,
+      "step": "home_ready",
+      "responseTimeMs": -1,
+      "passFail": "Fail",
+      "error": "page.goto: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - navigating to \"https://better-bibleguesser.web.app/\", waiting until \"domcontentloaded\"\u001b[22m\n"
+    },
+    {
+      "scenario": "scenario3_readonly_visible_rendering",
+      "users": 100,
+      "userIndex": 13,
+      "step": "home_visible_render_ready",
+      "responseTimeMs": 16906,
+      "passFail": "Fail",
+      "error": ""
+    },
+    {
+      "scenario": "scenario3_readonly_visible_rendering",
+      "users": 100,
+      "userIndex": 11,
+      "step": "home_visible_render_ready",
+      "responseTimeMs": 19893,
+      "passFail": "Fail",
+      "error": ""
+    },
+    {
+      "scenario": "scenario3_readonly_visible_rendering",
+      "users": 100,
+      "userIndex": 7,
+      "step": "home_visible_render_ready",
+      "responseTimeMs": -1,
+      "passFail": "Fail",
+      "error": "page.waitForSelector: Timeout 10000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('main.home-main button, .logo') to be visible\u001b[22m\n\u001b[2m    15 × locator resolved to 6 elements. Proceeding with the first one: <img class=\"logo\" _ngcontent-bky-c43=\"\" src=\"assets/logo.png\" alt=\"Better Bible Guesser • \"/>\u001b[22m\n"
+    },
+    {
+      "scenario": "scenario3_readonly_visible_rendering",
+      "users": 100,
+      "userIndex": 12,
+      "step": "home_visible_render_ready",
+      "responseTimeMs": -1,
+      "passFail": "Fail",
+      "error": "page.waitForSelector: Timeout 10000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('main.home-main button, .logo') to be visible\u001b[22m\n\u001b[2m    15 × locator resolved to 6 elements. Proceeding with the first one: <img class=\"logo\" _ngcontent-fbx-c43=\"\" src=\"assets/logo.png\" alt=\"Better Bible Guesser • \"/>\u001b[22m\n"
+    },
+    {
+      "scenario": "scenario3_readonly_visible_rendering",
+      "users": 100,
+      "userIndex": 15,
+      "step": "home_visible_render_ready",
+      "responseTimeMs": -1,
+      "passFail": "Fail",
+      "error": "page.waitForSelector: Timeout 10000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('main.home-main button, .logo') to be visible\u001b[22m\n\u001b[2m    14 × locator resolved to 6 elements. Proceeding with the first one: <img class=\"logo\" _ngcontent-agk-c43=\"\" src=\"assets/logo.png\" alt=\"Better Bible Guesser • \"/>\u001b[22m\n"
+    },
+    {
+      "scenario": "scenario3_readonly_visible_rendering",
+      "users": 100,
+      "userIndex": 24,
+      "step": "home_visible_render_ready",
+      "responseTimeMs": 13050,
+      "passFail": "Fail",
+      "error": ""
+    },
+    {
+      "scenario": "scenario2_readonly_public_routes",
+      "users": 100,
+      "userIndex": 38,
+      "step": "quest_and_marketplace_routes_ready",
+      "responseTimeMs": 20544,
+      "passFail": "Fail",
+      "error": ""
+    },
+    {
+      "scenario": "scenario2_readonly_public_routes",
+      "users": 100,
+      "userIndex": 32,
+      "step": "quest_and_marketplace_routes_ready",
+      "responseTimeMs": 20558,
+      "passFail": "Fail",
+      "error": ""
+    },
+    {
+      "scenario": "scenario2_readonly_public_routes",
+      "users": 100,
+      "userIndex": 5,
+      "step": "quest_and_marketplace_routes_ready",
+      "responseTimeMs": 32131,
+      "passFail": "Fail",
+      "error": ""
+    },
+    {
+      "scenario": "scenario3_readonly_visible_rendering",
+      "users": 100,
+      "userIndex": 2,
+      "step": "home_visible_render_ready",
+      "responseTimeMs": 15950,
+      "passFail": "Fail",
+      "error": ""
+    },
+    {
+      "scenario": "scenario3_readonly_visible_rendering",
+      "users": 100,
+      "userIndex": 38,
+      "step": "home_visible_render_ready",
+      "responseTimeMs": 2574,
+      "passFail": "Pass",
+      "error": ""
+    },
+    {
+      "scenario": "scenario3_readonly_visible_rendering",
+      "users": 100,
+      "userIndex": 5,
+      "step": "home_visible_render_ready",
+      "responseTimeMs": 2639,
+      "passFail": "Pass",
+      "error": ""
+    },
+    {
+      "scenario": "scenario3_readonly_visible_rendering",
+      "users": 100,
+      "userIndex": 32,
+      "step": "home_visible_render_ready",
+      "responseTimeMs": 2672,
+      "passFail": "Pass",
+      "error": ""
+    },
+    {
+      "scenario": "scenario2_readonly_public_routes",
+      "users": 100,
+      "userIndex": 93,
+      "step": "quest_and_marketplace_routes_ready",
+      "responseTimeMs": -1,
+      "passFail": "Fail",
+      "error": "page.goto: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - navigating to \"https://better-bibleguesser.web.app/quest\", waiting until \"domcontentloaded\"\u001b[22m\n"
+    },
+    {
+      "scenario": "scenario2_readonly_public_routes",
+      "users": 100,
+      "userIndex": 46,
+      "step": "quest_and_marketplace_routes_ready",
+      "responseTimeMs": -1,
+      "passFail": "Fail",
+      "error": "page.waitForSelector: Timeout 10000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('app-quest-header, .container') to be visible\u001b[22m\n"
+    },
+    {
+      "scenario": "scenario2_readonly_public_routes",
+      "users": 100,
+      "userIndex": 37,
+      "step": "quest_and_marketplace_routes_ready",
+      "responseTimeMs": -1,
+      "passFail": "Fail",
+      "error": "page.waitForSelector: Timeout 10000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('app-quest-header, .container') to be visible\u001b[22m\n"
+    },
+    {
+      "scenario": "scenario2_readonly_public_routes",
+      "users": 100,
+      "userIndex": 47,
+      "step": "quest_and_marketplace_routes_ready",
+      "responseTimeMs": -1,
+      "passFail": "Fail",
+      "error": "page.waitForSelector: Timeout 10000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('app-quest-header, .container') to be visible\u001b[22m\n"
+    },
+    {
+      "scenario": "scenario2_readonly_public_routes",
+      "users": 100,
+      "userIndex": 35,
+      "step": "quest_and_marketplace_routes_ready",
+      "responseTimeMs": -1,
+      "passFail": "Fail",
+      "error": "page.waitForSelector: Timeout 10000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('app-quest-header, .container') to be visible\u001b[22m\n"
+    },
+    {
+      "scenario": "scenario2_readonly_public_routes",
+      "users": 100,
+      "userIndex": 50,
+      "step": "quest_and_marketplace_routes_ready",
+      "responseTimeMs": -1,
+      "passFail": "Fail",
+      "error": "page.waitForSelector: Timeout 10000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('app-quest-header, .container') to be visible\u001b[22m\n"
+    },
+    {
+      "scenario": "scenario2_readonly_public_routes",
+      "users": 100,
+      "userIndex": 49,
+      "step": "quest_and_marketplace_routes_ready",
+      "responseTimeMs": -1,
+      "passFail": "Fail",
+      "error": "page.waitForSelector: Timeout 10000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('app-quest-header, .container') to be visible\u001b[22m\n"
+    },
+    {
+      "scenario": "scenario2_readonly_public_routes",
+      "users": 100,
+      "userIndex": 30,
+      "step": "quest_and_marketplace_routes_ready",
+      "responseTimeMs": -1,
+      "passFail": "Fail",
+      "error": "page.waitForSelector: Timeout 10000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('app-quest-header, .container') to be visible\u001b[22m\n"
+    },
+    {
+      "scenario": "scenario2_readonly_public_routes",
+      "users": 100,
+      "userIndex": 41,
+      "step": "quest_and_marketplace_routes_ready",
+      "responseTimeMs": -1,
+      "passFail": "Fail",
+      "error": "page.waitForSelector: Timeout 10000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('app-quest-header, .container') to be visible\u001b[22m\n"
+    },
+    {
+      "scenario": "scenario2_readonly_public_routes",
+      "users": 100,
+      "userIndex": 9,
+      "step": "quest_and_marketplace_routes_ready",
+      "responseTimeMs": -1,
+      "passFail": "Fail",
+      "error": "page.waitForSelector: Timeout 10000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('app-quest-header, .container') to be visible\u001b[22m\n"
+    },
+    {
+      "scenario": "scenario2_readonly_public_routes",
+      "users": 100,
+      "userIndex": 33,
+      "step": "quest_and_marketplace_routes_ready",
+      "responseTimeMs": -1,
+      "passFail": "Fail",
+      "error": "page.waitForSelector: Timeout 10000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('app-quest-header, .container') to be visible\u001b[22m\n"
+    },
+    {
+      "scenario": "scenario2_readonly_public_routes",
+      "users": 100,
+      "userIndex": 26,
+      "step": "quest_and_marketplace_routes_ready",
+      "responseTimeMs": -1,
+      "passFail": "Fail",
+      "error": "page.waitForSelector: Timeout 10000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('app-quest-header, .container') to be visible\u001b[22m\n"
+    },
+    {
+      "scenario": "scenario2_readonly_public_routes",
+      "users": 100,
+      "userIndex": 51,
+      "step": "quest_and_marketplace_routes_ready",
+      "responseTimeMs": -1,
+      "passFail": "Fail",
+      "error": "page.waitForSelector: Timeout 10000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('app-quest-header, .container') to be visible\u001b[22m\n"
+    },
+    {
+      "scenario": "scenario2_readonly_public_routes",
+      "users": 100,
+      "userIndex": 34,
+      "step": "quest_and_marketplace_routes_ready",
+      "responseTimeMs": -1,
+      "passFail": "Fail",
+      "error": "page.waitForSelector: Timeout 10000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('app-quest-header, .container') to be visible\u001b[22m\n"
+    },
+    {
+      "scenario": "scenario2_readonly_public_routes",
+      "users": 100,
+      "userIndex": 39,
+      "step": "quest_and_marketplace_routes_ready",
+      "responseTimeMs": -1,
+      "passFail": "Fail",
+      "error": "page.waitForSelector: Timeout 10000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('app-quest-header, .container') to be visible\u001b[22m\n"
+    },
+    {
+      "scenario": "scenario2_readonly_public_routes",
+      "users": 100,
+      "userIndex": 45,
+      "step": "quest_and_marketplace_routes_ready",
+      "responseTimeMs": -1,
+      "passFail": "Fail",
+      "error": "page.waitForSelector: Timeout 10000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('app-quest-header, .container') to be visible\u001b[22m\n"
+    },
+    {
+      "scenario": "scenario2_readonly_public_routes",
+      "users": 100,
+      "userIndex": 29,
+      "step": "quest_and_marketplace_routes_ready",
+      "responseTimeMs": -1,
+      "passFail": "Fail",
+      "error": "page.waitForSelector: Timeout 10000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('app-quest-header, .container') to be visible\u001b[22m\n"
+    },
+    {
+      "scenario": "scenario2_readonly_public_routes",
+      "users": 100,
+      "userIndex": 40,
+      "step": "quest_and_marketplace_routes_ready",
+      "responseTimeMs": -1,
+      "passFail": "Fail",
+      "error": "page.waitForSelector: Timeout 10000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('app-quest-header, .container') to be visible\u001b[22m\n"
+    },
+    {
+      "scenario": "scenario2_readonly_public_routes",
+      "users": 100,
+      "userIndex": 52,
+      "step": "quest_and_marketplace_routes_ready",
+      "responseTimeMs": -1,
+      "passFail": "Fail",
+      "error": "page.waitForSelector: Timeout 10000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('app-quest-header, .container') to be visible\u001b[22m\n"
+    },
+    {
+      "scenario": "scenario2_readonly_public_routes",
+      "users": 100,
+      "userIndex": 28,
+      "step": "quest_and_marketplace_routes_ready",
+      "responseTimeMs": -1,
+      "passFail": "Fail",
+      "error": "page.waitForSelector: Timeout 10000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('app-quest-header, .container') to be visible\u001b[22m\n"
+    },
+    {
+      "scenario": "scenario2_readonly_public_routes",
+      "users": 100,
+      "userIndex": 3,
+      "step": "quest_and_marketplace_routes_ready",
+      "responseTimeMs": -1,
+      "passFail": "Fail",
+      "error": "page.waitForSelector: Timeout 10000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('app-quest-header, .container') to be visible\u001b[22m\n"
+    },
+    {
+      "scenario": "scenario2_readonly_public_routes",
+      "users": 100,
+      "userIndex": 53,
+      "step": "quest_and_marketplace_routes_ready",
+      "responseTimeMs": -1,
+      "passFail": "Fail",
+      "error": "page.waitForSelector: Timeout 10000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('app-quest-header, .container') to be visible\u001b[22m\n"
+    },
+    {
+      "scenario": "scenario2_readonly_public_routes",
+      "users": 100,
+      "userIndex": 36,
+      "step": "quest_and_marketplace_routes_ready",
+      "responseTimeMs": -1,
+      "passFail": "Fail",
+      "error": "page.waitForSelector: Timeout 10000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('app-quest-header, .container') to be visible\u001b[22m\n"
+    },
+    {
+      "scenario": "scenario2_readonly_public_routes",
+      "users": 100,
+      "userIndex": 10,
+      "step": "quest_and_marketplace_routes_ready",
+      "responseTimeMs": -1,
+      "passFail": "Fail",
+      "error": "page.waitForSelector: Timeout 10000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('app-quest-header, .container') to be visible\u001b[22m\n"
+    },
+    {
+      "scenario": "scenario2_readonly_public_routes",
+      "users": 100,
+      "userIndex": 21,
+      "step": "quest_and_marketplace_routes_ready",
+      "responseTimeMs": -1,
+      "passFail": "Fail",
+      "error": "page.waitForSelector: Timeout 10000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('app-quest-header, .container') to be visible\u001b[22m\n"
+    },
+    {
+      "scenario": "scenario2_readonly_public_routes",
+      "users": 100,
+      "userIndex": 54,
+      "step": "quest_and_marketplace_routes_ready",
+      "responseTimeMs": -1,
+      "passFail": "Fail",
+      "error": "page.waitForSelector: Timeout 10000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('app-quest-header, .container') to be visible\u001b[22m\n"
+    },
+    {
+      "scenario": "scenario2_readonly_public_routes",
+      "users": 100,
+      "userIndex": 23,
+      "step": "quest_and_marketplace_routes_ready",
+      "responseTimeMs": -1,
+      "passFail": "Fail",
+      "error": "page.waitForSelector: Timeout 10000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('app-quest-header, .container') to be visible\u001b[22m\n"
+    },
+    {
+      "scenario": "scenario2_readonly_public_routes",
+      "users": 100,
+      "userIndex": 27,
+      "step": "quest_and_marketplace_routes_ready",
+      "responseTimeMs": -1,
+      "passFail": "Fail",
+      "error": "page.waitForSelector: Timeout 10000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('app-quest-header, .container') to be visible\u001b[22m\n"
+    },
+    {
+      "scenario": "scenario2_readonly_public_routes",
+      "users": 100,
+      "userIndex": 25,
+      "step": "quest_and_marketplace_routes_ready",
+      "responseTimeMs": -1,
+      "passFail": "Fail",
+      "error": "page.waitForSelector: Timeout 10000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('app-quest-header, .container') to be visible\u001b[22m\n"
+    },
+    {
+      "scenario": "scenario2_readonly_public_routes",
+      "users": 100,
+      "userIndex": 60,
+      "step": "quest_and_marketplace_routes_ready",
+      "responseTimeMs": -1,
+      "passFail": "Fail",
+      "error": "page.waitForSelector: Timeout 10000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('app-quest-header, .container') to be visible\u001b[22m\n"
+    },
+    {
+      "scenario": "scenario2_readonly_public_routes",
+      "users": 100,
+      "userIndex": 42,
+      "step": "quest_and_marketplace_routes_ready",
+      "responseTimeMs": -1,
+      "passFail": "Fail",
+      "error": "page.waitForSelector: Timeout 10000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('app-quest-header, .container') to be visible\u001b[22m\n"
+    },
+    {
+      "scenario": "scenario2_readonly_public_routes",
+      "users": 100,
+      "userIndex": 14,
+      "step": "quest_and_marketplace_routes_ready",
+      "responseTimeMs": -1,
+      "passFail": "Fail",
+      "error": "page.waitForSelector: Timeout 10000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('app-quest-header, .container') to be visible\u001b[22m\n"
+    },
+    {
+      "scenario": "scenario2_readonly_public_routes",
+      "users": 100,
+      "userIndex": 55,
+      "step": "quest_and_marketplace_routes_ready",
+      "responseTimeMs": -1,
+      "passFail": "Fail",
+      "error": "page.waitForSelector: Timeout 10000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('app-quest-header, .container') to be visible\u001b[22m\n"
+    },
+    {
+      "scenario": "scenario2_readonly_public_routes",
+      "users": 100,
+      "userIndex": 56,
+      "step": "quest_and_marketplace_routes_ready",
+      "responseTimeMs": -1,
+      "passFail": "Fail",
+      "error": "page.waitForSelector: Timeout 10000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('app-quest-header, .container') to be visible\u001b[22m\n"
+    },
+    {
+      "scenario": "scenario2_readonly_public_routes",
+      "users": 100,
+      "userIndex": 74,
+      "step": "quest_and_marketplace_routes_ready",
+      "responseTimeMs": -1,
+      "passFail": "Fail",
+      "error": "page.waitForSelector: Timeout 10000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('app-quest-header, .container') to be visible\u001b[22m\n"
+    },
+    {
+      "scenario": "scenario2_readonly_public_routes",
+      "users": 100,
+      "userIndex": 70,
+      "step": "quest_and_marketplace_routes_ready",
+      "responseTimeMs": -1,
+      "passFail": "Fail",
+      "error": "page.waitForSelector: Timeout 10000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('app-quest-header, .container') to be visible\u001b[22m\n"
+    },
+    {
+      "scenario": "scenario2_readonly_public_routes",
+      "users": 100,
+      "userIndex": 69,
+      "step": "quest_and_marketplace_routes_ready",
+      "responseTimeMs": -1,
+      "passFail": "Fail",
+      "error": "page.waitForSelector: Timeout 10000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('app-quest-header, .container') to be visible\u001b[22m\n"
+    },
+    {
+      "scenario": "scenario2_readonly_public_routes",
+      "users": 100,
+      "userIndex": 61,
+      "step": "quest_and_marketplace_routes_ready",
+      "responseTimeMs": -1,
+      "passFail": "Fail",
+      "error": "page.waitForSelector: Timeout 10000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('app-quest-header, .container') to be visible\u001b[22m\n"
+    },
+    {
+      "scenario": "scenario2_readonly_public_routes",
+      "users": 100,
+      "userIndex": 77,
+      "step": "quest_and_marketplace_routes_ready",
+      "responseTimeMs": -1,
+      "passFail": "Fail",
+      "error": "page.waitForSelector: Timeout 10000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('app-quest-header, .container') to be visible\u001b[22m\n"
+    },
+    {
+      "scenario": "scenario2_readonly_public_routes",
+      "users": 100,
+      "userIndex": 59,
+      "step": "quest_and_marketplace_routes_ready",
+      "responseTimeMs": -1,
+      "passFail": "Fail",
+      "error": "page.waitForSelector: Timeout 10000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('app-quest-header, .container') to be visible\u001b[22m\n"
+    },
+    {
+      "scenario": "scenario2_readonly_public_routes",
+      "users": 100,
+      "userIndex": 73,
+      "step": "quest_and_marketplace_routes_ready",
+      "responseTimeMs": -1,
+      "passFail": "Fail",
+      "error": "page.waitForSelector: Timeout 10000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('app-quest-header, .container') to be visible\u001b[22m\n"
+    },
+    {
+      "scenario": "scenario2_readonly_public_routes",
+      "users": 100,
+      "userIndex": 75,
+      "step": "quest_and_marketplace_routes_ready",
+      "responseTimeMs": -1,
+      "passFail": "Fail",
+      "error": "page.waitForSelector: Timeout 10000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('app-quest-header, .container') to be visible\u001b[22m\n"
+    },
+    {
+      "scenario": "scenario2_readonly_public_routes",
+      "users": 100,
+      "userIndex": 68,
+      "step": "quest_and_marketplace_routes_ready",
+      "responseTimeMs": -1,
+      "passFail": "Fail",
+      "error": "page.waitForSelector: Timeout 10000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('app-quest-header, .container') to be visible\u001b[22m\n"
+    },
+    {
+      "scenario": "scenario2_readonly_public_routes",
+      "users": 100,
+      "userIndex": 67,
+      "step": "quest_and_marketplace_routes_ready",
+      "responseTimeMs": -1,
+      "passFail": "Fail",
+      "error": "page.waitForSelector: Timeout 10000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('app-quest-header, .container') to be visible\u001b[22m\n"
+    },
+    {
+      "scenario": "scenario2_readonly_public_routes",
+      "users": 100,
+      "userIndex": 62,
+      "step": "quest_and_marketplace_routes_ready",
+      "responseTimeMs": -1,
+      "passFail": "Fail",
+      "error": "page.waitForSelector: Timeout 10000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('app-quest-header, .container') to be visible\u001b[22m\n"
+    },
+    {
+      "scenario": "scenario2_readonly_public_routes",
+      "users": 100,
+      "userIndex": 63,
+      "step": "quest_and_marketplace_routes_ready",
+      "responseTimeMs": -1,
+      "passFail": "Fail",
+      "error": "page.waitForSelector: Timeout 10000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('app-quest-header, .container') to be visible\u001b[22m\n"
+    },
+    {
+      "scenario": "scenario2_readonly_public_routes",
+      "users": 100,
+      "userIndex": 71,
+      "step": "quest_and_marketplace_routes_ready",
+      "responseTimeMs": -1,
+      "passFail": "Fail",
+      "error": "page.waitForSelector: Timeout 10000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('app-quest-header, .container') to be visible\u001b[22m\n"
+    },
+    {
+      "scenario": "scenario2_readonly_public_routes",
+      "users": 100,
+      "userIndex": 57,
+      "step": "quest_and_marketplace_routes_ready",
+      "responseTimeMs": -1,
+      "passFail": "Fail",
+      "error": "page.waitForSelector: Timeout 10000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('app-quest-header, .container') to be visible\u001b[22m\n"
+    },
+    {
+      "scenario": "scenario2_readonly_public_routes",
+      "users": 100,
+      "userIndex": 76,
+      "step": "quest_and_marketplace_routes_ready",
+      "responseTimeMs": -1,
+      "passFail": "Fail",
+      "error": "page.waitForSelector: Timeout 10000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('app-quest-header, .container') to be visible\u001b[22m\n"
+    },
+    {
+      "scenario": "scenario2_readonly_public_routes",
+      "users": 100,
+      "userIndex": 65,
+      "step": "quest_and_marketplace_routes_ready",
+      "responseTimeMs": -1,
+      "passFail": "Fail",
+      "error": "page.waitForSelector: Timeout 10000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('app-quest-header, .container') to be visible\u001b[22m\n"
+    },
+    {
+      "scenario": "scenario2_readonly_public_routes",
+      "users": 100,
+      "userIndex": 79,
+      "step": "quest_and_marketplace_routes_ready",
+      "responseTimeMs": -1,
+      "passFail": "Fail",
+      "error": "page.waitForSelector: Timeout 10000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('app-quest-header, .container') to be visible\u001b[22m\n"
+    },
+    {
+      "scenario": "scenario2_readonly_public_routes",
+      "users": 100,
+      "userIndex": 66,
+      "step": "quest_and_marketplace_routes_ready",
+      "responseTimeMs": -1,
+      "passFail": "Fail",
+      "error": "page.waitForSelector: Timeout 10000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('app-quest-header, .container') to be visible\u001b[22m\n"
+    },
+    {
+      "scenario": "scenario2_readonly_public_routes",
+      "users": 100,
+      "userIndex": 64,
+      "step": "quest_and_marketplace_routes_ready",
+      "responseTimeMs": -1,
+      "passFail": "Fail",
+      "error": "page.waitForSelector: Timeout 10000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('app-quest-header, .container') to be visible\u001b[22m\n"
+    },
+    {
+      "scenario": "scenario2_readonly_public_routes",
+      "users": 100,
+      "userIndex": 80,
+      "step": "quest_and_marketplace_routes_ready",
+      "responseTimeMs": -1,
+      "passFail": "Fail",
+      "error": "page.waitForSelector: Timeout 10000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('app-quest-header, .container') to be visible\u001b[22m\n"
+    },
+    {
+      "scenario": "scenario2_readonly_public_routes",
+      "users": 100,
+      "userIndex": 48,
+      "step": "quest_and_marketplace_routes_ready",
+      "responseTimeMs": -1,
+      "passFail": "Fail",
+      "error": "page.waitForSelector: Timeout 10000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('app-quest-header, .container') to be visible\u001b[22m\n"
+    },
+    {
+      "scenario": "scenario2_readonly_public_routes",
+      "users": 100,
+      "userIndex": 81,
+      "step": "quest_and_marketplace_routes_ready",
+      "responseTimeMs": -1,
+      "passFail": "Fail",
+      "error": "page.waitForSelector: Timeout 10000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('app-quest-header, .container') to be visible\u001b[22m\n"
+    },
+    {
+      "scenario": "scenario2_readonly_public_routes",
+      "users": 100,
+      "userIndex": 89,
+      "step": "quest_and_marketplace_routes_ready",
+      "responseTimeMs": -1,
+      "passFail": "Fail",
+      "error": "page.waitForSelector: Timeout 10000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('app-quest-header, .container') to be visible\u001b[22m\n"
+    },
+    {
+      "scenario": "scenario2_readonly_public_routes",
+      "users": 100,
+      "userIndex": 82,
+      "step": "quest_and_marketplace_routes_ready",
+      "responseTimeMs": -1,
+      "passFail": "Fail",
+      "error": "page.waitForSelector: Timeout 10000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('app-quest-header, .container') to be visible\u001b[22m\n"
+    },
+    {
+      "scenario": "scenario2_readonly_public_routes",
+      "users": 100,
+      "userIndex": 83,
+      "step": "quest_and_marketplace_routes_ready",
+      "responseTimeMs": -1,
+      "passFail": "Fail",
+      "error": "page.waitForSelector: Timeout 10000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('app-quest-header, .container') to be visible\u001b[22m\n"
+    },
+    {
+      "scenario": "scenario2_readonly_public_routes",
+      "users": 100,
+      "userIndex": 86,
+      "step": "quest_and_marketplace_routes_ready",
+      "responseTimeMs": -1,
+      "passFail": "Fail",
+      "error": "page.waitForSelector: Timeout 10000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('app-quest-header, .container') to be visible\u001b[22m\n"
+    },
+    {
+      "scenario": "scenario2_readonly_public_routes",
+      "users": 100,
+      "userIndex": 84,
+      "step": "quest_and_marketplace_routes_ready",
+      "responseTimeMs": -1,
+      "passFail": "Fail",
+      "error": "page.waitForSelector: Timeout 10000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('app-quest-header, .container') to be visible\u001b[22m\n"
+    },
+    {
+      "scenario": "scenario2_readonly_public_routes",
+      "users": 100,
+      "userIndex": 87,
+      "step": "quest_and_marketplace_routes_ready",
+      "responseTimeMs": -1,
+      "passFail": "Fail",
+      "error": "page.waitForSelector: Timeout 10000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('app-quest-header, .container') to be visible\u001b[22m\n"
+    },
+    {
+      "scenario": "scenario2_readonly_public_routes",
+      "users": 100,
+      "userIndex": 88,
+      "step": "quest_and_marketplace_routes_ready",
+      "responseTimeMs": -1,
+      "passFail": "Fail",
+      "error": "page.waitForSelector: Timeout 10000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('app-quest-header, .container') to be visible\u001b[22m\n"
+    },
+    {
+      "scenario": "scenario2_readonly_public_routes",
+      "users": 100,
+      "userIndex": 91,
+      "step": "quest_and_marketplace_routes_ready",
+      "responseTimeMs": -1,
+      "passFail": "Fail",
+      "error": "page.waitForSelector: Timeout 10000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('app-quest-header, .container') to be visible\u001b[22m\n"
+    },
+    {
+      "scenario": "scenario2_readonly_public_routes",
+      "users": 100,
+      "userIndex": 85,
+      "step": "quest_and_marketplace_routes_ready",
+      "responseTimeMs": -1,
+      "passFail": "Fail",
+      "error": "page.waitForSelector: Timeout 10000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('app-quest-header, .container') to be visible\u001b[22m\n"
+    },
+    {
+      "scenario": "scenario2_readonly_public_routes",
+      "users": 100,
+      "userIndex": 92,
+      "step": "quest_and_marketplace_routes_ready",
+      "responseTimeMs": -1,
+      "passFail": "Fail",
+      "error": "page.waitForSelector: Timeout 10000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('app-quest-header, .container') to be visible\u001b[22m\n"
+    },
+    {
+      "scenario": "scenario2_readonly_public_routes",
+      "users": 100,
+      "userIndex": 31,
+      "step": "quest_and_marketplace_routes_ready",
+      "responseTimeMs": -1,
+      "passFail": "Fail",
+      "error": "page.waitForSelector: Timeout 10000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('app-quest-header, .container') to be visible\u001b[22m\n"
+    },
+    {
+      "scenario": "scenario2_readonly_public_routes",
+      "users": 100,
+      "userIndex": 90,
+      "step": "quest_and_marketplace_routes_ready",
+      "responseTimeMs": -1,
+      "passFail": "Fail",
+      "error": "page.waitForSelector: Timeout 10000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('app-quest-header, .container') to be visible\u001b[22m\n"
+    },
+    {
+      "scenario": "scenario2_readonly_public_routes",
+      "users": 100,
+      "userIndex": 100,
+      "step": "quest_and_marketplace_routes_ready",
+      "responseTimeMs": -1,
+      "passFail": "Fail",
+      "error": "page.waitForSelector: Timeout 10000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('app-quest-header, .container') to be visible\u001b[22m\n"
+    },
+    {
+      "scenario": "scenario2_readonly_public_routes",
+      "users": 100,
+      "userIndex": 98,
+      "step": "quest_and_marketplace_routes_ready",
+      "responseTimeMs": -1,
+      "passFail": "Fail",
+      "error": "page.waitForSelector: Timeout 10000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('app-quest-header, .container') to be visible\u001b[22m\n"
+    },
+    {
+      "scenario": "scenario2_readonly_public_routes",
+      "users": 100,
+      "userIndex": 22,
+      "step": "quest_and_marketplace_routes_ready",
+      "responseTimeMs": -1,
+      "passFail": "Fail",
+      "error": "page.waitForSelector: Timeout 10000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('app-quest-header, .container') to be visible\u001b[22m\n"
+    },
+    {
+      "scenario": "scenario2_readonly_public_routes",
+      "users": 100,
+      "userIndex": 95,
+      "step": "quest_and_marketplace_routes_ready",
+      "responseTimeMs": -1,
+      "passFail": "Fail",
+      "error": "page.waitForSelector: Timeout 10000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('app-quest-header, .container') to be visible\u001b[22m\n"
+    },
+    {
+      "scenario": "scenario2_readonly_public_routes",
+      "users": 100,
+      "userIndex": 44,
+      "step": "quest_and_marketplace_routes_ready",
+      "responseTimeMs": -1,
+      "passFail": "Fail",
+      "error": "page.waitForSelector: Timeout 10000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('app-quest-header, .container') to be visible\u001b[22m\n"
+    },
+    {
+      "scenario": "scenario2_readonly_public_routes",
+      "users": 100,
+      "userIndex": 43,
+      "step": "quest_and_marketplace_routes_ready",
+      "responseTimeMs": -1,
+      "passFail": "Fail",
+      "error": "page.waitForSelector: Timeout 10000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('app-quest-header, .container') to be visible\u001b[22m\n"
+    },
+    {
+      "scenario": "scenario2_readonly_public_routes",
+      "users": 100,
+      "userIndex": 97,
+      "step": "quest_and_marketplace_routes_ready",
+      "responseTimeMs": -1,
+      "passFail": "Fail",
+      "error": "page.waitForSelector: Timeout 10000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('app-quest-header, .container') to be visible\u001b[22m\n"
+    },
+    {
+      "scenario": "scenario2_readonly_public_routes",
+      "users": 100,
+      "userIndex": 94,
+      "step": "quest_and_marketplace_routes_ready",
+      "responseTimeMs": -1,
+      "passFail": "Fail",
+      "error": "page.waitForSelector: Timeout 10000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('app-quest-header, .container') to be visible\u001b[22m\n"
+    },
+    {
+      "scenario": "scenario2_readonly_public_routes",
+      "users": 100,
+      "userIndex": 99,
+      "step": "quest_and_marketplace_routes_ready",
+      "responseTimeMs": -1,
+      "passFail": "Fail",
+      "error": "page.waitForSelector: Timeout 10000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('app-quest-header, .container') to be visible\u001b[22m\n"
+    },
+    {
+      "scenario": "scenario2_readonly_public_routes",
+      "users": 100,
+      "userIndex": 96,
+      "step": "quest_and_marketplace_routes_ready",
+      "responseTimeMs": -1,
+      "passFail": "Fail",
+      "error": "page.waitForSelector: Timeout 10000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('app-quest-header, .container') to be visible\u001b[22m\n"
+    },
+    {
+      "scenario": "scenario2_readonly_public_routes",
+      "users": 100,
+      "userIndex": 58,
+      "step": "quest_and_marketplace_routes_ready",
+      "responseTimeMs": -1,
+      "passFail": "Fail",
+      "error": "page.waitForSelector: Timeout 10000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('app-quest-header, .container') to be visible\u001b[22m\n"
+    },
+    {
+      "scenario": "scenario2_readonly_public_routes",
+      "users": 100,
+      "userIndex": 78,
+      "step": "quest_and_marketplace_routes_ready",
+      "responseTimeMs": -1,
+      "passFail": "Fail",
+      "error": "page.waitForSelector: Timeout 10000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('app-quest-header, .container') to be visible\u001b[22m\n"
+    },
+    {
+      "scenario": "scenario2_readonly_public_routes",
+      "users": 100,
+      "userIndex": 72,
+      "step": "quest_and_marketplace_routes_ready",
+      "responseTimeMs": -1,
+      "passFail": "Fail",
+      "error": "page.waitForSelector: Timeout 10000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('app-quest-header, .container') to be visible\u001b[22m\n"
+    },
+    {
+      "scenario": "scenario3_readonly_visible_rendering",
+      "users": 100,
+      "userIndex": 93,
+      "step": "home_visible_render_ready",
+      "responseTimeMs": -1,
+      "passFail": "Fail",
+      "error": "page.goto: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - navigating to \"https://better-bibleguesser.web.app/\", waiting until \"domcontentloaded\"\u001b[22m\n"
+    },
+    {
+      "scenario": "scenario3_readonly_visible_rendering",
+      "users": 100,
+      "userIndex": 46,
+      "step": "home_visible_render_ready",
+      "responseTimeMs": -1,
+      "passFail": "Fail",
+      "error": "page.goto: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - navigating to \"https://better-bibleguesser.web.app/\", waiting until \"domcontentloaded\"\u001b[22m\n"
+    },
+    {
+      "scenario": "scenario3_readonly_visible_rendering",
+      "users": 100,
+      "userIndex": 37,
+      "step": "home_visible_render_ready",
+      "responseTimeMs": -1,
+      "passFail": "Fail",
+      "error": "page.goto: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - navigating to \"https://better-bibleguesser.web.app/\", waiting until \"domcontentloaded\"\u001b[22m\n"
+    },
+    {
+      "scenario": "scenario3_readonly_visible_rendering",
+      "users": 100,
+      "userIndex": 47,
+      "step": "home_visible_render_ready",
+      "responseTimeMs": -1,
+      "passFail": "Fail",
+      "error": "page.goto: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - navigating to \"https://better-bibleguesser.web.app/\", waiting until \"domcontentloaded\"\u001b[22m\n"
+    },
+    {
+      "scenario": "scenario3_readonly_visible_rendering",
+      "users": 100,
+      "userIndex": 35,
+      "step": "home_visible_render_ready",
+      "responseTimeMs": -1,
+      "passFail": "Fail",
+      "error": "page.goto: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - navigating to \"https://better-bibleguesser.web.app/\", waiting until \"domcontentloaded\"\u001b[22m\n"
+    },
+    {
+      "scenario": "scenario3_readonly_visible_rendering",
+      "users": 100,
+      "userIndex": 50,
+      "step": "home_visible_render_ready",
+      "responseTimeMs": -1,
+      "passFail": "Fail",
+      "error": "page.goto: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - navigating to \"https://better-bibleguesser.web.app/\", waiting until \"domcontentloaded\"\u001b[22m\n"
+    },
+    {
+      "scenario": "scenario3_readonly_visible_rendering",
+      "users": 100,
+      "userIndex": 49,
+      "step": "home_visible_render_ready",
+      "responseTimeMs": -1,
+      "passFail": "Fail",
+      "error": "page.goto: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - navigating to \"https://better-bibleguesser.web.app/\", waiting until \"domcontentloaded\"\u001b[22m\n"
+    },
+    {
+      "scenario": "scenario3_readonly_visible_rendering",
+      "users": 100,
+      "userIndex": 30,
+      "step": "home_visible_render_ready",
+      "responseTimeMs": -1,
+      "passFail": "Fail",
+      "error": "page.goto: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - navigating to \"https://better-bibleguesser.web.app/\", waiting until \"domcontentloaded\"\u001b[22m\n"
+    },
+    {
+      "scenario": "scenario3_readonly_visible_rendering",
+      "users": 100,
+      "userIndex": 41,
+      "step": "home_visible_render_ready",
+      "responseTimeMs": -1,
+      "passFail": "Fail",
+      "error": "page.goto: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - navigating to \"https://better-bibleguesser.web.app/\", waiting until \"domcontentloaded\"\u001b[22m\n"
+    },
+    {
+      "scenario": "scenario3_readonly_visible_rendering",
+      "users": 100,
+      "userIndex": 9,
+      "step": "home_visible_render_ready",
+      "responseTimeMs": -1,
+      "passFail": "Fail",
+      "error": "page.goto: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - navigating to \"https://better-bibleguesser.web.app/\", waiting until \"domcontentloaded\"\u001b[22m\n"
+    },
+    {
+      "scenario": "scenario3_readonly_visible_rendering",
+      "users": 100,
+      "userIndex": 33,
+      "step": "home_visible_render_ready",
+      "responseTimeMs": -1,
+      "passFail": "Fail",
+      "error": "page.goto: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - navigating to \"https://better-bibleguesser.web.app/\", waiting until \"domcontentloaded\"\u001b[22m\n"
+    },
+    {
+      "scenario": "scenario3_readonly_visible_rendering",
+      "users": 100,
+      "userIndex": 26,
+      "step": "home_visible_render_ready",
+      "responseTimeMs": -1,
+      "passFail": "Fail",
+      "error": "page.goto: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - navigating to \"https://better-bibleguesser.web.app/\", waiting until \"domcontentloaded\"\u001b[22m\n"
+    },
+    {
+      "scenario": "scenario3_readonly_visible_rendering",
+      "users": 100,
+      "userIndex": 51,
+      "step": "home_visible_render_ready",
+      "responseTimeMs": -1,
+      "passFail": "Fail",
+      "error": "page.goto: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - navigating to \"https://better-bibleguesser.web.app/\", waiting until \"domcontentloaded\"\u001b[22m\n"
+    },
+    {
+      "scenario": "scenario3_readonly_visible_rendering",
+      "users": 100,
+      "userIndex": 34,
+      "step": "home_visible_render_ready",
+      "responseTimeMs": -1,
+      "passFail": "Fail",
+      "error": "page.goto: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - navigating to \"https://better-bibleguesser.web.app/\", waiting until \"domcontentloaded\"\u001b[22m\n"
+    },
+    {
+      "scenario": "scenario3_readonly_visible_rendering",
+      "users": 100,
+      "userIndex": 39,
+      "step": "home_visible_render_ready",
+      "responseTimeMs": -1,
+      "passFail": "Fail",
+      "error": "page.goto: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - navigating to \"https://better-bibleguesser.web.app/\", waiting until \"domcontentloaded\"\u001b[22m\n"
+    },
+    {
+      "scenario": "scenario3_readonly_visible_rendering",
+      "users": 100,
+      "userIndex": 45,
+      "step": "home_visible_render_ready",
+      "responseTimeMs": -1,
+      "passFail": "Fail",
+      "error": "page.goto: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - navigating to \"https://better-bibleguesser.web.app/\", waiting until \"domcontentloaded\"\u001b[22m\n"
+    },
+    {
+      "scenario": "scenario3_readonly_visible_rendering",
+      "users": 100,
+      "userIndex": 29,
+      "step": "home_visible_render_ready",
+      "responseTimeMs": -1,
+      "passFail": "Fail",
+      "error": "page.goto: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - navigating to \"https://better-bibleguesser.web.app/\", waiting until \"domcontentloaded\"\u001b[22m\n"
+    },
+    {
+      "scenario": "scenario3_readonly_visible_rendering",
+      "users": 100,
+      "userIndex": 40,
+      "step": "home_visible_render_ready",
+      "responseTimeMs": -1,
+      "passFail": "Fail",
+      "error": "page.goto: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - navigating to \"https://better-bibleguesser.web.app/\", waiting until \"domcontentloaded\"\u001b[22m\n"
+    },
+    {
+      "scenario": "scenario3_readonly_visible_rendering",
+      "users": 100,
+      "userIndex": 52,
+      "step": "home_visible_render_ready",
+      "responseTimeMs": -1,
+      "passFail": "Fail",
+      "error": "page.goto: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - navigating to \"https://better-bibleguesser.web.app/\", waiting until \"domcontentloaded\"\u001b[22m\n"
+    },
+    {
+      "scenario": "scenario3_readonly_visible_rendering",
+      "users": 100,
+      "userIndex": 28,
+      "step": "home_visible_render_ready",
+      "responseTimeMs": -1,
+      "passFail": "Fail",
+      "error": "page.goto: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - navigating to \"https://better-bibleguesser.web.app/\", waiting until \"domcontentloaded\"\u001b[22m\n"
+    },
+    {
+      "scenario": "scenario3_readonly_visible_rendering",
+      "users": 100,
+      "userIndex": 3,
+      "step": "home_visible_render_ready",
+      "responseTimeMs": -1,
+      "passFail": "Fail",
+      "error": "page.goto: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - navigating to \"https://better-bibleguesser.web.app/\", waiting until \"domcontentloaded\"\u001b[22m\n"
+    },
+    {
+      "scenario": "scenario3_readonly_visible_rendering",
+      "users": 100,
+      "userIndex": 53,
+      "step": "home_visible_render_ready",
+      "responseTimeMs": -1,
+      "passFail": "Fail",
+      "error": "page.goto: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - navigating to \"https://better-bibleguesser.web.app/\", waiting until \"domcontentloaded\"\u001b[22m\n"
+    },
+    {
+      "scenario": "scenario3_readonly_visible_rendering",
+      "users": 100,
+      "userIndex": 77,
+      "step": "home_visible_render_ready",
+      "responseTimeMs": 35900,
+      "passFail": "Fail",
+      "error": ""
+    },
+    {
+      "scenario": "scenario3_readonly_visible_rendering",
+      "users": 100,
+      "userIndex": 59,
+      "step": "home_visible_render_ready",
+      "responseTimeMs": 35634,
+      "passFail": "Fail",
+      "error": ""
+    },
+    {
+      "scenario": "scenario3_readonly_visible_rendering",
+      "users": 100,
+      "userIndex": 71,
+      "step": "home_visible_render_ready",
+      "responseTimeMs": 33152,
+      "passFail": "Fail",
+      "error": ""
+    },
+    {
+      "scenario": "scenario3_readonly_visible_rendering",
+      "users": 100,
+      "userIndex": 21,
+      "step": "home_visible_render_ready",
+      "responseTimeMs": 41494,
+      "passFail": "Fail",
+      "error": ""
+    },
+    {
+      "scenario": "scenario3_readonly_visible_rendering",
+      "users": 100,
+      "userIndex": 42,
+      "step": "home_visible_render_ready",
+      "responseTimeMs": 41376,
+      "passFail": "Fail",
+      "error": ""
+    },
+    {
+      "scenario": "scenario3_readonly_visible_rendering",
+      "users": 100,
+      "userIndex": 25,
+      "step": "home_visible_render_ready",
+      "responseTimeMs": 41492,
+      "passFail": "Fail",
+      "error": ""
+    },
+    {
+      "scenario": "scenario3_readonly_visible_rendering",
+      "users": 100,
+      "userIndex": 56,
+      "step": "home_visible_render_ready",
+      "responseTimeMs": 41166,
+      "passFail": "Fail",
+      "error": ""
+    },
+    {
+      "scenario": "scenario3_readonly_visible_rendering",
+      "users": 100,
+      "userIndex": 75,
+      "step": "home_visible_render_ready",
+      "responseTimeMs": 33976,
+      "passFail": "Fail",
+      "error": ""
+    },
+    {
+      "scenario": "scenario3_readonly_visible_rendering",
+      "users": 100,
+      "userIndex": 60,
+      "step": "home_visible_render_ready",
+      "responseTimeMs": 41499,
+      "passFail": "Fail",
+      "error": ""
+    },
+    {
+      "scenario": "scenario3_readonly_visible_rendering",
+      "users": 100,
+      "userIndex": 27,
+      "step": "home_visible_render_ready",
+      "responseTimeMs": 41506,
+      "passFail": "Fail",
+      "error": ""
+    },
+    {
+      "scenario": "scenario3_readonly_visible_rendering",
+      "users": 100,
+      "userIndex": 10,
+      "step": "home_visible_render_ready",
+      "responseTimeMs": 41533,
+      "passFail": "Fail",
+      "error": ""
+    },
+    {
+      "scenario": "scenario3_readonly_visible_rendering",
+      "users": 100,
+      "userIndex": 61,
+      "step": "home_visible_render_ready",
+      "responseTimeMs": 36014,
+      "passFail": "Fail",
+      "error": ""
+    },
+    {
+      "scenario": "scenario3_readonly_visible_rendering",
+      "users": 100,
+      "userIndex": 63,
+      "step": "home_visible_render_ready",
+      "responseTimeMs": 33253,
+      "passFail": "Fail",
+      "error": ""
+    },
+    {
+      "scenario": "scenario3_readonly_visible_rendering",
+      "users": 100,
+      "userIndex": 36,
+      "step": "home_visible_render_ready",
+      "responseTimeMs": 43278,
+      "passFail": "Fail",
+      "error": ""
+    },
+    {
+      "scenario": "scenario3_readonly_visible_rendering",
+      "users": 100,
+      "userIndex": 70,
+      "step": "home_visible_render_ready",
+      "responseTimeMs": 37737,
+      "passFail": "Fail",
+      "error": ""
+    },
+    {
+      "scenario": "scenario3_readonly_visible_rendering",
+      "users": 100,
+      "userIndex": 54,
+      "step": "home_visible_render_ready",
+      "responseTimeMs": 41562,
+      "passFail": "Fail",
+      "error": ""
+    },
+    {
+      "scenario": "scenario3_readonly_visible_rendering",
+      "users": 100,
+      "userIndex": 68,
+      "step": "home_visible_render_ready",
+      "responseTimeMs": 33566,
+      "passFail": "Fail",
+      "error": ""
+    },
+    {
+      "scenario": "scenario3_readonly_visible_rendering",
+      "users": 100,
+      "userIndex": 69,
+      "step": "home_visible_render_ready",
+      "responseTimeMs": 36221,
+      "passFail": "Fail",
+      "error": ""
+    },
+    {
+      "scenario": "scenario3_readonly_visible_rendering",
+      "users": 100,
+      "userIndex": 74,
+      "step": "home_visible_render_ready",
+      "responseTimeMs": 39557,
+      "passFail": "Fail",
+      "error": ""
+    },
+    {
+      "scenario": "scenario3_readonly_visible_rendering",
+      "users": 100,
+      "userIndex": 67,
+      "step": "home_visible_render_ready",
+      "responseTimeMs": 35655,
+      "passFail": "Fail",
+      "error": ""
+    },
+    {
+      "scenario": "scenario3_readonly_visible_rendering",
+      "users": 100,
+      "userIndex": 57,
+      "step": "home_visible_render_ready",
+      "responseTimeMs": 35468,
+      "passFail": "Fail",
+      "error": ""
+    },
+    {
+      "scenario": "scenario3_readonly_visible_rendering",
+      "users": 100,
+      "userIndex": 76,
+      "step": "home_visible_render_ready",
+      "responseTimeMs": 34498,
+      "passFail": "Fail",
+      "error": ""
+    },
+    {
+      "scenario": "scenario3_readonly_visible_rendering",
+      "users": 100,
+      "userIndex": 55,
+      "step": "home_visible_render_ready",
+      "responseTimeMs": 43854,
+      "passFail": "Fail",
+      "error": ""
+    },
+    {
+      "scenario": "scenario3_readonly_visible_rendering",
+      "users": 100,
+      "userIndex": 100,
+      "step": "home_visible_render_ready",
+      "responseTimeMs": 29887,
+      "passFail": "Fail",
+      "error": ""
+    },
+    {
+      "scenario": "scenario3_readonly_visible_rendering",
+      "users": 100,
+      "userIndex": 81,
+      "step": "home_visible_render_ready",
+      "responseTimeMs": 30479,
+      "passFail": "Fail",
+      "error": ""
+    },
+    {
+      "scenario": "scenario3_readonly_visible_rendering",
+      "users": 100,
+      "userIndex": 98,
+      "step": "home_visible_render_ready",
+      "responseTimeMs": 29853,
+      "passFail": "Fail",
+      "error": ""
+    },
+    {
+      "scenario": "scenario3_readonly_visible_rendering",
+      "users": 100,
+      "userIndex": 44,
+      "step": "home_visible_render_ready",
+      "responseTimeMs": 29372,
+      "passFail": "Fail",
+      "error": ""
+    },
+    {
+      "scenario": "scenario3_readonly_visible_rendering",
+      "users": 100,
+      "userIndex": 95,
+      "step": "home_visible_render_ready",
+      "responseTimeMs": 29879,
+      "passFail": "Fail",
+      "error": ""
+    },
+    {
+      "scenario": "scenario3_readonly_visible_rendering",
+      "users": 100,
+      "userIndex": 86,
+      "step": "home_visible_render_ready",
+      "responseTimeMs": 30523,
+      "passFail": "Fail",
+      "error": ""
+    },
+    {
+      "scenario": "scenario3_readonly_visible_rendering",
+      "users": 100,
+      "userIndex": 14,
+      "step": "home_visible_render_ready",
+      "responseTimeMs": 44245,
+      "passFail": "Fail",
+      "error": ""
+    },
+    {
+      "scenario": "scenario3_readonly_visible_rendering",
+      "users": 100,
+      "userIndex": 79,
+      "step": "home_visible_render_ready",
+      "responseTimeMs": 32821,
+      "passFail": "Fail",
+      "error": ""
+    },
+    {
+      "scenario": "scenario3_readonly_visible_rendering",
+      "users": 100,
+      "userIndex": 66,
+      "step": "home_visible_render_ready",
+      "responseTimeMs": 32326,
+      "passFail": "Fail",
+      "error": ""
+    },
+    {
+      "scenario": "scenario3_readonly_visible_rendering",
+      "users": 100,
+      "userIndex": 80,
+      "step": "home_visible_render_ready",
+      "responseTimeMs": 31999,
+      "passFail": "Fail",
+      "error": ""
+    },
+    {
+      "scenario": "scenario3_readonly_visible_rendering",
+      "users": 100,
+      "userIndex": 64,
+      "step": "home_visible_render_ready",
+      "responseTimeMs": 32015,
+      "passFail": "Fail",
+      "error": ""
+    },
+    {
+      "scenario": "scenario3_readonly_visible_rendering",
+      "users": 100,
+      "userIndex": 87,
+      "step": "home_visible_render_ready",
+      "responseTimeMs": 30626,
+      "passFail": "Fail",
+      "error": ""
+    },
+    {
+      "scenario": "scenario3_readonly_visible_rendering",
+      "users": 100,
+      "userIndex": 83,
+      "step": "home_visible_render_ready",
+      "responseTimeMs": 30652,
+      "passFail": "Fail",
+      "error": ""
+    },
+    {
+      "scenario": "scenario3_readonly_visible_rendering",
+      "users": 100,
+      "userIndex": 23,
+      "step": "home_visible_render_ready",
+      "responseTimeMs": 44534,
+      "passFail": "Fail",
+      "error": ""
+    },
+    {
+      "scenario": "scenario3_readonly_visible_rendering",
+      "users": 100,
+      "userIndex": 84,
+      "step": "home_visible_render_ready",
+      "responseTimeMs": 30660,
+      "passFail": "Fail",
+      "error": ""
+    },
+    {
+      "scenario": "scenario3_readonly_visible_rendering",
+      "users": 100,
+      "userIndex": 92,
+      "step": "home_visible_render_ready",
+      "responseTimeMs": 30657,
+      "passFail": "Fail",
+      "error": ""
+    },
+    {
+      "scenario": "scenario3_readonly_visible_rendering",
+      "users": 100,
+      "userIndex": 91,
+      "step": "home_visible_render_ready",
+      "responseTimeMs": 30666,
+      "passFail": "Fail",
+      "error": ""
+    },
+    {
+      "scenario": "scenario3_readonly_visible_rendering",
+      "users": 100,
+      "userIndex": 31,
+      "step": "home_visible_render_ready",
+      "responseTimeMs": 30498,
+      "passFail": "Fail",
+      "error": ""
+    },
+    {
+      "scenario": "scenario3_readonly_visible_rendering",
+      "users": 100,
+      "userIndex": 88,
+      "step": "home_visible_render_ready",
+      "responseTimeMs": 30695,
+      "passFail": "Fail",
+      "error": ""
+    },
+    {
+      "scenario": "scenario3_readonly_visible_rendering",
+      "users": 100,
+      "userIndex": 43,
+      "step": "home_visible_render_ready",
+      "responseTimeMs": 28947,
+      "passFail": "Fail",
+      "error": ""
+    },
+    {
+      "scenario": "scenario3_readonly_visible_rendering",
+      "users": 100,
+      "userIndex": 89,
+      "step": "home_visible_render_ready",
+      "responseTimeMs": 30737,
+      "passFail": "Fail",
+      "error": ""
+    },
+    {
+      "scenario": "scenario3_readonly_visible_rendering",
+      "users": 100,
+      "userIndex": 78,
+      "step": "home_visible_render_ready",
+      "responseTimeMs": 27004,
+      "passFail": "Fail",
+      "error": ""
+    },
+    {
+      "scenario": "scenario3_readonly_visible_rendering",
+      "users": 100,
+      "userIndex": 58,
+      "step": "home_visible_render_ready",
+      "responseTimeMs": 27760,
+      "passFail": "Fail",
+      "error": ""
+    },
+    {
+      "scenario": "scenario3_readonly_visible_rendering",
+      "users": 100,
+      "userIndex": 97,
+      "step": "home_visible_render_ready",
+      "responseTimeMs": 28985,
+      "passFail": "Fail",
+      "error": ""
+    },
+    {
+      "scenario": "scenario3_readonly_visible_rendering",
+      "users": 100,
+      "userIndex": 94,
+      "step": "home_visible_render_ready",
+      "responseTimeMs": 28996,
+      "passFail": "Fail",
+      "error": ""
+    },
+    {
+      "scenario": "scenario3_readonly_visible_rendering",
+      "users": 100,
+      "userIndex": 82,
+      "step": "home_visible_render_ready",
+      "responseTimeMs": 30774,
+      "passFail": "Fail",
+      "error": ""
+    },
+    {
+      "scenario": "scenario3_readonly_visible_rendering",
+      "users": 100,
+      "userIndex": 99,
+      "step": "home_visible_render_ready",
+      "responseTimeMs": 28961,
+      "passFail": "Fail",
+      "error": ""
+    },
+    {
+      "scenario": "scenario3_readonly_visible_rendering",
+      "users": 100,
+      "userIndex": 96,
+      "step": "home_visible_render_ready",
+      "responseTimeMs": 28532,
+      "passFail": "Fail",
+      "error": ""
+    },
+    {
+      "scenario": "scenario3_readonly_visible_rendering",
+      "users": 100,
+      "userIndex": 22,
+      "step": "home_visible_render_ready",
+      "responseTimeMs": 30166,
+      "passFail": "Fail",
+      "error": ""
+    },
+    {
+      "scenario": "scenario3_readonly_visible_rendering",
+      "users": 100,
+      "userIndex": 62,
+      "step": "home_visible_render_ready",
+      "responseTimeMs": 36803,
+      "passFail": "Fail",
+      "error": ""
+    },
+    {
+      "scenario": "scenario3_readonly_visible_rendering",
+      "users": 100,
+      "userIndex": 85,
+      "step": "home_visible_render_ready",
+      "responseTimeMs": 31159,
+      "passFail": "Fail",
+      "error": ""
+    },
+    {
+      "scenario": "scenario3_readonly_visible_rendering",
+      "users": 100,
+      "userIndex": 90,
+      "step": "home_visible_render_ready",
+      "responseTimeMs": 31737,
+      "passFail": "Fail",
+      "error": ""
+    },
+    {
+      "scenario": "scenario3_readonly_visible_rendering",
+      "users": 100,
+      "userIndex": 73,
+      "step": "home_visible_render_ready",
+      "responseTimeMs": 39527,
+      "passFail": "Fail",
+      "error": ""
+    },
+    {
+      "scenario": "scenario3_readonly_visible_rendering",
+      "users": 100,
+      "userIndex": 65,
+      "step": "home_visible_render_ready",
+      "responseTimeMs": 35136,
+      "passFail": "Fail",
+      "error": ""
+    },
+    {
+      "scenario": "scenario3_readonly_visible_rendering",
+      "users": 100,
+      "userIndex": 48,
+      "step": "home_visible_render_ready",
+      "responseTimeMs": 33415,
+      "passFail": "Fail",
+      "error": ""
+    },
+    {
+      "scenario": "scenario3_readonly_visible_rendering",
+      "users": 100,
+      "userIndex": 72,
+      "step": "home_visible_render_ready",
+      "responseTimeMs": -1,
+      "passFail": "Fail",
+      "error": "page.waitForSelector: Timeout 10000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('main.home-main button, .logo') to be visible\u001b[22m\n\u001b[2m    - locator resolved to 6 elements. Proceeding with the first one: <img class=\"logo\" _ngcontent-jki-c43=\"\" src=\"assets/logo.png\" alt=\"Better Bible Guesser • \"/>\u001b[22m\n"
+    }
+  ]
+}

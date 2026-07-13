@@ -297,55 +297,97 @@ Read-only mode: initial page load, public route navigation (`/quest`, `/marketpl
 
 ## 3. User Feedback and Refinements
 
-### Navigation findability survey (give to testers)
+### Navigation findability survey — summary of responses
 
-**Purpose:** Measure how easy it is to discover **new and improved features built for this assessment** (Part A 1.3 non-essential + essential UX goals). Useful for analysing whether navigation meets the ≤3-click target and supports user satisfaction (≥4/5).
+**Method:** 4 testers started on the home page and rated ease of finding each assessment feature (0 = very hard, 10 = very easy). Scores from `Better Bible Guesser - User Feedback Form.csv`.
 
-**Instructions for testers:** Start on the home page. For each task, find the feature **without step-by-step help**. When you reach it, rate ease of finding: **0 = very hard/confusing**, **10 = very easy and intuitive**.
+| # | Task | Assessment feature | T1 | T2 | T3 | T4 | Average |
+|---|---|---|---|---|---|---|---|
+| 1 | Locate and toggle **High contrast mode** | Contrast / accessibility | 8 | 8 | 9 | 7 | **8.00** |
+| 2 | Locate and open the **Marketplace / Shop** | User Profile Shop (scrolls) | 1 | 7 | 1 | 8 | **4.25** |
+| 3 | Locate, open and play one game from the **Verse Board** | Online Question Set Board | 8 | 10 | 9 | 8 | **8.75** |
+| 4 | Locate and open the **Quest Map** | New game mode (Quest) | 8 | 10 | 10 | 9 | **9.25** |
+| 5 | Locate and open **Profile customisation** | Profile personalisation | 8 | 8 | 4 | 9 | **7.25** |
+| 6 | Locate and toggle **Hide other player names** | Improved settings menu | 8 | 8 | 9 | 7 | **8.00** |
+| 7 | Locate and create/join a **Multiplayer** game | Real-time multiplayer / RTDB | 8 | 10 | 8 | 9 | **8.75** |
+| 8 | Locate the **AI Assistant**, send a message and get a reply | AI-Assistant | 7 | 10 | 10 | 8 | **8.75** |
 
-| # | Task (find this feature) | Assessment feature tested | Ease (0–10) | Notes (optional) |
-|---|---|---|---|---|
-| 1 | Open **Quest Mode** and reach the **quest map** | New game mode (town/quest progression) | [ ] | |
-| 2 | From the quest map, open the **Marketplace / Shop** | User Profile Shop (scroll spending) | [ ] | |
-| 3 | Open **Improved Settings** and locate **Hide other player names** | Improved settings menu | [ ] | |
-| 4 | Open **Improved Settings** and locate **High contrast mode** | Contrast/accessibility option | [ ] | |
-| 5 | Open **Profile customisation** (name colour, effects, background, or logo options) | Profile personalisation | [ ] | |
-| 6 | Open the **AI Assistant** chat-bot and send one test message | AI-Assistant feature | [ ] | |
-| 7 | Open the **Verse Board** (community verse sets) | Online Question Set “Board” | [ ] | |
-| 8 | Reach **Multiplayer** (create or join a lobby) from the home screen | Real-time multiplayer / RTDB feature | [ ] | |
+**Overall average across all tasks:** **7.88 / 10** (n = 4 testers).
 
-**Optional follow-up (for analysis):**
-- Which **new feature** was hardest to find, and why?
-- Did any button label feel unclear (for example “Online Modes”, “Quest Mode”, “Verse Board”)?
-- How many clicks did Task 8 take? (Part A target: ≤3 while signed in)
-- After finishing a multiplayer game, rate your experience **1–5 stars** (Part A target: mean ≥4/5)
-- What one change would make new features easier to discover?
+**Highest-scoring task:** Quest Map (9.25).  
+**Lowest-scoring task:** Marketplace / Shop (4.25).
 
-**How to use results in your write-up:**
-- Compare average ease scores for **core new features** (Quest, Marketplace, Settings, AI) vs **secondary features** (Verse Board, Profile customisation).
-- Link low scores to planned refinements (for example clearer labels, fewer nested menus, applying `hidePlayerNames` in multiplayer views).
-- Use Task 8 click count + star rating together to evaluate Part A navigation and satisfaction criteria.
+---
 
-**Part A link:** Compare average ease scores and post-multiplayer star ratings against the ≥4/5 user-satisfaction target where applicable.
+### Per-question analysis and proposed refinements
 
-1. Start by stating that feedback was gathered during testing to improve UX against the client goals in Part A 1.1, using the post-multiplayer star rating and informal tester observations.
-2. Then explain what useful feedback was found — e.g. confusion around errors, weak password acceptance, settings not visibly changing multiplayer, or positive comments on quest mode and the AI chat-bot.
-3. Use evidence such as the star-rating pop-up screenshot and any tester comments; evaluate whether ratings meet the ≥4/5 target from Part A 1.4 if you have data.
-4. Then describe refinements already made or planned in response, starting with the highest-priority Part A requirements: tightening Firestore/RTDB rules, strengthening password validation, extending input sanitisation.
-5. Mention planned refinements for error handling visibility, wiring offline caching into verse loading, and applying `hidePlayerNames` in multiplayer views.
-6. Then note lower-priority refinements such as question-board upvotes or broader settings polish.
-7. Evaluate each refinement by saying what user problem or Part A objective it addresses, not just what code would change.
-8. Conclude that refinements are prioritised by essential-objective importance first, with cosmetic features last.
+#### Q1 — High contrast mode (avg 8.00)
+
+- Scores were consistently high (7–9), so most testers could find Settings and the high-contrast toggle.
+- Possible issue: Settings is a secondary button on the home page, so slightly lower scores may reflect one extra navigation step rather than a confusing label.
+- Proposed change: keep Settings on the home screen; optionally add a short accessibility note in the Settings subtitle so the contrast option is more obvious once inside.
+
+#### Q2 — Marketplace / Shop (avg 4.25) — priority refinement
+
+- Two testers scored **1/10**, which dragged the average far below every other task.
+- Likely issues: Marketplace is nested inside Quest Mode as a map icon (not labelled as “Shop” on the home page), so users who do not open Quest first may never discover it; the map-icon interaction may also be unclear on desktop/mobile.
+- Proposed changes: add a direct “Marketplace” or “Shop” entry from Quest header or home; add a visible label/tooltip on the marketplace map icon; optionally deep-link `/marketplace` from a home or profile button.
+
+#### Q3 — Verse Board (avg 8.75)
+
+- Strong findability; Verse Board is reachable from the home header actions and testers could also start a game from a set.
+- Possible issue: the header icon may still be less obvious than primary mode buttons for first-time users.
+- Proposed change: keep current placement; if expanding later, add a short “Play community sets” hint under Online Modes.
+
+#### Q4 — Quest Map (avg 9.25) — strongest result
+
+- Highest average; the `*NEW* Quest Mode` home button is clearly discoverable.
+- Possible issue: little evidence of confusion here; the main remaining risk is what users do after entering the map (see Marketplace).
+- Proposed change: once on the map, add short labels under each location icon so nested features inherit Quest’s strong discovery score.
+
+#### Q5 — Profile customisation (avg 7.25)
+
+- Mostly strong, but one tester scored **4/10**, showing inconsistent discoverability.
+- Likely issues: customisation is buried behind Profile/Login and a secondary “customise” action; anonymous users may be blocked or redirected into login first.
+- Proposed changes: surface a “Customise profile” button more clearly on the profile page; allow preview of options before login where possible; add a Quest/header shortcut to customisation.
+
+#### Q6 — Hide other player names (avg 8.00)
+
+- Similar pattern to High contrast: Settings itself is easy enough to find once testers look for it.
+- Possible issue: even if the toggle is found, acceptance testing showed `hidePlayerNames` is saved but not fully applied in multiplayer templates, so findability may outpace actual usefulness.
+- Proposed change: wire the setting into multiplayer name rendering so finding and using the option produces a visible result.
+
+#### Q7 — Multiplayer create/join (avg 8.75)
+
+- Testers generally found Online Modes → Multiplayer without major difficulty, supporting Part A’s navigation/satisfaction goals.
+- Possible issue: the extra “Online Modes” nesting still adds a click versus a direct Multiplayer button; tutorial prompts for signed-in users may also add friction.
+- Proposed change: consider promoting Multiplayer to a top-level home button, or keep Online Modes but make Multiplayer the first/highlighted option.
+
+#### Q8 — AI Assistant chat-bot (avg 8.75)
+
+- Strong scores once testers noticed the floating chat-bot UI.
+- Possible issue: a floating widget can be overlooked if it overlaps other controls or looks like non-interactive chrome.
+- Proposed change: keep the floating entry point, but add a brief first-visit tooltip (“Ask the AI for verse-set help”) and ensure it does not cover primary home buttons on mobile.
+
+---
+
+### Paragraph-ready summary (expand in order)
+
+1. Start by stating that user feedback was collected through a navigation findability survey with **4 testers**, each rating 8 assessment-feature tasks from 0 (hard) to 10 (easy), producing an overall mean of **7.88/10**.
+2. Then present the summary table and highlight the range: Quest Map was easiest (**9.25**), while Marketplace/Shop was hardest (**4.25**), with most other features clustering between about **7 and 9**.
+3. Explain that high scores for Quest Mode, Verse Board, Multiplayer and the AI Assistant show that primary home-page and floating entry points are generally intuitive for new assessment features.
+4. Analyse Marketplace as the main UX failure: two testers scored **1/10**, suggesting the shop is too nested (only reachable via Quest map icons) and poorly labelled for first-time users.
+5. Analyse Profile customisation as a secondary weak spot (**7.25**, including one **4/10**), likely because it is hidden behind Profile/Login rather than presented as a clear customisation destination.
+6. Note that Settings tasks (High contrast and Hide player names) scored solidly (**8.00** each), but connect this to the acceptance-testing finding that `hidePlayerNames` is not yet applied in multiplayer views, so discoverability alone does not complete the feature.
+7. Link the results to Part A user-satisfaction goals: mean findability near **8/10** supports improved engagement, while Marketplace discoverability fails the client goal of making new modes and shop progression easy to use.
+8. Describe planned refinements in priority order: (1) add a clearer Marketplace/Shop entry and map labels, (2) surface Profile customisation more directly, (3) apply `hidePlayerNames` in multiplayer UI, (4) optionally promote Multiplayer / add an AI first-use tip.
+9. Conclude that refinements should focus on nested or poorly labelled new features first, while retaining the strong home-page discovery patterns already working for Quest Mode and other primary actions.
 
 ---
 
 ## 4. Final Evaluation
 
-1. Start by stating that this section judges the finished application against the original client scenario and objectives from Part A 1.1 and 1.3.
-2. Then briefly restate the original problem (slow loading, weak security, limited scalability, no offline support) so your evaluation has a clear before-and-after comparison.
-3. Then evaluate each essential objective as met, partially met or not met, using your 4.1 and 4.2 results — especially database security, sanitisation, offline support and load-time improvements.
-4. Mention the main limitations honestly: open security rules, partial sanitisation/error handling, offline not end-to-end, `hidePlayerNames` not applied, no formal load test for 1,000 users.
-5. Then describe the strongest successes — core scoring/multiplayer gameplay, quest mode with scrolls/marketplace, AI chat-bot, profile customisation, and improved load times over the original app.
-6. Then state the most important future improvements in priority order, tied back to HIGH-priority Part A requirements.
-7. Evaluate performance criteria from Part A 1.4 against what you could realistically measure, acknowledging limits of school-project testing.
-8. Conclude with an honest overall judgement on whether the application meets the client's vision — improved engagement and functionality, but not yet fully meeting every essential security and offline objective.
+- Conclude that the testing and maintaining process was effective overall: a structured test plan (acceptance testing, load testing and a user findability survey) was developed, expected outcomes were compared against actual results, and feedback was synthesised into clear refinement priorities.
+- State that comparing expected versus actual output showed where the solution succeeded (for example core navigation, major new features and measured page-load performance) and where it fell short (for example nested Marketplace discovery and incomplete wiring of some supporting behaviours).
+- Explain that synthesising the four tester responses into averages and per-feature analysis made user feedback usable for decision-making, not just informal comments.
+- Finish with a general judgement: the software engineering solution is effective as a tested, feedback-informed prototype, but continued development should focus on the gaps revealed when actual results did not match expected outcomes.

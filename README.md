@@ -1,6 +1,15 @@
-# Better Bible Guesser
+# Better Bible Guesser:
+## So, What Is Better Bible Guesser?
+It is a game where you are able to test your knowledge of Bible passages and your location skills, answering Bible passage locations based off a context verse.
 
-📚 **Full documentation:** [Wiki Home](https://github.com/toosynxed/angularbibleguesser/wiki)
+Better Bible Guesser also provides the opportunity to receive scoring based off your performance to encourage users to improve their skills and knowledge of the Holy Bible. 
+
+There are also a multitude of different game modes to play from, ranging from your normal, 5-round game, to a daily mode, multiplayer mode, custom games and even a video-led session where you are able to spend time learning about a passage before you go and answer questions on the set.
+
+#
+
+
+📚 **Full AI-Generated Documentation:** [Wiki Home](https://github.com/toosynxed/angularbibleguesser/wiki)
 
 *The Wiki has information and instructions on how to play my game!*
 

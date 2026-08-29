@@ -41,6 +41,8 @@ export class HomeComponent implements OnInit, OnDestroy {
 <h4>Game Modes</h4>
 <ul>
   <li><b>Normal Mode:</b> A standard 5-round game with random verses. See your results after each round!</li>
+  <li><b>Quest Mode:</b> Complete daily and weekly challenges to earn rewards and track your progress.</li>
+  <li><b>Daily Challenge:</b> A new set of verses is available every day. Try to guess them all correctly and build your streak!</li>
   <li><b>Custom Mode:</b> Customize your game by setting the number of rounds, time limit, and which books of the Bible to draw verses from.</li>
   <li><b>Create Mode:</b> Hand-pick specific verses to create a custom challenge for yourself or to share with friends.</li>
   <li><b>Play with Code:</b> Enter a game code you've received to play a specific set of verses created by another player.</li>
@@ -111,6 +113,14 @@ export class HomeComponent implements OnInit, OnDestroy {
   // You can update the changelog text here.
   // Using backticks (`) allows for multi-line strings.
   changelogContent = `
+<h3>Version 3.0.0 "Multiplayer & Quests"</h3>
+<ul>
+  <li>Added Online Multiplayer Mode with real-time lobbies and gameplay!</li>
+  <li>Implemented Quests system for daily and weekly challenges.</li>
+  <li>Introduced new achievements and badges for players to earn.</li>
+  <li>Enhanced user profiles with more customization options.</li>
+  <li>Improved performance and reduced load times across the app.</li>
+</ul>
 <h3>Version 2.2.0 "Daily"</h3>
 <ul>
   <li>Added NEW Daily Challenge mode with new verses every day!\n Build up your streak as you continue to play each day!</li>

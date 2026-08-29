@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html><head><meta charset="utf-8">
+<title>AT3B Walkthrough Spoken Script</title>
+<style>
+  @page { margin: 16mm 14mm; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+    font-size: 11pt;
+    line-height: 1.55;
+    color: #1a1a1a;
+  }
+  h1 { font-size: 1.55rem; border-bottom: 2px solid #333; padding-bottom: 0.35em; margin-top: 0; page-break-after: avoid; }
+  h2 { font-size: 1.15rem; margin-top: 1.5em; color: #222; border-bottom: 1px solid #ddd; padding-bottom: 0.2em; page-break-after: avoid; }
+  ul { padding-left: 1.25em; margin: 0.4em 0 0.8em; }
+  li { margin: 0.22em 0; }
+  blockquote {
+    margin: 0.7em 0 1em;
+    padding: 0.7em 1em;
+    border-left: 4px solid #4a6fa5;
+    background: #f5f7fa;
+    page-break-inside: avoid;
+  }
+  blockquote p { margin: 0; }
+  code {
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: 0.88em;
+    background: #f0f0f0;
+    padding: 0.08em 0.3em;
+    border-radius: 3px;
+  }
+  hr { border: none; border-top: 1px solid #ccc; margin: 1.3em 0; }
+  p { margin: 0.45em 0; }
+  strong { color: #111; }
+</style></head><body><h1>AT3B Walkthrough Video — Full Spoken Script with Screen Cues</h1>
+<p>Target runtime: approximately <strong>12–13 minutes</strong> (under the 15-minute limit).</p>
+<p>This document contains only the spoken script and on-screen cues for recording.</p>
+<hr>
+<h2>Segment 1 — Introduction</h2>
+<p><strong>On screen</strong></p>
+<ul>
+<li>Route: <code>/</code> (Home)</li>
+<li>Action: Sit on the home page for a few seconds, no clicking yet.</li>
+<li>Successful result: Home page loads with the game's mode selection visible.</li>
+</ul>
+<p><strong>What to say</strong></p>
+<blockquote><p>Hi, I'm going to walk you through the final version of my Software Engineering Part B project, Better Bible Guesser. This video covers the features I built and finished during this development phase — the Quest Mode system with Racetrack, Academy and the Marketplace, the updated interface, how data is stored, the security protections I added, and an AI chatbot feature. I'll go through each part of the application and show how it actually works, rather than just describing it.</p></blockquote>
+<p><strong>Evidence checkpoint</strong></p>
+<ul>
+<li>Establishes scope: Part B application only, under 15 minutes, sets up all five categories.</li>
+</ul>
+<hr>
+<h2>Segment 2 — User Interface: Quest Map and design system</h2>
+<p><strong>On screen</strong></p>
+<ul>
+<li>Route: <code>/quest</code></li>
+<li>Action: Click through from Home into Quest Mode; hover/point at the icons for Racetrack, Academy, Marketplace and Castle without clicking Castle yet.</li>
+<li>Successful result: Quest map image loads with four icon buttons and a Scroll balance visible in the header.</li>
+</ul>
+<p><strong>What to say</strong></p>
+<blockquote><p>This is the Quest Map, the hub for a set of mini-game modes I added this phase. Each icon takes you to a different activity — Racetrack, Academy, and the Marketplace — and along the top you can see my Scroll balance, which is the currency these modes share. I rebuilt the visual design around a consistent set of shared components — a page header, page shell and card styles — so every one of these new screens looks and behaves the same way instead of each being a one-off page. There's also a fourth icon, Castle of Champions, which is still marked as under development, so I won't be demonstrating it today.</p></blockquote>
+<p><strong>Evidence checkpoint</strong></p>
+<ul>
+<li>User Interface category: navigation hub, shared design system, honest acknowledgement of an unfinished feature rather than overstating completeness.</li>
+</ul>
+<hr>
+<h2>Segment 3 — Core Features: Racetrack</h2>
+<p><strong>On screen</strong></p>
+<ul>
+<li>Route: <code>/racetrack</code></li>
+<li>Action: Click the Racetrack icon from the Quest Map. Choose the <strong>Easy</strong> set. Play through the 5 verses using a known reference. Reach the results screen.</li>
+<li>Successful result: Results screen shows score/stars and a Scroll reward line.</li>
+</ul>
+<p><strong>What to say</strong></p>
+<blockquote><p>Racetrack is the main way to earn Scrolls. Every day the app generates three sets of five verses — Easy, Medium and Hard — each with its own time limit and base reward. I'll play the Easy set... <em>[play round]</em> ...and once I finish, the results screen calculates my reward. That reward isn't just the flat base amount — it's weighted by my average score, my average stars, and how much time I had left, so playing well and quickly earns more Scrolls. Only one reward is given per set, per account, per day, so you can't replay the same set to farm currency.</p></blockquote>
+<p><strong>Evidence checkpoint</strong></p>
+<ul>
+<li>Core Features category: a complete, reliable workflow with a visible result (Scroll reward), plus an explanation of the underlying reward logic.</li>
+</ul>
+<hr>
+<h2>Segment 4 — Core Features: Academy</h2>
+<p><strong>On screen</strong></p>
+<ul>
+<li>Route: <code>/academy</code></li>
+<li>Action: Click the Academy icon. Select a lesson set with a working embed. Click "Skip/Continue" past the video (or let it play briefly). Answer the 5 multiple-choice rounds. View local results.</li>
+<li>Successful result: Results stage shows a total score out of the maximum possible.</li>
+</ul>
+<p><strong>What to say</strong></p>
+<blockquote><p>Academy is a different kind of learning activity. You pick a topic — this one covers <em>[set topic]</em> — watch a short lesson video, and then answer five multiple-choice questions about verses from that passage, instead of typing a reference like in Normal Mode. Answering correctly and quickly earns more points, up to a maximum of 100 per round. One thing I'll be upfront about: Academy currently shows your Scroll balance in the interface, but it doesn't actually award Scrolls for finishing yet — that's a feature I've documented as a known limitation rather than something I've claimed is finished.</p></blockquote>
+<p><strong>Evidence checkpoint</strong></p>
+<ul>
+<li>Core Features category: demonstrates a distinct workflow, explains the scoring rule, and honestly flags an incomplete reward hook instead of overclaiming.</li>
+</ul>
+<hr>
+<h2>Segment 5 — Core Features: Marketplace and Profile Customisation</h2>
+<p><strong>On screen</strong></p>
+<ul>
+<li>Route: <code>/marketplace</code> then <code>/profile</code></li>
+<li>Action: Show the 5 daily item slots, purchase one affordable item, confirm the Scroll balance drops. Navigate to Profile → Customize, apply the newly-purchased cosmetic, save.</li>
+<li>Successful result: Marketplace shows the item as "Owned"; profile preview shows the new name effect/nameplate/icon applied.</li>
+</ul>
+<p><strong>What to say</strong></p>
+<blockquote><p>The Marketplace shows five cosmetic item slots that reset once a day. These aren't randomised every time you open the page — they're calculated deterministically from today's date and my account, so I see the same five items all day even if I navigate away and back. I'll buy this one... <em>[purchase]</em> ...my Scroll balance drops by its price, and it's marked Owned so I can't buy it twice. Now in my Profile, under Customize, that cosmetic is available to actually equip on my display name — so purchasing and customising are two separate steps: buying unlocks it, customising applies it.</p></blockquote>
+<p><strong>Evidence checkpoint</strong></p>
+<ul>
+<li>Core Features category: two connected user-facing workflows (purchase → equip) with a visible successful result each.</li>
+</ul>
+<hr>
+<h2>Segment 6 — User Interface: Settings and accessibility</h2>
+<p><strong>On screen</strong></p>
+<ul>
+<li>Route: <code>/settings</code></li>
+<li>Action: Toggle <strong>High Contrast</strong> on, then toggle <strong>Font Scale</strong> up, then Save.</li>
+<li>Successful result: Page colours/contrast and text size visibly change immediately.</li>
+</ul>
+<p><strong>What to say</strong></p>
+<blockquote><p>The Settings page lets me adjust accessibility and comfort options that are stored on this device. High contrast changes the colour scheme for better readability, and font scale lets me increase text size across the app — you can see the change happen live as I move the slider. These preferences persist after I refresh, because they're saved to local storage on my device rather than needing an account.</p></blockquote>
+<p><strong>Evidence checkpoint</strong></p>
+<ul>
+<li>User Interface category: an accessibility feature with a real, visible effect on the application, not just a cosmetic toggle.</li>
+</ul>
+<hr>
+<h2>Segment 7 — Core Features: Multiplayer lobby mini-game</h2>
+<p><strong>On screen</strong></p>
+<ul>
+<li>Route: <code>/multiplayer</code> in both windows</li>
+<li>Action: In Window 1, create a lobby as host. In Window 2 (private window), join using the lobby code as a guest.</li>
+<li>Successful result: Window 2 shows "Waiting for host to start the game..." plus a small interactive mini-game.</li>
+</ul>
+<p><strong>What to say</strong></p>
+<blockquote><p>The existing multiplayer lobby lets friends join with a short code before a game starts. What I added this phase is this small mini-game in the waiting room — while a non-host player waits for the host to start, they can click the moving target for a bit of fun and a locally-saved high score, instead of just staring at a static waiting message. It's intentionally simple and disabled once the real game starts, and the score isn't sent anywhere important — it's just a small quality-of-life addition to an existing screen.</p></blockquote>
+<p><strong>Evidence checkpoint</strong></p>
+<ul>
+<li>Core Features category: a substantial, self-contained addition to an existing (pre-AT3B) screen, clearly scoped as new work rather than claiming the whole lobby system as new.</li>
+</ul>
+<hr>
+<h2>Segment 8 — Data Management</h2>
+<p><strong>On screen</strong></p>
+<ul>
+<li>Route: stay on any app page; optionally show the Firebase Console Firestore tab (no private user data visible) for <code>users</code>, <code>sets</code>, <code>racetrack_sets</code>, and <code>daily_market_seeds</code> collections at a glance.</li>
+<li>Action: Narrate over the app UI rather than deep-diving into the console.</li>
+<li>Successful result: Collections are visible with anonymised/aggregate-looking documents (no personal data read aloud).</li>
+</ul>
+<p><strong>What to say</strong></p>
+<blockquote><p>Behind these features, data is split across a few places. Firestore holds structured data: each user's document stores their Scroll balance, their unlocked-items bitmask, their profile customisation, and per-mode statistics like Racetrack challenges completed. Separate collections hold the daily Racetrack sets and the daily Marketplace seed, so the same challenges and shop items are shared by every player on a given day rather than being regenerated per user. The multiplayer lobby system, which already existed before this phase, uses the Realtime Database instead, because it needs fast presence tracking — knowing instantly when a player disconnects. And a few small things, like my settings and the lobby mini-game high score, are only saved in this browser's local storage, not in the cloud.</p></blockquote>
+<p><strong>Evidence checkpoint</strong></p>
+<ul>
+<li>Data Management category: distinguishes Firestore vs Realtime Database vs local storage, and explains one real synchronisation reason (presence) for the RTDB choice.</li>
+</ul>
+<hr>
+<h2>Segment 9 — Security Features (part 1: authentication and input handling)</h2>
+<p><strong>On screen</strong></p>
+<ul>
+<li>Route: <code>/login</code> or <code>/profile</code></li>
+<li>Action: Show signing in with a prepared test account (type password quickly, don't narrate it). Then go to the Home page's "Join Game" box and type an invalid game code (e.g. with a symbol) to trigger a validation message.</li>
+<li>Successful result: Signed-in state updates the header; invalid code shows an inline error instead of crashing or submitting.</li>
+</ul>
+<p><strong>What to say</strong></p>
+<blockquote><p>For accounts, the app uses Firebase Authentication. New visitors are automatically signed in anonymously so they can play straight away, and if they later create a full account with Google or email and password, their anonymous stats are merged into the new account rather than lost. For input, I added a sanitisation service that strips obviously dangerous patterns — like script tags or <code>javascript:</code> links — from anything a user types, and validates formats like game codes and verse guesses before they're used. Watch what happens if I type an invalid code here... <em>[type bad code]</em> ...it's rejected with a clear message instead of being sent anywhere.</p></blockquote>
+<p><strong>Evidence checkpoint</strong></p>
+<ul>
+<li>Security Features category: demonstrates real authentication behaviour and a real input-validation rejection, addressing account security and basic XSS/format risks.</li>
+</ul>
+<hr>
+<h2>Segment 10 — Security Features (part 2: honest gaps and backend protections)</h2>
+<p><strong>On screen</strong></p>
+<ul>
+<li>Route: none required — talking segment; optionally show <code>firestore.rules</code> and <code>database.rules.json</code> briefly as read-only text (not editing).</li>
+<li>Action: No interaction; narrate over a static view of the two rules files or the app.</li>
+<li>Successful result: N/A — informational segment.</li>
+</ul>
+<p><strong>What to say</strong></p>
+<blockquote><p>I also want to be upfront about where security still needs work, because that's just as important as showing what's finished. My Realtime Database rules require a signed-in user for any read or write, which is appropriate for the multiplayer presence data. My Firestore rules, on the other hand, are currently open to any reader or writer — I used a wide-open rule while actively building and testing this phase, and it has not been locked down yet. That means, right now, anyone with the project's configuration could technically read or write Firestore data directly, bypassing the app entirely. Before any real deployment, this needs proper rules that check authentication and ownership per collection. Similarly, admin access — like the Reset Shop button — is currently only checked in the Angular app itself, against a hard-coded list of admin account IDs; it isn't backed up by matching database rules yet, so it's a client-side convenience rather than a real server-side guarantee. On the other hand, one thing that is properly protected is my AI chatbot's API key — it never reaches the browser at all. The chatbot calls a Cloud Function, and that function holds the Gemini API key on the server side, so it can't be read out of the page's source code.</p></blockquote>
+<p><strong>Evidence checkpoint</strong></p>
+<ul>
+<li>Security Features category (teacher-required section): explains a real, deployed vulnerability honestly, contrasts it with a correctly-configured protection (RTDB rules, server-side secret), and states what must be fixed before production — without demonstrating an actual exploit against live data.</li>
+</ul>
+<hr>
+<h2>Segment 11 — AI/Advanced Features: Chatbot</h2>
+<p><strong>On screen</strong></p>
+<ul>
+<li>Route: any page</li>
+<li>Action: Click the floating chat button, type a short in-game question (e.g. "How do I join multiplayer?"), send it, wait for a reply.</li>
+<li>Successful result: Bot responds with a short, relevant answer within a few seconds.</li>
+</ul>
+<p><strong>What to say</strong></p>
+<blockquote><p>On every page there's a floating chat button. It opens an assistant that can answer short questions about how to play — like how multiplayer works, or what a mode does — and it's specifically instructed not to reveal any Bible verse answers, since that would defeat the point of the game. It also receives some context automatically, like which page I'm on and my basic stats, so its answers can be a little more relevant to what I'm actually doing. If the connection to the server fails, it shows an error message instead of hanging silently — <em>[only mention if this actually happens on camera]</em> ...</p></blockquote>
+<p><strong>Evidence checkpoint</strong></p>
+<ul>
+<li>AI/Advanced Features category: a working, page-aware AI feature with a visible request/response interaction.</li>
+</ul>
+<hr>
+<h2>Segment 12 — AI/Advanced Features: Admin controls and deterministic daily content</h2>
+<p><strong>On screen</strong></p>
+<ul>
+<li>Route: <code>/</code> (Home, admin panel is visible to admin accounts) — <em>[Verify before recording: only if signed in with an admin-listed account]</em></li>
+<li>Action: Click "Reset Shop", confirm the browser dialog, observe the confirmation alert.</li>
+<li>Successful result: Confirmation alert appears; Marketplace items would reshuffle for all users on next load.</li>
+</ul>
+<p><strong>What to say</strong></p>
+<blockquote><p>Signed in on an admin account, I also have access to a small admin panel, including this Reset Shop control. Pressing it generates a brand new shared daily seed, which changes which five Marketplace items every player sees for the rest of the day. What's interesting under the hood is that this doesn't rewrite every user's data — because each player's five items are calculated on the fly from their account ID, today's date, and this shared seed using a deterministic random function, changing one small seed value is enough to reshuffle the shop for everyone at once, without a expensive database write per player.</p></blockquote>
+<p><strong>Evidence checkpoint</strong></p>
+<ul>
+<li>AI/Advanced Features category: demonstrates an admin-only control and explains the deterministic algorithm that makes daily content generation efficient — evidence of non-trivial logic beyond basic CRUD.</li>
+</ul>
+<hr>
+<h2>Segment 13 — Testing and final evaluation</h2>
+<p><strong>On screen</strong></p>
+<ul>
+<li>Route: none required — talking segment, optionally show a testing results file briefly (e.g. <code>testing/load/results/*.summary.txt</code>) without reading private data aloud.</li>
+<li>Action: No interaction.</li>
+<li>Successful result: N/A — informational segment.</li>
+</ul>
+<p><strong>What to say</strong></p>
+<blockquote><p>During testing, I ran a small local load-testing script that opens the app and times things like initial page load and navigating into Quest Mode and the Marketplace, comparing the results against my performance targets. I also manually tested edge cases like invalid game codes, purchasing without enough Scrolls, and replaying a Racetrack set to confirm the one-reward-per-day rule actually holds — all of which behaved correctly and gave a clear error or message instead of failing silently. The biggest limitation I found, and the one I've already talked about, is that my Firestore rules aren't locked down yet — that's the main thing I'd fix next if this were going further. Overall, I think the finished application meets what I set out to build this phase: a working Quest Mode economy, a cleaner interface, and an AI feature layered on top of the existing guessing game, with a few honestly-documented gaps rather than hidden ones.</p></blockquote>
+<p><strong>Evidence checkpoint</strong></p>
+<ul>
+<li>Demonstrates acceptance testing evidence and an honest overall evaluation, satisfying the assessment's testing/evaluation expectations without turning into a long report readout.</li>
+</ul>
+<hr>
+<h2>Segment 14 — Conclusion</h2>
+<p><strong>On screen</strong></p>
+<ul>
+<li>Route: <code>/</code></li>
+<li>Action: Return to the Home page.</li>
+<li>Successful result: N/A — closing shot.</li>
+</ul>
+<p><strong>What to say</strong></p>
+<blockquote><p>That covers the interface, core features, data storage, security, and the AI feature I built and finished during this development phase. Thanks for watching.</p></blockquote>
+<p><strong>Evidence checkpoint</strong></p>
+<ul>
+<li>Closes the video within the time limit, reinforcing that only the completed Part B application was shown.</li>
+</ul>
+</body></html>

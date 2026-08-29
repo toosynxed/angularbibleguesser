@@ -10,7 +10,7 @@ import { Router } from '@angular/router';
 export class PageHeaderComponent {
   @Input() title = '';
   @Input() subtitle = '';
-  @Input() logoSrc = 'assets/logo.png';
+  @Input() logoSrc = 'assets/logo.svg';
   @Input() logoAlt = 'Better Bible Guesser Logo';
   @Input() showLogo = true;
   @Input() showBackButton = false;

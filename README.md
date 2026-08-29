@@ -1,6 +1,6 @@
 # Better Bible Guesser
 
-📚 **Full documentation:** [Wiki Home](https://github.com/YOUR_USER/angularbibleguesser/wiki)
+📚 **Full documentation:** [Wiki Home](https://github.com/toosynxed/angularbibleguesser/wiki)
 
 *The Wiki has information and instructions on how to play my game!*
 
